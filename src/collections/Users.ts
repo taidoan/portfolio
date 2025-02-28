@@ -1,13 +1,24 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from 'payload';
+import { authenticated } from '@/access';
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  access: {
+    read: authenticated,
+    create: authenticated,
+    update: authenticated,
+    delete: authenticated,
+    admin: authenticated,
+  },
   admin: {
     useAsTitle: 'email',
   },
   auth: true,
   fields: [
-    // Email added by default
-    // Add more fields as needed
+    {
+      name: 'name',
+      type: 'text',
+      label: 'Name',
+    },
   ],
-}
+};
