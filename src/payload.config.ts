@@ -8,6 +8,7 @@ import { plugins } from './plugins';
 import { editor } from './lib/editor';
 
 import { collections } from './collections';
+import { globals } from './globals';
 import { Users } from './collections/Users';
 
 const filename = fileURLToPath(import.meta.url);
@@ -21,6 +22,7 @@ export default buildConfig({
     },
   },
   collections: collections,
+  globals: globals,
   editor: editor,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

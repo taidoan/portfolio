@@ -1,0 +1,708 @@
+{
+  "idx": {
+    "version": "2.3.9",
+    "fields": ["title", "contents"],
+    "fieldVectors": [
+      ["title/functions-units.html", [0, 0.211]],
+      [
+        "contents/functions-units.html",
+        [
+          0, 0.358, 1, 1.257, 2, 0.93, 3, 0.779, 4, 0.523, 5, 1.156, 6, 0.304, 7, 1.378, 8, 1.28, 9,
+          1.031, 10, 0.138, 11, 1.197, 12, 1.031, 13, 1.102, 14, 1.156, 15, 1.427, 16, 0.779, 17,
+          0.523, 18, 0.779, 19, 0.779, 20, 0.779, 21, 0.779, 22, 1.156, 23, 0.523, 24, 0.93, 25,
+          0.93, 26, 0.523, 27, 0.523, 28, 0.523, 29, 1.156, 30, 0.93, 31, 0.93, 32, 0.93
+        ]
+      ],
+      ["title/index.html", [33, 0.16, 34, 0.61]],
+      [
+        "contents/index.html",
+        [
+          6, 0.27, 10, 0.323, 33, 0.323, 35, 1.228, 36, 1.028, 37, 1.028, 38, 1.028, 39, 1.228, 40,
+          1.228, 41, 1.228, 42, 1.028, 43, 1.028, 44, 1.028
+        ]
+      ]
+    ],
+    "invertedIndex": [
+      [
+        "",
+        {
+          "_index": 6,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [62, 1],
+                [251, 1],
+                [559, 1],
+                [902, 1],
+                [1118, 1],
+                [1333, 1]
+              ]
+            },
+            "index.html": { "position": [[77, 1]] }
+          }
+        }
+      ],
+      [
+        "2025",
+        { "_index": 36, "title": {}, "contents": { "index.html": { "position": [[18, 4]] } } }
+      ],
+      [
+        "check",
+        {
+          "_index": 29,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [849, 6],
+                [944, 8],
+                [1064, 6],
+                [1160, 8],
+                [1280, 6],
+                [1375, 8]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "cm",
+        {
+          "_index": 41,
+          "title": {},
+          "contents": {
+            "index.html": {
+              "position": [
+                [87, 3],
+                [129, 3]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "context",
+        {
+          "_index": 23,
+          "title": {},
+          "contents": { "functions-units.html": { "position": [[604, 8]] } }
+        }
+      ],
+      [
+        "convert",
+        {
+          "_index": 12,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [201, 8],
+                [297, 8],
+                [363, 9],
+                [510, 8]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "creat",
+        { "_index": 38, "title": {}, "contents": { "index.html": { "position": [[56, 7]] } } }
+      ],
+      [
+        "default",
+        {
+          "_index": 27,
+          "title": {},
+          "contents": { "functions-units.html": { "position": [[659, 9]] } }
+        }
+      ],
+      [
+        "document",
+        { "_index": 34, "title": { "index.html": { "position": [[10, 13]] } }, "contents": {} }
+      ],
+      [
+        "element",
+        {
+          "_index": 26,
+          "title": {},
+          "contents": { "functions-units.html": { "position": [[650, 8]] } }
+        }
+      ],
+      [
+        "em",
+        {
+          "_index": 22,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [505, 4],
+                [539, 2],
+                [713, 3],
+                [844, 4],
+                [879, 4],
+                [1008, 4]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "error",
+        {
+          "_index": 18,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [381, 6],
+                [717, 6]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "expect",
+        {
+          "_index": 20,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [414, 8],
+                [750, 8]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "fals",
+        {
+          "_index": 32,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [1038, 6],
+                [1255, 6],
+                [1469, 6]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "font",
+        {
+          "_index": 24,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [613, 4],
+                [633, 4],
+                [677, 4]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "function",
+        {
+          "_index": 1,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [0, 9],
+                [169, 9],
+                [185, 9],
+                [472, 9],
+                [495, 9],
+                [808, 9],
+                [831, 9],
+                [1045, 9],
+                [1262, 9]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "given",
+        {
+          "_index": 13,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [212, 5],
+                [521, 5],
+                [861, 5],
+                [1076, 5],
+                [1292, 5]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "invalid",
+        {
+          "_index": 19,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [388, 7],
+                [724, 7]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "length",
+        {
+          "_index": 4,
+          "title": {},
+          "contents": { "functions-units.html": { "position": [[44, 6]] } }
+        }
+      ],
+      [
+        "new",
+        { "_index": 37, "title": {}, "contents": { "index.html": { "position": [[34, 3]] } } }
+      ],
+      [
+        "nextj",
+        {
+          "_index": 39,
+          "title": {},
+          "contents": {
+            "index.html": {
+              "position": [
+                [70, 6],
+                [109, 6]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "number",
+        {
+          "_index": 8,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [71, 8],
+                [80, 8],
+                [93, 6],
+                [132, 8],
+                [154, 6],
+                [624, 8],
+                [695, 8],
+                [919, 8],
+                [1135, 8],
+                [1350, 8]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "number|boolean",
+        {
+          "_index": 30,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [961, 16],
+                [1177, 16],
+                [1392, 16]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "number|str",
+        {
+          "_index": 16,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [268, 15],
+                [576, 15]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "otherwis",
+        {
+          "_index": 31,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [1020, 9],
+                [1237, 9],
+                [1451, 9]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "paramet",
+        {
+          "_index": 5,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [51, 10],
+                [240, 10],
+                [548, 10],
+                [891, 10],
+                [1107, 10],
+                [1322, 10]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "payload",
+        {
+          "_index": 40,
+          "title": {},
+          "contents": {
+            "index.html": {
+              "position": [
+                [79, 7],
+                [121, 7]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "portfolio",
+        {
+          "_index": 33,
+          "title": { "index.html": { "position": [[0, 9]] } },
+          "contents": {
+            "index.html": {
+              "position": [
+                [0, 9],
+                [38, 9]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "px",
+        {
+          "_index": 14,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [218, 2],
+                [527, 2],
+                [601, 2],
+                [1275, 4],
+                [1310, 4],
+                [1439, 4]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "rem",
+        {
+          "_index": 11,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [179, 5],
+                [195, 5],
+                [230, 3],
+                [376, 4],
+                [1058, 5],
+                [1094, 5],
+                [1224, 5]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "remov",
+        {
+          "_index": 3,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [23, 6],
+                [103, 6]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "requir",
+        {
+          "_index": 21,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [463, 8],
+                [799, 8]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "return",
+        {
+          "_index": 7,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [64, 6],
+                [124, 7],
+                [253, 6],
+                [336, 7],
+                [561, 6],
+                [687, 7],
+                [904, 6],
+                [953, 7],
+                [978, 7],
+                [1030, 7],
+                [1120, 6],
+                [1169, 7],
+                [1194, 7],
+                [1247, 7],
+                [1335, 6],
+                [1384, 7],
+                [1409, 7],
+                [1461, 7]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "root",
+        {
+          "_index": 28,
+          "title": {},
+          "contents": { "functions-units.html": { "position": [[672, 4]] } }
+        }
+      ],
+      [
+        "scss",
+        { "_index": 43, "title": {}, "contents": { "index.html": { "position": [[116, 4]] } } }
+      ],
+      [
+        "size",
+        {
+          "_index": 25,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [618, 5],
+                [638, 4],
+                [682, 4]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "string",
+        {
+          "_index": 17,
+          "title": {},
+          "contents": { "functions-units.html": { "position": [[344, 8]] } }
+        }
+      ],
+      [
+        "strip",
+        {
+          "_index": 2,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [10, 5],
+                [482, 5],
+                [818, 5]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "technolog",
+        { "_index": 42, "title": {}, "contents": { "index.html": { "position": [[91, 12]] } } }
+      ],
+      [
+        "typescript",
+        { "_index": 44, "title": {}, "contents": { "index.html": { "position": [[133, 10]] } } }
+      ],
+      [
+        "unit",
+        {
+          "_index": 0,
+          "title": { "functions-units.html": { "position": [[0, 5]] } },
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [16, 6],
+                [34, 4],
+                [114, 4],
+                [234, 5],
+                [330, 5],
+                [456, 6],
+                [488, 6],
+                [542, 5],
+                [792, 6],
+                [824, 6],
+                [884, 6],
+                [1013, 6],
+                [1100, 6],
+                [1230, 6],
+                [1315, 6],
+                [1444, 6]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "unitless",
+        {
+          "_index": 9,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [145, 8],
+                [313, 8],
+                [425, 8],
+                [761, 8]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "us",
+        {
+          "_index": 10,
+          "title": {},
+          "contents": {
+            "functions-units.html": { "position": [[161, 4]] },
+            "index.html": {
+              "position": [
+                [64, 5],
+                [104, 4]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "valu",
+        {
+          "_index": 15,
+          "title": {},
+          "contents": {
+            "functions-units.html": {
+              "position": [
+                [221, 5],
+                [260, 7],
+                [288, 5],
+                [357, 5],
+                [396, 6],
+                [403, 10],
+                [434, 5],
+                [445, 5],
+                [530, 5],
+                [568, 7],
+                [592, 5],
+                [704, 5],
+                [732, 6],
+                [739, 10],
+                [770, 5],
+                [781, 5],
+                [867, 5],
+                [911, 7],
+                [932, 5],
+                [990, 5],
+                [1082, 5],
+                [1127, 7],
+                [1148, 5],
+                [1206, 5],
+                [1298, 5],
+                [1342, 7],
+                [1363, 5],
+                [1421, 5]
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "websit",
+        {
+          "_index": 35,
+          "title": {},
+          "contents": {
+            "index.html": {
+              "position": [
+                [10, 7],
+                [48, 7]
+              ]
+            }
+          }
+        }
+      ]
+    ],
+    "pipeline": ["stemmer"]
+  },
+  "store": {
+    "functions-units.html": {
+      "filename": "functions-units.html",
+      "title": "Units",
+      "contents": "@function strip-unit() Remove the unit of a length Parameters & Return $number: (Number) The number to remove the unit from @return (Number) The unitless number Used By @function rem() @function rem() Converts a given px value to rem units Parameters & Return $value: (Number|String) The value to convert, can be unitless or with units @return (String) The value converted to rem. @error Invalid value: #{$value}. Expected a unitless value or a value with units. Requires @function strip-unit() @function em() Converts a given px value to em units Parameters & Return $value: (Number|String) Value in px $context-font-size: (Number) Font size of the element, defaulted to root font size @return (Number) Value in ems @error Invalid value: #{$value}. Expected a unitless value or a value with units. Requires @function strip-unit() @function is-em() Checks if a given value is in ‘em’ units. Parameters & Return $value: (Number) The value to be checked. @return (Number|Boolean) Returns the value if it is in ‘em’ units, otherwise returns false. @function is-rem() Checks if a given value is in ‘rem’ units. Parameters & Return $value: (Number) The value to be checked. @return (Number|Boolean) Returns the value if it is in ‘rem’ units, otherwise returns false. @function is-px() Checks if a given value is in ‘px’ units. Parameters & Return $value: (Number) The value to be checked. @return (Number|Boolean) Returns the value if it is in ‘px’ units, otherwise returns false."
+    },
+    "index.html": {
+      "filename": "index.html",
+      "title": "portfolio Documentation",
+      "contents": "Portfolio Website 2025 This is my new portfolio website created using NextJS & Payload CMS Technologies Used NextJS SCSS Payload CMS TypeScript"
+    }
+  }
+}
