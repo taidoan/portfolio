@@ -1,0 +1,67 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened]
+  pull_request_target:
+    branches: [develop, main]
+    types: [closed]
+
+jobs:
+  test:
+    # Only run tests on PR events (not on merge)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    name: Run Tests
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test
+
+  generate-docs:
+    # Only run when PR is merged (not on close without merge)
+    if: github.event_name == 'pull_request_target' && github.event.pull_request.merged == true
+    name: Generate Documentation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate documentation
+        run: npm run docs
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git add .
+            git commit -m "docs: update documentation [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

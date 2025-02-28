@@ -1,0 +1,31 @@
+dest: './docs/sass'
+groups:
+  Mixins:
+    mixins-layout: Layout
+    mixins-zindex: Z-Index
+    mixins-accessibility: Accessibility
+  Functions:
+    functions-units: Units
+    functions-colours: Colours
+    functions-zindex: Z-Index
+    functions-spacing: Spacing
+    functions-assets: Assets
+  Settings:
+    settings-typography: Typography
+    settings-colours: Colours
+    settings-animation: Animation
+    settings-layout: Layout
+    settings-assets: Assets
+    settings-shadows: Shadows
+    settings-zindex: Z-Index
+    settings-borderRadius: Border Radius
+
+theme: herman
+herman:
+  sass:
+    sassOptions:
+      loadPaths:
+        - './src/styles'
+    use:
+      - file: 'abstracts/_index'
+        namespace: '*'

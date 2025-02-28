@@ -1,0 +1,16 @@
+{
+  "entryPoints": ["./src"],
+  "out": "./docs/ts",
+  "entryPointStrategy": "expand",
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.next/**",
+    "**/.storybook/**",
+    "**/docs/**",
+    "**/*.test.{ts,tsx,js,jsx}",
+    "**/__tests__/**",
+    "**/*.stories.{ts,tsx,js,jsx}",
+    "**/(payload)/**/*"
+  ]
+}
