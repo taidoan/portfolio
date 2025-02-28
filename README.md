@@ -1,8 +1,10 @@
-# blank
+## Portfolio Website 2025
 
-blank
+This is my new portfolio website created using NextJS & Payload CMS
 
-## Attributes
+## Technologies Used
 
-- **Database**: mongodb
-- **Storage Adapter**: localDisk
+- NextJS
+- SCSS
+- Payload CMS
+- TypeScript
