@@ -98,10 +98,14 @@ export interface Config {
   globals: {
     breakpoints: Breakpoint;
     social: Social;
+    footer: Footer;
+    header: Header;
   };
   globalsSelect: {
     breakpoints: BreakpointsSelect<false> | BreakpointsSelect<true>;
     social: SocialSelect<false> | SocialSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+    header: HeaderSelect<false> | HeaderSelect<true>;
   };
   locale: null;
   user: User & {
@@ -624,6 +628,66 @@ export interface Social {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  navItems: {
+    link: {
+      type: 'reference' | 'custom';
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'projects';
+            value: string | Project;
+          } | null);
+      url?: string | null;
+      label: string;
+      color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+      className?: string | null;
+    };
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: string;
+  navItems: {
+    link: {
+      type: 'reference' | 'custom';
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'projects';
+            value: string | Project;
+          } | null);
+      url?: string | null;
+      label: string;
+      color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+      className?: string | null;
+    };
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "breakpoints_select".
  */
 export interface BreakpointsSelect<T extends boolean = true> {
@@ -648,6 +712,58 @@ export interface SocialSelect<T extends boolean = true> {
     | {
         username?: T;
         network?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              color?: T;
+              buttonShadow?: T;
+              className?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              color?: T;
+              buttonShadow?: T;
+              className?: T;
+            };
         id?: T;
       };
   updatedAt?: T;

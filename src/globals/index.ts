@@ -1,4 +1,6 @@
 import { Breakpoints } from './Breakpoints';
 import { Social } from './Social';
+import { Footer } from './Footer';
+import { Header } from './Header';
 
-export const globals = [Breakpoints, Social];
+export const globals = [Breakpoints, Social, Footer, Header];

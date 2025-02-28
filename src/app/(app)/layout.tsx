@@ -4,6 +4,14 @@ import '@styles/index.scss';
 import { draftMode } from 'next/headers';
 import { getServerSideURL } from '@/utilities/getURLs';
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph';
+import Header from '@components/layout/Header';
+import type {
+  Header as HeaderType,
+  Social as SocialType,
+  Footer as FooterType,
+} from '@/payload-types';
+import { getCachedGlobal } from '@/utilities/getGlobal';
+import Footer from '@components/layout/Footer';
 
 export default async function RootLayout({
   children,
@@ -12,9 +20,16 @@ export default async function RootLayout({
 }>) {
   const { isEnabled } = await draftMode();
 
+  const [headerData, socialData, footerData] = (await Promise.all([
+    getCachedGlobal('header', 3)(),
+    getCachedGlobal('social', 1)(),
+    getCachedGlobal('footer', 3)(),
+  ])) as [HeaderType, SocialType, FooterType];
+
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${inter.variable} ${barlow.variable} ${barlow_condensed.variable}`}>
+        <Header data={headerData} social={socialData} />
         <main>
           <h1>Tets</h1>
           <p>
@@ -26,6 +41,7 @@ export default async function RootLayout({
             repudiandae ipsum.
           </p>
         </main>
+        <Footer footer={footerData} social={socialData} />
       </body>
     </html>
   );
