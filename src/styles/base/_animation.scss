@@ -1,0 +1,112 @@
+@use '@abstracts/settings/animation' as *;
+
+:root {
+  --transition-duration: #{$transition-duration};
+  --transition-duration-fast: #{$transition-duration-fast};
+  --transition-duration-slow: #{$transition-duration-slow};
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  to {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@keyframes filterFadeIn {
+  from {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95) translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes filterFadeOut {
+  from {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1) translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95) translateY(15px);
+  }
+}
+
+@keyframes blur-in {
+  from {
+    backdrop-filter: blur(0px);
+    background: hsla(60, 14%, 97%, 0);
+  }
+  to {
+    backdrop-filter: blur(6px);
+    background: hsla(60, 14%, 97%, 0.45);
+  }
+}
+
+@keyframes blur-out {
+  from {
+    backdrop-filter: blur(6px);
+    background: hsla(60, 14%, 97%, 0.45);
+  }
+  to {
+    backdrop-filter: blur(0px);
+    background: hsla(22, 26%, 96%, 0);
+  }
+}
+
+@keyframes slide-in-from-top {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out-from-top {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-0.1px);
+  }
+}
+
+@keyframes backdropFade {
+  from {
+    backdrop-filter: initial;
+    background: transparent;
+  }
+  to {
+    backdrop-filter: blur(25px);
+    background: hsla(60, 14%, 80%, 0.45);
+  }
+}

@@ -1,0 +1,31 @@
+@use './../functions' as *;
+@use './typography' as *;
+@use 'sass:map';
+
+////
+/// @group settings-typography
+////
+
+/// Typography font scale
+/// This scale includes font size calculations for text based on viewport width and other settings
+/// @type Map
+
+$type-scale: (
+  body: (
+    x-small: size-clamp(rem($font-smallest-size), rem($font-root-size)),
+    small: size-clamp(rem($font-root-size), rem($font-desktop-size-sm)),
+    base: size-clamp(rem($font-root-size), rem($font-desktop-size)),
+  ),
+  heading: (
+    small: rem($heading-font-size-sm),
+    base: size-clamp(rem($heading-font-size-sm), rem($heading-font-size)),
+    large: size-clamp(rem($heading-font-size), rem($heading-font-size-lg)),
+    section: rem($section-heading-font-size),
+    sub: size-clamp(rem($heading-font-size), rem($sub-heading-font-size)),
+  ),
+  card: (
+    title: size-clamp(rem($heading-font-size-sm), rem($card-title-font-size)),
+    body: size-clamp(rem($font-root-size), rem($card-body-font-size)),
+  ),
+  button: size-clamp(rem($font-root-size), rem($button-font-size)),
+);

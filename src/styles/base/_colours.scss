@@ -1,0 +1,30 @@
+@use '@abstracts/settings/colours' as *;
+
+:root {
+  @each $color-name, $color-shades in $project-colours {
+    @each $shade-name, $shade in $color-shades {
+      --clr-#{$color-name}-#{$shade-name}: #{$shade};
+    }
+  }
+
+  --fc-body: #{$font-body-color};
+  --fc-body-light: #{$font-body-color-light};
+  --fc-card: #{$font-card-color};
+  --fc-sub-heading: #{$font-subtitle-color};
+  --focus-bg-clr: #{$focus-background-color};
+  --focus-text-clr: #{$focus-text-color};
+  --selection-bg-clr: #{$selection-bg-color};
+  --selection-text-contrast-clr: #{$selection-text-contrast-color};
+}
+
+.bg--primary {
+  background-color: var(--clr-primary-400);
+}
+
+.bg--secondary {
+  background-color: var(--clr-secondary-400);
+}
+
+.bg--accent {
+  background-color: var(--clr-accent-400);
+}

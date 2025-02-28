@@ -1,0 +1,8 @@
+body {
+  background-color: var(--clr-ivory-400);
+  position: relative;
+
+  *::selection {
+    background-color: var(--selection-bg-clr);
+  }
+}

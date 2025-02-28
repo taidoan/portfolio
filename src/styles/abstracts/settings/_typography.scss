@@ -11,6 +11,11 @@
 /// @type number
 $font-root-size: 16px !default;
 
+/// Smallest font size
+/// This is the smallest font size used across the project.
+/// @type number
+$font-smallest-size: 14px !default;
+
 /// Small desktop font size
 /// This is the smaller body font size featured on desktop screens.
 /// @type number

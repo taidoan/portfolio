@@ -1,5 +1,6 @@
 @use 'sass:color';
 @use 'sass:meta';
+@use 'sass:math';
 @use 'sass:string';
 
 ////
@@ -15,6 +16,13 @@
     $s: color.channel($color, 'saturation', $space: hsl);
     $l: color.channel($color, 'lightness', $space: hsl);
 
+    // Ensure lightness is within the valid range (0% to 100%)
+    $lightness: min(max($lightness, 0), 100);
+
+    // Apply the correct lightness unit to ensure proper behavior in Sass
+    $lightness: if(math.unit($lightness) == '%', $lightness, $lightness * 1%);
+
+    // Correct unit handling for the $lightness value
     @if color.alpha($color) {
       $a: color.alpha($color);
       @return hsla($h, $s, $lightness, $a);

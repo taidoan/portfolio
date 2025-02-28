@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:meta';
+@use 'sass:string';
+@use './changeShade' as *;
+////
+/// @group functions-colours
+////
+/// Function to generate shades of a color, using 400 as the default.
+/// @param {Color} $color - The base color to generate shades for.
+/// @param {Number} $steps [7] - The number of shades to generate.
+/// @return {Map} - A map of shades generated from the base color.
+@function generate-shades($color, $steps: 7) {
+  $shades: ();
+
+  // Get the current lightness of the base color
+  $lightness: color.channel($color, 'lightness', $space: hsl);
+
+  // Create lighter shades (100 to 300)
+  @for $i from 1 through 3 {
+    $adjusted-lightness: $lightness +
+      (30 - $i * 10); // Lighten by 10% for each step, adjusted so 100 is lightest
+    $adjusted-lightness: min($adjusted-lightness, 100); // Ensure the lightness doesn't go above 100
+
+    // Create the shade by adjusting the lightness
+    $shade: change-shade($color, $adjusted-lightness);
+    $shades: map.set($shades, ($i * 100), $shade); // Set the shades for 100, 200, 300
+  }
+
+  // Set the 400 shade as the default (base color)
+  $shades: map.set($shades, 400, $color); // Default shade is the base color (400)
+
+  // Create darker shades (450 to 700)
+  @for $i from 1 through 6 {
+    $adjusted-lightness: $lightness -
+      ($i * 10); // Decrease lightness by 10% for each step, starting from 400
+    $adjusted-lightness: max($adjusted-lightness, 0); // Ensure the lightness doesn't go below 0
+
+    // Create the shade by adjusting the lightness
+    $shade: change-shade($color, $adjusted-lightness);
+    $shades: map.set(
+      $shades,
+      (400 + $i * 50),
+      $shade
+    ); // Set the shades for 450, 500, 550, 600, 650, 700
+  }
+
+  @return $shades;
+}

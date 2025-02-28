@@ -1,0 +1,24 @@
+@use '@abstracts/_index' as *;
+
+:root {
+  --layout-row-spacing: #{size-clamp(rem($section-spacing-base), rem($section-spacing-desktop))};
+  --padding-inline: #{rem($padding-inline-base)};
+  --content-max-width: #{rem($project-max-width)};
+}
+
+main {
+  @include content-grid;
+  padding-bottom: var(--layout-row-spacing);
+}
+
+@each $alignment in start, center, end, stretch {
+  .align-self__#{$alignment} {
+    align-self: #{$alignment};
+  }
+}
+
+@each $alignment in start, center, end, stretch {
+  .justify-self__#{$alignment} {
+    justify-self: #{$alignment};
+  }
+}
