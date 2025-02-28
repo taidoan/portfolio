@@ -1,0 +1,87 @@
+@use 'sass:color';
+@use 'sass:meta';
+@use 'sass:string';
+
+////
+/// @group functions-colours
+////
+/// Changes the lightness of a color.
+/// @param {Color} $color - The color to adjust.
+/// @param {Number} $lightness - The new lightness value.
+/// @return {Color} - The color with the adjusted lightness.
+@function change-shade($color, $lightness) {
+  @if meta.type-of($color) == 'color' {
+    $h: color.channel($color, 'hue', $space: hsl);
+    $s: color.channel($color, 'saturation', $space: hsl);
+    $l: color.channel($color, 'lightness', $space: hsl);
+
+    @if color.alpha($color) {
+      $a: color.alpha($color);
+      @return hsla($h, $s, $lightness, $a);
+    }
+
+    @return hsl($h, $s, $lightness);
+  }
+
+  @error 'Invalid color value or unsupported color type.';
+}
+
+/// Darkens a given color by a specified percentage.
+/// @param {Color} $colour - The base color to darken.
+/// @param {Number} $percentage - The percentage to darken the color by.
+/// @return {Color} - The darkened color.
+@function darker-shade($colour, $percentage) {
+  $darkened-color: color.mix($colour, #000000, $percentage, $method: rgb);
+  $colour-string: meta.inspect($colour);
+
+  @if string.index($colour-string, '#') {
+    @return $darkened-color;
+  } @else if meta.type-of($colour) == 'color' and string.index(meta.inspect($colour-string), 'hsl(')
+  {
+    @return $darkened-color;
+  } @else if
+    meta.type-of($colour) ==
+    'color' and
+    string.index(meta.inspect($colour-string), 'hsla(')
+  {
+    @return $darkened-color;
+  } @else if meta.type-of($colour) == 'color' and string.index(meta.inspect($colour-string), 'rgb(')
+  {
+    @return $darkened-color;
+  } @else {
+    @error "Unsupported color format: #{$colour}.";
+  }
+}
+
+/// Lightens a given color by a specified percentage.
+/// @param {Color} $color - The base color to lighten.
+/// @param {Number} $percentage - The percentage to lighten the color by.
+/// @return {Color} - The lightened color.
+@function lighter-shade($colour, $percentage) {
+  $lightened-color: color.mix($colour, #ffffff, $percentage, $method: rgb);
+  $colour-string: meta.inspect($colour);
+
+  @if string.index($colour-string, '#') {
+    @return $lightened-color;
+  } @else if meta.type-of($colour) == 'color' and string.index(meta.inspect($colour-string), 'hsl(')
+  {
+    @return $lightened-color;
+  } @else if
+    meta.type-of($colour) ==
+    'color' and
+    string.index(meta.inspect($colour-string), 'hsla(')
+  {
+    @return $lightened-color;
+  } @else if meta.type-of($colour) == 'color' and string.index(meta.inspect($colour-string), 'rgb(')
+  {
+    @return $lightened-color;
+  } @else if
+    meta.type-of($colour) ==
+    'color' and
+    string.index(meta.inspect($colour-string), 'rgba(')
+  {
+    @return $lightened-color;
+  } @else {
+    @error "Unsupported color format: #{$colour}.";
+  }
+}

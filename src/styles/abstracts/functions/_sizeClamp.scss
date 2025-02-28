@@ -1,0 +1,27 @@
+@use './../settings/dimensions' as d;
+@use './units' as *;
+@use 'sass:string';
+@use 'sass:math';
+
+////
+/// @group functions-spacing
+////
+
+/// Calculates a responsive value using the `clamp` function, which ensures that the padding value remains within the specified minimum and maximum values as the viewport width changes.
+/// @param {Number} $min-value - The minimum padding value (in px, em, rem, etc.) to be used when the viewport width is at or below the minimum width defined by the project.
+/// @param {Number} $max-value - The maximum padding value to be used when the viewport width is at or above the maximum width defined by the project.
+/// @return {String} - A CSS clamp expression that adjusts the padding value based on the viewport width, ensuring it is responsive within the defined range.
+
+@function size-clamp($min-value, $max-value) {
+  $factor: calc(
+    1 / (rem(d.$project-max-width) - rem(d.$project-min-width)) * ($max-value - $min-value)
+  );
+  $calc-value: string.unquote(
+    '#{ $min-value - (rem(d.$project-min-width) * $factor) } + #{ 100vw * $factor }'
+  );
+  @return clamp(
+    #{if($min-value > $max-value, $max-value, $min-value)},
+    #{$calc-value},
+    #{if($min-value > $max-value, $min-value, $max-value)}
+  );
+}

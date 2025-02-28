@@ -1,0 +1,13 @@
+@use './../settings/zindex' as z;
+@use 'sass:map';
+
+////
+/// @group functions-zindex
+////
+
+/// Get a z-index value from the z-index map.
+/// @param {String} $key - The key to use in the z-index map.
+/// @return {Number} The z-index value.
+@function zIndex($key) {
+  @return map.get(z.$z-index-map, $key);
+}

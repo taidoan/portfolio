@@ -1,0 +1,21 @@
+@use './../settings/assets' as a;
+
+////
+/// @group functions-assets
+////
+
+/// Returns the full URL for an image file
+/// @param {String} $filename - The name of the image file
+/// @return {String} - The full URL of the image file
+@function imageUrl($filename) {
+  @return url(a.$image-path + $filename);
+  @error "#{$filename} does not exist.";
+}
+
+/// Returns the full URL for an image file on the CDN
+/// @param {String} $filename - The name of the image file
+/// @return {String} - The full URL of the image file
+@function imageCDNUrl($filename) {
+  @return url($url-endpoint + $filename);
+  @error "#{$filename} does not exist.";
+}

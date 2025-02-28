@@ -1,0 +1,50 @@
+////
+/// @group settings-layout
+////
+
+/// Max width of the site layout in PX, if needed we can strip out the unit.
+/// @type number
+$project-max-width: 1230px;
+
+/// Min width of the site layout in PX, if needed we can strip out the unit.
+/// @type number
+$project-min-width: 320px;
+
+/// Max width of the inner container in PX
+/// @type number
+$container-max-width: 1118px;
+
+/// Inline padding
+/// @type number
+$padding-inline-base: 24px;
+
+/// Padding block
+/// @type number
+$padding-block-base: 12px;
+
+/// Section spacing
+/// This is the spacing between sections.
+/// @type number
+$section-spacing-base: 56px;
+
+/// Section spacing
+/// This is the spacing between sections on desktop screens.
+/// @type number
+$section-spacing-desktop: 104px;
+
+/// Block spacing
+/// This is the spacing between blocks.
+/// @type number
+$block-spacing-base: 32px;
+
+/// Block spacing on desktop screens
+/// @type number
+$block-spacing-desktop: 72px;
+
+/// Border width of focus outline
+/// @type number
+$focus-width: 3px !default;
+
+// Input padding
+/// @type number
+$input-padding-base: 8px !default;

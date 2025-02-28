@@ -1,0 +1,14 @@
+@use './../functions/units' as *;
+////
+/// @group settings-borderRadius
+////
+
+/// Border Radius
+/// This is used for border radius throughout the project.
+/// @type map
+$borderRadius: (
+  'small': rem(16),
+  'medium': rem(24),
+  'large': rem(32),
+  'circle': 50%,
+);
