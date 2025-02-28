@@ -12,6 +12,7 @@ const dirname =
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
+    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     environment: 'jsdom',
     workspace: [
       {

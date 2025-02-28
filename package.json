@@ -18,7 +18,7 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "prepare": "husky",
-    "test": "vitest",
+    "test": "NODE_NO_WARNINGS=1 vitest",
     "test:watch": "vitest watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
