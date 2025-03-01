@@ -33,7 +33,8 @@
       "@styles/*": ["./src/styles/*"],
       "@abstracts/*": ["./src/styles/abstracts/*"]
     },
-    "target": "ES2022"
+    "target": "ES2022",
+    "types": ["vitest/globals"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

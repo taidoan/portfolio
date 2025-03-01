@@ -7,15 +7,22 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
     '@storybook/experimental-addon-test',
+    'storybook-addon-pseudo-states',
   ],
   framework: {
     name: '@storybook/experimental-nextjs-vite',
     options: {},
   },
+
   async viteFinal(config, { configType }) {
     const { mergeConfig } = await import('vite');
 
     return mergeConfig(config, {
+      server: {
+        proxy: {
+          '/assets': 'http://localhost:3000',
+        },
+      },
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '../src'),

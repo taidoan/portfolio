@@ -1,0 +1,30 @@
+@use '@abstracts/_index' as *;
+
+.logo {
+  --width: #{rem(48)};
+  fill: var(--clr-secondary-400);
+  height: auto;
+  max-width: var(--width);
+  transition: fill var(--transition-duration) ease-in-out;
+  width: 100%;
+
+  @include mq('md') {
+    --width: #{rem(80)};
+  }
+}
+
+.link {
+  display: block;
+  width: fit-content;
+
+  &:hover {
+    .logo {
+      fill: var(--clr-accent-500);
+    }
+  }
+
+  &:focus-visible {
+    border-radius: var(--border-radius-circle);
+    box-shadow: 0 0 0 rem(6) $focus-background-color;
+  }
+}

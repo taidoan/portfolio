@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { NavLink } from '.';
-import { vi } from 'vitest';
-
-vi.mock('next/navigation', () => ({
-  usePathname: vi.fn(() => '/active-page'),
-}));
 
 const meta: Meta<typeof NavLink> = {
   title: 'UI/NavLinks',
@@ -43,10 +38,45 @@ export const Default: Story = {
 };
 
 export const DefaultActive: Story = {
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/active-page',
+      },
+    },
+  },
   args: {
     label: 'Example Page',
     type: 'custom',
     url: '/active-page',
+  },
+};
+
+export const DefaultHover: Story = {
+  parameters: {
+    pseudo: {
+      hover: true,
+    },
+  },
+  args: {
+    label: 'Example Page',
+    type: 'custom',
+    url: '/example-page',
+  },
+};
+
+export const DefaultFocus: Story = {
+  parameters: {
+    pseudo: {
+      focusVisible: true,
+    },
+  },
+
+  args: {
+    label: 'Example Page',
+    type: 'custom',
+    url: '/example-page',
   },
 };
 
@@ -76,5 +106,41 @@ export const Mobile: Story = {
     label: 'Example Page',
     type: 'custom',
     url: '/example-page',
+  },
+};
+
+export const MobileActive: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/active-page',
+      },
+    },
+  },
+
+  decorators: [
+    (Story) => {
+      return (
+        <div
+          style={{
+            backgroundColor: 'var(--clr-secondary-400)',
+            maxWidth: '20rem',
+            borderRadius: '1rem',
+            padding: '1rem',
+          }}
+        >
+          <Story />
+        </div>
+      );
+    },
+  ],
+  args: {
+    label: 'Example Page',
+    type: 'custom',
+    url: '/active-page',
   },
 };
