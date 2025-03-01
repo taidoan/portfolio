@@ -1,11 +1,11 @@
 @use '@abstracts/_index' as *;
 
 a.navLink {
-  color: var(--clr-secondary-100);
+  color: var(--clr-secondary-200);
   font-family: var(--ff-display);
   font-size: var(--fs-heading);
   font-weight: 800;
-  line-height: 0.7;
+  line-height: 1;
   text-decoration: none;
   text-transform: uppercase;
   transition:
@@ -16,7 +16,6 @@ a.navLink {
   &:focus,
   &:hover {
     color: var(--clr-accent-400);
-    text-shadow: var(--shadow-small-body);
   }
 
   &:focus-visible {
@@ -67,7 +66,6 @@ a.navLink {
     &:hover,
     &:active {
       color: initial;
-      text-shadow: none !important;
 
       &::before {
         opacity: 1;
@@ -95,7 +93,6 @@ a.navLink {
 
     &.active {
       color: var(--fc-body);
-      text-shadow: none !important;
 
       &::after {
         color: var(--clr-accent-400);

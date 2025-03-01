@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { Preview } from '@storybook/react';
-import '@/styles/index.scss';
+import '@styles/index.scss';
 import { inter, barlow, barlow_condensed } from '../src/lib/fonts';
 
 const preview: Preview = {

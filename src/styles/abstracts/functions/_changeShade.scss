@@ -19,19 +19,20 @@
     // Ensure lightness is within the valid range (0% to 100%)
     $lightness: min(max($lightness, 0), 100);
 
-    // Apply the correct lightness unit to ensure proper behavior in Sass
-    $lightness: if(math.unit($lightness) == '%', $lightness, $lightness * 1%);
-
-    // Correct unit handling for the $lightness value
-    @if color.alpha($color) {
-      $a: color.alpha($color);
-      @return hsla($h, $s, $lightness, $a);
+    // Convert unitless numbers to percentage
+    @if math.unit($lightness) == '' {
+      $lightness: $lightness * 1%;
     }
 
-    @return hsl($h, $s, $lightness);
+    // Ensure lightness has a valid % unit before returning
+    @return if(
+      color.alpha($color),
+      hsla($h, $s, $lightness, color.alpha($color)),
+      hsl($h, $s, $lightness)
+    );
   }
 
-  @error 'Invalid color value or unsupported color type.';
+  @error "Invalid color value or unsupported color type.";
 }
 
 /// Darkens a given color by a specified percentage.

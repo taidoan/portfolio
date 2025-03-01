@@ -2,6 +2,7 @@
 @use 'sass:color';
 @use 'sass:meta';
 @use 'sass:string';
+@use 'sass:math';
 @use './changeShade' as *;
 ////
 /// @group functions-colours
@@ -10,39 +11,62 @@
 /// @param {Color} $color - The base color to generate shades for.
 /// @param {Number} $steps [7] - The number of shades to generate.
 /// @return {Map} - A map of shades generated from the base color.
-@function generate-shades($color, $steps: 7) {
-  $shades: ();
-
-  // Get the current lightness of the base color
-  $lightness: color.channel($color, 'lightness', $space: hsl);
-
-  // Create lighter shades (100 to 300)
-  @for $i from 1 through 3 {
-    $adjusted-lightness: $lightness +
-      (30 - $i * 10); // Lighten by 10% for each step, adjusted so 100 is lightest
-    $adjusted-lightness: min($adjusted-lightness, 100); // Ensure the lightness doesn't go above 100
-
-    // Create the shade by adjusting the lightness
-    $shade: change-shade($color, $adjusted-lightness);
-    $shades: map.set($shades, ($i * 100), $shade); // Set the shades for 100, 200, 300
+@function generate-shades($base-color, $base-level: 400) {
+  @if meta.type-of($base-color) != 'color' {
+    @error 'Invalid base color: #{$base-color}';
   }
 
-  // Set the 400 shade as the default (base color)
-  $shades: map.set($shades, 400, $color); // Default shade is the base color (400)
+  // Extract base lightness (as a percentage)
+  $base-lightness: color.channel($base-color, 'lightness', $space: hsl);
+  $shades: ();
 
-  // Create darker shades (450 to 700)
-  @for $i from 1 through 6 {
-    $adjusted-lightness: $lightness -
-      ($i * 10); // Decrease lightness by 10% for each step, starting from 400
-    $adjusted-lightness: max($adjusted-lightness, 0); // Ensure the lightness doesn't go below 0
+  // Standard shade levels
+  $levels: (100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800);
 
-    // Create the shade by adjusting the lightness
-    $shade: change-shade($color, $adjusted-lightness);
-    $shades: map.set(
-      $shades,
-      (400 + $i * 50),
-      $shade
-    ); // Set the shades for 450, 500, 550, 600, 650, 700
+  @each $level in $levels {
+    @if $level == $base-level {
+      // Base color
+      $shades: map.merge(
+        $shades,
+        (
+          $level: $base-color,
+        )
+      );
+    } @else if $level < $base-level {
+      // Lighter shades - interpolate between white and base
+      $ratio: math.div($base-level - $level, $base-level - 100);
+      $lightness-value: $base-lightness + $ratio * (100 - $base-lightness);
+
+      $lightness-value: math.min($lightness-value, 97.5%);
+
+      // Ensure $lightness-value is a percentage
+      @if math.unit($lightness-value) == '' {
+        $lightness-value: $lightness-value * 1%;
+      }
+
+      $shades: map.merge(
+        $shades,
+        (
+          $level: change-shade($base-color, $lightness-value),
+        )
+      );
+    } @else {
+      // Darker shades - interpolate between base and black
+      $darkness-factor: math.div($level - $base-level, 1000 - $base-level);
+      $lightness-value: $base-lightness * (1 - $darkness-factor);
+
+      // Ensure $lightness-value is a percentage
+      @if math.unit($lightness-value) == '' {
+        $lightness-value: $lightness-value * 1%;
+      }
+
+      $shades: map.merge(
+        $shades,
+        (
+          $level: change-shade($base-color, $lightness-value),
+        )
+      );
+    }
   }
 
   @return $shades;

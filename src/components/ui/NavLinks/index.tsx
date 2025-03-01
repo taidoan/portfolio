@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import style from './style.module.scss';
 
 export type NavLinkProps = {
-  children?: React.ReactNode;
   href?: string | Page | null | undefined;
   target?: string;
   action?: () => void;
@@ -33,11 +32,11 @@ export type NavLinkProps = {
  * <NavLink href="/">Home</NavLink>
  * ```
  */
-export const NavLink = ({ children, reference, newTab, url, type }: NavLinkProps) => {
+export const NavLink = ({ label, reference, newTab, url, type }: NavLinkProps) => {
+  const pathname = usePathname();
   const href = getHref({ type, reference, url });
   if (!href) return null;
 
-  const pathname = usePathname();
   const isActive = pathname === href || (href === '/home' && pathname === '/');
 
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {};
@@ -45,7 +44,7 @@ export const NavLink = ({ children, reference, newTab, url, type }: NavLinkProps
 
   return (
     <Link href={href} {...newTabProps} className={linkClasses}>
-      {children}
+      {label}
     </Link>
   );
 };
@@ -62,11 +61,11 @@ export const NavLink = ({ children, reference, newTab, url, type }: NavLinkProps
  * <FooterNavLink href="/">Home</FooterNavLink>
  * ```
  */
-export const FooterNavLink = ({ children, reference, newTab, url, type }: NavLinkProps) => {
+export const FooterNavLink = ({ label, reference, newTab, url, type }: NavLinkProps) => {
+  const pathname = usePathname();
   const href = getHref({ type, reference, url });
   if (!href) return null;
 
-  const pathname = usePathname();
   const isActive = pathname === href || (href === '/home' && pathname === '/');
 
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {};
@@ -74,7 +73,7 @@ export const FooterNavLink = ({ children, reference, newTab, url, type }: NavLin
 
   return (
     <Link href={href} {...newTabProps} className={linkClasses}>
-      {children}
+      {label}
     </Link>
   );
 };
