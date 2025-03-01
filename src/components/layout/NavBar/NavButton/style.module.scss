@@ -18,7 +18,7 @@
 
     &[aria-expanded='true'] + div {
       &::before {
-        animation: maskExpand var(--transition-duration) ease-in-out forwards;
+        animation: maskExpand var(--transition-duration-fast) ease-in-out forwards;
         background-color: var(--clr-secondary-400);
         bottom: 0;
         content: '';
