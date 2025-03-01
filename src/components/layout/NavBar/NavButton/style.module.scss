@@ -1,0 +1,128 @@
+@use '@abstracts/_index' as *;
+
+.nav__button {
+  --front: var(--clr-accent-400);
+  --back: var(--clr-secondary-400);
+  --icon: var(--clr-light-400);
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  height: rem(48);
+  perspective: 600px;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  width: rem(48);
+
+  input {
+    display: none;
+
+    &[aria-expanded='true'] + div {
+      &::before {
+        animation: maskExpand var(--transition-duration) ease-in-out forwards;
+        background-color: var(--clr-secondary-400);
+        bottom: 0;
+        content: '';
+        display: block;
+        height: 30px;
+        left: -30px;
+        mask-image: radial-gradient(circle at top left, transparent 70%, black 50%);
+        position: absolute;
+        transition: all var(--transition-duration) ease-in-out;
+        width: 30px;
+      }
+
+      span {
+        border-radius: rem(20) rem(20) 0 0;
+        &:before,
+        &:after {
+          background-color: var(--clr-secondary-100);
+        }
+      }
+      span:first-child {
+        --rotateY: 0deg;
+        --background: var(--back);
+      }
+
+      span:last-child {
+        --rotateY: 180deg;
+        --background: var(--front);
+      }
+    }
+
+    @keyframes maskExpand {
+      0% {
+        mask-image: radial-gradient(circle at top left, transparent 100%, black 100%);
+        transform: scale(0);
+        transform-origin: right;
+      }
+      100% {
+        mask-image: radial-gradient(circle at top left, transparent 70%, black 50%);
+        transform: scale(1);
+        transform-origin: right;
+      }
+    }
+
+    & + div {
+      &::before {
+        transition: all var(--transition-duration) ease-in-out;
+      }
+      span {
+        --rotateY: 180deg;
+        --background: var(--front);
+        backface-visibility: hidden;
+        background: var(--background);
+        border-radius: 50%;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transform: rotateX(var(--rotateY));
+        transform-style: preserve-3d;
+        transition: all var(--transition-duration) ease-in-out;
+        width: 100%;
+        &:focus-visible {
+          @include focused-box;
+        }
+
+        &:before,
+        &:after {
+          --rotate: 0deg;
+          backface-visibility: hidden;
+          background: var(--icon);
+          content: '';
+          height: rem(4);
+          left: 50%;
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%) rotate(var(--rotate)) translateZ(6px);
+          width: rem(20);
+        }
+
+        &:first-child {
+          &:before,
+          &:after {
+            height: rem(4);
+          }
+          &:before {
+            --rotate: -45deg;
+          }
+          &:after {
+            --rotate: 45deg;
+          }
+        }
+
+        &:last-child {
+          --rotateY: 0deg;
+          &:before {
+            box-shadow:
+              0 -6.5px 0 var(--icon),
+              0 6.5px 0 var(--icon);
+          }
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
