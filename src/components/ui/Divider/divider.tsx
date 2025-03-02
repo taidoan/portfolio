@@ -1,5 +1,5 @@
 import style from './styles.module.scss';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 export type DividerProps = {
   weight?: 'minimal' | 'thin' | 'thick';
@@ -41,7 +41,7 @@ export const Divider = ({
   type,
   className,
 }: DividerProps) => {
-  const dividerClasses = classNames(
+  const dividerClasses = clsx(
     style.base,
     style[weight],
     style[width],
