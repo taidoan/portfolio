@@ -41,7 +41,7 @@ export default async function RootLayout({
             repudiandae ipsum.
           </p>
         </main>
-        <Footer footer={footerData} social={socialData} />
+        <Footer data={footerData} social={socialData} />
       </body>
     </html>
   );
