@@ -185,6 +185,23 @@ export interface Media {
 export interface Page {
   id: string;
   title: string;
+  hero: HeroBlockProps;
+  layout?: DividerBlockProps[] | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   meta?: {
     title?: string | null;
     /**
@@ -213,6 +230,70 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlockProps".
+ */
+export interface HeroBlockProps {
+  image?: (string | null) | Media;
+  type: 'small' | 'medium' | 'large';
+  richText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  showBreadcrumb?: boolean | null;
+  breadcrumbContainer?: ('none' | 'boxed') | null;
+  breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DividerBlockProps".
+ */
+export interface DividerBlockProps {
+  type?: ('content' | 'section') | null;
+  weight?: ('minimal' | 'thin' | 'thick') | null;
+  width?: ('full' | 'default' | 'half') | null;
+  centered?: boolean | null;
+  color?: ('primary' | 'secondary' | 'accent' | 'light-grey') | null;
+  opacity?: number | null;
+  className?: string | null;
+  blockSize?:
+    | (
+        | 'col-span-1'
+        | 'col-span-2'
+        | 'col-span-3'
+        | 'col-span-4'
+        | 'col-span-5'
+        | 'col-span-6'
+        | 'col-span-7'
+        | 'col-span-8'
+        | 'col-span-9'
+        | 'col-span-10'
+        | 'col-span-11'
+        | 'col-span-12'
+        | 'col-span-13'
+        | 'col-span-14'
+        | 'col-span-15'
+        | 'col-span-16'
+      )
+    | null;
+  alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+  justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'divider';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -532,6 +613,13 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
+  hero?: T | HeroBlockPropsSelect<T>;
+  layout?:
+    | T
+    | {
+        divider?: T | DividerBlockPropsSelect<T>;
+      };
+  content?: T;
   meta?:
     | T
     | {
@@ -556,6 +644,36 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlockProps_select".
+ */
+export interface HeroBlockPropsSelect<T extends boolean = true> {
+  image?: T;
+  type?: T;
+  richText?: T;
+  showBreadcrumb?: T;
+  breadcrumbContainer?: T;
+  breadcrumbBackground?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DividerBlockProps_select".
+ */
+export interface DividerBlockPropsSelect<T extends boolean = true> {
+  type?: T;
+  weight?: T;
+  width?: T;
+  centered?: T;
+  color?: T;
+  opacity?: T;
+  className?: T;
+  blockSize?: T;
+  alignSelf?: T;
+  justifySelf?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

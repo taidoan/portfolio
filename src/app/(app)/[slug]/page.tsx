@@ -6,6 +6,7 @@ import { draftMode } from 'next/headers';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/utilities/generateMeta';
 import { Redirects } from '@/components/features/Redirects';
+import { RenderHero } from '@/blocks/Hero/renderHero';
 
 export type Args = {
   params: Promise<{
@@ -24,10 +25,13 @@ const Page = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
+  const { hero } = page;
+
   return (
     <>
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
+      <RenderHero heroData={hero} />
       <div>Hello</div>
     </>
   );

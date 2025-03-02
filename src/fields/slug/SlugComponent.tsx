@@ -73,9 +73,15 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
         <FieldLabel htmlFor={`field-${path}`} label={label} />
 
         <Button className='lock-button' buttonStyle='none' onClick={handleLock}>
-          {checkboxValue
-            ? `Unlock ${(<IconLockOpen2 stroke={2} />)}`
-            : `Lock ${(<IconLock stroke={2} />)}`}
+          {checkboxValue ? (
+            <>
+              Unlock <IconLockOpen2 stroke={2} />
+            </>
+          ) : (
+            <>
+              Lock <IconLock stroke={2} />
+            </>
+          )}
         </Button>
       </div>
 
