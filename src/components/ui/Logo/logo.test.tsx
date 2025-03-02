@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Logo } from '.';
+import style from './style.module.scss';
 
 describe('Logo', () => {
   it('renders the site logo', () => {
@@ -24,5 +25,29 @@ describe('Logo', () => {
     render(<Logo />);
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', '/');
+  });
+
+  it('renders a light logo', () => {
+    render(<Logo colour='light' />);
+    const logo = screen.getByRole('img');
+    expect(logo).toHaveClass(style['logo--light']);
+  });
+
+  it('renders an accent logo', () => {
+    render(<Logo colour='accent' />);
+    const logo = screen.getByRole('img');
+    expect(logo).toHaveClass(style['logo--accent']);
+  });
+
+  it('renders a secondary logo', () => {
+    render(<Logo colour='secondary' />);
+    const logo = screen.getByRole('img');
+    expect(logo).toHaveClass(style['logo--secondary']);
+  });
+
+  it('renders a primary logo', () => {
+    render(<Logo colour='primary' />);
+    const logo = screen.getByRole('img');
+    expect(logo).toHaveClass(style['logo--primary']);
   });
 });

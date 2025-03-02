@@ -13,6 +13,7 @@ export type SocialButtonProps = {
   color?: 'primary' | 'secondary' | 'accent';
   className?: string;
   username?: string;
+  tabIndex?: number;
 };
 
 const SOCIAL_DATA: Record<
@@ -34,20 +35,27 @@ const getSocialUrl = (network: SocialButtonProps['network'], username?: string) 
 
 /**
  * SocialButton component renders a button with a social icon and a link to the social network
- * @param props - {@link SocialButtonProps} - The props for the SocialButton component.
- * @param props.network - The social network to render the button for.
- * @param props.color - `primary`, `secondary`, or `accent` - The color of the button.
- * @param props.className - Additional class names to add to the button.
- * @param props.username - The username of the user on the social network.
- * @returns A React component that renders a button with a social icon and a link to the social network.
+ * @param {@link SocialButtonProps} - The props for the SocialButton component.
+ * @param {string} [props.network] - The social network to render the button for.
+ * @param {string} [props.color] - `primary`, `secondary`, or `accent` - The color of the button.
+ * @param {string} [props.className] - Additional class names to add to the button.
+ * @param {string} [props.username] - The username of the user on the social network.
+ * @returns {JSX.Element} A React component that renders a button with a social icon and a link to the social network.
  * @example
  * <SocialButton network="x" color="primary" />
  * <SocialButton network="instagram" color="secondary" />
  * <SocialButton network="github" color="accent" />
- * <SocialButton network="linkedin" color="primary" username="tai_doan" />
- * <SocialButton network="youtube" color="secondary" username="tai_doan" />
+ * <SocialButton network="linkedin" color="primary" username="username" />
+ * <SocialButton network="youtube" color="secondary" username="username" />
  */
-export const SocialButton = ({ network, color, className, username }: SocialButtonProps) => {
+export const SocialButton = ({
+  network,
+  color,
+  className,
+  username,
+  tabIndex = 0,
+  ...props
+}: SocialButtonProps) => {
   const data = SOCIAL_DATA[network];
   const IconComponent = data.icon;
 
@@ -68,6 +76,9 @@ export const SocialButton = ({ network, color, className, username }: SocialButt
       target='_blank'
       rel='noopener noreferrer'
       title={`Follow me on ${network}`}
+      aria-label={`Follow me on ${network}`}
+      tabIndex={tabIndex}
+      {...props}
     >
       <IconComponent data-testid={`${network}-icon`} />
     </Link>

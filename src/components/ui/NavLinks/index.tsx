@@ -17,6 +17,7 @@ export type NavLinkProps = {
   url?: string | null;
   newTab?: boolean | null;
   label?: string | null;
+  tabIndex?: number;
 };
 
 /**
@@ -32,7 +33,7 @@ export type NavLinkProps = {
  * <NavLink href="/">Home</NavLink>
  * ```
  */
-export const NavLink = ({ label, reference, newTab, url, type }: NavLinkProps) => {
+export const NavLink = ({ label, reference, newTab, url, type, tabIndex = 0 }: NavLinkProps) => {
   const pathname = usePathname();
   const href = getHref({ type, reference, url });
   if (!href) return null;
@@ -43,7 +44,7 @@ export const NavLink = ({ label, reference, newTab, url, type }: NavLinkProps) =
   const linkClasses = clsx(style.navLink, isActive && style.active);
 
   return (
-    <Link href={href} {...newTabProps} className={linkClasses}>
+    <Link href={href} {...newTabProps} className={linkClasses} tabIndex={tabIndex}>
       {label}
     </Link>
   );
@@ -61,7 +62,14 @@ export const NavLink = ({ label, reference, newTab, url, type }: NavLinkProps) =
  * <FooterNavLink href="/">Home</FooterNavLink>
  * ```
  */
-export const FooterNavLink = ({ label, reference, newTab, url, type }: NavLinkProps) => {
+export const FooterNavLink = ({
+  label,
+  reference,
+  newTab,
+  url,
+  type,
+  tabIndex = 0,
+}: NavLinkProps) => {
   const pathname = usePathname();
   const href = getHref({ type, reference, url });
   if (!href) return null;
@@ -72,7 +80,7 @@ export const FooterNavLink = ({ label, reference, newTab, url, type }: NavLinkPr
   const linkClasses = clsx(style.footerNavLink, isActive && style.active);
 
   return (
-    <Link href={href} {...newTabProps} className={linkClasses}>
+    <Link href={href} {...newTabProps} className={linkClasses} tabIndex={tabIndex}>
       {label}
     </Link>
   );

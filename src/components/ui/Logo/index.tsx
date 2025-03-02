@@ -5,17 +5,14 @@ import clsx from 'clsx';
 type LogoProps = {
   className?: string;
   linkClassName?: string;
+  colour?: 'light' | 'accent' | 'secondary' | 'primary';
 };
 
-export const Logo = ({ className, linkClassName }: LogoProps) => {
+export const Logo = ({ className, linkClassName, colour }: LogoProps) => {
+  const logoClasses = clsx(style.logo, className, colour && style[`logo--${colour}`]);
   return (
     <Link href='/' className={clsx(style.link, linkClassName)} aria-label='Homepage'>
-      <svg
-        aria-label='Tai Doan Logo'
-        role='img'
-        className={clsx(style.logo, className)}
-        viewBox='0 0 265.7 265.7'
-      >
+      <svg aria-label='Tai Doan Logo' role='img' className={logoClasses} viewBox='0 0 265.7 265.7'>
         <title>Tai Doan Logo</title>
         <path
           className='cls-1'

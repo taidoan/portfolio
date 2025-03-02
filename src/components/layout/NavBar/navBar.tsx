@@ -7,6 +7,7 @@ import style from './style.module.scss';
 import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export type NavBarProps = {
   data: Header;
@@ -15,6 +16,7 @@ export type NavBarProps = {
 };
 
 export const NavBar = ({ data, social, className, ...props }: NavBarProps) => {
+  const isDesktop = useMediaQuery('(min-width: 64em)');
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const navItems = data.navItems || [];
@@ -27,30 +29,42 @@ export const NavBar = ({ data, social, className, ...props }: NavBarProps) => {
   const navigationClasses = clsx(style.nav);
 
   return (
-    <div className={containerClasses} {...props} role='navigation'>
-      <NavButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} className={style.nav__button} />
-      <nav className={navigationClasses} aria-hidden={!menuOpen}>
+    <div className={containerClasses} {...props} role='navigation' aria-label='Main navigation'>
+      {!isDesktop && (
+        <NavButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} className={style.nav__button} />
+      )}
+      <nav className={navigationClasses} aria-hidden={!isDesktop && !menuOpen}>
         <div className={style.nav__wrapper}>
           <menu className={style.nav__main}>
             {navItems.map(({ link }, i) => {
               return (
                 <li key={i}>
-                  <NavLink {...link}>{link.label}</NavLink>
+                  <NavLink
+                    {...link}
+                    tabIndex={isDesktop || menuOpen ? 0 : -1}
+                    label={link.label}
+                  ></NavLink>
                 </li>
               );
             })}
           </menu>
-          <menu className={style.nav__social}>
-            {social['social-network']?.map((item, index) => (
-              <li key={index}>
-                <SocialButton
-                  network={item.network}
-                  className={style.socialButton}
-                  username={item.username}
-                />
-              </li>
-            ))}
-          </menu>
+          {!isDesktop &&
+            social &&
+            social['social-network'] &&
+            social['social-network']?.length > 0 && (
+              <menu className={style.nav__social}>
+                {social['social-network']?.map((item, index) => (
+                  <li key={index}>
+                    <SocialButton
+                      network={item.network}
+                      className={style.socialButton}
+                      username={item.username}
+                      tabIndex={isDesktop || menuOpen ? 0 : -1}
+                    />
+                  </li>
+                ))}
+              </menu>
+            )}
         </div>
       </nav>
     </div>

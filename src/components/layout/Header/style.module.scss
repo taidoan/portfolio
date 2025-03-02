@@ -1,0 +1,65 @@
+@use '@abstracts/_index' as *;
+
+header.header {
+  padding-block: size-clamp(rem($padding-block-base), rem(48));
+  position: relative;
+  transition:
+    transform var(--transition-duration) ease,
+    top var(--transition-duration) ease,
+    background-color var(--transition-duration-fast) linear,
+    box-shadow var(--transition-duration-fast) ease;
+  @include z-index('header');
+  @include content-grid;
+
+  @include mq('md') {
+    transition: all var(--transition-duration-fast);
+  }
+
+  &--sticky {
+    animation:
+      slide-in-from-top var(--transition-duration) forwards,
+      background-in var(--transition-duration-fast) forwards;
+    box-shadow: var(--shadow-button);
+    position: fixed;
+    top: 0;
+    transform: translateY(0);
+    width: 100%;
+    @include mq('md') {
+      padding-block: rem(12);
+      transition: all var(--transition-duration-fast);
+
+      .site-logo-link svg.site-logo {
+        --width: #{rem(56)};
+      }
+    }
+  }
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+@keyframes background-in {
+  from {
+    background-color: transparent;
+  }
+
+  to {
+    backdrop-filter: blur(6px);
+    background: hsla(60, 14%, 97%, 0.9);
+  }
+}
+
+@keyframes background-out {
+  from {
+    background-color: var(--clr-light-400);
+  }
+
+  to {
+    backdrop-filter: blur(0);
+    background-color: transparent;
+  }
+}

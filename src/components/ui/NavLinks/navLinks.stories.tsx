@@ -9,6 +9,11 @@ const meta: Meta<typeof NavLink> = {
     viewport: {
       defaultViewport: 'desktop',
     },
+    docs: {
+      description: {
+        component: 'NavLink component renders a link to a page on the website.',
+      },
+    },
   },
   decorators: [
     (Story) => {

@@ -42,7 +42,7 @@ a.navLink {
       background var(--transition-duration-fast) ease-in-out;
 
     &::after {
-      color: var(--clr-slate-100);
+      color: var(--clr-slate-250);
       content: '.';
       transition: color var(--transition-duration) ease-in-out;
     }

@@ -21,6 +21,9 @@
   grid-template-rows: 1fr;
   padding: rem(32) rem(24);
   pointer-events: all;
+  position: absolute;
+  right: 0;
+  top: 100%;
   transition:
     grid-template-rows var(--transition-duration) ease-in-out,
     grid-template-columns var(--transition-duration) ease-in-out,
@@ -39,6 +42,14 @@
     list-style: none;
     padding: 0;
   }
+
+  @include mq(md) {
+    background: none;
+    border-radius: initial;
+    box-shadow: none;
+    padding: 0;
+    position: static;
+  }
 }
 
 .nav__wrapper {
@@ -47,6 +58,10 @@
   justify-content: space-between;
   overflow: hidden;
   width: 100%;
+
+  @include mq(md) {
+    overflow: visible;
+  }
 }
 
 .nav__main {
@@ -68,6 +83,19 @@
     a {
       display: block;
       width: 100%;
+    }
+  }
+
+  @include mq('md') {
+    flex-direction: row;
+    gap: rem(48);
+
+    li {
+      padding: 0;
+
+      & + li {
+        border: none;
+      }
     }
   }
 }

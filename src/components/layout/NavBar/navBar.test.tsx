@@ -99,10 +99,10 @@ describe('NavBar', () => {
     });
   });
 
-  // it('shows all social links', () => {
-  //   render(<NavBar data={mockData} social={mockSocial} />);
-  //   mockSocial['social-network']?.forEach((item) => {
-  //     expect(screen.getByText(item.network)).toBeInTheDocument();
-  //   });
-  // });
+  it('shows all social links', () => {
+    render(<NavBar data={mockData} social={mockSocial} />);
+    mockSocial['social-network']?.forEach((item) => {
+      expect(screen.getByLabelText(`Follow me on ${item.network}`)).toBeInTheDocument();
+    });
+  });
 });

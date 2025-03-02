@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/experimental-addon-test',
     'storybook-addon-pseudo-states',
+    '@storybook/addon-a11y',
   ],
   framework: {
     name: '@storybook/experimental-nextjs-vite',

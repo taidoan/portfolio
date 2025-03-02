@@ -18,7 +18,6 @@
 
     &[aria-expanded='true'] + div {
       &::before {
-        animation: maskExpand var(--transition-duration-fast) ease-in-out forwards;
         background-color: var(--clr-secondary-400);
         bottom: 0;
         content: '';
@@ -26,8 +25,11 @@
         height: 30px;
         left: -30px;
         mask-image: radial-gradient(circle at top left, transparent 70%, black 50%);
+        opacity: 1;
         position: absolute;
-        transition: all var(--transition-duration) ease-in-out;
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: all var(--transition-duration-fast) ease-in-out;
         width: 30px;
       }
 
@@ -49,16 +51,20 @@
       }
     }
 
-    @keyframes maskExpand {
-      0% {
+    &[aria-expanded='false'] + div {
+      &::before {
+        bottom: 0;
+        content: '';
+        display: block;
+        height: 30px;
+        left: -30px;
         mask-image: radial-gradient(circle at top left, transparent 100%, black 100%);
+        opacity: 1;
+        position: absolute;
         transform: scale(0);
-        transform-origin: right;
-      }
-      100% {
-        mask-image: radial-gradient(circle at top left, transparent 70%, black 50%);
-        transform: scale(1);
-        transform-origin: right;
+        transform-origin: bottom right;
+        transition: all var(--transition-duration-fast) ease-in-out;
+        width: 30px;
       }
     }
 
@@ -78,7 +84,9 @@
         top: 0;
         transform: rotateX(var(--rotateY));
         transform-style: preserve-3d;
-        transition: all var(--transition-duration) ease-in-out;
+        transition:
+          all var(--transition-duration) ease-in-out,
+          border-radius var(--transition-duration-fast) ease-in-out;
         width: 100%;
         &:focus-visible {
           @include focused-box;
