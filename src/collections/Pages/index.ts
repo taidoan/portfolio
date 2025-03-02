@@ -7,7 +7,11 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { slugField } from '@fields/slug';
+import { slugField } from '@/fields/Slug';
+import { urlField } from '@/fields/URL';
+import { numberOfProjects } from '@/fields/Projects/numberOfProjects';
+import { generatePreviewPath } from '@/utilities/generatePreviewPath';
+import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -19,6 +23,23 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    livePreview: {
+      url: ({ data, req }) => {
+        const path = generatePreviewPath({
+          slug: typeof data?.slug === 'string' ? data.slug : '',
+          collection: 'pages',
+          req,
+        });
+
+        return path;
+      },
+    },
+    preview: (data, { req }) =>
+      generatePreviewPath({
+        slug: typeof data?.slug === 'string' ? data.slug : '',
+        collection: 'pages',
+        req,
+      }),
   },
   versions: {
     maxPerDoc: 50,
@@ -27,6 +48,10 @@ export const Pages: CollectionConfig = {
         interval: 100,
       },
     },
+  },
+  hooks: {
+    afterChange: [revalidatePage],
+    afterDelete: [revalidateDelete],
   },
   fields: [
     {
@@ -69,6 +94,8 @@ export const Pages: CollectionConfig = {
       ],
     },
     ...slugField(),
+    urlField(),
+    ...numberOfProjects(),
     {
       name: 'thumbnail',
       type: 'upload',

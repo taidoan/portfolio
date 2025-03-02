@@ -25,6 +25,24 @@ export const NavBar = ({ data, social, className, ...props }: NavBarProps) => {
     setMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.setAttribute('data-locked', 'true');
+    } else {
+      document.body.removeAttribute('data-ocked');
+    }
+
+    return () => {
+      document.body.removeAttribute('data-locked');
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setMenuOpen(false);
+    }
+  }, [isDesktop]);
+
   const containerClasses = clsx(style.container, className);
   const navigationClasses = clsx(style.nav);
 

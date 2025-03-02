@@ -5,7 +5,7 @@ import { mergeOpenGraph } from './mergeOpenGraph';
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const cdnURL = getCDNURL();
-  let url = cdnURL + '/og_image.png';
+  const url = cdnURL + '/og_image.png';
 
   return url;
 };

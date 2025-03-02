@@ -57,7 +57,7 @@ export const Header = ({ data, social }: HeaderProps) => {
     <>
       <header className={headerClass} ref={headerRef}>
         <div className={style.container}>
-          <Logo colour='secondary' />
+          <Logo colour={data.logoColor || 'secondary'} linkClassName='site-logo' />
           <NavBar data={data} social={social} />
         </div>
       </header>

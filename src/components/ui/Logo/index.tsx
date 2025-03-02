@@ -5,7 +5,7 @@ import clsx from 'clsx';
 type LogoProps = {
   className?: string;
   linkClassName?: string;
-  colour?: 'light' | 'accent' | 'secondary' | 'primary';
+  colour?: 'light' | 'accent' | 'secondary' | 'primary' | 'slate' | 'frosted-sage' | 'urban-steel';
 };
 
 export const Logo = ({ className, linkClassName, colour }: LogoProps) => {

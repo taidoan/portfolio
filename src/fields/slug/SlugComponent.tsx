@@ -1,10 +1,10 @@
 'use client';
 import React, { useCallback, useEffect } from 'react';
 import { TextFieldClientProps } from 'payload';
-
+import { IconLock, IconLockOpen2 } from '@tabler/icons-react';
 import { useField, Button, TextInput, FieldLabel, useFormFields, useForm } from '@payloadcms/ui';
 
-import { formatSlug } from './formatSlug';
+import { formatSlug } from '@/fields/Slug/formatSlug';
 import './index.scss';
 
 export type SlugComponentProps = {
@@ -73,7 +73,9 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
         <FieldLabel htmlFor={`field-${path}`} label={label} />
 
         <Button className='lock-button' buttonStyle='none' onClick={handleLock}>
-          {checkboxValue ? 'Unlock' : 'Lock'}
+          {checkboxValue
+            ? `Unlock ${(<IconLockOpen2 stroke={2} />)}`
+            : `Lock ${(<IconLock stroke={2} />)}`}
         </Button>
       </div>
 

@@ -6,6 +6,7 @@ const meta: Meta<typeof Header> = {
   component: Header,
   args: {
     data: {
+      logoColor: 'secondary',
       id: 'nav-bar',
       navItems: [
         {

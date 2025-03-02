@@ -20,6 +20,34 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    livePreview: {
+      breakpoints: [
+        {
+          name: 'mobile',
+          label: 'Mobile',
+          width: 375,
+          height: 667,
+        },
+        {
+          name: 'tablet',
+          label: 'Tablet',
+          width: 768,
+          height: 1024,
+        },
+        {
+          name: 'laptop',
+          label: 'Laptop',
+          width: 1024,
+          height: 1366,
+        },
+        {
+          name: 'desktop',
+          label: 'Desktop',
+          width: 1440,
+          height: 2560,
+        },
+      ],
+    },
   },
   collections: collections,
   globals: globals,

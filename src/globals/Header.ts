@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'payload';
-import { link } from '@fields/link';
+import { link } from '@/fields/Link';
 import { anyone, authenticated } from '@/access';
 
 export const Header: GlobalConfig = {
@@ -15,6 +15,25 @@ export const Header: GlobalConfig = {
       type: 'array',
       fields: [link()],
       required: true,
+    },
+    {
+      name: 'logoColor',
+      label: 'Logo Colour',
+      type: 'select',
+      required: true,
+      options: [
+        { value: 'primary', label: 'Primary' },
+        { value: 'secondary', label: 'Secondary' },
+        { value: 'accent', label: 'Accent' },
+        { value: 'light', label: 'Light' },
+        { value: 'slate', label: 'Slate' },
+        { value: 'frosted-sage', label: 'Frosted Sage' },
+        { value: 'urban-steel', label: 'Urban Steel' },
+      ],
+      defaultValue: 'secondary',
+      admin: {
+        position: 'sidebar',
+      },
     },
   ],
 };

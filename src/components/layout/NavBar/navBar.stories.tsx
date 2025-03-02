@@ -25,6 +25,7 @@ const meta: Meta<typeof NavBar> = {
   },
   args: {
     data: {
+      logoColor: 'secondary',
       id: 'nav-bar',
       navItems: [
         {

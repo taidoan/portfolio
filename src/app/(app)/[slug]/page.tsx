@@ -3,7 +3,9 @@ import configPromise from '@payload-config';
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload';
 import { cache } from 'react';
 import { draftMode } from 'next/headers';
+import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/utilities/generateMeta';
+import { Redirects } from '@/components/features/Redirects';
 
 export type Args = {
   params: Promise<{
@@ -16,13 +18,19 @@ const Page = async ({ params: paramsPromise }: Args) => {
   const { slug = 'home' } = await paramsPromise;
   const url = '/' + slug;
 
-  let page: RequiredDataFromCollectionSlug<'pages'> | null;
-
-  page = await queryPageBySlug({
+  const page: RequiredDataFromCollectionSlug<'pages'> | null = await queryPageBySlug({
     slug,
   });
 
-  return <>Hi</>;
+  if (!page) return <Redirects url={url} />;
+
+  return (
+    <>
+      <Redirects disableNotFound url={url} />
+      {draft && <LivePreviewListener />}
+      <div>Hello</div>
+    </>
+  );
 };
 
 export default Page;

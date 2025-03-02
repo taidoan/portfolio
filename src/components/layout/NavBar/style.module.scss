@@ -31,6 +31,10 @@
     box-shadow var(--transition-duration) ease,
     padding var(--transition-duration) ease;
 
+  @include mq(500, 'max', 'width') {
+    width: 100%;
+  }
+
   &[aria-hidden='true'] {
     background-color: transparent;
     grid-template-rows: 0fr;
@@ -103,6 +107,7 @@
 .nav__social {
   display: flex;
   flex-direction: row;
+  gap: rem(16);
   justify-content: space-between;
   margin-top: rem(40);
 

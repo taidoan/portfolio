@@ -1,0 +1,19 @@
+@use '@abstracts/_index' as *;
+
+.url-field-component {
+  .label-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: rem(8);
+  }
+
+  .copy-button {
+    margin-block: 0;
+    padding: 0;
+    svg {
+      height: rem(20);
+      width: rem(20);
+    }
+  }
+}
