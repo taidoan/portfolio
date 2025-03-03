@@ -14,6 +14,7 @@ import { numberOfProjects } from '@/fields/Projects/numberOfProjects';
 import { generatePreviewPath } from '@/utilities/generatePreviewPath';
 import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
 import { DividerBlock } from '@/blocks/Divider/config';
+import { SectionBlock } from '@/blocks/Section/config';
 export const Pages: CollectionConfig = {
   slug: 'pages',
   access: {
@@ -75,17 +76,8 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               name: 'layout',
               label: 'Layout',
-              blocks: [DividerBlock],
-            },
-          ],
-        },
-        {
-          label: 'Content',
-          fields: [
-            {
-              name: 'content',
-              type: 'richText',
-              label: 'Content',
+              blocks: [DividerBlock, SectionBlock],
+              required: true,
             },
           ],
         },

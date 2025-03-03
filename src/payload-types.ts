@@ -186,22 +186,7 @@ export interface Page {
   id: string;
   title: string;
   hero: HeroBlockProps;
-  layout?: DividerBlockProps[] | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  layout: (DividerBlockProps | SectionBlockProps)[];
   meta?: {
     title?: string | null;
     /**
@@ -297,16 +282,97 @@ export interface DividerBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "SectionBlockProps".
  */
-export interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  description?: string | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
+export interface SectionBlockProps {
+  sectionBlocks?: (DividerBlockProps | LinksBlockProps | LinksGroupBlockProps)[] | null;
+  boxedContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  appearance?: {
+    /**
+     * The layout of the section, you can choose between default, boxed, and full-width.
+     */
+    sectionType?: ('default' | 'boxed' | 'full-width') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+        )
+      | null;
+    alignContent?: ('left' | 'right') | null;
+    borderRadius?: ('small' | 'medium' | 'large' | 'circle') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksBlockProps".
+ */
+export interface LinksBlockProps {
+  link: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null);
+    url?: string | null;
+    label: string;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  blockSize?:
+    | (
+        | 'col-span-1'
+        | 'col-span-2'
+        | 'col-span-3'
+        | 'col-span-4'
+        | 'col-span-5'
+        | 'col-span-6'
+        | 'col-span-7'
+        | 'col-span-8'
+        | 'col-span-9'
+        | 'col-span-10'
+        | 'col-span-11'
+        | 'col-span-12'
+        | 'col-span-13'
+        | 'col-span-14'
+        | 'col-span-15'
+        | 'col-span-16'
+      )
+    | null;
+  alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+  justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'links';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -338,6 +404,73 @@ export interface Project {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksGroupBlockProps".
+ */
+export interface LinksGroupBlockProps {
+  linksGroup?:
+    | {
+        link: {
+          type: 'reference' | 'custom';
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
+              } | null);
+          url?: string | null;
+          label: string;
+          color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+          className?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  blockSize?:
+    | (
+        | 'col-span-1'
+        | 'col-span-2'
+        | 'col-span-3'
+        | 'col-span-4'
+        | 'col-span-5'
+        | 'col-span-6'
+        | 'col-span-7'
+        | 'col-span-8'
+        | 'col-span-9'
+        | 'col-span-10'
+        | 'col-span-11'
+        | 'col-span-12'
+        | 'col-span-13'
+        | 'col-span-14'
+        | 'col-span-15'
+        | 'col-span-16'
+      )
+    | null;
+  alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+  justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'links-group';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
+  parentCategory?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -618,8 +751,8 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         divider?: T | DividerBlockPropsSelect<T>;
+        section?: T | SectionBlockPropsSelect<T>;
       };
-  content?: T;
   meta?:
     | T
     | {
@@ -669,6 +802,81 @@ export interface DividerBlockPropsSelect<T extends boolean = true> {
   color?: T;
   opacity?: T;
   className?: T;
+  blockSize?: T;
+  alignSelf?: T;
+  justifySelf?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlockProps_select".
+ */
+export interface SectionBlockPropsSelect<T extends boolean = true> {
+  sectionBlocks?:
+    | T
+    | {
+        divider?: T | DividerBlockPropsSelect<T>;
+        links?: T | LinksBlockPropsSelect<T>;
+        'links-group'?: T | LinksGroupBlockPropsSelect<T>;
+      };
+  boxedContent?: T;
+  appearance?:
+    | T
+    | {
+        sectionType?: T;
+        backgroundColour?: T;
+        alignContent?: T;
+        borderRadius?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksBlockProps_select".
+ */
+export interface LinksBlockPropsSelect<T extends boolean = true> {
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        color?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
+  blockSize?: T;
+  alignSelf?: T;
+  justifySelf?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksGroupBlockProps_select".
+ */
+export interface LinksGroupBlockPropsSelect<T extends boolean = true> {
+  linksGroup?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              color?: T;
+              buttonShadow?: T;
+              className?: T;
+            };
+        id?: T;
+      };
   blockSize?: T;
   alignSelf?: T;
   justifySelf?: T;
@@ -1017,6 +1225,65 @@ export interface TaskSchedulePublish {
     user?: (string | null) | User;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksBlockRichtextProps".
+ */
+export interface LinksBlockRichtextProps {
+  link: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null);
+    url?: string | null;
+    label: string;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'links-richtext';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksGroupRichtextProps".
+ */
+export interface LinksGroupRichtextProps {
+  linksGroup?:
+    | {
+        link: {
+          type: 'reference' | 'custom';
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
+              } | null);
+          url?: string | null;
+          label: string;
+          color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+          className?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'links-group-richtext';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

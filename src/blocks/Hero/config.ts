@@ -1,5 +1,8 @@
 import { Field } from 'payload';
-import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
+import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
+import { DividerBlock } from '../Divider/config';
+import { LinksBlockRichtext } from '../LinkRichtext/config';
+import { LinksGroupRichtextBlock } from '../LinkRichtext/Group/config';
 
 export const Hero: Field = {
   name: 'hero',
@@ -49,6 +52,7 @@ export const Hero: Field = {
     {
       name: 'richText',
       type: 'richText',
+      editor: BlocksEditor,
       required: true,
       label: false,
     },

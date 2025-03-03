@@ -124,4 +124,8 @@
   @include mq('base-lg') {
     gap: rem(24);
   }
+
+  @include mq('md') {
+    display: none;
+  }
 }

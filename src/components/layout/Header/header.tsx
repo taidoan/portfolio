@@ -43,7 +43,7 @@ export const Header = ({ data, social }: HeaderProps) => {
       } else if (!isDesktop) {
         setScrolled(currentScrollY === 0 ? false : true);
       } else {
-        setScrolled(currentScrollY < headerHeight ? false : true);
+        setScrolled(currentScrollY < headerHeight / 5 ? false : true);
       }
     };
 
@@ -57,7 +57,11 @@ export const Header = ({ data, social }: HeaderProps) => {
     <>
       <header className={headerClass} ref={headerRef}>
         <div className={style.container}>
-          <Logo colour={data.logoColor || 'secondary'} linkClassName='site-logo' />
+          <Logo
+            colour={data.logoColor || 'secondary'}
+            linkClassName='site-logo'
+            className={style.logo}
+          />
           <NavBar data={data} social={social} />
         </div>
       </header>

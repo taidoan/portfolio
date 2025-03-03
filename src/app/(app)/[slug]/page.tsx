@@ -7,6 +7,7 @@ import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/utilities/generateMeta';
 import { Redirects } from '@/components/features/Redirects';
 import { RenderHero } from '@/blocks/Hero/renderHero';
+import { RenderBlocks } from '@/blocks/RenderBlocks';
 
 export type Args = {
   params: Promise<{
@@ -25,13 +26,14 @@ const Page = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
-  const { hero } = page;
+  const { hero, layout } = page;
 
   return (
     <>
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
       <RenderHero heroData={hero} />
+      <RenderBlocks blocks={layout} />
       <div>Hello</div>
     </>
   );

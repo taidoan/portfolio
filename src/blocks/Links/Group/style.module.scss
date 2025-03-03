@@ -1,0 +1,11 @@
+@use '@abstracts/_index' as *;
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+
+  @include mq('md') {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
