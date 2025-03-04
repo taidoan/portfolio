@@ -5,6 +5,7 @@ import { DividerBlock } from '../Divider';
 import { LinksBlock } from '../Links';
 import { LinksGroupBlock } from '../Links/Group';
 import { IntroBlock } from '../Intro';
+import { MediaBlock } from '../Media';
 
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -14,6 +15,7 @@ const blockComponents = {
   links: LinksBlock,
   'links-group': LinksGroupBlock,
   introBlock: IntroBlock,
+  mediaBlock: MediaBlock,
 };
 
 export const SectionBlock = ({

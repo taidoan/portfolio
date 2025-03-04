@@ -3,12 +3,13 @@ import { DividerBlock } from '../Divider/config';
 import { LinksBlock } from '../Links/config';
 import { LinksGroupBlock } from '../Links/Group/config';
 import { IntroBlock } from '../Intro/config';
+import { MediaBlock } from '../Media/config';
 
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
 import { BorderRadius } from '@/fields/BorderRadius';
-
-const Blocks = [DividerBlock, LinksBlock, LinksGroupBlock, IntroBlock];
+import { ClassName } from '@/fields/ClassName';
+const Blocks = [DividerBlock, LinksBlock, LinksGroupBlock, IntroBlock, MediaBlock];
 
 export const SectionBlock: Block = {
   slug: 'section',
@@ -133,6 +134,15 @@ export const SectionBlock: Block = {
                   ],
                 },
               ],
+              admin: {
+                style: {
+                  marginBottom: '1rem',
+                },
+              },
+            },
+            {
+              type: 'row',
+              fields: [...ClassName()],
             },
           ],
         },

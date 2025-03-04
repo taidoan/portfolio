@@ -1,0 +1,77 @@
+'use client';
+import Image, { ImageLoaderProps } from 'next/image';
+const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT;
+import s from './../style.module.scss';
+
+export interface OptimizedImageProps {
+  src: string;
+  alt: string;
+  width?: number | null;
+  height?: number | null;
+  className?: string;
+  priority?: boolean;
+  sizes?: string;
+  fill?: boolean;
+  quality?: number;
+  style?: Record<string, string>;
+  onClick?: () => void;
+}
+
+const imageKitLoader = ({ src, width, quality }: ImageLoaderProps): string => {
+  const params = [`w-${width}`, `q-${quality || 80}`, 'f-auto', 'tr-progressive'].join(',');
+
+  return `${urlEndpoint}/tr:${params}/${src}`;
+};
+
+/**
+ * OptimizedImage component is a reusable component that extends the NextJS image component with ImageKit optimizations.
+ * @param {OptimizedImageProps} props
+ * @param {string} [props.src] - The source URL of the image.
+ * @param {string} [props.alt] - The alternative text for the image.
+ * @param {number} [props.width] - The width of the image.
+ * @param {number} [props.height] - The height of the image.
+ * @param {string} [props.className] - The class name for the image element.
+ * @param {boolean} [props.priority=false] - Whether to prioritize the image for high-quality display.
+ * @param {string} [props.sizes='100vw'] - The sizes attribute for the image element.
+ * @param {boolean} [props.fill=false] - Whether to fill the available space.
+ * @param {number} [props.quality=80] - The quality of the image.
+ * @returns {JSX.Element} The rendered image element.
+ * @see {@link https://imagekit.io/features/image-optimization ImageKit Image Optimization}
+ * @see {@link https://nextjs.org/docs/app/building-your-application/optimizing/image-optimization NextJS Image Optimization}
+ * @example
+ * ```tsx
+ * <OptimizedImage src="image.jpg" />
+ * ```
+ */
+export const ImageMedia = ({
+  src,
+  alt,
+  width,
+  height,
+  className = '',
+  priority = false,
+  sizes = '100vw',
+  fill = false,
+  quality = 80,
+  style = {},
+  onClick,
+}: OptimizedImageProps) => {
+  return (
+    <Image
+      loader={imageKitLoader}
+      src={src}
+      alt={alt}
+      className={`${className} ${s.optimizedImage}`}
+      priority={priority}
+      sizes={sizes}
+      {...(fill ? { fill: true } : { width: width ?? 100, height: height ?? 100 })}
+      quality={quality}
+      style={style}
+      placeholder='blur'
+      blurDataURL={
+        'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
+      }
+      onClick={onClick}
+    />
+  );
+};

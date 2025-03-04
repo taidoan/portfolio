@@ -293,7 +293,13 @@ export interface DividerBlockProps {
  */
 export interface SectionBlockProps {
   sectionBlocks?:
-    | (DividerBlockProps | LinksBlockProps | LinksGroupBlockProps | IntroBlockProps)[]
+    | (
+        | DividerBlockProps
+        | LinksBlockProps
+        | LinksGroupBlockProps
+        | IntroBlockProps
+        | MediaBlockProps
+      )[]
     | null;
   boxedContent?: {
     root: {
@@ -330,8 +336,9 @@ export interface SectionBlockProps {
     alignContent?: ('left' | 'right') | null;
     borderRadius?: ('small' | 'medium' | 'large' | 'circle') | null;
   };
-  id?: string | null;
   blockName?: string | null;
+  hiddenSlug?: string | null;
+  id?: string | null;
   blockType: 'section';
 }
 /**
@@ -529,6 +536,64 @@ export interface IntroBlockProps {
   };
   id?: string | null;
   blockType: 'introBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlockProps".
+ */
+export interface MediaBlockProps {
+  media: string | Media;
+  mediaType?: ('image' | 'video') | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  borderRadius?: ('small' | 'medium' | 'large' | 'circle') | null;
+  borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
+  videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
+  videoWidth?: number | null;
+  videoHeight?: number | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -895,6 +960,7 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         links?: T | LinksBlockPropsSelect<T>;
         'links-group'?: T | LinksGroupBlockPropsSelect<T>;
         introBlock?: T | IntroBlockPropsSelect<T>;
+        mediaBlock?: T | MediaBlockPropsSelect<T>;
       };
   boxedContent?: T;
   appearance?:
@@ -905,8 +971,9 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         alignContent?: T;
         borderRadius?: T;
       };
-  id?: T;
   blockName?: T;
+  hiddenSlug?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -983,6 +1050,29 @@ export interface IntroBlockPropsSelect<T extends boolean = true> {
         justifySelf?: T;
       };
   id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlockProps_select".
+ */
+export interface MediaBlockPropsSelect<T extends boolean = true> {
+  media?: T;
+  mediaType?: T;
+  caption?: T;
+  borderRadius?: T;
+  borderRadiusSides?: T;
+  videoPlayerWidth?: T;
+  videoWidth?: T;
+  videoHeight?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

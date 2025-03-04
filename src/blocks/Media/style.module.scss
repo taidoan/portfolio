@@ -1,0 +1,8 @@
+@use "@abstracts/_index" as *;
+
+.image__container {
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  width: auto;
+}
