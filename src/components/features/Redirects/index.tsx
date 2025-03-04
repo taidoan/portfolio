@@ -1,6 +1,6 @@
 import type { Page, Project, Service } from '@/payload-types';
-import { getCachedRedirects } from '@/utilities/getRedirects';
-import { getCachedDocument } from '@/utilities/getDoc';
+import { getCachedRedirects } from '@/lib/utilities/getRedirects';
+import { getCachedDocument } from '@/lib/utilities/getDoc';
 import { notFound, redirect } from 'next/navigation';
 
 export type RedirectsProps = {

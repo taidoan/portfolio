@@ -5,7 +5,7 @@ import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { GenerateTitle, GenerateURL, GenerateImage } from '@payloadcms/plugin-seo/types';
 import { Project, Page, Service } from '@/payload-types';
-import { getServerSideURL, getCDNURL } from '@/utilities/getURLs';
+import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 
 const generateTitle: GenerateTitle<Project | Page | Service> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Tai Doan` : 'Tai Doan Portfolio Website';

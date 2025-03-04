@@ -34,8 +34,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   },
 });
 
-export const RichText = ({ className, ...rest }: RichTextProps) => (
-  <RichTextBase converters={jsxConverters} className={className} {...rest} />
+export const RichText = ({ className, converters = jsxConverters, ...rest }: RichTextProps) => (
+  <RichTextBase converters={converters} className={className} {...rest} />
 );
 
 export default RichText;

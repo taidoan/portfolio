@@ -7,7 +7,7 @@ import style from './style.module.scss';
 import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 export type NavBarProps = {
   data: Header;

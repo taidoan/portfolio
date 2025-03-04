@@ -1,6 +1,6 @@
 import type { LinksGroupBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/Button';
-import { getHref } from '@/utilities/getHref';
+import { getHref } from '@/lib/utilities/getHref';
 import style from './style.module.scss';
 import clsx from 'clsx';
 

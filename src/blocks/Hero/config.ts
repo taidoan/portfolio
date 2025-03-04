@@ -1,8 +1,5 @@
 import { Field } from 'payload';
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
-import { DividerBlock } from '../Divider/config';
-import { LinksBlockRichtext } from '../LinkRichtext/config';
-import { LinksGroupRichtextBlock } from '../LinkRichtext/Group/config';
 
 export const Hero: Field = {
   name: 'hero',
@@ -14,95 +11,100 @@ export const Hero: Field = {
   },
   fields: [
     {
-      type: 'row',
-      fields: [
-        {
-          name: 'image',
-          type: 'upload',
-          label: 'Background Image',
-          relationTo: 'media',
-          admin: {
-            width: '50%',
-          },
+      type: 'tabs',
+      admin: {
+        style: {
+          height: '50%',
+          backgroundColor: 'red',
         },
+      },
+      tabs: [
         {
-          name: 'type',
-          label: 'Hero Size',
-          type: 'select',
-          defaultValue: 'large',
-          options: [
-            { value: 'small', label: 'Small' },
-            { value: 'medium', label: 'Medium' },
-            { value: 'large', label: 'Large' },
-          ],
-          required: true,
-          admin: {
-            width: '50%',
-            style: {
-              height: '100%',
-              display: 'flex',
-              alignItems: 'stretch',
-              justifyContent: 'center',
-              flexWrap: 'wrap',
+          label: 'Content',
+          fields: [
+            {
+              name: 'richText',
+              type: 'richText',
+              editor: BlocksEditor,
+              required: true,
+              label: false,
             },
-          },
+          ],
         },
-      ],
-    },
-    {
-      name: 'richText',
-      type: 'richText',
-      editor: BlocksEditor,
-      required: true,
-      label: false,
-    },
-    {
-      type: 'row',
-      fields: [
         {
-          type: 'checkbox',
-          name: 'showBreadcrumb',
-          label: 'Show Breadcrumb',
-          defaultValue: true,
-          admin: {
-            width: '33.3333%',
-            style: {
-              display: 'flex',
-              justifyContent: 'center',
-              flexWrap: 'wrap',
+          label: 'Appearance',
+          fields: [
+            {
+              name: 'type',
+              label: 'Hero Size',
+              type: 'select',
+              defaultValue: 'large',
+              options: [
+                { value: 'small', label: 'Small' },
+                { value: 'medium', label: 'Medium' },
+                { value: 'large', label: 'Large' },
+              ],
+              required: true,
             },
-          },
+            {
+              name: 'image',
+              type: 'upload',
+              label: 'Background Image',
+              relationTo: 'media',
+            },
+          ],
         },
         {
-          type: 'select',
-          name: 'breadcrumbContainer',
-          label: 'Breadcrumb Container',
-          options: [
-            { value: 'none', label: 'None' },
-            { value: 'boxed', label: 'Boxed' },
+          label: 'Breadcrumbs',
+          fields: [
+            {
+              name: 'showBreadcrumb',
+              type: 'select',
+              label: 'Show Breadcrumb',
+              options: [
+                { value: 'true', label: 'Yes' },
+                { value: 'false', label: 'No' },
+              ],
+              defaultValue: 'true',
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'select',
+                  name: 'breadcrumbContainer',
+                  label: 'Breadcrumb Container',
+                  options: [
+                    { value: 'none', label: 'None' },
+                    { value: 'boxed', label: 'Boxed' },
+                  ],
+                  defaultValue: 'boxed',
+                  admin: {
+                    condition: (_, siblingData) => siblingData.showBreadcrumb === 'true',
+                    width: '50%',
+                  },
+                },
+                {
+                  type: 'select',
+                  name: 'breadcrumbBackground',
+                  label: 'Breadcrumb Background',
+                  options: [
+                    { value: 'none', label: 'None' },
+                    { value: 'light', label: 'Light' },
+                    { value: 'dark', label: 'Dark' },
+                    { value: 'translucent', label: 'Translucent' },
+                  ],
+                  defaultValue: 'translucent',
+                  admin: {
+                    width: '50%',
+                    condition: (_, siblingData) =>
+                      siblingData.showBreadcrumb === 'true' &&
+                      siblingData.breadcrumbContainer === 'boxed',
+                  },
+                },
+              ],
+            },
           ],
-          defaultValue: 'boxed',
-          admin: {
-            width: '33.3333%',
-            condition: (_, siblingData) => siblingData.showBreadcrumb === true,
-          },
-        },
-        {
-          type: 'select',
-          name: 'breadcrumbBackground',
-          label: 'Breadcrumb Background',
-          options: [
-            { value: 'none', label: 'None' },
-            { value: 'light', label: 'Light' },
-            { value: 'dark', label: 'Dark' },
-            { value: 'translucent', label: 'Translucent' },
-          ],
-          defaultValue: 'translucent',
-          admin: {
-            width: '33.3333%',
-            condition: (_, siblingData) =>
-              siblingData.showBreadcrumb === true && siblingData.breadcrumbContainer === 'boxed',
-          },
         },
       ],
     },

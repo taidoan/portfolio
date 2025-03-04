@@ -88,7 +88,9 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -184,7 +186,6 @@ export interface Media {
  */
 export interface Page {
   id: string;
-  title: string;
   hero: HeroBlockProps;
   layout: (DividerBlockProps | SectionBlockProps)[];
   meta?: {
@@ -195,6 +196,7 @@ export interface Page {
     image?: (string | null) | Media;
     description?: string | null;
   };
+  title: string;
   slug: string;
   slugLock?: boolean | null;
   url?: string | null;
@@ -221,8 +223,6 @@ export interface Page {
  * via the `definition` "HeroBlockProps".
  */
 export interface HeroBlockProps {
-  image?: (string | null) | Media;
-  type: 'small' | 'medium' | 'large';
   richText: {
     root: {
       type: string;
@@ -238,7 +238,9 @@ export interface HeroBlockProps {
     };
     [k: string]: unknown;
   };
-  showBreadcrumb?: boolean | null;
+  type: 'small' | 'medium' | 'large';
+  image?: (string | null) | Media;
+  showBreadcrumb?: ('true' | 'false') | null;
   breadcrumbContainer?: ('none' | 'boxed') | null;
   breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
 }
@@ -254,28 +256,33 @@ export interface DividerBlockProps {
   color?: ('primary' | 'secondary' | 'accent' | 'light-grey') | null;
   opacity?: number | null;
   className?: string | null;
-  blockSize?:
-    | (
-        | 'col-span-1'
-        | 'col-span-2'
-        | 'col-span-3'
-        | 'col-span-4'
-        | 'col-span-5'
-        | 'col-span-6'
-        | 'col-span-7'
-        | 'col-span-8'
-        | 'col-span-9'
-        | 'col-span-10'
-        | 'col-span-11'
-        | 'col-span-12'
-        | 'col-span-13'
-        | 'col-span-14'
-        | 'col-span-15'
-        | 'col-span-16'
-      )
-    | null;
-  alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-  justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'divider';
@@ -285,7 +292,9 @@ export interface DividerBlockProps {
  * via the `definition` "SectionBlockProps".
  */
 export interface SectionBlockProps {
-  sectionBlocks?: (DividerBlockProps | LinksBlockProps | LinksGroupBlockProps)[] | null;
+  sectionBlocks?:
+    | (DividerBlockProps | LinksBlockProps | LinksGroupBlockProps | IntroBlockProps)[]
+    | null;
   boxedContent?: {
     root: {
       type: string;
@@ -348,28 +357,33 @@ export interface LinksBlockProps {
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
-  blockSize?:
-    | (
-        | 'col-span-1'
-        | 'col-span-2'
-        | 'col-span-3'
-        | 'col-span-4'
-        | 'col-span-5'
-        | 'col-span-6'
-        | 'col-span-7'
-        | 'col-span-8'
-        | 'col-span-9'
-        | 'col-span-10'
-        | 'col-span-11'
-        | 'col-span-12'
-        | 'col-span-13'
-        | 'col-span-14'
-        | 'col-span-15'
-        | 'col-span-16'
-      )
-    | null;
-  alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-  justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'links';
@@ -433,31 +447,88 @@ export interface LinksGroupBlockProps {
         id?: string | null;
       }[]
     | null;
-  blockSize?:
-    | (
-        | 'col-span-1'
-        | 'col-span-2'
-        | 'col-span-3'
-        | 'col-span-4'
-        | 'col-span-5'
-        | 'col-span-6'
-        | 'col-span-7'
-        | 'col-span-8'
-        | 'col-span-9'
-        | 'col-span-10'
-        | 'col-span-11'
-        | 'col-span-12'
-        | 'col-span-13'
-        | 'col-span-14'
-        | 'col-span-15'
-        | 'col-span-16'
-      )
-    | null;
-  alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-  justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'links-group';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroBlockProps".
+ */
+export interface IntroBlockProps {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  textAlign?: ('left' | 'center' | 'right') | null;
+  blockName?: string | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockType: 'introBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -745,7 +816,6 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  title?: T;
   hero?: T | HeroBlockPropsSelect<T>;
   layout?:
     | T
@@ -760,6 +830,7 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  title?: T;
   slug?: T;
   slugLock?: T;
   url?: T;
@@ -783,9 +854,9 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "HeroBlockProps_select".
  */
 export interface HeroBlockPropsSelect<T extends boolean = true> {
-  image?: T;
-  type?: T;
   richText?: T;
+  type?: T;
+  image?: T;
   showBreadcrumb?: T;
   breadcrumbContainer?: T;
   breadcrumbBackground?: T;
@@ -802,9 +873,13 @@ export interface DividerBlockPropsSelect<T extends boolean = true> {
   color?: T;
   opacity?: T;
   className?: T;
-  blockSize?: T;
-  alignSelf?: T;
-  justifySelf?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -819,6 +894,7 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         divider?: T | DividerBlockPropsSelect<T>;
         links?: T | LinksBlockPropsSelect<T>;
         'links-group'?: T | LinksGroupBlockPropsSelect<T>;
+        introBlock?: T | IntroBlockPropsSelect<T>;
       };
   boxedContent?: T;
   appearance?:
@@ -849,9 +925,13 @@ export interface LinksBlockPropsSelect<T extends boolean = true> {
         buttonShadow?: T;
         className?: T;
       };
-  blockSize?: T;
-  alignSelf?: T;
-  justifySelf?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -877,11 +957,32 @@ export interface LinksGroupBlockPropsSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  blockSize?: T;
-  alignSelf?: T;
-  justifySelf?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroBlockProps_select".
+ */
+export interface IntroBlockPropsSelect<T extends boolean = true> {
+  introContent?: T;
+  textAlign?: T;
+  blockName?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1120,7 +1221,14 @@ export interface Header {
     };
     id?: string | null;
   }[];
-  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
+  logoColor:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'light'
+    | 'slate'
+    | 'frosted-sage'
+    | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1292,7 +1400,6 @@ export interface LinksGroupRichtextProps {
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

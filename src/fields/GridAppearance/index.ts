@@ -1,13 +1,15 @@
-import type { CollapsibleField } from 'payload';
+import type { GroupField } from 'payload';
 import { blockSize } from '@/fields/BlockSize';
 
-export const GridAppearance = (): CollapsibleField => {
-  const result: CollapsibleField = {
-    type: 'collapsible',
-    label: 'Grid Appearance Options',
+export const GridAppearance = (): GroupField => {
+  const result: GroupField = {
+    type: 'group',
+    name: 'gridAppearance',
+    label: 'Grid Options',
     admin: {
       description:
         'Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.',
+      hideGutter: true,
     },
     fields: [
       {

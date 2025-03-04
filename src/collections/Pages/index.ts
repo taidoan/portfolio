@@ -11,7 +11,7 @@ import { slugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { Hero } from '@/blocks/Hero/config';
 import { numberOfProjects } from '@/fields/Projects/numberOfProjects';
-import { generatePreviewPath } from '@/utilities/generatePreviewPath';
+import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
 import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
 import { DividerBlock } from '@/blocks/Divider/config';
 import { SectionBlock } from '@/blocks/Section/config';
@@ -56,12 +56,6 @@ export const Pages: CollectionConfig = {
     afterDelete: [revalidateDelete],
   },
   fields: [
-    {
-      name: 'title',
-      type: 'text',
-      required: true,
-      label: 'Title',
-    },
     {
       type: 'tabs',
       tabs: [
@@ -110,6 +104,15 @@ export const Pages: CollectionConfig = {
           },
         },
       ],
+    },
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      label: 'Title',
+      admin: {
+        position: 'sidebar',
+      },
     },
     ...slugField(),
     urlField(),

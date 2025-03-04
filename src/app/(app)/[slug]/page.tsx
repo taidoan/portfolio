@@ -4,7 +4,7 @@ import { getPayload, type RequiredDataFromCollectionSlug } from 'payload';
 import { cache } from 'react';
 import { draftMode } from 'next/headers';
 import { LivePreviewListener } from '@/components/features/LivePreview';
-import { generateMeta } from '@/utilities/generateMeta';
+import { generateMeta } from '@/lib/utilities/generateMeta';
 import { Redirects } from '@/components/features/Redirects';
 import { RenderHero } from '@/blocks/Hero/renderHero';
 import { RenderBlocks } from '@/blocks/RenderBlocks';

@@ -24,14 +24,15 @@
       "@scripts/*": ["./scripts/*"],
       "@payload-config": ["./src/payload.config.ts"],
       "@fields/*": ["./src/fields/*"],
-      "@utilities/*": ["./src/utilities/*"],
+      "@utilities/*": ["src/lib/utilities/*"],
       "@components/*": ["./src/components/*"],
       "@collections/*": ["./src/collections/*"],
       "@globals/*": ["./src/globals/*"],
-      "@hooks/*": ["./src/hooks/*"],
+      "@hooks/*": ["src/lib/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/styles/*"],
-      "@abstracts/*": ["./src/styles/abstracts/*"]
+      "@abstracts/*": ["./src/styles/abstracts/*"],
+      "@editor/*": ["./src/lib/editor/*"]
     },
     "target": "ES2022",
     "types": ["vitest/globals"]

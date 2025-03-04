@@ -1,30 +1,83 @@
 import type { SectionBlockProps } from '@/payload-types';
+import clsx from 'clsx';
+
 import { DividerBlock } from '../Divider';
 import { LinksBlock } from '../Links';
 import { LinksGroupBlock } from '../Links/Group';
+import { IntroBlock } from '../Intro';
+
+import { headingConverter } from '@/components/ui/RichText/converters/heading';
+import { RichText } from '@payloadcms/richtext-lexical/react';
 
 const blockComponents = {
   divider: DividerBlock,
   links: LinksBlock,
   'links-group': LinksGroupBlock,
+  introBlock: IntroBlock,
 };
 
-export const SectionBlock = ({ sectionBlocks }: SectionBlockProps) => {
-  const hasContent = sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0;
+export const SectionBlock = ({
+  sectionBlocks,
+  appearance,
+  boxedContent,
+  blockName,
+}: SectionBlockProps) => {
+  const hasContent =
+    boxedContent || (sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0);
+  const hasBlocks = sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0;
+  const isBoxedLayout =
+    appearance?.sectionType === 'boxed' && boxedContent && boxedContent.root.children.length > 0;
 
   if (hasContent) {
-    return (
-      <div>
-        {sectionBlocks.map((block) => {
-          const BlockComponent = blockComponents[block.blockType];
-          if (!BlockComponent) return null;
+    if (!appearance) return null;
 
-          return (
-            /* @ts-expect-error there may be some mismatch between the expected types here */
-            <BlockComponent key={block.id} {...block} />
-          );
-        })}
-      </div>
+    const sectionClasses = clsx('section', {
+      [`bg--${appearance.backgroundColour}`]:
+        !isBoxedLayout && appearance.backgroundColour && appearance.backgroundColour !== 'none',
+      'full-width': appearance.sectionType === 'full-width',
+    });
+
+    const sectionWrapperClasses = clsx({
+      section__wrapper: !isBoxedLayout,
+      'section__boxed-layout': isBoxedLayout,
+      [`section__boxed-layout--${appearance.alignContent}`]: isBoxedLayout,
+      [`bg--${appearance.backgroundColour}`]:
+        isBoxedLayout && appearance.backgroundColour !== 'none' && appearance.backgroundColour,
+      [`border-radius--${appearance.borderRadius}`]: isBoxedLayout && appearance.borderRadius,
+    });
+
+    return (
+      <section className={sectionClasses}>
+        <div className={sectionWrapperClasses}>
+          {hasBlocks ? (
+            sectionBlocks?.map((block, index) => {
+              const { blockType } = block;
+
+              if (blockType && blockType in blockComponents) {
+                const Block = blockComponents[blockType];
+
+                if (Block) {
+                  const blockClasses = clsx({
+                    [`${block.gridAppearance?.blockSize}`]: block.gridAppearance?.blockSize,
+                    [`align-self__${block.gridAppearance?.alignSelf}`]:
+                      block.gridAppearance?.alignSelf,
+                    [`justify-self__${block.gridAppearance?.justifySelf}`]:
+                      block.gridAppearance?.justifySelf,
+                  });
+
+                  return (
+                    /* @ts-expect-error there may be some mismatch between the expected types here */
+                    <Block key={index} {...block} disableInnerContainer className={blockClasses} />
+                  );
+                }
+              }
+              return null;
+            })
+          ) : isBoxedLayout ? (
+            <RichText converters={headingConverter} data={boxedContent} />
+          ) : null}
+        </div>
+      </section>
     );
   }
 };

@@ -1,10 +1,14 @@
+import { Block } from 'payload';
 import { DividerBlock } from '../Divider/config';
 import { LinksBlock } from '../Links/config';
 import { LinksGroupBlock } from '../Links/Group/config';
-import { Block } from 'payload';
+import { IntroBlock } from '../Intro/config';
+
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
 import { BorderRadius } from '@/fields/BorderRadius';
+
+const Blocks = [DividerBlock, LinksBlock, LinksGroupBlock, IntroBlock];
 
 export const SectionBlock: Block = {
   slug: 'section',
@@ -20,7 +24,7 @@ export const SectionBlock: Block = {
               name: 'sectionBlocks',
               type: 'blocks',
               label: 'Blocks',
-              blocks: [DividerBlock, LinksBlock, LinksGroupBlock],
+              blocks: Blocks,
               admin: {
                 condition: (_, siblingData) => {
                   if (siblingData.appearance?.sectionType === 'boxed') {
@@ -47,9 +51,7 @@ export const SectionBlock: Block = {
           ],
         },
         {
-          label: 'Appearance',
-          description:
-            "Various appearance options for the section. Display property and it's associated properties mainly affect desktop screens as mobile is standard layout.",
+          label: 'Options',
           fields: [
             {
               name: 'appearance',
@@ -78,11 +80,18 @@ export const SectionBlock: Block = {
                     BackgroundColour({
                       admin: {
                         width: '50%',
+                        condition: (_, siblingData) => {
+                          if (siblingData.sectionType !== 'default') {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        },
                       },
                       hooks: {
                         beforeValidate: [
                           ({ value, siblingData }) => {
-                            if (siblingData.layout === 'default') {
+                            if (siblingData.sectionType === 'default') {
                               return (value = 'none');
                             } else {
                               return value;

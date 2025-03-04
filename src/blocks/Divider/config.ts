@@ -8,7 +8,6 @@ export const DividerBlock: Block = {
     singular: 'Divider',
     plural: 'Dividers',
   },
-
   fields: [
     {
       type: 'row',

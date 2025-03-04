@@ -2,7 +2,7 @@ import type { HeroBlockProps } from '@/payload-types';
 import { RichText } from '@/components/ui/RichText';
 import style from './style.module.scss';
 import clsx from 'clsx';
-import { getCDNURL } from '@/utilities/getURLs';
+import { getCDNURL } from '@/lib/utilities/getURLs';
 
 export type LargeHeroProps = HeroBlockProps;
 

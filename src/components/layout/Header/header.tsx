@@ -4,7 +4,7 @@ import { NavBar } from '@components/layout/NavBar/navBar';
 import { Logo } from '@components/ui/Logo';
 import style from './style.module.scss';
 import { useEffect, useState, useRef } from 'react';
-import { useMediaQuery } from '@hooks/useMediaQuery';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import clsx from 'clsx';
 
 export type HeaderProps = {

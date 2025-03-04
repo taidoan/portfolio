@@ -2,15 +2,15 @@ import type { Metadata } from 'next';
 import { inter, barlow, barlow_condensed } from '@/lib/fonts';
 import '@styles/index.scss';
 import { draftMode } from 'next/headers';
-import { getServerSideURL } from '@/utilities/getURLs';
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph';
+import { getServerSideURL } from '@/lib/utilities/getURLs';
+import { mergeOpenGraph } from '@/lib/utilities/mergeOpenGraph';
 import Header from '@components/layout/Header';
 import type {
   Header as HeaderType,
   Social as SocialType,
   Footer as FooterType,
 } from '@/payload-types';
-import { getCachedGlobal } from '@/utilities/getGlobal';
+import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 import Footer from '@components/layout/Footer';
 
 export default async function RootLayout({

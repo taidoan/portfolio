@@ -1,6 +1,6 @@
 import type { LinksBlockProps } from '@/payload-types';
 import { Button } from '@/components/ui/Button';
-import { getHref } from '@/utilities/getHref';
+import { getHref } from '@/lib/utilities/getHref';
 import clsx from 'clsx';
 
 export type Props = {

@@ -1,7 +1,7 @@
 import type { Page, Project, Service, Category } from '@/payload-types';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getHref } from '@/utilities/getHref';
+import { getHref } from '@/lib/utilities/getHref';
 import clsx from 'clsx';
 import style from './style.module.scss';
 
