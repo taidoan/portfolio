@@ -24,6 +24,9 @@ $colour-palette: (
   'concrete': hsla(60, 7%, 95%, 1),
   'gallery': hsla(60, 9%, 93%, 1),
   'light-grey': hsl(0, 0%, 85%),
+  'fresh-leaf': rgb(69, 200, 91),
+  'cherry-punch': hsla(355, 80%, 55%, 1),
+  'amber-glow': hsla(35, 100%, 50%, 1),
 );
 
 /// @type map
@@ -42,7 +45,22 @@ $project-colours: (
   concrete: generate-shades(map.get($colour-palette, 'concrete')),
   gallery: generate-shades(map.get($colour-palette, 'gallery')),
   'light-grey': generate-shades(map.get($colour-palette, 'light-grey')),
+  fresh-leaf: generate-shades(map.get($colour-palette, 'fresh-leaf')),
+  cherry-punch: generate-shades(map.get($colour-palette, 'cherry-punch')),
+  amber-glow: generate-shades(map.get($colour-palette, 'amber-glow')),
 );
+
+/// Success background color
+/// @type Color
+$success-background-color: map.get($project-colours, 'fresh-leaf', 350) !default;
+
+/// Error background color
+/// @type Color
+$error-background-color: map.get($project-colours, 'cherry-punch', 500) !default;
+
+/// Warning background color
+/// @type Color
+$warning-background-color: map.get($project-colours, 'amber-glow', 400) !default;
 
 /// Focus background color
 /// @type Color

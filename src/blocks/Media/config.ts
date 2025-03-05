@@ -45,10 +45,12 @@ export const MediaBlock: Block = {
                         });
 
                         if (mediaDoc?.mimeType?.startsWith('image/')) {
-                          return (value = 'image');
+                          return 'image';
                         } else if (mediaDoc?.mimeType?.startsWith('video/')) {
-                          return (value = 'video');
+                          return 'video';
                         }
+
+                        return value;
                       },
                     ],
                   },

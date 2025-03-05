@@ -4,6 +4,7 @@ import { VideoMedia } from '@/components/ui/Media/Video';
 import RichText from '@/components/ui/RichText';
 import style from './style.module.scss';
 import clsx from 'clsx';
+import { Alert } from '@/components/ui/Alert';
 
 export type Props = {
   className?: string;
@@ -80,7 +81,9 @@ export const MediaBlock = ({
           style={appearanceStyles}
         />
       ) : (
-        'Unsupported media type, the media must be either a video or an image.'
+        <Alert severity='error'>
+          Unsupported media type, the media must be either a video or an image.
+        </Alert>
       )}
 
       {caption && (

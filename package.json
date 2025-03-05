@@ -90,6 +90,7 @@
     "sassdoc-theme-herman": "^6.0.2",
     "storybook": "^8.6.2",
     "storybook-addon-pseudo-states": "^4.0.2",
+    "storybook-dark-mode": "^4.0.2",
     "typescript": "5.7.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.7"

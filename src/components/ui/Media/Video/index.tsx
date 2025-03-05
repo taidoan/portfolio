@@ -1,5 +1,6 @@
 'use client';
 import { getCDNURL } from '@/lib/utilities/getURLs';
+import { Alert, AlertTitle } from '@/components/ui/Alert';
 const urlEndpoint = getCDNURL();
 
 export interface VideoMediaProps {
@@ -33,7 +34,12 @@ export const VideoMedia = ({
 }: VideoMediaProps) => {
   if (!src) {
     console.error('Video Media: No video source provided.');
-    return null;
+    return (
+      <Alert severity='error'>
+        <AlertTitle>Video Media</AlertTitle>
+        No video source provided.
+      </Alert>
+    );
   }
 
   const extension = src.split('.').pop()?.toLowerCase();
@@ -42,7 +48,12 @@ export const VideoMedia = ({
 
   if (!mimeType) {
     console.error(`Video Media: Unsupported video format for '${src}'`);
-    return null;
+    return (
+      <Alert severity='error'>
+        <AlertTitle>Video Media</AlertTitle>
+        Unsupported video format for {src}.
+      </Alert>
+    );
   }
 
   const transformedVideoUrl = `${urlEndpoint}/${src}?tr=w-${videoWidth},h-${videoHeight},cm-pad_resize,bg-blurred`;
@@ -56,7 +67,7 @@ export const VideoMedia = ({
       style={style}
     >
       <source src={transformedVideoUrl} type={mimeType} />
-      Your browser does not support the video tag.
+      <Alert severity='warning'>Your browser does not support the video tag.</Alert>
     </video>
   );
 };

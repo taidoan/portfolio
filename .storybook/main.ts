@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     '@storybook/experimental-addon-test',
     'storybook-addon-pseudo-states',
     '@storybook/addon-a11y',
+    'storybook-dark-mode',
   ],
   framework: {
     name: '@storybook/experimental-nextjs-vite',
