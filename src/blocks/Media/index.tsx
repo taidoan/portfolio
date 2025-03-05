@@ -1,8 +1,9 @@
 import type { MediaBlockProps } from '@/payload-types';
-import { ImageMedia as OptimizedImage } from '@/components/ui/Media/Image';
+import { ImageMedia } from '@/components/ui/Media/Image';
+import { VideoMedia } from '@/components/ui/Media/Video';
 import RichText from '@/components/ui/RichText';
 import style from './style.module.scss';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 export type Props = {
   className?: string;
@@ -25,7 +26,7 @@ export const MediaBlock = ({
   const isVideo = media.mimeType.startsWith('video/');
   const isImage = media.mimeType.startsWith('image/');
 
-  const figureClasses = classNames({
+  const figureClasses = clsx({
     [`${className}`]: className,
     [`${style.image}`]: isImage,
     [`${style.video}`]: isVideo,
@@ -60,18 +61,30 @@ export const MediaBlock = ({
 
   return (
     <figure className={figureClasses}>
-      <OptimizedImage
-        src={encodedFilename ?? ''}
-        width={media.width}
-        height={media.height}
-        alt='Description'
-        sizes='100vw'
-        className={style.image}
-        style={appearanceStyles}
-      />
+      {isVideo ? (
+        <VideoMedia
+          src={encodedFilename}
+          playerWidth={videoPlayerWidth ?? '100%'}
+          videoHeight={videoHeight}
+          videoWidth={videoWidth}
+          style={appearanceStyles}
+        />
+      ) : isImage ? (
+        <ImageMedia
+          src={encodedFilename ?? ''}
+          width={media.width}
+          height={media.height}
+          alt='Description'
+          sizes='100vw'
+          className={style.image}
+          style={appearanceStyles}
+        />
+      ) : (
+        'Unsupported media type, the media must be either a video or an image.'
+      )}
 
       {caption && (
-        <figcaption>
+        <figcaption className={style.caption}>
           <RichText data={caption} />
         </figcaption>
       )}

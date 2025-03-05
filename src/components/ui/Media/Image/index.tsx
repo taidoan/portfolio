@@ -1,9 +1,11 @@
 'use client';
 import Image, { ImageLoaderProps } from 'next/image';
-const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT;
+import { getCDNURL } from '@/lib/utilities/getURLs';
 import s from './../style.module.scss';
 
-export interface OptimizedImageProps {
+const urlEndpoint = getCDNURL();
+
+export interface ImageMedia {
   src: string;
   alt: string;
   width?: number | null;
@@ -25,7 +27,7 @@ const imageKitLoader = ({ src, width, quality }: ImageLoaderProps): string => {
 
 /**
  * OptimizedImage component is a reusable component that extends the NextJS image component with ImageKit optimizations.
- * @param {OptimizedImageProps} props
+ * @param {ImageMedia} props
  * @param {string} [props.src] - The source URL of the image.
  * @param {string} [props.alt] - The alternative text for the image.
  * @param {number} [props.width] - The width of the image.
@@ -55,7 +57,9 @@ export const ImageMedia = ({
   quality = 80,
   style = {},
   onClick,
-}: OptimizedImageProps) => {
+}: ImageMedia) => {
+  const placeholderBlur =
+    'data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAB0CWJaACdAFAAAD+2iaVorpfvri5shvAAAA=';
   return (
     <Image
       loader={imageKitLoader}
@@ -68,9 +72,7 @@ export const ImageMedia = ({
       quality={quality}
       style={style}
       placeholder='blur'
-      blurDataURL={
-        'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
-      }
+      blurDataURL={placeholderBlur}
       onClick={onClick}
     />
   );

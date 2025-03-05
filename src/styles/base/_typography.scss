@@ -134,6 +134,7 @@ hr {
 figcaption {
   color: var(--clr-urban-steel-600);
   font-size: var(--fs-body-sm);
+  text-align: left;
 }
 
 @include mq('md') {

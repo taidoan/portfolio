@@ -88,9 +88,7 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -293,13 +291,7 @@ export interface DividerBlockProps {
  */
 export interface SectionBlockProps {
   sectionBlocks?:
-    | (
-        | DividerBlockProps
-        | LinksBlockProps
-        | LinksGroupBlockProps
-        | IntroBlockProps
-        | MediaBlockProps
-      )[]
+    | (DividerBlockProps | LinksBlockProps | LinksGroupBlockProps | IntroBlockProps | MediaBlockProps)[]
     | null;
   boxedContent?: {
     root: {
@@ -1311,14 +1303,7 @@ export interface Header {
     };
     id?: string | null;
   }[];
-  logoColor:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'light'
-    | 'slate'
-    | 'frosted-sage'
-    | 'urban-steel';
+  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1490,6 +1475,7 @@ export interface LinksGroupRichtextProps {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

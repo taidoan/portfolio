@@ -1,7 +1,6 @@
 import type { IntroBlockProps } from '@/payload-types';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { RichText } from '@components/ui/RichText';
-import { ImageMedia } from '@/components/ui/Media/Image';
 import clsx from 'clsx';
 
 export type Props = {

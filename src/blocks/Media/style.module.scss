@@ -1,8 +1,26 @@
-@use "@abstracts/_index" as *;
+@use '@abstracts/_index' as *;
 
 .image__container {
   height: auto;
   overflow: hidden;
   position: relative;
   width: auto;
+}
+
+.image {
+  height: auto;
+  width: 100%;
+}
+
+.video {
+  height: auto;
+  width: 100%;
+}
+
+.caption {
+  background-color: var(--clr-urban-steel-150);
+  border-radius: var(--border-radius-small);
+  margin-top: size-clamp(1rem, 1.25rem);
+  padding-block: size-clamp(0.75rem, 1rem);
+  padding-inline: 1rem;
 }
