@@ -88,7 +88,9 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -184,6 +186,7 @@ export interface Media {
  */
 export interface Page {
   id: string;
+  title: string;
   hero: HeroBlockProps;
   layout: (DividerBlockProps | SectionBlockProps)[];
   meta?: {
@@ -194,7 +197,6 @@ export interface Page {
     image?: (string | null) | Media;
     description?: string | null;
   };
-  title: string;
   slug: string;
   slugLock?: boolean | null;
   url?: string | null;
@@ -291,7 +293,14 @@ export interface DividerBlockProps {
  */
 export interface SectionBlockProps {
   sectionBlocks?:
-    | (DividerBlockProps | LinksBlockProps | LinksGroupBlockProps | IntroBlockProps | MediaBlockProps)[]
+    | (
+        | DividerBlockProps
+        | LinksBlockProps
+        | LinksGroupBlockProps
+        | IntroBlockProps
+        | MediaBlockProps
+        | CardBlockProps
+      )[]
     | null;
   boxedContent?: {
     root: {
@@ -394,6 +403,45 @@ export interface LinksBlockProps {
 export interface Project {
   id: string;
   title: string;
+  details?: {
+    date?: string | null;
+    type?: string | null;
+    tools?: string | null;
+    name?: string | null;
+    url?: string | null;
+    previewLabel?: string | null;
+    previewUrl?: string | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   meta?: {
     title?: string | null;
     /**
@@ -404,7 +452,9 @@ export interface Project {
   };
   slug: string;
   slugLock?: boolean | null;
+  url?: string | null;
   thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
   parent?: (string | null) | Project;
   breadcrumbs?:
     | {
@@ -417,6 +467,19 @@ export interface Project {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
+  parentCategory?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -589,16 +652,103 @@ export interface MediaBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "CardBlockProps".
  */
-export interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  description?: string | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
+export interface CardBlockProps {
+  relationTo: 'default' | 'projects' | 'services';
+  relatedProject?: (string | null) | Project;
+  relatedService?: (string | null) | Service;
+  /**
+   * The title of the card.
+   */
+  title?: string | null;
+  /**
+   * Whether to use an inner container for the card content.
+   */
+  insideContainer?: ('yes' | 'no') | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * (Leave blank if you want to use the project type set in the project itself)
+   */
+  projectType?: string | null;
+  /**
+   * (Leave blank if you want to use the service description set in the service itself)
+   */
+  serviceDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cardImage?: {
+    image?: (string | null) | Media;
+    /**
+     * Position the image inside or outside the card content.
+     */
+    imagePosition?: ('inside' | 'outside') | null;
+    /**
+     * Align the image at the top or bottom of the card content.
+     */
+    imageAlign?: ('top' | 'bottom') | null;
+    /**
+     * The border radius of the image.
+     */
+    imageBorderRadius?: ('none' | 'top' | 'bottom' | 'left' | 'right' | 'all') | null;
+  };
+  className?: string | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cardBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -873,6 +1023,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
+  title?: T;
   hero?: T | HeroBlockPropsSelect<T>;
   layout?:
     | T
@@ -887,7 +1038,6 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  title?: T;
   slug?: T;
   slugLock?: T;
   url?: T;
@@ -953,6 +1103,7 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         'links-group'?: T | LinksGroupBlockPropsSelect<T>;
         introBlock?: T | IntroBlockPropsSelect<T>;
         mediaBlock?: T | MediaBlockPropsSelect<T>;
+        cardBlock?: T | CardBlockPropsSelect<T>;
       };
   boxedContent?: T;
   appearance?:
@@ -1068,6 +1219,38 @@ export interface MediaBlockPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardBlockProps_select".
+ */
+export interface CardBlockPropsSelect<T extends boolean = true> {
+  relationTo?: T;
+  relatedProject?: T;
+  relatedService?: T;
+  title?: T;
+  insideContainer?: T;
+  content?: T;
+  projectType?: T;
+  serviceDescription?: T;
+  cardImage?:
+    | T
+    | {
+        image?: T;
+        imagePosition?: T;
+        imageAlign?: T;
+        imageBorderRadius?: T;
+      };
+  className?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
@@ -1084,6 +1267,19 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  details?:
+    | T
+    | {
+        date?: T;
+        type?: T;
+        tools?: T;
+        name?: T;
+        url?: T;
+        previewLabel?: T;
+        previewUrl?: T;
+        description?: T;
+      };
+  content?: T;
   meta?:
     | T
     | {
@@ -1093,7 +1289,9 @@ export interface ProjectsSelect<T extends boolean = true> {
       };
   slug?: T;
   slugLock?: T;
+  url?: T;
   thumbnail?: T;
+  categories?: T;
   parent?: T;
   breadcrumbs?:
     | T
@@ -1303,7 +1501,14 @@ export interface Header {
     };
     id?: string | null;
   }[];
-  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
+  logoColor:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'light'
+    | 'slate'
+    | 'frosted-sage'
+    | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1475,7 +1680,6 @@ export interface LinksGroupRichtextProps {
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

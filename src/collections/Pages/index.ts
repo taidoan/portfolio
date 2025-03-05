@@ -57,6 +57,12 @@ export const Pages: CollectionConfig = {
   },
   fields: [
     {
+      name: 'title',
+      type: 'text',
+      required: true,
+      label: 'Title',
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -104,15 +110,6 @@ export const Pages: CollectionConfig = {
           },
         },
       ],
-    },
-    {
-      name: 'title',
-      type: 'text',
-      required: true,
-      label: 'Title',
-      admin: {
-        position: 'sidebar',
-      },
     },
     ...slugField(),
     urlField(),

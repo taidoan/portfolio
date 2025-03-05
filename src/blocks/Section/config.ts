@@ -4,12 +4,13 @@ import { LinksBlock } from '../Links/config';
 import { LinksGroupBlock } from '../Links/Group/config';
 import { IntroBlock } from '../Intro/config';
 import { MediaBlock } from '../Media/config';
+import { CardBlock } from '../Card/config';
 
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
 import { BorderRadius } from '@/fields/BorderRadius';
 import { ClassName } from '@/fields/ClassName';
-const Blocks = [DividerBlock, LinksBlock, LinksGroupBlock, IntroBlock, MediaBlock];
+const Blocks = [DividerBlock, LinksBlock, LinksGroupBlock, IntroBlock, MediaBlock, CardBlock];
 
 export const SectionBlock: Block = {
   slug: 'section',

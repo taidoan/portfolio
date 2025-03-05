@@ -22,11 +22,12 @@ export const UrlComponent = ({ field, fieldToUse, path }: UrlComponentProps) => 
   useEffect(() => {
     if (targetFieldValue) {
       const fullUrl = `${getServerSideURL()}/${targetFieldValue}`;
+
       if (value !== fullUrl) setValue(fullUrl);
     } else {
       if (value !== '') setValue('');
     }
-  }, [targetFieldValue, value, setValue]);
+  }, [targetFieldValue, value, setValue, path]);
 
   const handleCopy = async () => {
     if (value) {
