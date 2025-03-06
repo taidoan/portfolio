@@ -67,6 +67,10 @@
         #ffffff 100%
       );
     }
+
+    &:not(:has(+ *)) {
+      margin-bottom: 0;
+    }
   }
 
   &-align--bottom {
@@ -164,12 +168,6 @@
     background-color: #f7f7f7;
     border-radius: rem(16);
     padding: size-clamp(rem(16), rem(24));
-  }
-
-  &:not(&--project) {
-    p {
-      margin-inline: auto;
-    }
   }
 }
 

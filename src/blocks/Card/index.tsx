@@ -65,6 +65,7 @@ export const CardBlock = async ({
           width={isService && typeof image !== 'string' ? image?.width : undefined}
           height={isService && typeof image !== 'string' ? image?.height : undefined}
           className={cardImageClass}
+          align={align || (isProject && relatedProject ? 'top' : undefined)}
         />
       );
     }

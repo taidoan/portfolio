@@ -188,7 +188,7 @@ export interface Page {
   id: string;
   title: string;
   hero: HeroBlockProps;
-  layout: (DividerBlockProps | SectionBlockProps)[];
+  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps)[];
   meta?: {
     title?: string | null;
     /**
@@ -800,6 +800,35 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionGroupBlockProps".
+ */
+export interface SectionGroupBlockProps {
+  sectionBlocks?: (SectionBlockProps | DividerBlockProps)[] | null;
+  appearance?: {
+    /**
+     * The layout of the section, you can choose between default, boxed, and full-width.
+     */
+    sectionType?: ('default' | 'boxed' | 'full-width') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+        )
+      | null;
+  };
+  blockName?: string | null;
+  hiddenSlug?: string | null;
+  id?: string | null;
+  blockType: 'sectionGroup';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1048,6 +1077,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         divider?: T | DividerBlockPropsSelect<T>;
         section?: T | SectionBlockPropsSelect<T>;
+        sectionGroup?: T | SectionGroupBlockPropsSelect<T>;
       };
   meta?:
     | T
@@ -1267,6 +1297,27 @@ export interface CardBlockPropsSelect<T extends boolean = true> {
       };
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionGroupBlockProps_select".
+ */
+export interface SectionGroupBlockPropsSelect<T extends boolean = true> {
+  sectionBlocks?:
+    | T
+    | {
+        section?: T | SectionBlockPropsSelect<T>;
+        divider?: T | DividerBlockPropsSelect<T>;
+      };
+  appearance?:
+    | T
+    | {
+        sectionType?: T;
+        backgroundColour?: T;
+      };
+  blockName?: T;
+  hiddenSlug?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

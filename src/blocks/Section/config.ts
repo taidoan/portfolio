@@ -10,6 +10,7 @@ import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
 import { BorderRadius } from '@/fields/BorderRadius';
 import { ClassName } from '@/fields/ClassName';
+import { SectionTypeField } from '@/fields/SectionType';
 const Blocks = [DividerBlock, LinksBlock, LinksGroupBlock, IntroBlock, MediaBlock, CardBlock];
 
 export const SectionBlock: Block = {
@@ -63,32 +64,11 @@ export const SectionBlock: Block = {
                 {
                   type: 'row',
                   fields: [
-                    {
-                      name: 'sectionType',
-                      type: 'select',
-                      label: 'Section Type',
-                      options: [
-                        { value: 'default', label: 'Default' },
-                        { value: 'boxed', label: 'Boxed' },
-                        { value: 'full-width', label: 'Full Width' },
-                      ],
-                      defaultValue: 'default',
-                      admin: {
-                        description:
-                          'The layout of the section, you can choose between default, boxed, and full-width.',
-                        width: '50%',
-                      },
-                    },
+                    SectionTypeField,
                     BackgroundColour({
                       admin: {
                         width: '50%',
-                        condition: (_, siblingData) => {
-                          if (siblingData.sectionType !== 'default') {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        },
+                        condition: (_, siblingData) => siblingData.sectionType !== 'default',
                       },
                       hooks: {
                         beforeValidate: [
