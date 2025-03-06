@@ -1,0 +1,86 @@
+import { ComponentPropsWithRef, useCallback, useEffect, useState } from 'react';
+import { EmblaCarouselType } from 'embla-carousel';
+import style from './../style.module.scss';
+
+export type UsePaginationProps = {
+  selectedIndex: number;
+  scrollSnaps: number[];
+  onDotClick: (index: number) => void;
+};
+/**
+ * A custom hook for managing pagination in the Embla Carousel component.
+ * @param emblaApi - The Embla Carousel instance.
+ * @param onButtonClick - A callback function to be called when a pagination button is clicked.
+ * @returns {UsePaginationProps} An object containing the selected index, scroll snaps, and onDotClick function.
+ */
+export const usePagination = (
+  emblaApi: EmblaCarouselType | undefined,
+  onButtonClick?: (emblaApi: EmblaCarouselType) => void,
+): UsePaginationProps => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+
+  const onDotClick = useCallback(
+    (index: number) => {
+      if (!emblaApi) return;
+      emblaApi.scrollTo(index);
+      if (onButtonClick) onButtonClick(emblaApi);
+    },
+    [emblaApi, onButtonClick],
+  );
+
+  const onInit = useCallback((emblaApi: EmblaCarouselType) => {
+    setScrollSnaps(emblaApi.scrollSnapList());
+  }, []);
+
+  const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    onInit(emblaApi);
+    onSelect(emblaApi);
+    emblaApi.on('reInit', onInit).on('reInit', onSelect).on('select', onSelect);
+  }, [emblaApi, onInit, onSelect]);
+
+  return {
+    selectedIndex,
+    scrollSnaps,
+    onDotClick,
+  };
+};
+
+type PropType = ComponentPropsWithRef<'button'>;
+
+export const PaginationButton: React.FC<PropType> = (props) => {
+  const { children, ...restProps } = props;
+
+  return (
+    <button type='button' {...restProps}>
+      {children}
+    </button>
+  );
+};
+
+export interface PaginationProps {
+  scrollSnaps: number[];
+  selectedIndex: number;
+  onDotClick: (index: number) => void;
+}
+
+export const Pagination = ({ scrollSnaps, selectedIndex, onDotClick }: PaginationProps) => {
+  return (
+    <div className={style.pagination}>
+      {scrollSnaps.map((_, index) => (
+        <PaginationButton
+          key={index}
+          onClick={() => onDotClick(index)}
+          className={`${style.paginationButton} ${index === selectedIndex ? `${style.paginationButtonActive}` : ''}`}
+          aria-label={`Go to slide ${index}`}
+        />
+      ))}
+    </div>
+  );
+};

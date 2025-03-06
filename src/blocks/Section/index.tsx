@@ -25,6 +25,7 @@ export const SectionBlock = ({
   appearance,
   boxedContent,
   blockName,
+  hiddenSlug,
 }: SectionBlockProps) => {
   const hasContent =
     boxedContent || (sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0);
@@ -36,6 +37,7 @@ export const SectionBlock = ({
     if (!appearance) return null;
 
     const sectionClasses = clsx('section', {
+      [`${hiddenSlug}__${blockName}`]: blockName,
       [`bg--${appearance.backgroundColour}`]:
         !isBoxedLayout && appearance.backgroundColour && appearance.backgroundColour !== 'none',
       'full-width': appearance.sectionType === 'full-width',

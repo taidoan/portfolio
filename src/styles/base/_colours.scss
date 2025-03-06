@@ -31,3 +31,25 @@
 .bg--accent {
   background-color: var(--clr-accent-400);
 }
+.bg--gradient-light {
+  background:
+    linear-gradient(149.32deg, var(--clr-concrete-400) 0%, #f1f1ef 100%), var(--clr-gallery-400);
+}
+
+.bg--gradient-primary {
+  background:
+    linear-gradient(97.51deg, rgba(0, 0, 0, 0) 3.06%, rgba(0, 0, 0, 0.21) 93.46%),
+    var(--clr-primary-400);
+}
+
+.bg--gradient-secondary {
+  background:
+    linear-gradient(97.51deg, rgba(0, 0, 0, 0) 3.06%, rgba(0, 0, 0, 0.21) 93.46%),
+    var(--clr-secondary-400);
+}
+
+.bg--gradient-accent {
+  background:
+    linear-gradient(97.51deg, rgba(0, 0, 0, 0) 3.06%, rgba(0, 0, 0, 0.21) 93.46%),
+    var(--clr-accent-400);
+}
