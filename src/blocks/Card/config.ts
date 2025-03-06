@@ -116,9 +116,9 @@ export const CardBlock: Block = {
               },
             },
             {
-              name: 'serviceDescription',
+              name: 'serviceContent',
               type: 'richText',
-              label: 'Service Description',
+              label: 'Service Content',
               admin: {
                 condition: (_, siblingData) => {
                   return siblingData.relationTo === 'services';
@@ -202,9 +202,27 @@ export const CardBlock: Block = {
           label: 'Options',
           fields: [
             {
-              type: 'text',
-              name: 'className',
-              label: 'Custom Class Name',
+              type: 'row',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'className',
+                  label: 'Custom Class Name',
+                  admin: { width: '50%' },
+                },
+                {
+                  name: 'textAlign',
+                  type: 'select',
+                  label: 'Text Align',
+                  options: [
+                    { value: 'left', label: 'Left' },
+                    { value: 'centered', label: 'Center' },
+                    { value: 'right', label: 'Right' },
+                  ],
+                  defaultValue: 'left',
+                  admin: { width: '50%' },
+                },
+              ],
             },
             GridAppearance(),
           ],

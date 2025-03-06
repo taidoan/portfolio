@@ -26,7 +26,7 @@ export type CardProps = {
   className?: string;
   data?: CardData;
   relation?: Relation;
-  textAlign?: 'centered' | 'left' | 'right';
+  textAlign?: 'centered' | 'left' | 'right' | null;
   id?: string;
   href?: string;
   target?: string;

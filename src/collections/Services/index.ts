@@ -58,6 +58,32 @@ export const Services: CollectionConfig = {
             disableListColumn: true,
           },
         },
+        {
+          label: 'Services',
+          fields: [
+            {
+              name: 'serviceCategoryTitle',
+              type: 'text',
+              required: true,
+              label: 'Service Category Title',
+            },
+            {
+              name: 'serviceCategoryDescription',
+              type: 'richText',
+              required: true,
+              label: 'Service Category Description',
+            },
+            {
+              name: 'serviceImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Service Image',
+              admin: {
+                position: 'sidebar',
+              },
+            },
+          ],
+        },
       ],
     },
     ...slugField(),

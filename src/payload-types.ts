@@ -688,7 +688,7 @@ export interface CardBlockProps {
   /**
    * (Leave blank if you want to use the service description set in the service itself)
    */
-  serviceDescription?: {
+  serviceContent?: {
     root: {
       type: string;
       children: {
@@ -719,6 +719,7 @@ export interface CardBlockProps {
     imageBorderRadius?: ('none' | 'top' | 'bottom' | 'left' | 'right' | 'all') | null;
   };
   className?: string | null;
+  textAlign?: ('left' | 'centered' | 'right') | null;
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
    */
@@ -765,6 +766,23 @@ export interface Service {
     image?: (string | null) | Media;
     description?: string | null;
   };
+  serviceCategoryTitle: string;
+  serviceCategoryDescription: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  serviceImage?: (string | null) | Media;
   slug: string;
   slugLock?: boolean | null;
   thumbnail?: (string | null) | Media;
@@ -1229,7 +1247,7 @@ export interface CardBlockPropsSelect<T extends boolean = true> {
   insideContainer?: T;
   content?: T;
   projectType?: T;
-  serviceDescription?: T;
+  serviceContent?: T;
   cardImage?:
     | T
     | {
@@ -1239,6 +1257,7 @@ export interface CardBlockPropsSelect<T extends boolean = true> {
         imageBorderRadius?: T;
       };
   className?: T;
+  textAlign?: T;
   gridAppearance?:
     | T
     | {
@@ -1318,6 +1337,9 @@ export interface ServicesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  serviceCategoryTitle?: T;
+  serviceCategoryDescription?: T;
+  serviceImage?: T;
   slug?: T;
   slugLock?: T;
   thumbnail?: T;
