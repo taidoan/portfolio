@@ -25,7 +25,7 @@ export interface NavigationProps {
 
 export const ButtonNavigation = ({ onPrev, onNext }: NavigationProps) => {
   return (
-    <div className={style.buttonNavigation}>
+    <div className={style.button__navigation}>
       <ButtonNavigationButtons direction='prev' onClick={onPrev} />
       <ButtonNavigationButtons direction='next' onClick={onNext} />
     </div>

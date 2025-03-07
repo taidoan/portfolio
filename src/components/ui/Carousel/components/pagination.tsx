@@ -77,7 +77,7 @@ export const Pagination = ({ scrollSnaps, selectedIndex, onDotClick }: Paginatio
         <PaginationButton
           key={index}
           onClick={() => onDotClick(index)}
-          className={`${style.paginationButton} ${index === selectedIndex ? `${style.paginationButtonActive}` : ''}`}
+          className={`${style.pagination__button} ${index === selectedIndex ? `${style['pagination__button--active']}` : ''}`}
           aria-label={`Go to slide ${index}`}
         />
       ))}
