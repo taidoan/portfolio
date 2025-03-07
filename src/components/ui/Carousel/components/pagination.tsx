@@ -1,5 +1,6 @@
 import { ComponentPropsWithRef, useCallback, useEffect, useState } from 'react';
 import { EmblaCarouselType } from 'embla-carousel';
+import clsx from 'clsx';
 import style from './../style.module.scss';
 
 export type UsePaginationProps = {
@@ -68,16 +69,34 @@ export interface PaginationProps {
   scrollSnaps: number[];
   selectedIndex: number;
   onDotClick: (index: number) => void;
+  paginationColor?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'urban-steel'
+    | 'slate'
+    | 'bitter-sweet'
+    | 'chery-punch'
+    | 'fresh-leaf';
 }
 
-export const Pagination = ({ scrollSnaps, selectedIndex, onDotClick }: PaginationProps) => {
+export const Pagination = ({
+  scrollSnaps,
+  selectedIndex,
+  onDotClick,
+  paginationColor = 'accent',
+}: PaginationProps) => {
   return (
     <div className={style.pagination}>
       {scrollSnaps.map((_, index) => (
         <PaginationButton
           key={index}
           onClick={() => onDotClick(index)}
-          className={`${style.pagination__button} ${index === selectedIndex ? `${style['pagination__button--active']}` : ''}`}
+          className={clsx(style.pagination__button, {
+            [style['pagination__button--active']]: index === selectedIndex,
+            [style[`pagination__button--active--${paginationColor}`]]:
+              index === selectedIndex && paginationColor,
+          })}
           aria-label={`Go to slide ${index}`}
         />
       ))}

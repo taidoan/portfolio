@@ -47,6 +47,21 @@ const meta: Meta<typeof Carousel> = {
     paginationType: {
       control: { type: 'select', options: ['bullets', 'progress'] },
     },
+    paginationColor: {
+      control: {
+        type: 'select',
+        options: [
+          'primary',
+          'secondary',
+          'accent',
+          'urban-steel',
+          'slate',
+          'bitter-sweet',
+          'chery-punch',
+          'fresh-leaf',
+        ],
+      },
+    },
     direction: {
       control: { type: 'select', options: ['horizontal', 'vertical', 'vertical-scroll'] },
     },
@@ -65,7 +80,7 @@ const meta: Meta<typeof Carousel> = {
   },
   render: (args) => (
     <Carousel {...args}>
-      <div style={{ background: 'lightgray', padding: '2rem', height: '31rem' }}>
+      <div style={{ background: 'lightgray', padding: '2rem', height: '25rem' }}>
         <h1>Slide 1</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius natus soluta blanditiis,
@@ -150,5 +165,29 @@ export const ButtonNavigation: Story = {
     autoPlay: false,
     keyboardControls: false,
     buttonNavigation: true,
+  },
+};
+
+export const Pagination: Story = {
+  args: {
+    pagination: true,
+  },
+};
+
+export const PaginationProgress: Story = {
+  args: {
+    pagination: true,
+    paginationType: 'progress',
+    slidesPerView: 1,
+    autoHeight: true,
+  },
+};
+
+export const Vertical: Story = {
+  args: {
+    direction: 'vertical',
+    slidesPerView: 1,
+    autoHeight: false,
+    pagination: true,
   },
 };

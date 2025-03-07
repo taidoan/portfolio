@@ -10,6 +10,15 @@ export type CarouselProps = {
   focus?: boolean;
   pagination?: boolean;
   paginationType?: 'bullets' | 'progress';
+  paginationColor?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'urban-steel'
+    | 'slate'
+    | 'bitter-sweet'
+    | 'chery-punch'
+    | 'fresh-leaf';
   direction?: 'vertical' | 'horizontal' | 'vertical-scroll';
   disableAt?: string;
   autoHeight?: boolean;

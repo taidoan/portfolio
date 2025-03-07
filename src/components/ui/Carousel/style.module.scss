@@ -55,6 +55,10 @@
         transform: rotate(90deg);
       }
     }
+
+    .viewport {
+      overflow: hidden;
+    }
   }
 
   &[data-direction='vertical-scroll'] {
@@ -141,6 +145,8 @@
 .slide {
   cursor: grab;
   flex: 0 0 var(--slide-size);
+  height: auto;
+  min-width: 0;
   padding-left: var(--slide-spacing);
   transition: height var(--transition-duration);
 
@@ -222,11 +228,11 @@
     transform: translateY(-50%);
 
     &--next {
-      right: 2.5%;
+      right: 4%;
     }
 
     &--prev {
-      left: 2.5%;
+      left: 4%;
     }
   }
 }
@@ -254,6 +260,45 @@
   &--active {
     background-color: var(--clr-accent-400);
     box-shadow: rem(-1) rem(-1) 0 var(--clr-accent-550);
+
+    &--primary {
+      background-color: var(--clr-primary-400);
+      box-shadow: rem(-1) rem(-1) 0 var(--clr-primary-550);
+    }
+
+    &--secondary {
+      background-color: var(--clr-secondary-400);
+      box-shadow: rem(-1) rem(-1) 0 var(--clr-secondary-350);
+    }
+
+    &--accent {
+      background-color: var(--clr-accent-400);
+    }
+
+    &--urban-steel {
+      background-color: var(--clr-urban-steel-400);
+      box-shadow: rem(-1) rem(-1) 0 var(--clr-urban-steel-550);
+    }
+
+    &--slate {
+      background-color: var(--clr-slate-400);
+      box-shadow: rem(-1) rem(-1) 0 var(--clr-slate-550);
+    }
+
+    &--bitter-sweet {
+      background-color: var(--clr-bittersweet-400);
+      box-shadow: rem(-1) rem(-1) 0 var(--clr-bittersweet-550);
+    }
+
+    &--chery-punch {
+      background-color: var(--clr-cherry-punch-400);
+      box-shadow: rem(-1) rem(-1) 0 var(--clr-cherry-punch-550);
+    }
+
+    &--fresh-leaf {
+      background-color: var(--clr-fresh-leaf-400);
+      box-shadow: rem(-1) rem(-1) 0 var(--clr-fresh-leaf-550);
+    }
   }
 
   &:hover {
@@ -280,7 +325,6 @@
 }
 
 .progress__bar {
-  background-color: var(--clr-accent-400);
   bottom: 0;
   left: -100%;
   position: absolute;

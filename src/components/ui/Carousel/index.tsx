@@ -35,6 +35,7 @@ export const Carousel = ({
   autoPlay,
   keyboardControls,
   buttonNavigation,
+  paginationColor,
   ...props
 }: CarouselProps) => {
   const isMediaQueryMatched = useMediaQuery(disableAt || 'none');
@@ -160,7 +161,7 @@ export const Carousel = ({
   return (
     <div
       ref={carouselRef}
-      className={`${style.container} ${className}`}
+      className={clsx(style.container, className)}
       aria-disabled={!isActive}
       data-direction={direction}
       data-testid='carousel'
@@ -177,12 +178,15 @@ export const Carousel = ({
               scrollSnaps={scrollSnaps}
               selectedIndex={selectedIndex}
               onDotClick={onDotClick}
+              paginationColor={paginationColor}
             />
           )}
           {config.pagination && paginationType === 'progress' && (
             <div className={style.progress}>
               <div
-                className={style['progress__bar']}
+                className={clsx(style['progress__bar'], {
+                  [`bg--${paginationColor}`]: paginationColor,
+                })}
                 style={
                   direction === 'vertical-scroll'
                     ? { transform: `translate3d(0px,${scrollProgress}%,0px)` }
