@@ -1,6 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { getTopTracks } from './utils/api';
-import { SpotifyTopTracks } from '.';
 import SpotifyRenderTracks from './render';
 import { ReactNode } from 'react';
 

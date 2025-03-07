@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/experimental-nextjs-vite';
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import path from 'path';
 
 const config: StorybookConfig = {
@@ -23,6 +24,17 @@ const config: StorybookConfig = {
       server: {
         proxy: {
           '/assets': 'http://localhost:3000',
+        },
+      },
+      define: { 'process.env': {}, global: 'globalThis' },
+      optimizeDeps: {
+        esbuildOptions: {
+          plugins: [
+            NodeGlobalsPolyfillPlugin({
+              buffer: true,
+              process: true,
+            }),
+          ],
         },
       },
       resolve: {
