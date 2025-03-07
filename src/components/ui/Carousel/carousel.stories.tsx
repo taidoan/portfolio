@@ -1,6 +1,89 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Carousel } from './index';
 import { LazyMotion, domAnimation } from 'motion/react';
+import type { Track } from './../../features/SpotifyTopTracks/types';
+import SpotifyRenderTracks from '@/components/features/SpotifyTopTracks/render';
+
+const mockTracks: Track[] = [
+  {
+    key: 1,
+    title: 'Over Each Other',
+    songUrl: 'https://open.spotify.com/track/3t4IkHfT4eXZggkupi4SUe',
+    albumCover: {
+      height: 640,
+      url: 'https://i.scdn.co/image/ab67616d0000b2731c998f52c7d8d87452bc10ae',
+      width: 640,
+    },
+    artists: [
+      { name: 'Linkin Park', url: 'https://open.spotify.com/artist/6XyY86QOPPrYVGvF9ch6wz' },
+    ],
+  },
+  {
+    key: 2,
+    title: 'The Emptiness Machine',
+    songUrl: 'https://open.spotify.com/track/2PnlsTsOTLE5jnBnNe2K0A',
+    albumCover: {
+      height: 640,
+      url: 'https://i.scdn.co/image/ab67616d0000b273c0db065619ed208515412917',
+      width: 640,
+    },
+    artists: [
+      { name: 'Linkin Park', url: 'https://open.spotify.com/artist/6XyY86QOPPrYVGvF9ch6wz' },
+    ],
+  },
+  {
+    key: 3,
+    title: "Austin (Boots Stop Workin')",
+    songUrl: 'https://open.spotify.com/track/2uqYupMHANxnwgeiXTZXzd',
+    albumCover: {
+      height: 640,
+      url: 'https://i.scdn.co/image/ab67616d0000b2734ccf88b66e04cfd247f287eb',
+      width: 640,
+    },
+    artists: [{ name: 'Dasha', url: 'https://open.spotify.com/artist/7Ez6lTtSMjMf2YSYpukP1I' }],
+  },
+  {
+    key: 4,
+    title: 'APT.',
+    songUrl: 'https://open.spotify.com/track/5vNRhkKd0yEAg8suGBpjeY',
+    albumCover: {
+      height: 640,
+      url: 'https://i.scdn.co/image/ab67616d0000b27336032cb4acd9df050bc2e197',
+      width: 640,
+    },
+    artists: [
+      { name: 'ROSÉ', url: 'https://open.spotify.com/artist/3eVa5w3URK5duf6eyVDbu9' },
+      { name: 'Bruno Mars', url: 'https://open.spotify.com/artist/0du5cEVh5yTK9QJze8zA0C' },
+    ],
+  },
+  {
+    key: 5,
+    title: '5,6,7,8 (feat. girlfriends)',
+    songUrl: 'https://open.spotify.com/track/6YAngZqMTJyorUHoeOpaqy',
+    albumCover: {
+      height: 640,
+      url: 'https://i.scdn.co/image/ab67616d0000b2739a74f2fab428ad8e160f236c',
+      width: 640,
+    },
+    artists: [
+      { name: 'LØLØ', url: 'https://open.spotify.com/artist/5MjcGshMggPgIHinIUDaX0' },
+      { name: 'girlfriends', url: 'https://open.spotify.com/artist/4Dwhb9SL7iO3L27oXvEiO7' },
+    ],
+  },
+  {
+    key: 6,
+    title: 'Stained',
+    songUrl: 'https://open.spotify.com/track/0J1IJsMbKWb5g2sJArTkGF',
+    albumCover: {
+      height: 640,
+      url: 'https://i.scdn.co/image/ab67616d0000b273b11a5489e8cb11dd22b930a0',
+      width: 640,
+    },
+    artists: [
+      { name: 'Linkin Park', url: 'https://open.spotify.com/artist/6XyY86QOPPrYVGvF9ch6wz' },
+    ],
+  },
+];
 
 const meta: Meta<typeof Carousel> = {
   title: 'UI/Carousel',
@@ -190,4 +273,23 @@ export const Vertical: Story = {
     autoHeight: false,
     pagination: true,
   },
+};
+
+export const VerticalSpotifyTopTracks: Story = {
+  args: {
+    direction: 'vertical-scroll',
+    focus: true,
+    slidesPerView: 3,
+    loop: false,
+    slidesToScroll: 1,
+    pagination: true,
+    paginationType: 'progress',
+  },
+  render: (args) => (
+    <Carousel {...args}>
+      {mockTracks.map((track: Track) => (
+        <SpotifyRenderTracks {...args} track={track} key={track.key} container={'card'} />
+      ))}
+    </Carousel>
+  ),
 };

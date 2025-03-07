@@ -29,6 +29,7 @@
     "*.{js,jsx,ts,tsx,css,md}": "prettier --write"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@payloadcms/db-mongodb": "latest",
     "@payloadcms/live-preview-react": "^3.25.0",
     "@payloadcms/next": "latest",
@@ -51,6 +52,7 @@
     "next": "15.1.5",
     "next-sitemap": "^4.2.3",
     "payload": "^3.25.0",
+    "query-string": "^9.1.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "sharp": "0.32.6"

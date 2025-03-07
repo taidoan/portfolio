@@ -34,7 +34,6 @@ const Page = async ({ params: paramsPromise }: Args) => {
       {draft && <LivePreviewListener />}
       <RenderHero heroData={hero} />
       <RenderBlocks blocks={layout} />
-      <div>Hello</div>
     </>
   );
 };
