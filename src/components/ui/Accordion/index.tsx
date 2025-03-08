@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Card, CardBody } from '@/components/ui/Card';
 import { IconCircleChevronDownFilled } from '@tabler/icons-react';
+import { Alert, AlertTitle } from '@/components/ui/Alert';
 import clsx from 'clsx';
 import style from './style.module.scss';
 
@@ -15,7 +16,7 @@ export type AccordionProps = {
   className?: string | undefined;
   items: AccordionItemProps[] | null;
   container?: 'card' | 'none' | null;
-  indexCounter?: boolean;
+  indexCounter?: 'true' | 'false' | null;
 };
 
 /**
@@ -35,9 +36,18 @@ export const Accordion = ({
   className,
   items,
   container = 'none',
-  indexCounter = false,
+  indexCounter = 'false',
 }: AccordionProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
+  if (!items || items.length === 0) {
+    return (
+      <Alert severity='error'>
+        <AlertTitle>Error</AlertTitle>No accordion items were found.
+      </Alert>
+    );
+  }
+
   const toggleSelection = (index: number) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
@@ -62,7 +72,7 @@ export const Accordion = ({
             aria-controls={item.id || undefined}
             data-active={activeHeader}
           >
-            {indexCounter && (
+            {indexCounter === 'true' && (
               <span
                 className={style.accordion__counter}
                 data-active={activeHeader}

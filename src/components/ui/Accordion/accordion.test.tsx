@@ -46,7 +46,7 @@ describe('<Accordion>', () => {
   });
 
   it('renders the component with index counter', () => {
-    render(<Accordion items={mockAccordionItems} indexCounter />);
+    render(<Accordion items={mockAccordionItems} indexCounter='true' />);
     const counters = screen.getAllByTestId(/accordion-counter/i);
     expect(counters).toHaveLength(3);
   });
@@ -88,7 +88,7 @@ describe('<Accordion>', () => {
   });
 
   it('should toggle the index circle when content is active', () => {
-    render(<Accordion items={mockAccordionItems} indexCounter={true} />);
+    render(<Accordion items={mockAccordionItems} indexCounter='true' />);
     const title = screen.getByText('Item 2');
     const index = screen.getByTestId(`accordion-counter-1`);
 
@@ -99,5 +99,11 @@ describe('<Accordion>', () => {
 
     fireEvent.click(title);
     expect(index).toHaveAttribute('data-active', 'false');
+  });
+
+  it('renders a warning when accordion content is empty', () => {
+    render(<Accordion items={[]} />);
+    const alert = screen.getByRole('alert');
+    expect(alert).toBeInTheDocument();
   });
 });

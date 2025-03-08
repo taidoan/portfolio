@@ -5,13 +5,22 @@ import { LinksGroupBlock } from '../Links/Group/config';
 import { IntroBlock } from '../Intro/config';
 import { MediaBlock } from '../Media/config';
 import { CardBlock } from '../Card/config';
+import { AccordionBlock } from '../Accordion/config';
 
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
 import { BorderRadius } from '@/fields/BorderRadius';
 import { ClassName } from '@/fields/ClassName';
 import { SectionTypeField } from '@/fields/SectionType';
-const Blocks = [DividerBlock, LinksBlock, LinksGroupBlock, IntroBlock, MediaBlock, CardBlock];
+const Blocks = [
+  DividerBlock,
+  LinksBlock,
+  LinksGroupBlock,
+  IntroBlock,
+  MediaBlock,
+  CardBlock,
+  AccordionBlock,
+];
 
 export const SectionBlock: Block = {
   slug: 'section',
