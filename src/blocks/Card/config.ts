@@ -4,6 +4,10 @@ import { GridAppearance } from '@/fields/GridAppearance';
 export const CardBlock: Block = {
   slug: 'cardBlock',
   interfaceName: 'CardBlockProps',
+  labels: {
+    singular: 'Card',
+    plural: 'Cards',
+  },
   fields: [
     {
       type: 'row',

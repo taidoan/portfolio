@@ -4,7 +4,7 @@ import { TextFieldClientProps } from 'payload';
 import { IconLock, IconLockOpen2 } from '@tabler/icons-react';
 import { useField, Button, TextInput, FieldLabel, useFormFields, useForm } from '@payloadcms/ui';
 
-import { formatSlug } from '@/fields/Slug/formatSlug';
+import { formatSlug } from './formatSlug';
 import './index.scss';
 
 export type SlugComponentProps = {

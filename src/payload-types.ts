@@ -444,6 +444,7 @@ export interface SectionBlockProps {
         | MediaBlockProps
         | CardBlockProps
         | AccordionBlockProps
+        | CarouselBlockProps
       )[]
     | null;
   boxedContent?: {
@@ -871,6 +872,81 @@ export interface AccordionBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlockProps".
+ */
+export interface CarouselBlockProps {
+  carouselItems?: (CardBlockProps | MediaBlockProps)[] | null;
+  carouselConfig: {
+    autoHeight: boolean;
+    autoPlay: boolean;
+    keyboardControls: boolean;
+    buttonNavigation: boolean;
+    pagination: boolean;
+    loop: boolean;
+    direction: 'horizontal' | 'vertical';
+    focus?: boolean | null;
+    paginationType?: ('bullets' | 'progress') | null;
+    /**
+     * The spacing between slides in pixels.
+     */
+    slideSpacing: number;
+    /**
+     * The number of slides to show at a time.
+     */
+    slidesPerView: number;
+    /**
+     * The number of slides to scroll at a time.
+     */
+    slidesToScroll: 'auto' | '1' | '2' | '3' | '4';
+  };
+  /**
+   * You can change the class names for the carousel. This is especially useful if you are using a CSS framework like Tailwind or BEM naming conventions. It is also helpful if you want to easily style the carousel disabled state with CSS.
+   */
+  carouselClassNames?: {
+    container?: string | null;
+    wrapper?: string | null;
+    slide?: string | null;
+  };
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  /**
+   * Enable responsive mode to disable the carousel at  a certain breakpoint. This is useful if you want to use the carousel on smaller screens but still want to have the ability to navigate through the slides.
+   */
+  responsive?: boolean | null;
+  breakpointSelection?: string | null;
+  gridColumns?: ('1' | '2' | '3' | '4' | '6' | '8' | '12') | null;
+  slideColumnSpan?: ('1' | '2' | '3' | '4' | '6' | '12') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'carouselBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SectionGroupBlockProps".
  */
 export interface SectionGroupBlockProps {
@@ -1222,6 +1298,7 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockPropsSelect<T>;
         cardBlock?: T | CardBlockPropsSelect<T>;
         accordionBlock?: T | AccordionBlockPropsSelect<T>;
+        carouselBlock?: T | CarouselBlockPropsSelect<T>;
       };
   boxedContent?: T;
   appearance?:
@@ -1389,6 +1466,54 @@ export interface AccordionBlockPropsSelect<T extends boolean = true> {
         alignSelf?: T;
         justifySelf?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlockProps_select".
+ */
+export interface CarouselBlockPropsSelect<T extends boolean = true> {
+  carouselItems?:
+    | T
+    | {
+        cardBlock?: T | CardBlockPropsSelect<T>;
+        mediaBlock?: T | MediaBlockPropsSelect<T>;
+      };
+  carouselConfig?:
+    | T
+    | {
+        autoHeight?: T;
+        autoPlay?: T;
+        keyboardControls?: T;
+        buttonNavigation?: T;
+        pagination?: T;
+        loop?: T;
+        direction?: T;
+        focus?: T;
+        paginationType?: T;
+        slideSpacing?: T;
+        slidesPerView?: T;
+        slidesToScroll?: T;
+      };
+  carouselClassNames?:
+    | T
+    | {
+        container?: T;
+        wrapper?: T;
+        slide?: T;
+      };
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  responsive?: T;
+  breakpointSelection?: T;
+  gridColumns?: T;
+  slideColumnSpan?: T;
   id?: T;
   blockName?: T;
 }

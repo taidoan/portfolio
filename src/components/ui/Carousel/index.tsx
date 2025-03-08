@@ -17,6 +17,49 @@ import { useKeyboard } from './components/keyboard';
 import { ButtonNavigation } from './components/buttonNavigation';
 import { CarouselSlide } from './components/slide';
 
+/**
+ * Carousel component using Embla Carousel
+ * This carousel component is a wrapper around the Embla Carousel library. It provides a simple and customizable carousel component that can be used in your React application.
+ *
+ * It supports various configuration options, such as auto-height, auto-play, keyboard navigation, and pagination. It also allows you to customize the class names for the carousel, wrapper, and slide.
+ *
+ * It also provides a responsive breakpoint option, which allows you to disable the carousel at a certain breakpoint. This is useful if you want to use the carousel on smaller screens but still want to have the ability to navigate through the slides.
+ *
+ * It also provides a button navigation option, which allows you to display navigation buttons for the carousel. This is useful if you want to provide a more user-friendly interface for navigating through the slides.
+ *
+ * It also provides a pagination option, which allows you to display pagination for the carousel. This is useful if you want to provide a more user-friendly interface for navigating through the slides.
+ *
+ * It also provides a focus option, which allows you to focus on the active slide on load. This is useful if you want to highlight the current slide and make it more prominent.
+ *
+ * For more information, please refer to the Embla Carousel documentation
+ * @see {@link https://www.embla-carousel.com Embla Carousel}
+ * @param {CarouselProps} props - Carousel component props
+ * @returns {React.ReactElement} Carousel component
+ * @example
+ * <Carousel
+ *   slidesPerView={3}
+ *   slidesToScroll={3}
+ *   slideSpacing={16}
+ *   loop={false}
+ *   focus={false}
+ *   pagination={false}
+ *   paginationType={'bullets'}
+ *   direction={'horizontal'}
+ *   autoHeight={false}
+ *   autoPlay={false}
+ *   keyboardControls={false}
+ *   buttonNavigation={false}
+ *   paginationColor={'primary'}
+ *   className={''}
+ *   wrapperClassName={''}
+ *   slideClassName={''}
+ *   children={[
+ *     <div>Slide 1</div>,
+ *     <div>Slide 2</div>,
+ *     <div>Slide 3</div>,
+ *   ]}
+ * />
+ */
 export const Carousel = ({
   children,
   className,

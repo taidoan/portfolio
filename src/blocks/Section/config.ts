@@ -6,6 +6,7 @@ import { IntroBlock } from '../Intro/config';
 import { MediaBlock } from '../Media/config';
 import { CardBlock } from '../Card/config';
 import { AccordionBlock } from '../Accordion/config';
+import { CarouselBlock } from '../Carousel/config';
 
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
@@ -20,6 +21,7 @@ const Blocks = [
   MediaBlock,
   CardBlock,
   AccordionBlock,
+  CarouselBlock,
 ];
 
 export const SectionBlock: Block = {

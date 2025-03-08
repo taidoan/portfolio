@@ -1,15 +1,15 @@
 export type CarouselProps = {
   children?: React.ReactNode[] | React.ReactNode;
-  className?: string | undefined;
+  className?: string | undefined | null;
   wrapperClassName?: string | undefined;
   slideClassName?: string | undefined;
   slidesPerView?: number;
   slidesToScroll?: number | 'auto' | string;
   slideSpacing?: number;
   loop?: boolean;
-  focus?: boolean;
+  focus?: boolean | null;
   pagination?: boolean;
-  paginationType?: 'bullets' | 'progress';
+  paginationType?: 'bullets' | 'progress' | null;
   paginationColor?:
     | 'primary'
     | 'secondary'
@@ -20,7 +20,7 @@ export type CarouselProps = {
     | 'chery-punch'
     | 'fresh-leaf';
   direction?: 'vertical' | 'horizontal' | 'vertical-scroll';
-  disableAt?: string;
+  disableAt?: string | null;
   autoHeight?: boolean;
   autoPlay?: boolean;
   keyboardControls?: boolean;
