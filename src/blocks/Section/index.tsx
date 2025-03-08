@@ -9,6 +9,7 @@ import { MediaBlock } from '../Media';
 import { CardBlock } from '../Card';
 import { AccordionBlock } from '../Accordion';
 import { CarouselBlock } from '../Carousel';
+import { BioBlock } from '../Bio';
 
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -22,6 +23,7 @@ const blockComponents = {
   cardBlock: CardBlock,
   accordionBlock: AccordionBlock,
   carouselBlock: CarouselBlock,
+  bioBlock: BioBlock,
 };
 
 export const SectionBlock = ({
