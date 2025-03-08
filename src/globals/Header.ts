@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'payload';
-import { Link } from '@fields/Link';
+import { Link } from '@/fields/Link';
 import { anyone, authenticated } from '@/access';
 
 export const Header: GlobalConfig = {
