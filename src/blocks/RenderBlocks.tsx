@@ -2,6 +2,7 @@ import type { Page } from '@/payload-types';
 import { SectionBlock } from '@/blocks/Section';
 import { DividerBlock } from '@/blocks/Divider';
 import { SectionGroupBlock } from '@/blocks/Section/Group';
+import { MediaBlock } from './Media';
 
 export type RenderBlocksProps = {
   blocks: Page['layout'][0][];
@@ -11,6 +12,7 @@ const blockComponents = {
   section: SectionBlock,
   divider: DividerBlock,
   sectionGroup: SectionGroupBlock,
+  mediaBlock: MediaBlock,
 };
 
 export const RenderBlocks = ({ blocks }: RenderBlocksProps) => {
