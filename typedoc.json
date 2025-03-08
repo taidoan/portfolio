@@ -17,20 +17,20 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["/src/*"],
-      "@config": ["/config"],
-      "@scripts/*": ["/scripts/*"],
-      "@payload-config": ["/src/payload.config.ts"],
-      "@fields/*": ["/src/fields/*"],
-      "@utilities/*": ["src/lib/utilities/*"],
-      "@components/*": ["/src/components/*"],
-      "@collections/*": ["/src/collections/*"],
-      "@globals/*": ["/src/globals/*"],
-      "@hooks/*": ["src/lib/hooks/*"],
-      "@layouts/*": ["/src/layouts/*"],
-      "@styles/*": ["/src/styles/*"],
-      "@abstracts/*": ["/src/styles/abstracts/*"],
-      "@editor/*": ["/src/lib/editor/*"]
+      "@/*": ["./src/*"],
+      "@config": ["./config"],
+      "@scripts/*": ["./scripts/*"],
+      "@payload-config": ["./src/payload.config.ts"],
+      "@fields/*": ["./src/fields/*"],
+      "@utilities/*": ["./src/lib/utilities/*"],
+      "@components/*": ["./src/components/*"],
+      "@collections/*": ["./src/collections/*"],
+      "@globals/*": ["./src/globals/*"],
+      "@hooks/*": ["./src/lib/hooks/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@abstracts/*": ["./src/styles/abstracts/*"],
+      "@editor/*": ["./src/lib/editor/*"]
     }
   }
 }
