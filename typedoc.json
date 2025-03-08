@@ -28,8 +28,6 @@
       "@globals/*": ["./src/globals/*"],
       "@hooks/*": ["./src/lib/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@abstracts/*": ["./src/styles/abstracts/*"],
       "@editor/*": ["./src/lib/editor/*"]
     }
   }
