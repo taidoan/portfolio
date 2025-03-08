@@ -205,15 +205,6 @@ export interface Page {
    */
   numberOfProjects?: number | null;
   thumbnail?: (string | null) | Media;
-  parent?: (string | null) | Page;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Page;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -243,6 +234,158 @@ export interface HeroBlockProps {
   showBreadcrumb?: ('true' | 'false') | null;
   breadcrumbContainer?: ('none' | 'boxed') | null;
   breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
+  breadcrumbs?:
+    | {
+        relationTo:
+          | {
+              relationTo: 'pages';
+              value: string | Page;
+            }
+          | {
+              relationTo: 'projects';
+              value: string | Project;
+            }
+          | {
+              relationTo: 'services';
+              value: string | Service;
+            };
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: string;
+  title: string;
+  details?: {
+    date?: string | null;
+    type?: string | null;
+    tools?: string | null;
+    name?: string | null;
+    url?: string | null;
+    previewLabel?: string | null;
+    previewUrl?: string | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
+  parentCategory?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  serviceCategoryTitle: string;
+  serviceCategoryDescription: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  serviceImage?: (string | null) | Media;
+  slug: string;
+  slugLock?: boolean | null;
+  breadcrumbs?:
+    | {
+        relationTo:
+          | {
+              relationTo: 'pages';
+              value: string | Page;
+            }
+          | {
+              relationTo: 'projects';
+              value: string | Project;
+            }
+          | {
+              relationTo: 'services';
+              value: string | Service;
+            };
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  fullslug?: string | null;
+  thumbnail?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -395,91 +538,6 @@ export interface LinksBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'links';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "projects".
- */
-export interface Project {
-  id: string;
-  title: string;
-  details?: {
-    date?: string | null;
-    type?: string | null;
-    tools?: string | null;
-    name?: string | null;
-    url?: string | null;
-    previewLabel?: string | null;
-    previewUrl?: string | null;
-    description?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-  };
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  parent?: (string | null) | Project;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Project;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  description?: string | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -750,53 +808,6 @@ export interface CardBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cardBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services".
- */
-export interface Service {
-  id: string;
-  title: string;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  serviceCategoryTitle: string;
-  serviceCategoryDescription: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  serviceImage?: (string | null) | Media;
-  slug: string;
-  slugLock?: boolean | null;
-  thumbnail?: (string | null) | Media;
-  parent?: (string | null) | Service;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Service;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1091,15 +1102,6 @@ export interface PagesSelect<T extends boolean = true> {
   url?: T;
   numberOfProjects?: T;
   thumbnail?: T;
-  parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1115,6 +1117,13 @@ export interface HeroBlockPropsSelect<T extends boolean = true> {
   showBreadcrumb?: T;
   breadcrumbContainer?: T;
   breadcrumbBackground?: T;
+  breadcrumbs?:
+    | T
+    | {
+        relationTo?: T;
+        label?: T;
+        id?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1362,15 +1371,6 @@ export interface ProjectsSelect<T extends boolean = true> {
   url?: T;
   thumbnail?: T;
   categories?: T;
-  parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1380,7 +1380,6 @@ export interface ProjectsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
-  title?: T;
   meta?:
     | T
     | {
@@ -1393,16 +1392,15 @@ export interface ServicesSelect<T extends boolean = true> {
   serviceImage?: T;
   slug?: T;
   slugLock?: T;
-  thumbnail?: T;
-  parent?: T;
   breadcrumbs?:
     | T
     | {
-        doc?: T;
-        url?: T;
+        relationTo?: T;
         label?: T;
         id?: T;
       };
+  fullslug?: T;
+  thumbnail?: T;
   updatedAt?: T;
   createdAt?: T;
 }

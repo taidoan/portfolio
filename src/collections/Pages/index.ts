@@ -16,6 +16,7 @@ import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
 import { DividerBlock } from '@/blocks/Divider/config';
 import { SectionBlock } from '@/blocks/Section/config';
 import { SectionGroupBlock } from '@/blocks/Section/Group/config';
+
 export const Pages: CollectionConfig = {
   slug: 'pages',
   access: {

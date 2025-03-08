@@ -8,6 +8,8 @@ import { generateMeta } from '@/lib/utilities/generateMeta';
 import { Redirects } from '@/components/features/Redirects';
 import { RenderHero } from '@/blocks/Hero/renderHero';
 import { RenderBlocks } from '@/blocks/RenderBlocks';
+import config from '@payload-config';
+import type { Breadcrumb } from '@/components/ui/Breadcrumbs';
 
 export type Args = {
   params: Promise<{
@@ -28,11 +30,18 @@ const Page = async ({ params: paramsPromise }: Args) => {
 
   const { hero, layout } = page;
 
+  const pageIds =
+    hero.breadcrumbs?.map((breadcrumb) => {
+      const value = breadcrumb.relationTo.value;
+      return typeof value === 'object' && value !== null ? value.id : value;
+    }) || [];
+
+  const breadcrumbsData = await getBreadcrumbs(pageIds);
   return (
     <>
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
-      <RenderHero heroData={hero} />
+      <RenderHero heroData={hero} breadcrumbsData={breadcrumbsData} />
       <RenderBlocks blocks={layout} />
     </>
   );
@@ -66,4 +75,32 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
   });
 
   return result.docs?.[0] || null;
+});
+
+const getBreadcrumbs = cache(async (pageIds: (string | number)[]) => {
+  const payload = await getPayload({ config });
+
+  const breadcrumbsData = await payload.find({
+    collection: 'pages',
+    where: { id: { in: pageIds } },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      url: true,
+    },
+    depth: 0,
+    pagination: false,
+    overrideAccess: false,
+  });
+
+  const docsMap: Record<string | number, Breadcrumb> = {};
+
+  breadcrumbsData.docs.forEach((doc) => {
+    docsMap[doc.id] = doc;
+  });
+
+  const orderedDocs = pageIds.map((id) => docsMap[id]).filter(Boolean);
+
+  return orderedDocs;
 });
