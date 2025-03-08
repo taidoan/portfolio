@@ -3,11 +3,24 @@ import { RichText } from '@/components/ui/RichText';
 import style from './style.module.scss';
 import clsx from 'clsx';
 import { getCDNURL } from '@/lib/utilities/getURLs';
+import type { Breadcrumbs as BreadcrumbsType } from '@/components/ui/Breadcrumbs';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export type LargeHeroProps = HeroBlockProps;
+export type LargeHeroProps = HeroBlockProps & {
+  breadcrumbsData?: BreadcrumbsType;
+};
 
-export const LargeHero = ({ image, richText }: LargeHeroProps) => {
+export const LargeHero = ({
+  image,
+  richText,
+  showBreadcrumb,
+  breadcrumbsData,
+  breadcrumbContainer,
+  breadcrumbBackground,
+}: LargeHeroProps) => {
   const heroClasses = clsx('section', style.hero);
+  console.log(breadcrumbsData);
+
   return (
     <section
       className={heroClasses}
@@ -17,6 +30,13 @@ export const LargeHero = ({ image, richText }: LargeHeroProps) => {
       }}
     >
       <div className={style.container}>{richText && <RichText data={richText} />}</div>
+      {showBreadcrumb && breadcrumbsData && breadcrumbsData.length > 0 && (
+        <Breadcrumbs
+          breadcrumbs={breadcrumbsData}
+          container={breadcrumbContainer || 'none'}
+          background={breadcrumbBackground || 'none'}
+        />
+      )}
     </section>
   );
 };

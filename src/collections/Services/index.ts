@@ -8,6 +8,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 import { slugField } from '@/fields/Slug';
+import { BreadCrumbs } from '@/fields/Breadcrumbs';
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -18,15 +19,9 @@ export const Services: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: 'serviceCategoryTitle',
   },
   fields: [
-    {
-      name: 'title',
-      type: 'text',
-      required: true,
-      label: 'Title',
-    },
     {
       type: 'tabs',
       tabs: [
@@ -86,7 +81,21 @@ export const Services: CollectionConfig = {
         },
       ],
     },
-    ...slugField(),
+    ...slugField('serviceCategoryTitle'),
+    BreadCrumbs({
+      admin: {
+        position: 'sidebar',
+      },
+    }),
+    {
+      name: 'fullslug',
+      label: 'Full Slug',
+      type: 'text',
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+    },
     {
       name: 'thumbnail',
       type: 'upload',

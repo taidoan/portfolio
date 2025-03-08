@@ -1,5 +1,6 @@
 import { Field } from 'payload';
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
+import { BreadCrumbs } from '@/fields/Breadcrumbs';
 
 export const Hero: Field = {
   name: 'hero',
@@ -104,6 +105,11 @@ export const Hero: Field = {
                 },
               ],
             },
+            BreadCrumbs({
+              admin: {
+                condition: (_, siblingData) => siblingData.showBreadcrumb === 'true',
+              },
+            }),
           ],
         },
       ],

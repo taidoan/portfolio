@@ -2,12 +2,19 @@ import { Plugin } from 'payload';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { redirectsPlugin } from '@payloadcms/plugin-redirects';
-import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { GenerateTitle, GenerateURL, GenerateImage } from '@payloadcms/plugin-seo/types';
 import { Project, Page, Service } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 
+const isService = (doc: Project | Page | Service): doc is Service => {
+  return 'serviceCategoryTitle' in doc;
+};
+
 const generateTitle: GenerateTitle<Project | Page | Service> = ({ doc }) => {
+  if (isService(doc)) {
+    return `${doc.serviceCategoryTitle} | Tai Doan`;
+  }
+
   return doc?.title ? `${doc.title} | Tai Doan` : 'Tai Doan Portfolio Website';
 };
 
@@ -66,9 +73,5 @@ export const plugins: Plugin[] = [
         });
       },
     },
-  }),
-  nestedDocsPlugin({
-    collections: ['pages', 'projects', 'services'],
-    generateURL: (docs) => docs.reduce((url, doc) => `/${doc.slug}`, ''),
   }),
 ];
