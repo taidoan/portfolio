@@ -4,6 +4,10 @@ import { GridAppearance } from '@/fields/GridAppearance';
 export const AccordionBlock: Block = {
   slug: 'accordionBlock',
   interfaceName: 'AccordionBlockProps',
+  labels: {
+    singular: 'Accordion',
+    plural: 'Accordions',
+  },
   fields: [
     {
       type: 'tabs',

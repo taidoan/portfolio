@@ -217,7 +217,11 @@ const meta: Meta<typeof Carousel> = {
 export default meta;
 type Story = StoryObj<typeof Carousel>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    slidesPerView: 1,
+  },
+};
 
 export const AutoHeight: Story = {
   args: {

@@ -5,6 +5,10 @@ import { Block } from 'payload';
 export const IntroBlock: Block = {
   slug: 'introBlock',
   interfaceName: 'IntroBlockProps',
+  labels: {
+    singular: 'Intro',
+    plural: 'Intros',
+  },
   fields: [
     {
       type: 'tabs',
