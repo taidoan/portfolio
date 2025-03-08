@@ -1,5 +1,5 @@
 import type { ArrayField, Field } from 'payload';
-import { link } from '@/fields/Link';
+import { link } from './../index';
 
 export const linkGroup = (): ArrayField => {
   const generatedLinkGroup: Field = {

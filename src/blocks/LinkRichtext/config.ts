@@ -1,5 +1,5 @@
 import { Block } from 'payload';
-import { link } from '@/fields/Link';
+import { link } from '@fields/Link';
 
 export const LinksBlockRichtext: Block = {
   slug: 'links-richtext',

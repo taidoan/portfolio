@@ -7,7 +7,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { slugField } from '@/fields/Slug';
+import { slugField } from '@fields/Slug';
 import { urlField } from '@/fields/URL';
 import { Hero } from '@/blocks/Hero/config';
 import { numberOfProjects } from '@/fields/Projects/numberOfProjects';
