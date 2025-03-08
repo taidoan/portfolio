@@ -166,9 +166,13 @@
   }
 
   &--inside {
-    background-color: #f7f7f7;
+    background-color: var(--clr-light-grey-150);
     border-radius: rem(16);
     padding: size-clamp(rem(16), rem(24));
+
+    @include mq('md') {
+      padding-inline: size-clamp(rem(16), rem(24));
+    }
   }
 }
 
