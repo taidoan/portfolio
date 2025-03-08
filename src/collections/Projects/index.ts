@@ -7,7 +7,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { SlugField } from '@fields/Slug';
+import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 
 export const Projects: CollectionConfig = {
