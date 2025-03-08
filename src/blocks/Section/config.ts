@@ -7,6 +7,7 @@ import { MediaBlock } from '../Media/config';
 import { CardBlock } from '../Card/config';
 import { AccordionBlock } from '../Accordion/config';
 import { CarouselBlock } from '../Carousel/config';
+import { BioBlock } from '../Bio/config';
 
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
@@ -22,6 +23,7 @@ const Blocks = [
   CardBlock,
   AccordionBlock,
   CarouselBlock,
+  BioBlock,
 ];
 
 export const SectionBlock: Block = {
