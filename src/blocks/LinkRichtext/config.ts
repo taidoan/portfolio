@@ -1,10 +1,10 @@
 import { Block } from 'payload';
-import { link } from '@fields/Link';
+import { Link } from '@fields/Link';
 
 export const LinksBlockRichtext: Block = {
   slug: 'links-richtext',
   interfaceName: 'LinksBlockRichtextProps',
-  fields: [link()],
+  fields: [Link()],
   labels: {
     singular: 'Button Link',
     plural: 'Button Links',

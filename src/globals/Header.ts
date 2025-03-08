@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'payload';
-import { link } from '@fields/Link';
+import { Link } from '@fields/Link';
 import { anyone, authenticated } from '@/access';
 
 export const Header: GlobalConfig = {
@@ -13,7 +13,7 @@ export const Header: GlobalConfig = {
       name: 'navItems',
       label: 'Navigation Items',
       type: 'array',
-      fields: [link()],
+      fields: [Link()],
       required: true,
     },
     {

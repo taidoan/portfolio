@@ -1,6 +1,6 @@
 import type { Field, GroupField } from 'payload';
 
-export const link = (): GroupField => {
+export const Link = (): GroupField => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',

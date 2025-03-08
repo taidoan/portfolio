@@ -7,7 +7,7 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { slugField } from '@fields/Slug';
+import { SlugField } from '@fields/Slug';
 import { BreadCrumbs } from '@fields/Breadcrumbs';
 
 export const Services: CollectionConfig = {
@@ -81,7 +81,7 @@ export const Services: CollectionConfig = {
         },
       ],
     },
-    ...slugField('serviceCategoryTitle'),
+    ...SlugField('serviceCategoryTitle'),
     BreadCrumbs({
       admin: {
         position: 'sidebar',
