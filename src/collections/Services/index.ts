@@ -88,15 +88,6 @@ export const Services: CollectionConfig = {
       },
     }),
     {
-      name: 'fullslug',
-      label: 'Full Slug',
-      type: 'text',
-      admin: {
-        readOnly: true,
-        position: 'sidebar',
-      },
-    },
-    {
       name: 'thumbnail',
       type: 'upload',
       relationTo: 'media',
