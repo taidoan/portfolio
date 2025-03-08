@@ -10,8 +10,16 @@ export type LargeHeroProps = HeroBlockProps & {
   breadcrumbsData?: BreadcrumbsType;
 };
 
-export const LargeHero = ({ image, richText, breadcrumbsData }: LargeHeroProps) => {
+export const LargeHero = ({
+  image,
+  richText,
+  showBreadcrumb,
+  breadcrumbsData,
+  breadcrumbContainer,
+  breadcrumbBackground,
+}: LargeHeroProps) => {
   const heroClasses = clsx('section', style.hero);
+  console.log(breadcrumbsData);
 
   return (
     <section
@@ -22,7 +30,13 @@ export const LargeHero = ({ image, richText, breadcrumbsData }: LargeHeroProps) 
       }}
     >
       <div className={style.container}>{richText && <RichText data={richText} />}</div>
-      {breadcrumbsData && <Breadcrumbs breadcrumbs={breadcrumbsData} />}
+      {showBreadcrumb && breadcrumbsData && breadcrumbsData.length > 0 && (
+        <Breadcrumbs
+          breadcrumbs={breadcrumbsData}
+          container={breadcrumbContainer || 'none'}
+          background={breadcrumbBackground || 'none'}
+        />
+      )}
     </section>
   );
 };

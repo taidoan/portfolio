@@ -31,12 +31,12 @@ export const Breadcrumbs = ({
   background = 'none',
 }: BreadcrumbsProps) => {
   const internalIsMediumScreen = useMediaQuery('(min-width: 48em)');
-  if (!breadcrumbs) return null;
+  if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
   const isMediumScreen = externalIsMediumScreen ?? internalIsMediumScreen;
 
-  const breadcrumbsClasses = clsx(style.breadcrumbs, {
-    [style['breadcrumbs__boxed']]: container === 'boxed',
+  const breadcrumbsClasses = clsx(style.breadcrumbs__container, {
+    [style['breadcrumbs__container--boxed']]: container === 'boxed',
     [style['breadcrumbs__bg--light']]: container === 'boxed' && background === 'light',
     [style['breadcrumbs__bg--dark']]: container === 'boxed' && background === 'dark',
     [style['breadcrumbs__bg--translucent']]: container === 'boxed' && background === 'translucent',
@@ -50,11 +50,14 @@ export const Breadcrumbs = ({
           const isHome = breadcrumb.title === 'Home';
 
           return (
-            <li key={breadcrumb.id} className={style.breadcrumb}>
+            <li key={breadcrumb.id} className={style.breadcrumb__item}>
               {isLast ? (
                 <span aria-current='page'>{breadcrumb.title}</span>
               ) : (
-                <Link href={serverUrl + breadcrumb.url} className={style['breadcrumb__link']}>
+                <Link
+                  href={breadcrumb.url || serverUrl + `/${breadcrumb.slug}`}
+                  className={style.breadcrumb__link}
+                >
                   {isHome && !isMediumScreen ? (
                     <IconHomeFilled
                       data-testid='home-icon'
@@ -66,9 +69,7 @@ export const Breadcrumbs = ({
                   )}
                 </Link>
               )}
-              {!isLast && (
-                <IconCircleChevronsRightFilled className={style['breadcrumb__seperator']} />
-              )}
+              {!isLast && <IconCircleChevronsRightFilled className={style.breadcrumb__seperator} />}
             </li>
           );
         })}

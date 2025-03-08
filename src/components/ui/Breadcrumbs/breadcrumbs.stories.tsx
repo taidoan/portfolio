@@ -39,14 +39,29 @@ export const Default: Story = {
   args: {},
 };
 
-export const Services: Story = {
+export const Boxed: Story = {
   args: {
-    breadcrumbs: [
-      {
-        url: '/ui-ux',
-        title: 'UI & UX',
-        id: '67cb3ca8afe3837fb56b4a8b',
-      },
-    ],
+    container: 'boxed',
+  },
+};
+
+export const BoxedLight: Story = {
+  args: {
+    container: 'boxed',
+    background: 'light',
+  },
+};
+
+export const BoxedDark: Story = {
+  args: {
+    container: 'boxed',
+    background: 'dark',
+  },
+};
+
+export const BoxedTranslucent: Story = {
+  args: {
+    container: 'boxed',
+    background: 'translucent',
   },
 };
