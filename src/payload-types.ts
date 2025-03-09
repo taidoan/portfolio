@@ -443,6 +443,7 @@ export interface SectionBlockProps {
         | AccordionBlockProps
         | CarouselBlockProps
         | BioBlockProps
+        | ToolsBlockProps
       )[]
     | null;
   boxedContent?: {
@@ -1003,6 +1004,85 @@ export interface BioBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ToolsBlockProps".
+ */
+export interface ToolsBlockProps {
+  /**
+   * Create a list of tools that you use, featuring their icon, title and link.
+   */
+  tools?:
+    | {
+        icon: string | Media;
+        name: string;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        link: {
+          type: 'reference' | 'custom';
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
+              } | null);
+          url?: string | null;
+          label: string;
+          color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+          className?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'toolsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SectionGroupBlockProps".
  */
 export interface SectionGroupBlockProps {
@@ -1356,6 +1436,7 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         accordionBlock?: T | AccordionBlockPropsSelect<T>;
         carouselBlock?: T | CarouselBlockPropsSelect<T>;
         bioBlock?: T | BioBlockPropsSelect<T>;
+        toolsBlock?: T | ToolsBlockPropsSelect<T>;
       };
   boxedContent?: T;
   appearance?:
@@ -1592,6 +1673,41 @@ export interface BioBlockPropsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+            };
+        id?: T;
+      };
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ToolsBlockProps_select".
+ */
+export interface ToolsBlockPropsSelect<T extends boolean = true> {
+  tools?:
+    | T
+    | {
+        icon?: T;
+        name?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              color?: T;
+              buttonShadow?: T;
+              className?: T;
             };
         id?: T;
       };
