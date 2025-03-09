@@ -13,22 +13,5 @@
     "**/__tests__/**",
     "**/*.stories.{ts,tsx,js,jsx}",
     "**/(payload)/**/*"
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@config": ["./config/index.ts"],
-      "@scripts/*": ["./scripts/*"],
-      "@payload-config": ["./src/payload.config.ts"],
-      "@fields/*": ["./src/fields/*"],
-      "@utilities/*": ["./src/lib/utilities/*"],
-      "@components/*": ["./src/components/*"],
-      "@collections/*": ["./src/collections/*"],
-      "@globals/*": ["./src/globals/*"],
-      "@hooks/*": ["./src/lib/hooks/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@editor/*": ["./src/lib/editor/*"]
-    }
-  }
+  ]
 }
