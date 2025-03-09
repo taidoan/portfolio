@@ -19,7 +19,6 @@ export const LargeHero = ({
   breadcrumbBackground,
 }: LargeHeroProps) => {
   const heroClasses = clsx('section', style.hero);
-  console.log(breadcrumbsData);
 
   return (
     <section
