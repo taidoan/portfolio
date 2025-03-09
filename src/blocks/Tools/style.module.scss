@@ -1,0 +1,112 @@
+@use '@abstracts/_index' as *;
+
+.tools__block {
+  display: grid;
+  gap: rem(16);
+  grid-template-columns: repeat(3, 1fr);
+  padding: size-clamp(rem(16), rem(32));
+
+  @include mq(665) {
+    grid-template-columns: repeat(9, 1fr);
+  }
+
+  @include mq('md') {
+    gap: rem(24);
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tools__entry {
+  background-color: var(--clr-light-grey-200);
+  border-radius: var(--border-radius-small);
+  padding: rem(8);
+  transition: background-color var(--transition-duration) ease-in-out;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.tools__image {
+  aspect-ratio: 1 / 1;
+  border-radius: rem(8);
+  cursor: pointer;
+  display: block;
+  max-height: rem(64);
+  transition: transform var(--transition-duration-fast) ease-in-out;
+
+  &:hover {
+    transform: scale(1.33);
+  }
+}
+
+.tools__modal-container {
+  align-items: center;
+  display: grid;
+  gap: rem(16);
+  grid-template-columns: 1fr;
+  justify-content: center;
+
+  @include mq(665) {
+    display: grid;
+    gap: rem(24);
+    grid-template-columns: auto 1fr 1fr 1fr;
+    padding-top: 0;
+  }
+
+  .tools__image {
+    cursor: auto;
+    justify-self: center;
+    margin-block: rem(24);
+    max-height: rem(136);
+    max-width: rem(136);
+
+    @include mq(665) {
+      border-radius: var(--border-radius-medium);
+      grid-column: span 1;
+      margin-block: 0;
+      max-height: rem(184);
+      max-width: rem(184);
+    }
+
+    &:hover {
+      transform: scale(1);
+    }
+  }
+}
+
+.tools__modal-content {
+  background-color: var(--clr-gallery-400);
+  border-radius: var(--border-radius-medium);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: size-clamp(rem(16), rem(32));
+  text-align: center;
+
+  @include mq(665) {
+    align-self: stretch;
+    grid-column: span 3;
+    grid-row: 1 / 3;
+    order: 3;
+    text-align: left;
+  }
+
+  p {
+    font-size: var(--fs-body-sm);
+  }
+}
+
+.tools__modal-title {
+  font-size: var(--fs-heading);
+  margin-bottom: rem(8);
+}
+
+.tools__modal-button {
+  width: 100%;
+  @include mq(665) {
+    font-size: 1rem;
+    grid-column: span 1;
+    grid-row: 2 / 3;
+  }
+}
