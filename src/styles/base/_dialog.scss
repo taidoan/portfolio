@@ -1,0 +1,48 @@
+@use '@abstracts/_index' as *;
+
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+dialog {
+  background-color: var(--clr-light-400);
+  border: 0;
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--shadow-menu);
+  color: var(--fc-card);
+  display: grid;
+  margin: auto;
+  max-inline-size: min(80vw, 50ch);
+  overflow: visible;
+  padding: size-clamp(rem(16), rem(24));
+  position: fixed;
+  width: 100%;
+  z-index: var(--z-modal);
+
+  &::backdrop {
+    backdrop-filter: blur(25px);
+    background: hsla(0, 0%, 95%, 0.45);
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+
+  &[open] {
+    animation: fadeIn var(--transition-duration-fast) ease-in-out forwards;
+
+    &::backdrop {
+      animation: backdropFade var(--transition-duration-slow) ease-in-out forwards;
+    }
+  }
+
+  &:not([open]) {
+    animation: fadeOut var(--transition-duration-fast) ease-in-out forwards;
+    pointer-events: none;
+
+    &::backdrop {
+      animation: backdropFade var(--transition-duration-slow) ease backwards;
+      animation-direction: reverse;
+    }
+  }
+}
