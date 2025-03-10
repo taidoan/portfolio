@@ -44,7 +44,7 @@ export const CardBlock = async ({
       collection: 'services',
       id: (relatedService as Service)?.id,
     });
-    image = service?.serviceImage;
+    image = service?.image;
   }
   const cardImageClass = clsx({ [`${style['image-type--service']}`]: isService });
 
@@ -77,7 +77,7 @@ export const CardBlock = async ({
         isProject
           ? `/${relationTo}/${project?.slug}`
           : isService
-            ? `/${relationTo}#${service?.serviceCategoryTitle}`
+            ? `/${relationTo}#${service?.title}`
             : undefined
       }
       relation={relationTo}
@@ -88,9 +88,7 @@ export const CardBlock = async ({
       <CardBody>
         {renderImage('inside', 'top')}
         <CardContent insideContainer={relationTo === 'services' || insideContainer === 'yes'}>
-          <CardTitle>
-            {isProject ? project?.title : isService ? service?.serviceCategoryTitle : title}
-          </CardTitle>
+          <CardTitle>{isProject ? project?.title : isService ? service?.title : title}</CardTitle>
           {isProject && projectType ? (
             <p>{projectType}</p>
           ) : (
@@ -100,9 +98,7 @@ export const CardBlock = async ({
           {isService && serviceContent ? (
             <RichText data={serviceContent} />
           ) : (
-            service?.serviceCategoryDescription && (
-              <RichText data={service?.serviceCategoryDescription} />
-            )
+            service?.description && <RichText data={service?.description} />
           )}
           {!isProject && !isService && content && <RichText data={content} />}
         </CardContent>

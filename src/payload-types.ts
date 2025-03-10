@@ -323,9 +323,10 @@ export interface Project {
  */
 export interface Category {
   id: string;
-  name: string;
-  slug: string;
+  title: string;
   description?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
   parentCategory?: (string | null) | Category;
   updatedAt: string;
   createdAt: string;
@@ -344,8 +345,8 @@ export interface Service {
     image?: (string | null) | Media;
     description?: string | null;
   };
-  serviceCategoryTitle: string;
-  serviceCategoryDescription: {
+  title: string;
+  description: {
     root: {
       type: string;
       children: {
@@ -360,7 +361,7 @@ export interface Service {
     };
     [k: string]: unknown;
   };
-  serviceImage?: (string | null) | Media;
+  image?: (string | null) | Media;
   slug: string;
   slugLock?: boolean | null;
   breadcrumbs?:
@@ -1814,9 +1815,10 @@ export interface SectionGroupBlockPropsSelect<T extends boolean = true> {
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
-  name?: T;
-  slug?: T;
+  title?: T;
   description?: T;
+  slug?: T;
+  slugLock?: T;
   parentCategory?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1868,9 +1870,9 @@ export interface ServicesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  serviceCategoryTitle?: T;
-  serviceCategoryDescription?: T;
-  serviceImage?: T;
+  title?: T;
+  description?: T;
+  image?: T;
   slug?: T;
   slugLock?: T;
   breadcrumbs?:

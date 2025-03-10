@@ -19,7 +19,7 @@ export const Services: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    useAsTitle: 'serviceCategoryTitle',
+    useAsTitle: 'title',
   },
   fields: [
     {
@@ -57,19 +57,19 @@ export const Services: CollectionConfig = {
           label: 'Services',
           fields: [
             {
-              name: 'serviceCategoryTitle',
+              name: 'title',
               type: 'text',
               required: true,
               label: 'Service Category Title',
             },
             {
-              name: 'serviceCategoryDescription',
+              name: 'description',
               type: 'richText',
               required: true,
               label: 'Service Category Description',
             },
             {
-              name: 'serviceImage',
+              name: 'image',
               type: 'upload',
               relationTo: 'media',
               label: 'Service Image',
@@ -81,7 +81,7 @@ export const Services: CollectionConfig = {
         },
       ],
     },
-    ...SlugField('serviceCategoryTitle'),
+    ...SlugField('title'),
     BreadCrumbs({
       admin: {
         position: 'sidebar',
