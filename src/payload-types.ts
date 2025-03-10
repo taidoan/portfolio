@@ -188,7 +188,7 @@ export interface Page {
   id: string;
   title: string;
   hero: HeroBlockProps;
-  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps)[];
+  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps | ArchiveBlockProps)[];
   meta?: {
     title?: string | null;
     /**
@@ -384,6 +384,7 @@ export interface Service {
       }[]
     | null;
   thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
   updatedAt: string;
   createdAt: string;
 }
@@ -1158,6 +1159,46 @@ export interface SectionGroupBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArchiveBlockProps".
+ */
+export interface ArchiveBlockProps {
+  data: 'projects' | 'services';
+  filterShowAllButton: boolean;
+  viewType: 'list' | 'gallery';
+  numberOfProjects: number;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'archiveBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1407,6 +1448,7 @@ export interface PagesSelect<T extends boolean = true> {
         divider?: T | DividerBlockPropsSelect<T>;
         section?: T | SectionBlockPropsSelect<T>;
         sectionGroup?: T | SectionGroupBlockPropsSelect<T>;
+        archiveBlock?: T | ArchiveBlockPropsSelect<T>;
       };
   meta?:
     | T
@@ -1812,6 +1854,25 @@ export interface SectionGroupBlockPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArchiveBlockProps_select".
+ */
+export interface ArchiveBlockPropsSelect<T extends boolean = true> {
+  data?: T;
+  filterShowAllButton?: T;
+  viewType?: T;
+  numberOfProjects?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
@@ -1883,6 +1944,7 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   thumbnail?: T;
+  categories?: T;
   updatedAt?: T;
   createdAt?: T;
 }

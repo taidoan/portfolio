@@ -96,5 +96,16 @@ export const Services: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'categories',
+      type: 'relationship',
+      relationTo: 'categories',
+      label: 'Categories',
+      hasMany: true,
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 };

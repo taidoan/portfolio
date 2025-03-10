@@ -107,7 +107,7 @@ export const Archive = ({
             <CardImage className={style['archive__item-image']} borderRadius='all' align='left' />
             <CardContent>
               <CardTitle />
-              <p>{content}</p>
+              {content}
             </CardContent>
           </CardBody>
         </Card>

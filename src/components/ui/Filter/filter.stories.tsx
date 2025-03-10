@@ -110,15 +110,27 @@ export const Services: Story = {
 
         breadcrumbs: [],
         createdAt: '2025-03-10T11:54:55.104Z',
-        updatedAt: '2025-03-10T11:56:16.354Z',
+        updatedAt: '2025-03-10T19:19:13.785Z',
         title: 'Branding',
+
+        categories: [
+          {
+            description:
+              "Your brand is your story, and I’m here to help you tell it. From memorable logos to thoughtfully curated color palettes and typography, I create designs that reflect your values and resonate with your audience. Whether you're launching a new business or refreshing your existing brand, I’ll ensure your identity stands out and speaks authentically across every touchpoint.",
+            slug: 'branding',
+            slugLock: true,
+            createdAt: '2025-03-10T11:19:09.350Z',
+            updatedAt: '2025-03-10T11:59:52.011Z',
+            title: 'Branding',
+            id: '67cecaad00d7591f31a00717',
+          },
+        ],
         id: '67ced30f00d7591f31a00bae',
       },
       {
         meta: {
           title: 'UI/UX | Tai Doan',
         },
-
         slug: 'ui-ux',
         slugLock: false,
 
@@ -142,7 +154,7 @@ export const Services: Story = {
           },
         ],
         createdAt: '2025-03-07T18:29:33.880Z',
-        updatedAt: '2025-03-10T11:56:32.904Z',
+        updatedAt: '2025-03-10T19:34:09.529Z',
 
         description: {
           root: {
@@ -175,8 +187,20 @@ export const Services: Story = {
             version: 1,
           },
         },
-
         title: 'UI/UX',
+
+        categories: [
+          {
+            description:
+              "Your online presence is everything, and I’m here to help you make it unforgettable. From sleek, responsive websites to engaging digital experiences, I design with purpose and creativity. Whether it's building a site from scratch or enhancing your existing one, I focus on user-friendly, beautiful designs that work seamlessly across devices. Let’s bring your digital vision to life and make sure it stands out in the crowded online world.",
+            slug: 'digital',
+            slugLock: true,
+            createdAt: '2025-03-10T11:28:22.674Z',
+            updatedAt: '2025-03-10T11:59:44.547Z',
+            title: 'Digital',
+            id: '67ceccd600d7591f31a008bc',
+          },
+        ],
         id: '67cb3b0d00d7591f319f8bc2',
       },
     ],

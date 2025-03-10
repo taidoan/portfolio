@@ -16,6 +16,7 @@ import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
 import { DividerBlock } from '@/blocks/Divider/config';
 import { SectionBlock } from '@/blocks/Section/config';
 import { SectionGroupBlock } from '@/blocks/Section/Group/config';
+import { ArchiveBlock } from '@/blocks/Archive/config';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -78,7 +79,7 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               name: 'layout',
               label: 'Layout',
-              blocks: [DividerBlock, SectionBlock, SectionGroupBlock],
+              blocks: [DividerBlock, SectionBlock, SectionGroupBlock, ArchiveBlock],
               required: true,
             },
           ],
