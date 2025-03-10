@@ -65,8 +65,8 @@
 
     @include mq('md') {
       @include generate-col-span(16);
-      column-gap: var(--gap);
       display: grid;
+      gap: rem(24);
       grid-template-columns: repeat(16, 1fr);
     }
 

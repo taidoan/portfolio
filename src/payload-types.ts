@@ -88,7 +88,9 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -444,6 +446,7 @@ export interface SectionBlockProps {
         | CarouselBlockProps
         | BioBlockProps
         | ToolsBlockProps
+        | TopTracksBlockProps
       )[]
     | null;
   boxedContent?: {
@@ -1083,6 +1086,48 @@ export interface ToolsBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TopTracksBlockProps".
+ */
+export interface TopTracksBlockProps {
+  type?: ('carousel' | 'list') | null;
+  numberOfTracks: number;
+  container: 'none' | 'card';
+  loop?: ('loop' | 'noloop') | null;
+  slideSpacing: number;
+  focus?: ('focused' | 'unfocused') | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'topTracksBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SectionGroupBlockProps".
  */
 export interface SectionGroupBlockProps {
@@ -1437,6 +1482,7 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         carouselBlock?: T | CarouselBlockPropsSelect<T>;
         bioBlock?: T | BioBlockPropsSelect<T>;
         toolsBlock?: T | ToolsBlockPropsSelect<T>;
+        topTracksBlock?: T | TopTracksBlockPropsSelect<T>;
       };
   boxedContent?: T;
   appearance?:
@@ -1723,6 +1769,27 @@ export interface ToolsBlockPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TopTracksBlockProps_select".
+ */
+export interface TopTracksBlockPropsSelect<T extends boolean = true> {
+  type?: T;
+  numberOfTracks?: T;
+  container?: T;
+  loop?: T;
+  slideSpacing?: T;
+  focus?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SectionGroupBlockProps_select".
  */
 export interface SectionGroupBlockPropsSelect<T extends boolean = true> {
@@ -1985,7 +2052,14 @@ export interface Header {
     };
     id?: string | null;
   }[];
-  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
+  logoColor:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'light'
+    | 'slate'
+    | 'frosted-sage'
+    | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2157,7 +2231,6 @@ export interface LinksGroupRichtextProps {
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

@@ -9,6 +9,7 @@ import { AccordionBlock } from '../Accordion/config';
 import { CarouselBlock } from '../Carousel/config';
 import { BioBlock } from '../Bio/config';
 import { ToolsBlock } from '../Tools/config';
+import { TopTracksBlock } from '../TopTracks/config';
 
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
@@ -26,6 +27,7 @@ const Blocks = [
   CarouselBlock,
   BioBlock,
   ToolsBlock,
+  TopTracksBlock,
 ];
 
 export const SectionBlock: Block = {
