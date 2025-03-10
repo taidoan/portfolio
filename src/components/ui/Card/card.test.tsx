@@ -27,6 +27,25 @@ const mockData = {
     url: '/api/media/file/Urban%20Bites%20Thumbnail.webp',
     thumbnailURL: null,
   },
+  categories: [
+    {
+      id: '67cece0800d7591f31a00957',
+      title: 'Print',
+      slug: 'print',
+      description:
+        'Creating visually appealing and functional designs for physical materials like brochures and posters.',
+      updatedAt: '2025-03-10T11:33:28.064Z',
+      createdAt: '2025-03-10T11:33:28.064Z',
+    },
+    {
+      id: '67cecd3c00d7591f31a008d7',
+      title: 'Graphic Design',
+      slug: 'graphic-design',
+      description: 'Crafting stunning visuals for marketing campaigns and branding.',
+      updatedAt: '2025-03-10T11:58:52.603Z',
+      createdAt: '2025-03-10T11:58:52.603Z',
+    },
+  ],
 };
 
 describe('<CardTitle>', () => {
@@ -90,13 +109,11 @@ describe('<CardBody>', () => {
 
 describe('<CardImage>', () => {
   it('renders a card image component', () => {
-    const mockCDNUrl = getCDNURL();
-    const imagePath = 'example.jpg';
-    const expectedUrl = `${mockCDNUrl}/tr:w-3840,q-80,f-auto,tr-progressive/${imagePath}`;
+    const expectedUrl = `https://ik.imagekit.io/1ih3i3bte/media/tr:w-3840,q-80,f-auto,tr-progressive//api/media/file/Urban%2520Bites%2520Thumbnail.webp`;
 
     render(
       <Card>
-        <CardImage src={imagePath} alt='Example Image' />
+        <CardImage src={mockData.thumbnail?.url || null} alt='Example Image' />
       </Card>,
     );
     const cardImage = screen.getByAltText('Example Image');

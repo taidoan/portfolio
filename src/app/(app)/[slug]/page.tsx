@@ -10,6 +10,7 @@ import { RenderHero } from '@/blocks/Hero/renderHero';
 import { RenderBlocks } from '@/blocks/RenderBlocks';
 import config from '@payload-config';
 import type { Breadcrumb } from '@/components/ui/Breadcrumbs';
+import { Archive } from '@/components/ui/Archive';
 
 export type Args = {
   params: Promise<{
@@ -20,6 +21,7 @@ export type Args = {
 const Page = async ({ params: paramsPromise }: Args) => {
   const { isEnabled: draft } = await draftMode();
   const { slug = 'home' } = await paramsPromise;
+  const payload = await getPayload({ config: config });
   const url = '/' + slug;
 
   const page: RequiredDataFromCollectionSlug<'pages'> | null = await queryPageBySlug({
@@ -37,6 +39,33 @@ const Page = async ({ params: paramsPromise }: Args) => {
     }) || [];
 
   const breadcrumbsData = await getBreadcrumbs(pageIds);
+
+  const { docs: projects } = await payload.find({
+    collection: 'projects',
+    depth: 2,
+    limit: 4,
+    overrideAccess: false,
+  });
+
+  const categoryIdsWithProjects = new Set();
+
+  projects.forEach((project) => {
+    project?.categories?.forEach((category) => {
+      if (typeof category === 'object' && category?.id) {
+        categoryIdsWithProjects.add(category.id);
+      }
+    });
+  });
+
+  const { docs: categories } = await payload.find({
+    collection: 'categories',
+    depth: 1,
+    limit: 12,
+    overrideAccess: false,
+    select: { title: true, slug: true, description: true, updatedAt: true, createdAt: true },
+    where: { id: { in: Array.from(categoryIdsWithProjects) }, parentCategory: { exists: false } },
+  });
+
   return (
     <>
       <Redirects disableNotFound url={url} />

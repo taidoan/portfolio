@@ -141,6 +141,25 @@ export const ProjectsCard: Story = {
         url: '/api/media/file/vibz-thumbnail.webp',
         thumbnailURL: null,
       },
+      categories: [
+        {
+          id: '67cece0800d7591f31a00957',
+          title: 'Print',
+          slug: 'print',
+          description:
+            'Creating visually appealing and functional designs for physical materials like brochures and posters.',
+          updatedAt: '2025-03-10T11:33:28.064Z',
+          createdAt: '2025-03-10T11:33:28.064Z',
+        },
+        {
+          id: '67cecd3c00d7591f31a008d7',
+          title: 'Graphic Design',
+          slug: 'graphic-design',
+          description: 'Crafting stunning visuals for marketing campaigns and branding.',
+          updatedAt: '2025-03-10T11:58:52.603Z',
+          createdAt: '2025-03-10T11:58:52.603Z',
+        },
+      ],
     },
     href: '/example',
   },

@@ -28,7 +28,7 @@ export type ServiceWithDescription = Service & {
 };
 
 export type FilterProps = {
-  categories: (Category | ServiceWithDescription)[];
+  categories: (Category | ServiceWithDescription | FilterCategory)[];
   selectedCategory: string | null;
   onSelectCategoryAction: (category: string | null) => void;
   showAllButton?: boolean;
