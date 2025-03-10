@@ -6,15 +6,7 @@ import { GenerateTitle, GenerateURL, GenerateImage } from '@payloadcms/plugin-se
 import { Project, Page, Service } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 
-const isService = (doc: Project | Page | Service): doc is Service => {
-  return 'serviceCategoryTitle' in doc;
-};
-
 const generateTitle: GenerateTitle<Project | Page | Service> = ({ doc }) => {
-  if (isService(doc)) {
-    return `${doc.title}| Tai Doan`;
-  }
-
   return doc?.title ? `${doc.title} | Tai Doan` : 'Tai Doan Portfolio Website';
 };
 
