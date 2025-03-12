@@ -1,4 +1,4 @@
-import type { Category, Service } from '@/payload-types';
+import type { Category } from '@/payload-types';
 import { JSX } from 'react';
 
 export type FilterCategory = {
@@ -13,22 +13,8 @@ export type FilterCategory = {
   };
 };
 
-export type ServiceWithDescription = Service & {
-  description?: {
-    root: {
-      type: string;
-      children: { type: string; version: number; [k: string]: unknown }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-};
-
 export type FilterProps = {
-  categories: (Category | ServiceWithDescription | FilterCategory)[];
+  categories: (Category | FilterCategory)[];
   selectedCategory: string | null;
   onSelectCategoryAction: (category: string | null) => void;
   showAllButton?: boolean;

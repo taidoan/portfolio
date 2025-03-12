@@ -1,17 +1,16 @@
 'use client';
-import type { CardData } from '../Card';
-import type { Category, Project, Service } from '@/payload-types';
-import type { ServiceWithDescription, FilterCategory } from '../Filter/types';
+import { useState, JSX } from 'react';
 import clsx from 'clsx';
-import { Card, CardBody, CardTitle, CardImage, CardContent } from '@/components/ui/Card';
 import * as m from 'motion/react-m';
 import { LazyMotion, domAnimation } from 'motion/react';
-import { useState, JSX } from 'react';
+
+import type { Category } from '@/payload-types';
+import type { CardData } from '../Card';
+
 import { Filter } from '@components/ui/Filter';
-import { Alert, AlertTitle } from '@/components/ui/Alert';
+import { Alert, AlertTitle } from '@components/ui/Alert';
+import { Card, CardBody, CardTitle, CardImage, CardContent } from '@/components/ui/Card';
 import { Carousel } from '../Carousel';
-import style from './style.module.scss';
-import { RichText } from '@/components/ui/RichText';
 import {
   IconFiltersFilled,
   IconDeviceDesktopFilled,
@@ -19,52 +18,37 @@ import {
   IconPaintFilled,
   IconPaletteFilled,
 } from '@tabler/icons-react';
-
-const isProject = (
-  data: CardData,
-): data is Pick<
-  Project,
-  'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url' | 'categories'
-> => {
-  return 'thumbnail' in data;
-};
-
-const isService = (
-  data: CardData,
-): data is Pick<Service, 'title' | 'slug' | 'image' | 'id' | 'description'> => {
-  return 'image' in data;
-};
+import style from './style.module.scss';
 
 export type Props = {
   data: CardData[];
-  categories?: Category[] | ServiceWithDescription[] | FilterCategory[];
+  categories?: Category[];
   className?: string;
   filterShowAll?: boolean;
-  type?: 'projects' | 'services';
-  view?: 'gallery' | 'list';
+  view?: 'grid' | 'list';
+  relation: 'posts' | 'projects';
 };
 
-function isCategory(
-  category: string | Category | Pick<Category, 'title' | 'slug' | 'id'>,
-): category is Category | Pick<Category, 'title' | 'slug' | 'id'> {
+const isCategory = (category: string | Category | Pick<Category, 'title' | 'slug' | 'id'>) => {
   return typeof category !== 'string' && 'id' in category;
-}
+};
 
 export const Archive = ({
   data,
   categories,
   className,
   filterShowAll,
-  type = 'projects',
-  view = 'gallery',
+  view = 'grid',
+  relation = 'posts',
   ...rest
 }: Props) => {
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0;
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const isList = view === 'list';
+  const isGrid = view === 'grid';
 
   const handleFilterChange = (category: string | null) => {
     setSelectedCategory(category);
-    console.log(selectedCategory);
   };
 
   const filteredData = selectedCategory
@@ -81,46 +65,12 @@ export const Archive = ({
       })
     : data;
 
-  const isList = view === 'list';
-  const isGallery = view === 'gallery';
-
-  const renderListItems = (item: CardData) => {
+  const renderItems = (item: CardData) => {
     const content =
-      type === 'projects' && isProject(item) && item.details?.type ? (
-        <p>{item.details.type.replace(/`s/g, '')}</p>
-      ) : type === 'services' && isService(item) && item.description ? (
-        <RichText data={item.description} />
-      ) : null;
-
-    return (
-      <m.div
-        key={item.id}
-        initial={{ opacity: 0, x: 0, y: 150, scale: 0 }}
-        animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-        exit={{ opacity: 0, x: -150, y: 0, scale: 0 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        layout
-        className={style['archive__item--list']}
-      >
-        <Card data={item} href={`${type}/${item.slug}`}>
-          <CardBody>
-            <CardImage className={style['archive__item-image']} borderRadius='all' align='left' />
-            <CardContent>
-              <CardTitle />
-              {content}
-            </CardContent>
-          </CardBody>
-        </Card>
-      </m.div>
-    );
-  };
-
-  const renderGalleryItems = (item: CardData) => {
-    const content =
-      type === 'projects' && isProject(item) && item.details?.type ? (
-        <p>{item.details.type.replace(/`s/g, '')}</p>
-      ) : type === 'services' && isService(item) && item.description ? (
-        <RichText data={item.description} />
+      relation === 'posts' && item && 'excerpt' in item ? (
+        <p>{item.excerpt}</p>
+      ) : relation === 'projects' && item && 'details' in item && item.details?.type ? (
+        <p>{item.details.type}</p>
       ) : null;
     return (
       <m.div
@@ -129,17 +79,15 @@ export const Archive = ({
         animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
         exit={{ opacity: 0, x: -150, y: -30, scale: 0 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className={clsx({ [style['archive__item--list']]: isList })}
         layout
       >
-        <Card
-          data={item}
-          relation={type}
-          href={`${type}/${item.slug}`}
-          target='_blank'
-          title={item.title}
-        >
+        <Card data={item} relation={relation} href={`${relation}/${item.slug}`}>
           <CardBody>
-            <CardImage borderRadius='top' align='top' />
+            <CardImage
+              align={view === 'list' ? 'left' : 'top'}
+              borderRadius={isList || relation === 'posts' ? 'all' : 'top'}
+            />
             <CardContent>
               <CardTitle />
               {content}
@@ -160,11 +108,7 @@ export const Archive = ({
       );
     }
 
-    if (isList) {
-      return filteredData.map(renderListItems);
-    }
-
-    if (isGallery) {
+    if (isGrid) {
       return (
         <Carousel
           direction='horizontal'
@@ -175,14 +119,18 @@ export const Archive = ({
           buttonNavigation={true}
           slideSpacing={32}
         >
-          {filteredData.map(renderGalleryItems)}
+          {filteredData.map(renderItems)}
         </Carousel>
       );
+    } else if (isList) {
+      return filteredData.map(renderItems);
     }
 
     return (
       <Alert severity='error'>
-        <AlertTitle>Invalid View</AlertTitle>Invalid view was set.
+        <AlertTitle>Invalid View</AlertTitle>
+        Invalid view for the archive was set, please review and set either &apos;grid&apos; or
+        &apos;list&apos;.
       </Alert>
     );
   };
@@ -193,27 +141,30 @@ export const Archive = ({
     digital: <IconDeviceDesktopFilled />,
     marketing: <IconAdCircleFilled />,
     print: <IconPaintFilled />,
+    'graphic-design': <IconPaintFilled />,
   };
 
   return (
     <section className={clsx(className, 'archive__container')} {...rest}>
       {hasCategories ? (
         <Filter
-          categories={categories || []}
+          categories={categories}
+          iconMap={iconMap}
           selectedCategory={selectedCategory}
-          onSelectCategoryAction={handleFilterChange}
           allButtonLabel='All'
           showAllButton={filterShowAll}
-          iconMap={iconMap}
+          onSelectCategoryAction={handleFilterChange}
         />
       ) : (
-        <Alert severity='error'>
-          <AlertTitle>No categories found</AlertTitle>Filter can not be displayed as no categories
-          were found.
+        <Alert severity='warning'>
+          <AlertTitle>No categories found</AlertTitle>
+          No categories were found
         </Alert>
       )}
 
-      <LazyMotion features={domAnimation}>{renderContent()}</LazyMotion>
+      <div>
+        <LazyMotion features={domAnimation}>{renderContent()}</LazyMotion>
+      </div>
     </section>
   );
 };

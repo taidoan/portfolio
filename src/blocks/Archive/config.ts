@@ -22,7 +22,7 @@ export const ArchiveBlock: Block = {
               required: true,
               options: [
                 { value: 'projects', label: 'Projects' },
-                { value: 'services', label: 'Services' },
+                { value: 'posts', label: 'Posts' },
               ],
               defaultValue: 'projects',
             },
@@ -40,9 +40,9 @@ export const ArchiveBlock: Block = {
               required: true,
               options: [
                 { value: 'list', label: 'List' },
-                { value: 'gallery', label: 'Gallery' },
+                { value: 'grid', label: 'Grid' },
               ],
-              defaultValue: 'gallery',
+              defaultValue: 'grid',
             },
             {
               type: 'number',

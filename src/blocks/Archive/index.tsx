@@ -22,23 +22,21 @@ export const ArchiveBlock = async ({
     overrideAccess: false,
   };
 
-  // Adjust query based on whether we're fetching 'projects' or 'services'
   let content;
   if (data === 'projects') {
     content = await payload.find({
       collection: 'projects',
       ...queryOptions,
     });
-  } else if (data === 'services') {
+  } else if (data === 'posts') {
     content = await payload.find({
-      collection: 'services',
+      collection: 'posts',
       ...queryOptions,
     });
   }
 
   const { docs: contentData } = content || { docs: [] };
 
-  // Handle categories for both collections
   const categoryIdsWithProjects = new Set();
 
   contentData.forEach((item) => {
@@ -61,6 +59,7 @@ export const ArchiveBlock = async ({
   return (
     <Archive
       data={contentData}
+      relation={data}
       categories={categories}
       filterShowAll={filterShowAllButton}
       view={viewType}

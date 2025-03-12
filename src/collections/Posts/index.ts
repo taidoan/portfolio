@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { authenticated, anyone } from '@/access';
+import { authenticated, authenticatedOrPublished } from '@/access';
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -8,12 +8,12 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 import { SlugField } from '@/fields/Slug';
-import { BreadCrumbs } from '@fields/Breadcrumbs';
+import { urlField } from '@/fields/URL';
 
-export const Services: CollectionConfig = {
-  slug: 'services',
+export const Posts: CollectionConfig = {
+  slug: 'posts',
   access: {
-    read: anyone,
+    read: authenticatedOrPublished,
     create: authenticated,
     update: authenticated,
     delete: authenticated,
@@ -21,10 +21,35 @@ export const Services: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
+  versions: {
+    maxPerDoc: 50,
+    drafts: {
+      schedulePublish: true,
+      autosave: {
+        interval: 100,
+      },
+    },
+  },
   fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+      label: 'Title',
+    },
     {
       type: 'tabs',
       tabs: [
+        {
+          label: 'Content',
+          fields: [
+            {
+              type: 'richText',
+              name: 'content',
+              label: 'Post Content',
+            },
+          ],
+        },
         {
           label: 'SEO',
           name: 'meta',
@@ -41,8 +66,9 @@ export const Services: CollectionConfig = {
               relationTo: 'media',
               hasGenerateFn: true,
             }),
-
-            MetaDescriptionField({}),
+            MetaDescriptionField({
+              hasGenerateFn: true,
+            }),
             PreviewField({
               hasGenerateFn: true,
               titlePath: 'meta.title',
@@ -53,40 +79,10 @@ export const Services: CollectionConfig = {
             disableListColumn: true,
           },
         },
-        {
-          label: 'Services',
-          fields: [
-            {
-              name: 'title',
-              type: 'text',
-              required: true,
-              label: 'Service Category Title',
-            },
-            {
-              name: 'description',
-              type: 'richText',
-              required: true,
-              label: 'Service Category Description',
-            },
-            {
-              name: 'image',
-              type: 'upload',
-              relationTo: 'media',
-              label: 'Service Image',
-              admin: {
-                position: 'sidebar',
-              },
-            },
-          ],
-        },
       ],
     },
-    ...SlugField('title'),
-    BreadCrumbs({
-      admin: {
-        position: 'sidebar',
-      },
-    }),
+    ...SlugField(),
+    urlField(),
     {
       name: 'thumbnail',
       type: 'upload',
@@ -100,10 +96,20 @@ export const Services: CollectionConfig = {
       name: 'categories',
       type: 'relationship',
       relationTo: 'categories',
-      label: 'Categories',
+      label: 'Project Categories',
       hasMany: true,
       required: true,
       admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'excerpt',
+      type: 'textarea',
+      maxLength: 300,
+      label: 'Excerpt',
+      admin: {
+        description: 'A short description of the post, used for previews and listings.',
         position: 'sidebar',
       },
     },

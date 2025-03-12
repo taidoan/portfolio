@@ -85,6 +85,10 @@
 
   &-align--left,
   &-align--right {
+    .card__image {
+      aspect-ratio: 1 / 1 !important;
+    }
+    margin-top: 0;
     @include mq('md') {
       margin-block: 0;
     }
@@ -171,11 +175,11 @@
     &:has(.card__image__container-align--left) {
       .card__image__link,
       .card__image__container {
-        grid-column: span 3;
+        grid-column: span 4;
       }
 
       .card__content {
-        grid-column: span 9;
+        grid-column: span 8;
       }
     }
 

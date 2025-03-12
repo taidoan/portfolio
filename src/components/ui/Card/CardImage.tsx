@@ -3,15 +3,14 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { ImageMedia } from '@components/ui/Media/Image';
 import { useCardContext } from './index';
-import type { Media, Project, Service } from '@/payload-types';
+import type { Media, Project, Service, Post } from '@/payload-types';
 import type { CardData } from './index';
 
 const isProject = (
   data: CardData,
-): data is Pick<
-  Project,
-  'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url' | 'categories'
-> => {
+): data is
+  | Pick<Project, 'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url' | 'categories'>
+  | Pick<Post, 'title' | 'slug' | 'thumbnail' | 'id' | 'excerpt' | 'categories'> => {
   return 'thumbnail' in data;
 };
 

@@ -1,5 +1,5 @@
 'use client';
-import type { FilterCategory, FilterProps, ServiceWithDescription } from './types';
+import type { FilterCategory, FilterProps } from './types';
 import { useState } from 'react';
 import clsx from 'clsx';
 import style from './style.module.scss';
@@ -16,7 +16,7 @@ export const Filter = ({
 }: FilterProps) => {
   const [activeCategory, setActiveCategory] = useState<string | null>(selectedCategory || null);
 
-  const handleCategoryClick = (category: FilterCategory | ServiceWithDescription | null) => {
+  const handleCategoryClick = (category: FilterCategory | null) => {
     const categoryId = category?.id || null;
     onSelectCategoryAction(categoryId);
     setActiveCategory(categoryId);

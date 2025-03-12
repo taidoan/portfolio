@@ -3,12 +3,13 @@
 import style from './style.module.scss';
 import clsx from 'clsx';
 import { createContext, useContext } from 'react';
-import type { Project, Service } from '@/payload-types';
+import type { Project, Service, Post } from '@/payload-types';
 
-export type Relation = 'projects' | 'services' | string | null;
+export type Relation = 'projects' | 'services' | 'posts' | string | null;
 export type CardData =
   | Pick<Project, 'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url' | 'categories'>
-  | Pick<Service, 'title' | 'slug' | 'image' | 'id' | 'description'>;
+  | Pick<Service, 'title' | 'slug' | 'image' | 'id' | 'description'>
+  | Pick<Post, 'title' | 'slug' | 'thumbnail' | 'id' | 'excerpt' | 'categories'>;
 export type CardLinkProps = {
   href?: string;
   target?: string;
