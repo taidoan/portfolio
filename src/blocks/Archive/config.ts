@@ -16,40 +16,65 @@ export const ArchiveBlock: Block = {
           label: 'Options',
           fields: [
             {
-              type: 'select',
-              name: 'data',
-              label: 'Content',
-              required: true,
-              options: [
-                { value: 'projects', label: 'Projects' },
-                { value: 'posts', label: 'Posts' },
+              type: 'row',
+              fields: [
+                {
+                  type: 'select',
+                  name: 'data',
+                  label: 'Collection To Show',
+                  required: true,
+                  options: [
+                    { value: 'projects', label: 'Projects' },
+                    { value: 'posts', label: 'Posts' },
+                  ],
+                  defaultValue: 'projects',
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                {
+                  type: 'checkbox',
+                  name: 'filterShowAllButton',
+                  label: 'Show All Button',
+                  defaultValue: true,
+                  required: true,
+                  admin: {
+                    width: '50%',
+                    style: {
+                      justifyContent: 'center',
+                    },
+                  },
+                },
               ],
-              defaultValue: 'projects',
             },
             {
-              type: 'checkbox',
-              name: 'filterShowAllButton',
-              label: 'Show All Button',
-              defaultValue: true,
-              required: true,
-            },
-            {
-              type: 'select',
-              name: 'viewType',
-              label: 'View Type',
-              required: true,
-              options: [
-                { value: 'list', label: 'List' },
-                { value: 'grid', label: 'Grid' },
+              type: 'row',
+              fields: [
+                {
+                  type: 'select',
+                  name: 'viewType',
+                  label: 'View Type',
+                  required: true,
+                  options: [
+                    { value: 'list', label: 'List' },
+                    { value: 'grid', label: 'Grid' },
+                  ],
+                  defaultValue: 'grid',
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                {
+                  type: 'number',
+                  name: 'numberOfProjects',
+                  label: 'Number of Projects',
+                  defaultValue: 6,
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
               ],
-              defaultValue: 'grid',
-            },
-            {
-              type: 'number',
-              name: 'numberOfProjects',
-              label: 'Number of Projects',
-              defaultValue: 6,
-              required: true,
             },
           ],
         },
