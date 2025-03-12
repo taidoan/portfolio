@@ -26,6 +26,54 @@ export const Services: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
+          label: 'Services',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              label: 'Service Category Title',
+            },
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Service Image',
+            },
+            {
+              name: 'description',
+              type: 'richText',
+              required: true,
+              label: 'Service Category Description',
+            },
+            {
+              type: 'array',
+              name: 'items',
+              label: 'Service Items',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'title',
+                  label: 'Title',
+                  required: true,
+                },
+                {
+                  type: 'richText',
+                  name: 'description',
+                  label: 'Description',
+                  required: true,
+                },
+                {
+                  type: 'upload',
+                  name: 'image',
+                  relationTo: 'media',
+                  label: 'Image',
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: 'SEO',
           name: 'meta',
           fields: [
@@ -52,32 +100,6 @@ export const Services: CollectionConfig = {
           admin: {
             disableListColumn: true,
           },
-        },
-        {
-          label: 'Services',
-          fields: [
-            {
-              name: 'title',
-              type: 'text',
-              required: true,
-              label: 'Service Category Title',
-            },
-            {
-              name: 'description',
-              type: 'richText',
-              required: true,
-              label: 'Service Category Description',
-            },
-            {
-              name: 'image',
-              type: 'upload',
-              relationTo: 'media',
-              label: 'Service Image',
-              admin: {
-                position: 'sidebar',
-              },
-            },
-          ],
         },
       ],
     },

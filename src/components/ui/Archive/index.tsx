@@ -33,6 +33,20 @@ const isCategory = (category: string | Category | Pick<Category, 'title' | 'slug
   return typeof category !== 'string' && 'id' in category;
 };
 
+/**
+ * This is a component that displays a list of projects or posts, with the ability to filter by category.
+ * @param {Props} props - The props for the Archive component.
+ * @returns {React.ReactElement} The Archive component.
+ * @example
+ * <Archive
+ *   data={data}
+ *   categories={categories}
+ *   className={className}
+ *   filterShowAll={filterShowAll}
+ *   view={view}
+ *   relation={relation}
+ * />
+ */
 export const Archive = ({
   data,
   categories,

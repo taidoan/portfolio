@@ -339,15 +339,8 @@ export interface Category {
  */
 export interface Service {
   id: string;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
   title: string;
+  image?: (string | null) | Media;
   description: {
     root: {
       type: string;
@@ -363,7 +356,36 @@ export interface Service {
     };
     [k: string]: unknown;
   };
-  image?: (string | null) | Media;
+  items?:
+    | {
+        title: string;
+        description: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
   slug: string;
   slugLock?: boolean | null;
   breadcrumbs?:
@@ -1994,6 +2016,17 @@ export interface ProjectsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        id?: T;
+      };
   meta?:
     | T
     | {
@@ -2001,9 +2034,6 @@ export interface ServicesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  title?: T;
-  description?: T;
-  image?: T;
   slug?: T;
   slugLock?: T;
   breadcrumbs?:
