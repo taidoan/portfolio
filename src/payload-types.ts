@@ -72,6 +72,7 @@ export interface Config {
     categories: Category;
     projects: Project;
     services: Service;
+    posts: Post;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -86,6 +87,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents':
@@ -188,7 +190,7 @@ export interface Page {
   id: string;
   title: string;
   hero: HeroBlockProps;
-  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps)[];
+  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps | ArchiveBlockProps)[];
   meta?: {
     title?: string | null;
     /**
@@ -323,9 +325,10 @@ export interface Project {
  */
 export interface Category {
   id: string;
-  name: string;
-  slug: string;
+  title: string;
   description?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
   parentCategory?: (string | null) | Category;
   updatedAt: string;
   createdAt: string;
@@ -344,8 +347,8 @@ export interface Service {
     image?: (string | null) | Media;
     description?: string | null;
   };
-  serviceCategoryTitle: string;
-  serviceCategoryDescription: {
+  title: string;
+  description: {
     root: {
       type: string;
       children: {
@@ -360,7 +363,7 @@ export interface Service {
     };
     [k: string]: unknown;
   };
-  serviceImage?: (string | null) | Media;
+  image?: (string | null) | Media;
   slug: string;
   slugLock?: boolean | null;
   breadcrumbs?:
@@ -383,6 +386,7 @@ export interface Service {
       }[]
     | null;
   thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
   updatedAt: string;
   createdAt: string;
 }
@@ -717,9 +721,10 @@ export interface MediaBlockProps {
  * via the `definition` "CardBlockProps".
  */
 export interface CardBlockProps {
-  relationTo: 'default' | 'projects' | 'services';
+  relationTo: 'default' | 'projects' | 'services' | 'posts';
   relatedProject?: (string | null) | Project;
   relatedService?: (string | null) | Service;
+  relatedPost?: (string | null) | Post;
   /**
    * The title of the card.
    */
@@ -751,6 +756,24 @@ export interface CardBlockProps {
    * (Leave blank if you want to use the service description set in the service itself)
    */
   serviceContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Use this to override the default post excerpt
+   */
+  postContent?: {
     root: {
       type: string;
       children: {
@@ -812,6 +835,49 @@ export interface CardBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cardBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1157,6 +1223,46 @@ export interface SectionGroupBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArchiveBlockProps".
+ */
+export interface ArchiveBlockProps {
+  data: 'projects' | 'posts';
+  filterShowAllButton: boolean;
+  viewType: 'list' | 'grid';
+  numberOfProjects: number;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'archiveBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1309,6 +1415,10 @@ export interface PayloadLockedDocument {
         value: string | Service;
       } | null)
     | ({
+        relationTo: 'posts';
+        value: string | Post;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -1406,6 +1516,7 @@ export interface PagesSelect<T extends boolean = true> {
         divider?: T | DividerBlockPropsSelect<T>;
         section?: T | SectionBlockPropsSelect<T>;
         sectionGroup?: T | SectionGroupBlockPropsSelect<T>;
+        archiveBlock?: T | ArchiveBlockPropsSelect<T>;
       };
   meta?:
     | T
@@ -1604,11 +1715,13 @@ export interface CardBlockPropsSelect<T extends boolean = true> {
   relationTo?: T;
   relatedProject?: T;
   relatedService?: T;
+  relatedPost?: T;
   title?: T;
   insideContainer?: T;
   content?: T;
   projectType?: T;
   serviceContent?: T;
+  postContent?: T;
   cardImage?:
     | T
     | {
@@ -1811,12 +1924,32 @@ export interface SectionGroupBlockPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArchiveBlockProps_select".
+ */
+export interface ArchiveBlockPropsSelect<T extends boolean = true> {
+  data?: T;
+  filterShowAllButton?: T;
+  viewType?: T;
+  numberOfProjects?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
-  name?: T;
-  slug?: T;
+  title?: T;
   description?: T;
+  slug?: T;
+  slugLock?: T;
   parentCategory?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1868,9 +2001,9 @@ export interface ServicesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  serviceCategoryTitle?: T;
-  serviceCategoryDescription?: T;
-  serviceImage?: T;
+  title?: T;
+  description?: T;
+  image?: T;
   slug?: T;
   slugLock?: T;
   breadcrumbs?:
@@ -1881,8 +2014,33 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   thumbnail?: T;
+  categories?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  slug?: T;
+  slugLock?: T;
+  url?: T;
+  thumbnail?: T;
+  categories?: T;
+  excerpt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2156,10 +2314,15 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?: {
-      relationTo: 'projects';
-      value: string | Project;
-    } | null;
+    doc?:
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
     global?: string | null;
     user?: (string | null) | User;
   };

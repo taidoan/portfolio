@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, anyone } from '@/access';
+import { SlugField } from '@fields/Slug';
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -10,36 +11,31 @@ export const Categories: CollectionConfig = {
     delete: authenticated,
   },
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'description', 'parentCategory'],
   },
   fields: [
     {
-      name: 'name',
+      name: 'title',
       type: 'text',
       label: 'Category Name',
       required: true,
       unique: true,
     },
     {
-      name: 'slug',
-      type: 'text',
-      required: true,
-      label: 'Slug',
-      unique: true,
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    {
       name: 'description',
       type: 'textarea',
       label: 'Description',
     },
+    ...SlugField('title'),
     {
       name: 'parentCategory',
       type: 'relationship',
       relationTo: 'categories',
       label: 'Parent Category',
+      admin: {
+        position: 'sidebar',
+      },
     },
   ],
 };

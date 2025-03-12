@@ -1,0 +1,35 @@
+@use '@abstracts/_index' as *;
+
+.archive__container {
+  margin-block: var(--layout-row-spacing);
+}
+
+.archive__gallery-container {
+  margin-top: calc(var(--layout-row-spacing) / 2) !important;
+}
+
+.archive__gallery-wrapper {
+  @include mq('md') {
+    display: grid;
+    gap: rem(34);
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include mq('md-lg') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.archive__item {
+  align-items: center;
+  display: flex;
+  gap: rem(16);
+}
+
+.archive__item--list:first-of-type {
+  margin-top: calc(var(--layout-row-spacing) / 2) !important;
+}
+
+.archive__item--list + .archive__item--list {
+  margin-top: size-clamp(rem(16), rem(32));
+}

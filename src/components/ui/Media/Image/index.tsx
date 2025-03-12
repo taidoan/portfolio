@@ -1,12 +1,13 @@
 'use client';
 import Image, { ImageLoaderProps } from 'next/image';
 import { getCDNURL } from '@/lib/utilities/getURLs';
+import { Alert, AlertTitle } from '@components/ui/Alert';
 import s from './../style.module.scss';
 
 const urlEndpoint = getCDNURL();
 
 export interface ImageMedia {
-  src: string;
+  src: string | null;
   alt: string;
   width?: number | null;
   height?: number | null;
@@ -60,10 +61,29 @@ export const ImageMedia = ({
 }: ImageMedia) => {
   const placeholderBlur =
     'data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAB0CWJaACdAFAAAD+2iaVorpfvri5shvAAAA=';
+
+  if (src === null) {
+    return (
+      <Alert severity='error'>
+        <AlertTitle>Missing image source</AlertTitle>
+        <p>The image source is missing. Please check the source and try again.</p>
+      </Alert>
+    );
+  }
+
+  if (alt === null) {
+    return (
+      <Alert severity='warning'>
+        <AlertTitle>Missing image alt text</AlertTitle>
+        <p>The image alt text is missing. Please check the image and try again.</p>
+      </Alert>
+    );
+  }
+
   return (
     <Image
       loader={imageKitLoader}
-      src={src}
+      src={src as string}
       alt={alt}
       className={`${className} ${s.optimizedImage}`}
       priority={priority}

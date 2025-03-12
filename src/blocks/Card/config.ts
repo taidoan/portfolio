@@ -20,11 +20,33 @@ export const CardBlock: Block = {
             { value: 'default', label: 'Default' },
             { value: 'projects', label: 'Projects' },
             { value: 'services', label: 'Services' },
+            { value: 'posts', label: 'Posts' },
           ],
           defaultValue: 'default',
           required: true,
           admin: {
             width: '50%',
+          },
+          hooks: {
+            beforeChange: [
+              ({ value, siblingData }) => {
+                if (value === 'projects') {
+                  if (siblingData.relatedService) delete siblingData.relatedService;
+                  if (siblingData.relatedPost) delete siblingData.relatedPost;
+                } else if (value === 'services') {
+                  if (siblingData.relatedProject) delete siblingData.relatedProject;
+                  if (siblingData.relatedPost) delete siblingData.relatedPost;
+                } else if (value === 'posts') {
+                  if (siblingData.relatedProject) delete siblingData.relatedProject;
+                  if (siblingData.relatedService) delete siblingData.relatedService;
+                } else if (value === 'default') {
+                  if (siblingData.relatedProject) delete siblingData.relatedProject;
+                  if (siblingData.relatedService) delete siblingData.relatedService;
+                  if (siblingData.relatedPost) delete siblingData.relatedPost;
+                }
+                return value;
+              },
+            ],
           },
         },
         {
@@ -51,6 +73,20 @@ export const CardBlock: Block = {
           admin: {
             condition: (_, siblingData) => {
               return siblingData.relationTo === 'services';
+            },
+            width: '50%',
+          },
+        },
+        {
+          name: 'relatedPost',
+          type: 'relationship',
+          relationTo: 'posts',
+          label: 'Related Post',
+          hasMany: false,
+          required: true,
+          admin: {
+            condition: (_, siblingData) => {
+              return siblingData.relationTo === 'posts';
             },
             width: '50%',
           },
@@ -129,6 +165,17 @@ export const CardBlock: Block = {
                 },
                 description:
                   '(Leave blank if you want to use the service description set in the service itself)',
+              },
+            },
+            {
+              name: 'postContent',
+              type: 'richText',
+              label: 'Post Excerpt',
+              admin: {
+                condition: (_, siblingData) => {
+                  return siblingData.relationTo === 'posts';
+                },
+                description: 'Use this to override the default post excerpt',
               },
             },
             {

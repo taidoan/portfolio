@@ -2,28 +2,30 @@ import { Plugin } from 'payload';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { redirectsPlugin } from '@payloadcms/plugin-redirects';
-import { GenerateTitle, GenerateURL, GenerateImage } from '@payloadcms/plugin-seo/types';
-import { Project, Page, Service } from '@/payload-types';
+import {
+  GenerateTitle,
+  GenerateURL,
+  GenerateImage,
+  GenerateDescription,
+} from '@payloadcms/plugin-seo/types';
+import { Project, Page, Service, Post } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 
-const isService = (doc: Project | Page | Service): doc is Service => {
-  return 'serviceCategoryTitle' in doc;
-};
-
-const generateTitle: GenerateTitle<Project | Page | Service> = ({ doc }) => {
-  if (isService(doc)) {
-    return `${doc.serviceCategoryTitle} | Tai Doan`;
-  }
-
+const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Tai Doan` : 'Tai Doan Portfolio Website';
 };
 
-const generateURL: GenerateURL<Project | Page | Service> = ({ doc }) => {
+const generateDescription: GenerateDescription<Post> = ({ doc }) => {
+  const text = doc?.excerpt || '';
+  return text.length > 160 ? text.slice(0, 157) + '...' : text;
+};
+
+const generateURL: GenerateURL<Project | Page | Service | Post> = ({ doc }) => {
   const url = getServerSideURL();
   return doc?.slug ? `${url}/${doc.slug}` : url;
 };
 
-const generateImage: GenerateImage<Project | Page> = ({ doc }) => {
+const generateImage: GenerateImage<Project | Page | Post> = ({ doc }) => {
   const url = getCDNURL();
   return doc?.thumbnail && typeof doc.thumbnail === 'object'
     ? `${url}/${doc.thumbnail.filename}`
@@ -53,6 +55,7 @@ export const plugins: Plugin[] = [
     generateTitle,
     generateURL,
     generateImage,
+    generateDescription,
     uploadsCollection: ['media'],
   }),
   redirectsPlugin({

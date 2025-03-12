@@ -2,17 +2,37 @@ import style from './style.module.scss';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { ImageMedia } from '@components/ui/Media/Image';
+import { Alert, AlertTitle } from '@components/ui/Alert';
 import { useCardContext } from './index';
-import type { Media } from '@/payload-types';
+import type { Media, Project, Service, Post } from '@/payload-types';
+import type { CardData } from './index';
+
+const isProject = (
+  data: CardData,
+): data is
+  | Pick<Project, 'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url' | 'categories'>
+  | Pick<Post, 'title' | 'slug' | 'thumbnail' | 'id' | 'excerpt' | 'categories'> => {
+  return 'thumbnail' in data;
+};
+
+const isService = (
+  data: CardData,
+): data is Pick<Service, 'title' | 'slug' | 'image' | 'id' | 'description'> => {
+  return 'image' in data;
+};
+
+const isMedia = (value: string | Media): value is Media => {
+  return typeof value === 'object' && value !== null && 'filename' in value;
+};
 
 export type CardImageProps = {
-  src?: string | Media;
+  src?: string | Media | null;
   alt?: string;
   className?: string;
   borderRadius?: 'top' | 'bottom' | 'left' | 'right' | 'all' | 'none' | null;
   width?: number | null;
   height?: number | null;
-  align?: 'top' | 'bottom';
+  align?: 'top' | 'bottom' | 'left' | 'right';
 };
 
 export const CardImage = ({
@@ -24,25 +44,29 @@ export const CardImage = ({
   height,
   align,
 }: CardImageProps) => {
-  const { data, link, relation } = useCardContext();
+  const { data = {} as CardData, link, relation } = useCardContext();
+
   const imageClasses = clsx(style.card__image, className, {
     [style[`card__image-border-radius--${borderRadius}`]]: borderRadius && borderRadius !== 'none',
   });
 
   const imageSrc =
     typeof src === 'string' ? encodeURI(src.trim()) : encodeURI(src?.url?.trim() || '');
-  const thumbnail =
-    typeof data?.thumbnail === 'object' && data?.thumbnail !== null ? data.thumbnail : null;
+
+  const thumbnail = (isProject(data) && data.thumbnail) || (isService(data) && data.image) || null;
+
   const thumbnailUrl =
-    thumbnail && typeof thumbnail.filename === 'string'
+    thumbnail && isMedia(thumbnail) && typeof thumbnail.filename === 'string'
       ? encodeURI(thumbnail.filename.trim())
-      : null;
+      : thumbnail && typeof thumbnail === 'string'
+        ? encodeURI(thumbnail.trim())
+        : null;
 
-  const srcToUse = imageSrc || thumbnailUrl || '';
-  const altToUse = alt || thumbnail?.alt || '';
+  const altToUse = alt || (thumbnail && isMedia(thumbnail) ? thumbnail.alt : '');
+  const widthToUse = width || (thumbnail && isMedia(thumbnail) ? thumbnail.width : null);
+  const heightToUse = height || (thumbnail && isMedia(thumbnail) ? thumbnail.height : null);
 
-  const widthToUse = width || thumbnail?.width || null;
-  const heightToUse = height || thumbnail?.height || null;
+  const srcToUse = imageSrc || thumbnailUrl || null;
 
   const image = (
     <>
@@ -70,16 +94,25 @@ export const CardImage = ({
   );
 
   if (link && link.href) {
+    if (srcToUse !== null) {
+      return (
+        <Link
+          href={link.href}
+          target={link.target}
+          title={link.title}
+          rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
+          className={style.card__image__link}
+        >
+          {imageContainer}
+        </Link>
+      );
+    }
+
     return (
-      <Link
-        href={link.href}
-        target={link.target}
-        title={link.title}
-        rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-        className={style.card__image__link}
-      >
-        {imageContainer}
-      </Link>
+      <Alert severity='warning'>
+        <AlertTitle>Missing image</AlertTitle>
+        <p>The image for this card is missing. Please check the source and try again.</p>
+      </Alert>
     );
   }
 

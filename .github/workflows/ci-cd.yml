@@ -27,6 +27,8 @@ jobs:
 
       - name: Run tests
         run: npm run test
+        env:
+          NEXT_PUBLIC_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_URL_ENDPOINT }}
 
   generate-docs:
     # Only run when PR is merged (not on close without merge)

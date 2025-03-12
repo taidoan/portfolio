@@ -1,4 +1,4 @@
-import type { CardBlockProps, Project, Service } from '@/payload-types';
+import type { CardBlockProps, Project, Service, Post } from '@/payload-types';
 import style from '@components/ui/Card/style.module.scss';
 import clsx from 'clsx';
 import configPromise from '@payload-config';
@@ -14,21 +14,25 @@ export const CardBlock = async ({
   relationTo,
   relatedProject,
   relatedService,
+  relatedPost,
   title,
   content,
   projectType,
   cardImage,
   className,
   serviceContent,
+  postContent,
   textAlign,
   insideContainer,
 }: Props) => {
   const payload = await getPayload({ config: configPromise });
   const isProject = relationTo === 'projects';
   const isService = relationTo === 'services';
+  const isPost = relationTo === 'posts';
 
   let project: Project | undefined = undefined;
   let service: Service | undefined = undefined;
+  let post: Post | undefined = undefined;
   let image = cardImage?.image;
 
   if (isProject) {
@@ -36,7 +40,21 @@ export const CardBlock = async ({
       collection: 'projects',
       id: (relatedProject as Project)?.id,
     });
+    if (!project) {
+      console.warn('Project not found');
+    }
     image = project?.thumbnail;
+  }
+
+  if (isPost) {
+    post = await payload.findByID({
+      collection: 'posts',
+      id: (relatedPost as Post)?.id,
+    });
+    if (!post) {
+      console.warn('Post not found');
+    }
+    image = post?.thumbnail;
   }
 
   if (isService) {
@@ -44,8 +62,12 @@ export const CardBlock = async ({
       collection: 'services',
       id: (relatedService as Service)?.id,
     });
-    image = service?.serviceImage;
+    if (!service) {
+      console.warn('Service not found');
+    }
+    image = service?.image;
   }
+
   const cardImageClass = clsx({ [`${style['image-type--service']}`]: isService });
 
   const imageUrl = typeof image === 'string' ? image : image?.filename;
@@ -69,6 +91,7 @@ export const CardBlock = async ({
         />
       );
     }
+    return null;
   };
 
   return (
@@ -77,7 +100,7 @@ export const CardBlock = async ({
         isProject
           ? `/${relationTo}/${project?.slug}`
           : isService
-            ? `/${relationTo}#${service?.serviceCategoryTitle}`
+            ? `/${relationTo}#${service?.title}`
             : undefined
       }
       relation={relationTo}
@@ -89,22 +112,27 @@ export const CardBlock = async ({
         {renderImage('inside', 'top')}
         <CardContent insideContainer={relationTo === 'services' || insideContainer === 'yes'}>
           <CardTitle>
-            {isProject ? project?.title : isService ? service?.serviceCategoryTitle : title}
+            {isProject ? project?.title : isService ? service?.title : isPost ? post?.title : title}
           </CardTitle>
           {isProject && projectType ? (
             <p>{projectType}</p>
-          ) : (
-            project?.details?.type && <p>{project.details.type}</p>
-          )}
+          ) : project?.details?.type ? (
+            <p>{project.details.type}</p>
+          ) : null}
 
-          {isService && serviceContent ? (
+          {isService && serviceContent && serviceContent.root.children.length > 1 ? (
             <RichText data={serviceContent} />
-          ) : (
-            service?.serviceCategoryDescription && (
-              <RichText data={service?.serviceCategoryDescription} />
-            )
-          )}
-          {!isProject && !isService && content && <RichText data={content} />}
+          ) : service?.description ? (
+            <RichText data={service?.description} />
+          ) : null}
+
+          {isPost && postContent && postContent.root.children.length > 1 ? (
+            <RichText data={postContent} />
+          ) : post?.excerpt ? (
+            <p>{post?.excerpt}</p>
+          ) : null}
+
+          {!isProject && !isService && !isPost && content && <RichText data={content} />}
         </CardContent>
         {renderImage('inside', 'bottom')}
       </CardBody>

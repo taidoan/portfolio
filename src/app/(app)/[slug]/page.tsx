@@ -20,6 +20,7 @@ export type Args = {
 const Page = async ({ params: paramsPromise }: Args) => {
   const { isEnabled: draft } = await draftMode();
   const { slug = 'home' } = await paramsPromise;
+
   const url = '/' + slug;
 
   const page: RequiredDataFromCollectionSlug<'pages'> | null = await queryPageBySlug({
@@ -37,6 +38,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
     }) || [];
 
   const breadcrumbsData = await getBreadcrumbs(pageIds);
+
   return (
     <>
       <Redirects disableNotFound url={url} />

@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
         hostname: 'i.scdn.co',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'placeimg.com',
+        port: '',
+      },
     ],
   },
 };
