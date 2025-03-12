@@ -190,7 +190,13 @@ export interface Page {
   id: string;
   title: string;
   hero: HeroBlockProps;
-  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps | ArchiveBlockProps)[];
+  layout: (
+    | DividerBlockProps
+    | SectionBlockProps
+    | SectionGroupBlockProps
+    | ArchiveBlockProps
+    | TabbedContentBlockProps
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -356,28 +362,26 @@ export interface Service {
     };
     [k: string]: unknown;
   };
-  items?:
-    | {
-        title: string;
-        description: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
+  items: {
+    title: string;
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
           [k: string]: unknown;
-        };
-        image?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    image: string | Media;
+    id?: string | null;
+  }[];
   meta?: {
     title?: string | null;
     /**
@@ -1285,6 +1289,43 @@ export interface ArchiveBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlockProps".
+ */
+export interface TabbedContentBlockProps {
+  className?: string | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabbedContentBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1539,6 +1580,7 @@ export interface PagesSelect<T extends boolean = true> {
         section?: T | SectionBlockPropsSelect<T>;
         sectionGroup?: T | SectionGroupBlockPropsSelect<T>;
         archiveBlock?: T | ArchiveBlockPropsSelect<T>;
+        tabbedContentBlock?: T | TabbedContentBlockPropsSelect<T>;
       };
   meta?:
     | T
@@ -1953,6 +1995,22 @@ export interface ArchiveBlockPropsSelect<T extends boolean = true> {
   filterShowAllButton?: T;
   viewType?: T;
   numberOfProjects?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlockProps_select".
+ */
+export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
+  className?: T;
   gridAppearance?:
     | T
     | {

@@ -255,8 +255,8 @@ const mockCategories: TabFilterCategories = [
 
 describe('<TabbedContent>', () => {
   it('should render correctly', () => {
-    render(<TabbedContent categories={mockCategories} data-testid='tabbed' />);
-    expect(screen.getByTestId('tabbed')).toBeInTheDocument();
+    render(<TabbedContent categories={mockCategories} />);
+    expect(screen.getByTestId('tabbed-content')).toBeInTheDocument();
     mockCategories.forEach((category) => {
       const button = screen.getByRole('button', { name: category.title });
       expect(button).toBeInTheDocument();
@@ -264,14 +264,14 @@ describe('<TabbedContent>', () => {
   });
 
   it('should set the active category to the first by default', () => {
-    render(<TabbedContent categories={mockCategories} data-testid='tabbed' />);
+    render(<TabbedContent categories={mockCategories} />);
     expect(screen.getByText('Branding service description')).toBeInTheDocument();
 
     expect(screen.getByText('Logo Design')).toBeInTheDocument();
   });
 
   it('should display the description of the clicked category', () => {
-    render(<TabbedContent categories={mockCategories} data-testid='tabbed' />);
+    render(<TabbedContent categories={mockCategories} />);
     const graphicDesignCategory = screen.getByText('Graphic Design');
     fireEvent.click(graphicDesignCategory);
 

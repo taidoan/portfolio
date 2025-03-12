@@ -50,6 +50,7 @@ export const Services: CollectionConfig = {
               type: 'array',
               name: 'items',
               label: 'Service Items',
+              required: true,
               fields: [
                 {
                   type: 'text',
@@ -68,6 +69,7 @@ export const Services: CollectionConfig = {
                   name: 'image',
                   relationTo: 'media',
                   label: 'Image',
+                  required: true,
                 },
               ],
             },

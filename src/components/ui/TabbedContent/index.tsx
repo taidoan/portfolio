@@ -29,7 +29,7 @@ const ICON_MAP: Record<string, JSX.Element> = {
   marketing: <IconAdCircle stroke={2} />,
 };
 
-export const TabbedContent = ({ className, categories = [], ...rest }: TabbedContentProps) => {
+export const TabbedContent = ({ className, categories = [] }: TabbedContentProps) => {
   const [activeCategory, setActiveCategory] = useState(
     categories.length > 0 ? categories[0].id : null,
   );
@@ -66,7 +66,7 @@ export const TabbedContent = ({ className, categories = [], ...rest }: TabbedCon
   };
 
   return (
-    <section {...rest} className={clsx(className, 'tabbed-content')}>
+    <section className={clsx(className, 'tabbed-content')} data-testid='tabbed-content'>
       <Card>
         <CardBody className={style.filter__block}>
           <Filter

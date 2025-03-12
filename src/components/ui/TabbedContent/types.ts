@@ -15,6 +15,6 @@ export type TabFilterCategories = {
 }[];
 
 export type TabbedContentProps = {
-  className?: string;
+  className?: string | undefined | null;
   categories: TabFilterCategories;
 };
