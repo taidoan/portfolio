@@ -1,9 +1,10 @@
 'use client';
-import { JSX, useState } from 'react';
+import { JSX, useState, useMemo } from 'react';
 import clsx from 'clsx';
 import style from './style.module.scss';
 
 import type { TabbedContentProps } from './types';
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { isMedia } from '@/lib/utilities/isMedia';
 
 import { Filter } from '../Filter';
@@ -20,9 +21,22 @@ import {
   IconAdCircle,
 } from '@tabler/icons-react';
 
+const ICON_MAP: Record<string, JSX.Element> = {
+  branding: <IconPalette stroke={2} />,
+  'ui-ux': <IconAppWindow stroke={2} />,
+  'graphic-design': <IconPencil stroke={2} />,
+  development: <IconCode stroke={2} />,
+  marketing: <IconAdCircle stroke={2} />,
+};
+
 export const TabbedContent = ({ className, categories = [], ...rest }: TabbedContentProps) => {
   const [activeCategory, setActiveCategory] = useState(
     categories.length > 0 ? categories[0].id : null,
+  );
+
+  const activeContent = useMemo(
+    () => categories.find((category) => category.id === activeCategory),
+    [categories, activeCategory],
   );
 
   const handleSelectCategory = (category: string | null) => {
@@ -38,23 +52,18 @@ export const TabbedContent = ({ className, categories = [], ...rest }: TabbedCon
     );
   }
 
-  const filteredContent = categories.filter((category) => category.id === activeCategory);
-
-  const hasItems = filteredContent.some((item) => item.items && item.items.length > 0);
-
-  const iconMap: Record<string, JSX.Element> = {
-    '/services/branding': <IconPalette stroke={2} />,
-    '/services/ui-ux': <IconAppWindow stroke={2} />,
-    '/services/graphic-design': <IconPencil stroke={2} />,
-    '/services/development': <IconCode stroke={2} />,
-    marketing: <IconAdCircle stroke={2} />,
-  };
-
+  const hasItems = activeContent?.items && activeContent.items.length > 0;
   const isFirstCategory = activeCategory === categories[0].id;
 
   const contentClasses = clsx(style.filter__content, {
     [style['filter__content--first-cat-active']]: isFirstCategory,
   });
+
+  const renderDescription = (description: string | DefaultTypedEditorState | undefined) => {
+    if (!description) return null;
+
+    return typeof description !== 'string' ? <RichText data={description} /> : <p>{description}</p>;
+  };
 
   return (
     <section {...rest} className={clsx(className, 'tabbed-content')}>
@@ -67,24 +76,18 @@ export const TabbedContent = ({ className, categories = [], ...rest }: TabbedCon
             containerClassName={style.filter__container}
             buttonClassName={style.filter__button}
             buttonActiveClassName={style['filter__button--active']}
-            iconMap={iconMap}
+            iconMap={ICON_MAP}
           />
 
           <div className={contentClasses}>
-            {filteredContent.length > 0 ? (
-              filteredContent.map((item) => (
-                <div key={item.id} className={style['filter__content-text']}>
-                  <h3 className='sub-heading'>
-                    {item.title}
-                    <span className='accent-dot'>.</span>
-                  </h3>
-                  {item.description && typeof item.description !== 'string' ? (
-                    <RichText data={item.description} />
-                  ) : (
-                    <p>{item.description}</p>
-                  )}
-                </div>
-              ))
+            {activeContent ? (
+              <div className={style['filter__content-text']}>
+                <h3 className='sub-heading'>
+                  {activeContent.title}
+                  <span className='accent-dot'>.</span>
+                </h3>
+                {renderDescription(activeContent.description)}
+              </div>
             ) : (
               <Alert severity='error'>
                 <AlertTitle>No Content</AlertTitle>
@@ -103,34 +106,27 @@ export const TabbedContent = ({ className, categories = [], ...rest }: TabbedCon
               buttonNavigation={true}
               wrapperClassName={style.filter__items__wrapper}
             >
-              {filteredContent.flatMap(
-                (filteredItem) =>
-                  filteredItem.items?.map((item) => (
-                    <div key={item.id} className={style.filter__item}>
-                      {item.image && (
-                        <ImageMedia
-                          src={
-                            isMedia(item.image) && item.image.filename
-                              ? item.image.filename.trim()
-                              : null
-                          }
-                          alt={item.image.alt}
-                          width={item.image.width}
-                          height={item.image.height}
-                          className={style['filter__item-image']}
-                        />
-                      )}
-                      <div className={style['filter__item-content']}>
-                        <h4 className={style['filter__item-title']}>{item.title}</h4>
-                        {item.description && typeof item.description !== 'string' ? (
-                          <RichText data={item.description} />
-                        ) : (
-                          <p>{item.description}</p>
-                        )}
-                      </div>
-                    </div>
-                  )) || [],
-              )}
+              {activeContent?.items?.map((item) => (
+                <div key={item.id} className={style.filter__item}>
+                  {item.image && (
+                    <ImageMedia
+                      src={
+                        isMedia(item.image) && item.image.filename
+                          ? item.image.filename.trim()
+                          : null
+                      }
+                      alt={item.image.alt || ''}
+                      width={item.image.width}
+                      height={item.image.height}
+                      className={style['filter__item-image']}
+                    />
+                  )}
+                  <div className={style['filter__item-content']}>
+                    <h4 className={style['filter__item-title']}>{item.title}</h4>
+                    {renderDescription(item.description)}
+                  </div>
+                </div>
+              ))}
             </Carousel>
           )}
         </CardBody>

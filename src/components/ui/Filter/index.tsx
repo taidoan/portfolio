@@ -66,7 +66,11 @@ export const Filter = ({
           buttonClassName || style.filter__button,
           isActive && (buttonActiveClassName || style['filter__button--active']),
         );
-        const icon = (iconMap && iconMap[category.slug]) || null;
+        const matchedKey = iconMap
+          ? Object.keys(iconMap).find((key) => category.slug.includes(key))
+          : undefined;
+
+        const icon = matchedKey ? iconMap && iconMap[matchedKey] : null;
 
         return (
           <li key={category.id}>

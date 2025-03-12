@@ -141,8 +141,10 @@
   padding: size-clamp(rem(20), rem(32));
   text-align: center;
   transition:
-    color var(--transition-duration-fast),
-    transform var(--transition-duration-fast) ease;
+    color var(--transition-duration-fast) ease,
+    transform var(--transition-duration-fast) ease,
+    box-shadow var(--transition-duration-fast) ease,
+    background-color var(--transition-duration-fast) ease;
 
   &:hover {
     color: inherit;
@@ -156,8 +158,7 @@
     gap: rem(32);
 
     &:hover {
-      box-shadow: var(--shadow-card);
-      transform: translateY(-3%);
+      transform: scale(1.025) translateY(-3%);
     }
   }
 }
