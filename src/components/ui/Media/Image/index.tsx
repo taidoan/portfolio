@@ -6,7 +6,7 @@ import s from './../style.module.scss';
 const urlEndpoint = getCDNURL();
 
 export interface ImageMedia {
-  src: string;
+  src: string | null;
   alt: string;
   width?: number | null;
   height?: number | null;
@@ -63,7 +63,7 @@ export const ImageMedia = ({
   return (
     <Image
       loader={imageKitLoader}
-      src={src}
+      src={src as string}
       alt={alt}
       className={`${className} ${s.optimizedImage}`}
       priority={priority}

@@ -2,6 +2,7 @@ import style from './style.module.scss';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { ImageMedia } from '@components/ui/Media/Image';
+import { Alert, AlertTitle } from '@components/ui/Alert';
 import { useCardContext } from './index';
 import type { Media, Project, Service, Post } from '@/payload-types';
 import type { CardData } from './index';
@@ -65,7 +66,7 @@ export const CardImage = ({
   const widthToUse = width || (thumbnail && isMedia(thumbnail) ? thumbnail.width : null);
   const heightToUse = height || (thumbnail && isMedia(thumbnail) ? thumbnail.height : null);
 
-  const srcToUse = imageSrc || thumbnailUrl || '';
+  const srcToUse = imageSrc || thumbnailUrl || null;
 
   const image = (
     <>
@@ -93,16 +94,25 @@ export const CardImage = ({
   );
 
   if (link && link.href) {
+    if (srcToUse !== null) {
+      return (
+        <Link
+          href={link.href}
+          target={link.target}
+          title={link.title}
+          rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
+          className={style.card__image__link}
+        >
+          {imageContainer}
+        </Link>
+      );
+    }
+
     return (
-      <Link
-        href={link.href}
-        target={link.target}
-        title={link.title}
-        rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-        className={style.card__image__link}
-      >
-        {imageContainer}
-      </Link>
+      <Alert severity='warning'>
+        <AlertTitle>Missing image</AlertTitle>
+        <p>The image for this card is missing. Please check the source and try again.</p>
+      </Alert>
     );
   }
 
