@@ -17,6 +17,7 @@ import { DividerBlock } from '@/blocks/Divider/config';
 import { SectionBlock } from '@/blocks/Section/config';
 import { SectionGroupBlock } from '@/blocks/Section/Group/config';
 import { ArchiveBlock } from '@/blocks/Archive/config';
+import { TabbedContentBlock } from '@/blocks/TabbedContent/config';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -79,7 +80,13 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               name: 'layout',
               label: 'Layout',
-              blocks: [DividerBlock, SectionBlock, SectionGroupBlock, ArchiveBlock],
+              blocks: [
+                DividerBlock,
+                SectionBlock,
+                SectionGroupBlock,
+                ArchiveBlock,
+                TabbedContentBlock,
+              ],
               required: true,
             },
           ],

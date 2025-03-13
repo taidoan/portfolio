@@ -4,6 +4,7 @@ import { DividerBlock } from '@/blocks/Divider';
 import { SectionGroupBlock } from '@/blocks/Section/Group';
 import { MediaBlock } from './Media';
 import { ArchiveBlock } from './Archive';
+import { TabbedContentBlock } from './TabbedContent';
 
 export type RenderBlocksProps = {
   blocks: Page['layout'][0][];
@@ -15,6 +16,7 @@ const blockComponents = {
   sectionGroup: SectionGroupBlock,
   mediaBlock: MediaBlock,
   archiveBlock: ArchiveBlock,
+  tabbedContentBlock: TabbedContentBlock,
 };
 
 export const RenderBlocks = ({ blocks }: RenderBlocksProps) => {

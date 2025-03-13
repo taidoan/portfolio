@@ -190,7 +190,13 @@ export interface Page {
   id: string;
   title: string;
   hero: HeroBlockProps;
-  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps | ArchiveBlockProps)[];
+  layout: (
+    | DividerBlockProps
+    | SectionBlockProps
+    | SectionGroupBlockProps
+    | ArchiveBlockProps
+    | TabbedContentBlockProps
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -339,15 +345,8 @@ export interface Category {
  */
 export interface Service {
   id: string;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
   title: string;
+  image?: (string | null) | Media;
   description: {
     root: {
       type: string;
@@ -363,7 +362,34 @@ export interface Service {
     };
     [k: string]: unknown;
   };
-  image?: (string | null) | Media;
+  items: {
+    title: string;
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    image: string | Media;
+    id?: string | null;
+  }[];
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
   slug: string;
   slugLock?: boolean | null;
   breadcrumbs?:
@@ -509,6 +535,18 @@ export interface LinksBlockProps {
       | ({
           relationTo: 'projects';
           value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
         } | null);
     url?: string | null;
     label: string;
@@ -549,6 +587,49 @@ export interface LinksBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LinksGroupBlockProps".
  */
 export interface LinksGroupBlockProps {
@@ -565,6 +646,18 @@ export interface LinksGroupBlockProps {
             | ({
                 relationTo: 'projects';
                 value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
               } | null);
           url?: string | null;
           label: string;
@@ -838,49 +931,6 @@ export interface CardBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AccordionBlockProps".
  */
 export interface AccordionBlockProps {
@@ -1109,6 +1159,18 @@ export interface ToolsBlockProps {
             | ({
                 relationTo: 'projects';
                 value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
               } | null);
           url?: string | null;
           label: string;
@@ -1260,6 +1322,118 @@ export interface ArchiveBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'archiveBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlockProps".
+ */
+export interface TabbedContentBlockProps {
+  contentType?: ('custom' | 'services') | null;
+  content?:
+    | {
+        title?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        addLink?: boolean | null;
+        link?: {
+          type: 'reference' | 'custom';
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
+              } | null);
+          url?: string | null;
+          label: string;
+          color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+          className?: string | null;
+        };
+        items?:
+          | {
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              image?: (string | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  className?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabbedContentBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1517,6 +1691,7 @@ export interface PagesSelect<T extends boolean = true> {
         section?: T | SectionBlockPropsSelect<T>;
         sectionGroup?: T | SectionGroupBlockPropsSelect<T>;
         archiveBlock?: T | ArchiveBlockPropsSelect<T>;
+        tabbedContentBlock?: T | TabbedContentBlockPropsSelect<T>;
       };
   meta?:
     | T
@@ -1943,6 +2118,51 @@ export interface ArchiveBlockPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlockProps_select".
+ */
+export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
+  contentType?: T;
+  content?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        addLink?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              color?: T;
+              buttonShadow?: T;
+              className?: T;
+            };
+        items?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  className?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
@@ -1994,6 +2214,17 @@ export interface ProjectsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        id?: T;
+      };
   meta?:
     | T
     | {
@@ -2001,9 +2232,6 @@ export interface ServicesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  title?: T;
-  description?: T;
-  image?: T;
   slug?: T;
   slugLock?: T;
   breadcrumbs?:
@@ -2171,6 +2399,18 @@ export interface Footer {
         | ({
             relationTo: 'projects';
             value: string | Project;
+          } | null)
+        | ({
+            relationTo: 'services';
+            value: string | Service;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'categories';
+            value: string | Category;
           } | null);
       url?: string | null;
       label: string;
@@ -2201,6 +2441,18 @@ export interface Header {
         | ({
             relationTo: 'projects';
             value: string | Project;
+          } | null)
+        | ({
+            relationTo: 'services';
+            value: string | Service;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'categories';
+            value: string | Category;
           } | null);
       url?: string | null;
       label: string;
@@ -2344,6 +2596,18 @@ export interface LinksBlockRichtextProps {
       | ({
           relationTo: 'projects';
           value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
         } | null);
     url?: string | null;
     label: string;
@@ -2373,6 +2637,18 @@ export interface LinksGroupRichtextProps {
             | ({
                 relationTo: 'projects';
                 value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
               } | null);
           url?: string | null;
           label: string;

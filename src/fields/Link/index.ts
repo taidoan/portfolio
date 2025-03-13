@@ -1,12 +1,21 @@
 import type { Field, GroupField } from 'payload';
 
-export const Link = (): GroupField => {
+export type Overrides = {
+  linkOverrides?: Partial<GroupField>;
+};
+
+type Link = (overrides?: Overrides) => GroupField;
+
+export const Link: Link = (overrides = {}) => {
+  const { linkOverrides } = overrides;
+
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
     label: '',
+    ...(linkOverrides || {}),
     admin: {
-      hideGutter: true,
+      ...(linkOverrides?.admin || {}),
     },
     fields: [
       {
@@ -67,7 +76,7 @@ export const Link = (): GroupField => {
         condition: (_, siblingData) => siblingData.type === 'reference',
         width: '50%',
       },
-      relationTo: ['pages', 'projects'],
+      relationTo: ['pages', 'projects', 'services', 'posts', 'categories'],
       label: 'Document to link to',
       required: true,
     },

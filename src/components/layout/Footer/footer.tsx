@@ -24,7 +24,7 @@ export const Footer = ({ data, social }: FooterProps) => {
             <nav className={style['footer__site-nav']} aria-label='Footer Site Navigation'>
               {navItems.map(({ link }, i) => {
                 return (
-                  <FooterNavLink {...link} tabIndex={0} label={link.label} key={i}></FooterNavLink>
+                  <FooterNavLink {...link} tabIndex={0} label={link?.label} key={i}></FooterNavLink>
                 );
               })}
             </nav>

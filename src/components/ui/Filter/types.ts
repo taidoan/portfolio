@@ -1,24 +1,28 @@
 import type { Category } from '@/payload-types';
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { JSX } from 'react';
 
 export type FilterCategory = {
-  id: string;
+  id?: string | null | undefined;
   title: string;
-  slug: string;
-  description?: string | null;
+  slug?: string | null | undefined;
+  description?: string | DefaultTypedEditorState | null;
   icon?: JSX.Element;
   items?: {
     title: string;
-    description?: string;
-  };
+    description?: string | DefaultTypedEditorState;
+  }[];
 };
 
 export type FilterProps = {
   categories: (Category | FilterCategory)[];
-  selectedCategory: string | null;
+  selectedCategory: string | null | undefined;
   onSelectCategoryAction: (category: string | null) => void;
   showAllButton?: boolean;
   allButtonLabel?: string;
   iconMap?: Record<string, JSX.Element>;
   className?: string;
+  containerClassName?: string;
+  buttonClassName?: string;
+  buttonActiveClassName?: string;
 };
