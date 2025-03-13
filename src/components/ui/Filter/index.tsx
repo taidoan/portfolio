@@ -60,7 +60,7 @@ export const Filter = ({
           </button>
         </li>
       )}
-      {categories.map((category, index) => {
+      {categories.map((category) => {
         const isActive = activeCategory === category.id;
         const buttonClass = clsx(
           buttonClassName || style.filter__button,

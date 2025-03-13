@@ -27,6 +27,16 @@ export const TabbedContentBlock: Block = {
             {
               type: 'array',
               name: 'content',
+              label: 'Tabs',
+              labels: {
+                singular: 'Tab',
+                plural: 'Tabs',
+              },
+              admin: {
+                condition: (_, siblingData) => {
+                  return siblingData.contentType === 'custom';
+                },
+              },
               fields: [
                 {
                   type: 'text',
