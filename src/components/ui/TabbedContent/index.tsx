@@ -58,7 +58,6 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
   const isFirstCategory = activeCategory === categories[0].id;
 
   const href = activeContent?.link ? getHref(activeContent.link) : null;
-  if (!href) return null;
 
   const newTabProps =
     activeContent?.link && activeContent.link.newTab
@@ -76,7 +75,7 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
   };
 
   return (
-    <section className={clsx(className, 'tabbed-content')} data-testid='tabbed-content'>
+    <section className={clsx(className, 'tabbed-content', 'section')} data-testid='tabbed-content'>
       <Card>
         <CardBody className={style.filter__block}>
           <Filter
