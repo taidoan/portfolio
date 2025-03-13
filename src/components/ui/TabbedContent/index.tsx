@@ -6,12 +6,14 @@ import style from './style.module.scss';
 import type { TabbedContentProps } from './types';
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { isMedia } from '@/lib/utilities/isMedia';
+import { getHref } from '@/lib/utilities/getHref';
 
 import { Filter } from '../Filter';
 import { RichText } from '../RichText';
 import { Alert, AlertTitle } from '../Alert';
 import { Card, CardBody } from '../Card';
 import { Carousel } from '../Carousel';
+import { Button } from '../Button';
 import { ImageMedia } from '../Media/Image';
 import {
   IconAppWindow,
@@ -55,6 +57,14 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
   const hasItems = activeContent?.items && activeContent.items.length > 0;
   const isFirstCategory = activeCategory === categories[0].id;
 
+  const href = activeContent?.link ? getHref(activeContent.link) : null;
+  if (!href) return null;
+
+  const newTabProps =
+    activeContent?.link && activeContent.link.newTab
+      ? { rel: 'noopener noreferrer', target: '_blank' }
+      : {};
+
   const contentClasses = clsx(style.filter__content, {
     [style['filter__content--first-cat-active']]: isFirstCategory,
   });
@@ -81,12 +91,25 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
 
           <div className={contentClasses}>
             {activeContent ? (
-              <div className={style['filter__content-text']}>
-                <h3 className='sub-heading'>
-                  {activeContent.title}
-                  <span className='accent-dot'>.</span>
-                </h3>
-                {renderDescription(activeContent.description)}
+              <div className={style['filter__content-wrapper']}>
+                <div className={style['filter__content-text']}>
+                  <h3 className='sub-heading'>
+                    {activeContent.title}
+                    <span className='accent-dot'>.</span>
+                  </h3>
+                  {renderDescription(activeContent.description)}
+                </div>
+                {activeContent?.link && href && (
+                  <Button
+                    href={href}
+                    color={activeContent.link.color || undefined}
+                    shadow={activeContent.link.buttonShadow || undefined}
+                    className={activeContent.link.className || undefined}
+                    {...newTabProps}
+                  >
+                    {activeContent.link.label}
+                  </Button>
+                )}
               </div>
             ) : (
               <Alert severity='error'>
@@ -123,6 +146,7 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
                   )}
                   <div className={style['filter__item-content']}>
                     <h4 className={style['filter__item-title']}>{item.title}</h4>
+
                     {renderDescription(item.description)}
                   </div>
                 </div>

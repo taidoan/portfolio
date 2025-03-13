@@ -1,5 +1,5 @@
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
-import type { Media } from '@/payload-types';
+import type { Media, LinksBlockProps } from '@/payload-types';
 
 export type TabFilterCategories = {
   title: string;
@@ -12,6 +12,7 @@ export type TabFilterCategories = {
     image?: Media;
     id: string;
   }[];
+  link?: LinksBlockProps['link'];
 }[];
 
 export type TabbedContentProps = {

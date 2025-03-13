@@ -535,6 +535,18 @@ export interface LinksBlockProps {
       | ({
           relationTo: 'projects';
           value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
         } | null);
     url?: string | null;
     label: string;
@@ -575,6 +587,49 @@ export interface LinksBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LinksGroupBlockProps".
  */
 export interface LinksGroupBlockProps {
@@ -591,6 +646,18 @@ export interface LinksGroupBlockProps {
             | ({
                 relationTo: 'projects';
                 value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
               } | null);
           url?: string | null;
           label: string;
@@ -864,49 +931,6 @@ export interface CardBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AccordionBlockProps".
  */
 export interface AccordionBlockProps {
@@ -1135,6 +1159,18 @@ export interface ToolsBlockProps {
             | ({
                 relationTo: 'projects';
                 value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
               } | null);
           url?: string | null;
           label: string;
@@ -1311,6 +1347,36 @@ export interface TabbedContentBlockProps {
           };
           [k: string]: unknown;
         } | null;
+        link: {
+          type: 'reference' | 'custom';
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
+              } | null);
+          url?: string | null;
+          label: string;
+          color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+          className?: string | null;
+        };
         items?:
           | {
               title?: string | null;
@@ -1336,7 +1402,6 @@ export interface TabbedContentBlockProps {
         id?: string | null;
       }[]
     | null;
-  className?: string | null;
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
    */
@@ -1364,6 +1429,7 @@ export interface TabbedContentBlockProps {
     alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
     justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
   };
+  className?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabbedContentBlock';
@@ -2060,6 +2126,18 @@ export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              color?: T;
+              buttonShadow?: T;
+              className?: T;
+            };
         items?:
           | T
           | {
@@ -2070,7 +2148,6 @@ export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  className?: T;
   gridAppearance?:
     | T
     | {
@@ -2078,6 +2155,7 @@ export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
         alignSelf?: T;
         justifySelf?: T;
       };
+  className?: T;
   id?: T;
   blockName?: T;
 }
@@ -2319,6 +2397,18 @@ export interface Footer {
         | ({
             relationTo: 'projects';
             value: string | Project;
+          } | null)
+        | ({
+            relationTo: 'services';
+            value: string | Service;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'categories';
+            value: string | Category;
           } | null);
       url?: string | null;
       label: string;
@@ -2349,6 +2439,18 @@ export interface Header {
         | ({
             relationTo: 'projects';
             value: string | Project;
+          } | null)
+        | ({
+            relationTo: 'services';
+            value: string | Service;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'categories';
+            value: string | Category;
           } | null);
       url?: string | null;
       label: string;
@@ -2492,6 +2594,18 @@ export interface LinksBlockRichtextProps {
       | ({
           relationTo: 'projects';
           value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
         } | null);
     url?: string | null;
     label: string;
@@ -2521,6 +2635,18 @@ export interface LinksGroupRichtextProps {
             | ({
                 relationTo: 'projects';
                 value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
               } | null);
           url?: string | null;
           label: string;

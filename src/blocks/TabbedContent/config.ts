@@ -1,5 +1,6 @@
 import { Block } from 'payload';
 import { GridAppearance } from '@/fields/GridAppearance';
+import { Link } from '@/fields/Link';
 
 export const TabbedContentBlock: Block = {
   slug: 'tabbedContentBlock',
@@ -13,7 +14,7 @@ export const TabbedContentBlock: Block = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Tabbed Content',
+          label: 'Content',
           fields: [
             {
               type: 'select',
@@ -42,10 +43,12 @@ export const TabbedContentBlock: Block = {
                   type: 'text',
                   name: 'title',
                 },
+
                 {
                   type: 'richText',
                   name: 'description',
                 },
+                Link(),
                 {
                   type: 'array',
                   name: 'items',
@@ -69,16 +72,18 @@ export const TabbedContentBlock: Block = {
                 },
               ],
             },
+          ],
+        },
+        {
+          label: 'Appearance',
+          fields: [
+            GridAppearance(),
             {
               type: 'text',
               name: 'className',
               label: 'Custom Class Name',
             },
           ],
-        },
-        {
-          label: 'Appearance',
-          fields: [GridAppearance()],
         },
       ],
     },

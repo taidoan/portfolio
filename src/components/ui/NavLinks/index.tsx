@@ -1,4 +1,4 @@
-import type { Page, Project, Service, Category } from '@/payload-types';
+import type { Page, Project, Service, Category, Post } from '@/payload-types';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getHref } from '@/lib/utilities/getHref';
@@ -11,8 +11,8 @@ export type NavLinkProps = {
   action?: () => void;
   type?: 'custom' | 'reference' | null;
   reference?: {
-    relationTo: 'pages' | 'projects';
-    value: Page | Project | Service | Category | string | number;
+    relationTo: 'pages' | 'projects' | 'services' | 'posts' | 'categories';
+    value: Page | Project | Service | Category | Post | string | number;
   } | null;
   url?: string | null;
   newTab?: boolean | null;

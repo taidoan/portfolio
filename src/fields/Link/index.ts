@@ -67,7 +67,7 @@ export const Link = (): GroupField => {
         condition: (_, siblingData) => siblingData.type === 'reference',
         width: '50%',
       },
-      relationTo: ['pages', 'projects'],
+      relationTo: ['pages', 'projects', 'services', 'posts', 'categories'],
       label: 'Document to link to',
       required: true,
     },

@@ -114,19 +114,30 @@
     border-radius: 0 var(--border-radius-small) var(--border-radius-small)
       var(--border-radius-small);
   }
+
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: rem(24);
+    text-align: center;
+
+    @include mq('md') {
+      align-items: center;
+      flex-direction: row;
+      gap: rem(32);
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
 }
 
-.filter__content__text {
+.filter__content-text {
   display: flex;
   flex-direction: column;
-  gap: rem(12);
-
-  p {
-    font-size: var(--fs-body-sm);
-  }
+  gap: rem(4);
 
   @include mq('md') {
-    gap: rem(16);
+    gap: rem(12);
   }
 }
 

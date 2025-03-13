@@ -30,7 +30,16 @@ export const TabbedContentBlock = async ({
       sort: 'title',
     });
 
-    contentToUse = query.docs;
+    contentToUse = query.docs.map((doc) => ({
+      ...doc,
+      link: {
+        type: 'reference',
+        url: `/services/${doc.slug}`,
+        label: 'Find Out More',
+        color: 'secondary',
+        buttonShadow: 'none',
+      },
+    }));
   }
 
   if (contentType === 'custom') {
@@ -39,18 +48,24 @@ export const TabbedContentBlock = async ({
         id: item.id,
         title: item.title,
         description: item.description,
-        items: item.items?.map((item) => {
+        items: item.items?.map((subItem) => {
           return {
-            id: item.id,
-            title: item.title,
-            description: item.description,
-            image: item.image,
+            id: subItem.id,
+            title: subItem.title,
+            description: subItem.description,
+            image: subItem.image,
           };
         }),
+        link: item.link,
       };
     });
   }
 
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  return <TabbedContent categories={contentToUse as any} className={className} />;
+  return (
+    <TabbedContent
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+      categories={contentToUse as any}
+      className={className}
+    />
+  );
 };
