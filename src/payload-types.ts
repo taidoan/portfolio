@@ -1292,6 +1292,50 @@ export interface ArchiveBlockProps {
  * via the `definition` "TabbedContentBlockProps".
  */
 export interface TabbedContentBlockProps {
+  contentType?: ('custom' | 'services') | null;
+  content?:
+    | {
+        title?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        items?:
+          | {
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              image?: (string | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
   className?: string | null;
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
@@ -2010,6 +2054,22 @@ export interface ArchiveBlockPropsSelect<T extends boolean = true> {
  * via the `definition` "TabbedContentBlockProps_select".
  */
 export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
+  contentType?: T;
+  content?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   className?: T;
   gridAppearance?:
     | T

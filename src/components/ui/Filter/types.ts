@@ -3,9 +3,9 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { JSX } from 'react';
 
 export type FilterCategory = {
-  id: string;
+  id?: string | null | undefined;
   title: string;
-  slug: string;
+  slug?: string | null | undefined;
   description?: string | DefaultTypedEditorState | null;
   icon?: JSX.Element;
   items?: {
@@ -16,7 +16,7 @@ export type FilterCategory = {
 
 export type FilterProps = {
   categories: (Category | FilterCategory)[];
-  selectedCategory: string | null;
+  selectedCategory: string | null | undefined;
   onSelectCategoryAction: (category: string | null) => void;
   showAllButton?: boolean;
   allButtonLabel?: string;

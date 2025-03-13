@@ -60,14 +60,14 @@ export const Filter = ({
           </button>
         </li>
       )}
-      {categories.map((category) => {
+      {categories.map((category, index) => {
         const isActive = activeCategory === category.id;
         const buttonClass = clsx(
           buttonClassName || style.filter__button,
           isActive && (buttonActiveClassName || style['filter__button--active']),
         );
         const matchedKey = iconMap
-          ? Object.keys(iconMap).find((key) => category.slug.includes(key))
+          ? Object.keys(iconMap).find((key) => category?.slug?.includes(key))
           : undefined;
 
         const icon = matchedKey ? iconMap && iconMap[matchedKey] : null;
