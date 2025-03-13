@@ -1,1 +1,2 @@
+npm run payload generate:types
 npm run lint-staged
