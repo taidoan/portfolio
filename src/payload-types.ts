@@ -1347,8 +1347,9 @@ export interface TabbedContentBlockProps {
           };
           [k: string]: unknown;
         } | null;
+        addLink?: boolean | null;
         link?: {
-          type?: ('reference' | 'custom') | null;
+          type: 'reference' | 'custom';
           newTab?: boolean | null;
           reference?:
             | ({
@@ -1372,7 +1373,7 @@ export interface TabbedContentBlockProps {
                 value: string | Category;
               } | null);
           url?: string | null;
-          label?: string | null;
+          label: string;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
@@ -2126,6 +2127,7 @@ export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        addLink?: T;
         link?:
           | T
           | {
