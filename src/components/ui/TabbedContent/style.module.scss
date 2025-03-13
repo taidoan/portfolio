@@ -85,7 +85,7 @@
     }
 
     @include mq('md') {
-      background-color: var(--clr-light-grey-200);
+      background-color: var(--clr-light-grey-150);
       color: var(--clr-slate-400);
 
       svg {
@@ -96,7 +96,7 @@
 }
 
 .filter__content {
-  background-color: var(--clr-light-grey-200);
+  background-color: var(--clr-light-grey-150);
   border-radius: var(--border-radius-small);
   margin-top: size-clamp(rem(16), rem(32));
   padding: size-clamp(rem(20), rem(32));
@@ -143,7 +143,7 @@
 
 .filter__item {
   align-items: center;
-  background-color: var(--clr-light-grey-200);
+  background-color: var(--clr-light-grey-150);
   border-radius: var(--border-radius-small);
   color: var(--clr-slate-300);
   display: flex;

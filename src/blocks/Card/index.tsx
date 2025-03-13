@@ -68,7 +68,7 @@ export const CardBlock = async ({
     image = service?.image;
   }
 
-  const cardImageClass = clsx({ [`${style['image-type--service']}`]: isService });
+  const cardImageClass = clsx({ [`${style['card__image-type--service']}`]: isService });
 
   const imageUrl = typeof image === 'string' ? image : image?.filename;
   const imageAlt = typeof image !== 'string' ? image?.alt || '' : '';
@@ -100,7 +100,7 @@ export const CardBlock = async ({
         isProject
           ? `/${relationTo}/${project?.slug}`
           : isService
-            ? `/${relationTo}#${service?.title}`
+            ? `/${relationTo}/${service?.slug}`
             : undefined
       }
       relation={relationTo}

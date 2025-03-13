@@ -11,14 +11,16 @@ main {
   padding-bottom: var(--layout-row-spacing);
 }
 
-@each $alignment in start, center, end, stretch {
-  .align-self__#{$alignment} {
-    align-self: #{$alignment};
+@include mq('md') {
+  @each $alignment in start, center, end, stretch {
+    .align-self__#{$alignment} {
+      align-self: #{$alignment};
+    }
   }
-}
 
-@each $alignment in start, center, end, stretch {
-  .justify-self__#{$alignment} {
-    justify-self: #{$alignment};
+  @each $alignment in start, center, end, stretch {
+    .justify-self__#{$alignment} {
+      justify-self: #{$alignment};
+    }
   }
 }
