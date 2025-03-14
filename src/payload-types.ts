@@ -550,7 +550,11 @@ export interface LinksBlockProps {
         } | null);
     url?: string | null;
     label: string;
+    variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -661,7 +665,11 @@ export interface LinksGroupBlockProps {
               } | null);
           url?: string | null;
           label: string;
+          variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1174,7 +1182,11 @@ export interface ToolsBlockProps {
               } | null);
           url?: string | null;
           label: string;
+          variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1374,7 +1386,11 @@ export interface TabbedContentBlockProps {
               } | null);
           url?: string | null;
           label: string;
+          variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1796,7 +1812,9 @@ export interface LinksBlockPropsSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+        variant?: T;
         color?: T;
+        hoverColor?: T;
         buttonShadow?: T;
         className?: T;
       };
@@ -1826,7 +1844,9 @@ export interface LinksGroupBlockPropsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2039,7 +2059,9 @@ export interface ToolsBlockPropsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2136,7 +2158,9 @@ export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2414,7 +2438,11 @@ export interface Footer {
           } | null);
       url?: string | null;
       label: string;
+      variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -2456,7 +2484,11 @@ export interface Header {
           } | null);
       url?: string | null;
       label: string;
+      variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -2521,7 +2553,9 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2547,7 +2581,9 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2611,7 +2647,11 @@ export interface LinksBlockRichtextProps {
         } | null);
     url?: string | null;
     label: string;
+    variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -2652,7 +2692,11 @@ export interface LinksGroupRichtextProps {
               } | null);
           url?: string | null;
           label: string;
+          variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };

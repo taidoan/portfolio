@@ -29,6 +29,8 @@ export const LinksGroupRichtextBlock = ({ className, linksGroup }: Props) => {
             color={link.color || undefined}
             className={linkClasses}
             shadow={link.buttonShadow || undefined}
+            variant={link.variant || 'fill'}
+            hoverColor={link.hoverColor || 'default'}
           >
             {link.label}
           </Button>

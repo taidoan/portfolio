@@ -110,6 +110,19 @@ export const Link: Link = (overrides = {}) => {
 
   const linkStyles: Field[] = [
     {
+      type: 'select',
+      name: 'variant',
+      label: 'Variant',
+      options: [
+        { label: 'Fill', value: 'fill' },
+        { label: 'Outlined', value: 'outlined' },
+      ],
+      defaultValue: 'fill',
+      admin: {
+        width: '33%',
+      },
+    },
+    {
       name: 'color',
       type: 'select',
       options: [
@@ -122,6 +135,24 @@ export const Link: Link = (overrides = {}) => {
       ],
       defaultValue: 'secondary',
       label: 'Color',
+      admin: {
+        width: '33%',
+      },
+    },
+    {
+      name: 'hoverColor',
+      type: 'select',
+      options: [
+        { value: 'default', label: 'Default' },
+        { value: 'primary', label: 'Primary' },
+        { value: 'secondary', label: 'Secondary' },
+        { value: 'accent', label: 'Accent' },
+        { value: 'sage', label: 'Sage' },
+        { value: 'slate', label: 'Slate' },
+        { value: 'bittersweet', label: 'Bittersweet' },
+      ],
+      defaultValue: 'default',
+      label: 'Hover Color',
       admin: {
         width: '33%',
       },
@@ -144,10 +175,7 @@ export const Link: Link = (overrides = {}) => {
     {
       name: 'className',
       type: 'text',
-      label: 'Class Name',
-      admin: {
-        width: '33%',
-      },
+      label: 'Custom Class Name',
     },
   ];
 
