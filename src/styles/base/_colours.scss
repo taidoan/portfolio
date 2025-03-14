@@ -74,3 +74,11 @@
     linear-gradient(97.51deg, rgba(0, 0, 0, 0) 3.06%, rgba(0, 0, 0, 0.21) 93.46%),
     var(--clr-accent-400);
 }
+
+.text--light {
+  color: var(--clr-light-400);
+}
+
+.text--dark {
+  color: var(--clr-secondary-400);
+}

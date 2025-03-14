@@ -11,6 +11,7 @@ export type CTAProps = {
   className?: string;
   content: DefaultTypedEditorState;
   link: LinksBlockProps['link'];
+  borderRadius: 'none' | 'small' | 'medium' | 'large';
   background:
     | 'primary'
     | 'secondary'
@@ -22,17 +23,31 @@ export type CTAProps = {
     | 'none';
 };
 
-export const CTA = ({ className, content, link, background = 'primary' }: CTAProps) => {
+export const CTA = ({
+  className,
+  content,
+  link,
+  background = 'primary',
+  borderRadius = 'medium',
+}: CTAProps) => {
   const href = link ? getHref(link) : null;
   const ctaClasses = clsx('section__boxed-layout', 'section__boxed-layout--left', className, {
     [`bg--${background}`]: background && background !== 'none',
+    [`border-radius--${borderRadius}`]: borderRadius && borderRadius !== 'none',
   });
+  const buttonProps = {
+    color: (background === 'secondary' && 'accent') || link.color || undefined,
+    shadow: link.buttonShadow || undefined,
+    className: link.className || undefined,
+  };
 
   if (content && href) {
     return (
       <section className={ctaClasses}>
         <RichText data={content} converters={headingConverter} />
-        <Button href={href}>{link.label}</Button>
+        <Button href={href} {...buttonProps}>
+          {link.label}
+        </Button>
       </section>
     );
   }

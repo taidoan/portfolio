@@ -2,7 +2,6 @@ import { Meta, StoryObj } from '@storybook/react';
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import type { LinksBlockProps } from '@/payload-types';
 import { CTA } from '.';
-import { desc } from 'motion/react-m';
 
 const mockContent = {
   root: {
@@ -114,6 +113,25 @@ export const Default: Story = {
   args: {
     content: mockContent as DefaultTypedEditorState,
     link: mockLink as LinksBlockProps['link'],
+    background: 'primary',
+  },
+  render: (args) => <CTA {...args} />,
+};
+
+export const NoContent: Story = {
+  args: {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    content: null as any,
+    link: mockLink as LinksBlockProps['link'],
+  },
+  render: (args) => <CTA {...args} />,
+};
+
+export const NoLink: Story = {
+  args: {
+    content: mockContent as DefaultTypedEditorState,
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    link: null as any,
   },
   render: (args) => <CTA {...args} />,
 };

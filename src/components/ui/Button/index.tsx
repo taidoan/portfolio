@@ -13,6 +13,7 @@ import { IconCircleArrowRightFilled, IconExternalLink } from '@tabler/icons-reac
  * @param {boolean} [props.disabled] - Whether the button is disabled.
  * @param {string} [props.title] - The title of the button.
  * @param {string} [props.color] - The color of the button.
+ * @param {string} [props.hoverColor] - The hover color of the button.
  * @param {string} [props.shadow] - The shadow of the button.
  * @param {string} [props.type] - The type of the button.
  * @returns {JSX.Element} The rendered button component.
@@ -43,8 +44,18 @@ export type ButtonProps = {
   title?: string;
   children: React.ReactNode;
   color?: 'primary' | 'secondary' | 'accent' | 'light-grey' | 'sage' | 'slate' | 'bittersweet';
+  hoverColor?:
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'light-grey'
+    | 'sage'
+    | 'slate'
+    | 'bittersweet';
   shadow?: 'none' | 'small' | 'medium' | 'large' | null | undefined;
   type?: 'button' | 'submit' | 'reset';
+  variant?: 'outlined' | 'fill';
 };
 
 export const Button = ({
@@ -58,10 +69,15 @@ export const Button = ({
   color = 'light-grey',
   shadow = 'none',
   type = 'button',
+  hoverColor = 'default',
+  variant = 'fill',
 }: ButtonProps) => {
   const buttonClasses = clsx(style.button, className, {
     [style[`button--clr-${color}`]]: !!color,
     [style[`button--shadow-${shadow}`]]: shadow && shadow !== 'none',
+    [style[`button--hover-clr-${hoverColor}`]]:
+      hoverColor && hoverColor !== 'default' && variant !== 'outlined',
+    [style[`button--${variant}`]]: variant,
   });
 
   if (!href) {

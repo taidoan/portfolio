@@ -7,6 +7,7 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   args: {
     children: 'Button',
+    variant: 'fill',
   },
   parameters: {
     docs: {
@@ -30,9 +31,23 @@ export const Primary: Story = {
   },
 };
 
+export const PrimaryOutlined: Story = {
+  args: {
+    color: 'primary',
+    variant: 'outlined',
+  },
+};
+
 export const Secondary: Story = {
   args: {
     color: 'secondary',
+  },
+};
+
+export const SecondaryOutlined: Story = {
+  args: {
+    color: 'secondary',
+    variant: 'outlined',
   },
 };
 
@@ -42,9 +57,23 @@ export const Accent: Story = {
   },
 };
 
+export const AccentOutlined: Story = {
+  args: {
+    color: 'accent',
+    variant: 'outlined',
+  },
+};
+
 export const Sage: Story = {
   args: {
     color: 'sage',
+  },
+};
+
+export const SageOutlined: Story = {
+  args: {
+    color: 'sage',
+    variant: 'outlined',
   },
 };
 
@@ -54,15 +83,36 @@ export const Slate: Story = {
   },
 };
 
+export const SlateOutlined: Story = {
+  args: {
+    color: 'slate',
+    variant: 'outlined',
+  },
+};
+
 export const Bittersweet: Story = {
   args: {
     color: 'bittersweet',
   },
 };
 
+export const BittersweetOutlined: Story = {
+  args: {
+    color: 'bittersweet',
+    variant: 'outlined',
+  },
+};
+
 export const LightGrey: Story = {
   args: {
     color: 'light-grey',
+  },
+};
+
+export const LightGreyOutlined: Story = {
+  args: {
+    color: 'light-grey',
+    variant: 'outlined',
   },
 };
 
