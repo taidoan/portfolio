@@ -214,6 +214,14 @@
     color var(--transition-duration);
   width: var(--size);
 
+  svg {
+    --size: #{size-clamp(rem(20), rem(24))};
+    height: var(--size);
+    min-height: 20px;
+    min-width: 20px;
+    width: var(--size);
+  }
+
   &:hover,
   &:focus-visible {
     background-color: var(--clr-accent-400);

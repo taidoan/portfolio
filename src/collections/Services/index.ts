@@ -8,7 +8,9 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 import { SlugField } from '@/fields/Slug';
+import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@fields/Breadcrumbs';
+import { url } from 'inspector';
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -106,6 +108,7 @@ export const Services: CollectionConfig = {
       ],
     },
     ...SlugField('title'),
+    urlField(),
     BreadCrumbs({
       admin: {
         position: 'sidebar',

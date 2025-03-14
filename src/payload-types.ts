@@ -208,10 +208,6 @@ export interface Page {
   slug: string;
   slugLock?: boolean | null;
   url?: string | null;
-  /**
-   * The number of projects to show in the archive before pagination
-   */
-  numberOfProjects?: number | null;
   thumbnail?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
@@ -392,6 +388,7 @@ export interface Service {
   };
   slug: string;
   slugLock?: boolean | null;
+  url?: string | null;
   breadcrumbs?:
     | {
         relationTo:
@@ -1719,7 +1716,6 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   url?: T;
-  numberOfProjects?: T;
   thumbnail?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -2258,6 +2254,7 @@ export interface ServicesSelect<T extends boolean = true> {
       };
   slug?: T;
   slugLock?: T;
+  url?: T;
   breadcrumbs?:
     | T
     | {

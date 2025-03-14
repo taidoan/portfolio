@@ -10,7 +10,6 @@ import {
 import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { Hero } from '@/blocks/Hero/config';
-import { numberOfProjects } from '@/fields/Projects/numberOfProjects';
 import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
 import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
 import { DividerBlock } from '@/blocks/Divider/config';
@@ -123,7 +122,6 @@ export const Pages: CollectionConfig = {
     },
     ...SlugField(),
     urlField(),
-    ...numberOfProjects(),
     {
       name: 'thumbnail',
       type: 'upload',
