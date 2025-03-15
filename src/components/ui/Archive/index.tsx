@@ -159,7 +159,7 @@ export const Archive = ({
   };
 
   return (
-    <section className={clsx(className, 'archive__container')} {...rest}>
+    <section className={clsx(className, 'section', 'archive__container')} {...rest}>
       {hasCategories ? (
         <Filter
           categories={categories}

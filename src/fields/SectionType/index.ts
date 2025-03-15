@@ -4,14 +4,14 @@ export const SectionTypeField: SelectField = {
   type: 'select',
   label: 'Section Type',
   options: [
-    { value: 'default', label: 'Default' },
-    { value: 'boxed', label: 'Boxed' },
-    { value: 'full-width', label: 'Full Width' },
+    { value: 'default', label: 'Blocks Layout' },
+    { value: 'full-width', label: 'Full Width Blocks Layout' },
+    { value: 'boxed', label: 'Boxed Content' },
   ],
   defaultValue: 'default',
   admin: {
     description:
-      'The layout of the section, you can choose between default, boxed, and full-width.',
+      'The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.',
     width: '50%',
   },
 };

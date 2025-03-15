@@ -494,9 +494,9 @@ export interface SectionBlockProps {
   } | null;
   appearance?: {
     /**
-     * The layout of the section, you can choose between default, boxed, and full-width.
+     * The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.
      */
-    sectionType?: ('default' | 'boxed' | 'full-width') | null;
+    sectionType?: ('default' | 'full-width' | 'boxed') | null;
     backgroundColour?:
       | (
           | 'none'
@@ -1272,9 +1272,9 @@ export interface SectionGroupBlockProps {
   sectionBlocks?: (SectionBlockProps | DividerBlockProps)[] | null;
   appearance?: {
     /**
-     * The layout of the section, you can choose between default, boxed, and full-width.
+     * The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.
      */
-    sectionType?: ('default' | 'boxed' | 'full-width') | null;
+    sectionType?: ('default' | 'full-width' | 'boxed') | null;
     backgroundColour?:
       | (
           | 'none'

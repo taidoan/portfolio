@@ -41,6 +41,7 @@ export const SectionBlock = ({
   const hasContent =
     boxedContent || (sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0);
   const hasBlocks = sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0;
+  const isBlocksLayout = appearance?.sectionType === 'default' && hasBlocks;
   const isBoxedLayout =
     appearance?.sectionType === 'boxed' && boxedContent && boxedContent.root.children.length > 0;
 
@@ -66,7 +67,7 @@ export const SectionBlock = ({
     return (
       <section className={sectionClasses}>
         <div className={sectionWrapperClasses}>
-          {hasBlocks ? (
+          {isBlocksLayout ? (
             <>
               {(() => {
                 let runningTotal = 0;

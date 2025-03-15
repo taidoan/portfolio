@@ -21,10 +21,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-
-    @include mq('md') {
-      align-items: start;
-    }
   }
 
   &__boxed-layout {
