@@ -37,10 +37,16 @@ export const CTA = ({
   variant = 'fill',
 }: CTAProps) => {
   const href = link ? getHref(link) : null;
-  const ctaClasses = clsx('section__boxed-layout', 'section__boxed-layout--left', className, {
-    [`border-radius--${borderRadius}`]: borderRadius && borderRadius !== 'none',
-    [`variant--${variant}`]: variant,
-  });
+  const ctaClasses = clsx(
+    'section',
+    'section__boxed-layout',
+    'section__boxed-layout--left',
+    className,
+    {
+      [`border-radius--${borderRadius}`]: borderRadius && borderRadius !== 'none',
+      [`variant--${variant}`]: variant,
+    },
+  );
 
   const bgColors: Record<string, string> = {
     'gradient-primary': `linear-gradient(97.51deg, rgba(0, 0, 0, 0) 3.06%, rgba(0, 0, 0, 0.21) 93.46%),
@@ -80,14 +86,16 @@ export const CTA = ({
   };
 
   const buttonProps = {
-    color: (color === 'secondary' && 'accent') || link.color || undefined,
+    color: link.color || undefined,
     shadow: link.buttonShadow || undefined,
     className: link.className || undefined,
+    variant: link.variant || undefined,
+    hoverColor: link.hoverColor || undefined,
   };
 
   if (content && href) {
     return (
-      <section className={ctaClasses} style={ctaStyles} data-bg-clr={color}>
+      <section className={ctaClasses} style={ctaStyles} data-bg-clr={color} data-variant={variant}>
         <RichText data={content} converters={headingConverter} />
         <Button href={href} {...buttonProps}>
           {link.label}

@@ -52,14 +52,14 @@
 
     &[data-bg-clr='primary'],
     &[data-bg-clr='gradient-primary'] {
-      color: var(--clr-light-400);
+      &[data-variant='fill'] {
+        h3.sub-heading {
+          text-shadow: var(--shadow-small-title);
+        }
 
-      h3.sub-heading {
-        text-shadow: var(--shadow-small-title);
-      }
-
-      p {
-        text-shadow: var(--shadow-small-body);
+        p {
+          text-shadow: var(--shadow-small-body);
+        }
       }
     }
 

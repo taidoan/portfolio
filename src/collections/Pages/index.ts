@@ -17,6 +17,7 @@ import { SectionBlock } from '@/blocks/Section/config';
 import { SectionGroupBlock } from '@/blocks/Section/Group/config';
 import { ArchiveBlock } from '@/blocks/Archive/config';
 import { TabbedContentBlock } from '@/blocks/TabbedContent/config';
+import { CTABlock } from '@/blocks/CTA/config';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -85,6 +86,7 @@ export const Pages: CollectionConfig = {
                 SectionGroupBlock,
                 ArchiveBlock,
                 TabbedContentBlock,
+                CTABlock,
               ],
               required: true,
             },
