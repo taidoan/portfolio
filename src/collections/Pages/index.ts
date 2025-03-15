@@ -10,7 +10,6 @@ import {
 import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { Hero } from '@/blocks/Hero/config';
-import { numberOfProjects } from '@/fields/Projects/numberOfProjects';
 import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
 import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
 import { DividerBlock } from '@/blocks/Divider/config';
@@ -18,6 +17,7 @@ import { SectionBlock } from '@/blocks/Section/config';
 import { SectionGroupBlock } from '@/blocks/Section/Group/config';
 import { ArchiveBlock } from '@/blocks/Archive/config';
 import { TabbedContentBlock } from '@/blocks/TabbedContent/config';
+import { CTABlock } from '@/blocks/CTA/config';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -86,6 +86,7 @@ export const Pages: CollectionConfig = {
                 SectionGroupBlock,
                 ArchiveBlock,
                 TabbedContentBlock,
+                CTABlock,
               ],
               required: true,
             },
@@ -123,7 +124,6 @@ export const Pages: CollectionConfig = {
     },
     ...SlugField(),
     urlField(),
-    ...numberOfProjects(),
     {
       name: 'thumbnail',
       type: 'upload',

@@ -35,6 +35,7 @@ export const UrlComponent = ({ field, fieldToUse, path }: UrlComponentProps) => 
         await navigator.clipboard.writeText(value);
         toast.success('Copied to clipboard');
       } catch (error) {
+        console.error('Failed to copy to clipboard', error);
         toast.error('Failed to copy to clipboard');
       }
     }

@@ -53,15 +53,26 @@ export const usePagination = (
   };
 };
 
-type PropType = ComponentPropsWithRef<'button'>;
+type PropType = ComponentPropsWithRef<'div'>;
 
 export const PaginationButton: React.FC<PropType> = (props) => {
-  const { children, ...restProps } = props;
+  const { children, onClick, ...restProps } = props;
 
   return (
-    <button type='button' {...restProps}>
+    <div
+      role='button'
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+          onClick?.(e as any);
+        }
+      }}
+      {...restProps}
+    >
       {children}
-    </button>
+    </div>
   );
 };
 

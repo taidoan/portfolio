@@ -33,6 +33,6 @@ export const headingConverter: JSXConvertersFunction = ({ defaultConverters }) =
       return <h3 className='sub-heading'>{dotWrappedText}</h3>;
     }
 
-    return defaultConverters.heading?.(args) ?? null;
+    return typeof defaultConverters.heading === 'function' ? defaultConverters.heading(args) : null;
   },
 });

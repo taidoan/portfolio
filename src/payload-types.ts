@@ -196,6 +196,7 @@ export interface Page {
     | SectionGroupBlockProps
     | ArchiveBlockProps
     | TabbedContentBlockProps
+    | CTABlockProps
   )[];
   meta?: {
     title?: string | null;
@@ -208,10 +209,6 @@ export interface Page {
   slug: string;
   slugLock?: boolean | null;
   url?: string | null;
-  /**
-   * The number of projects to show in the archive before pagination
-   */
-  numberOfProjects?: number | null;
   thumbnail?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
@@ -392,6 +389,7 @@ export interface Service {
   };
   slug: string;
   slugLock?: boolean | null;
+  url?: string | null;
   breadcrumbs?:
     | {
         relationTo:
@@ -550,7 +548,11 @@ export interface LinksBlockProps {
         } | null);
     url?: string | null;
     label: string;
+    variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -661,7 +663,11 @@ export interface LinksGroupBlockProps {
               } | null);
           url?: string | null;
           label: string;
+          variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1174,7 +1180,11 @@ export interface ToolsBlockProps {
               } | null);
           url?: string | null;
           label: string;
+          variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1374,7 +1384,11 @@ export interface TabbedContentBlockProps {
               } | null);
           url?: string | null;
           label: string;
+          variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1434,6 +1448,78 @@ export interface TabbedContentBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabbedContentBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTABlockProps".
+ */
+export interface CTABlockProps {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  link: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  variant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+  color?:
+    | (
+        | 'primary'
+        | 'secondary'
+        | 'accent'
+        | 'light'
+        | 'gradient-primary'
+        | 'gradient-secondary'
+        | 'gradient-accent'
+        | 'gradient-light'
+      )
+    | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1692,6 +1778,7 @@ export interface PagesSelect<T extends boolean = true> {
         sectionGroup?: T | SectionGroupBlockPropsSelect<T>;
         archiveBlock?: T | ArchiveBlockPropsSelect<T>;
         tabbedContentBlock?: T | TabbedContentBlockPropsSelect<T>;
+        ctaBlock?: T | CTABlockPropsSelect<T>;
       };
   meta?:
     | T
@@ -1703,7 +1790,6 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   url?: T;
-  numberOfProjects?: T;
   thumbnail?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1796,7 +1882,9 @@ export interface LinksBlockPropsSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+        variant?: T;
         color?: T;
+        hoverColor?: T;
         buttonShadow?: T;
         className?: T;
       };
@@ -1826,7 +1914,9 @@ export interface LinksGroupBlockPropsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2039,7 +2129,9 @@ export interface ToolsBlockPropsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2136,7 +2228,9 @@ export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2158,6 +2252,32 @@ export interface TabbedContentBlockPropsSelect<T extends boolean = true> {
         justifySelf?: T;
       };
   className?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTABlockProps_select".
+ */
+export interface CTABlockPropsSelect<T extends boolean = true> {
+  content?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        variant?: T;
+        color?: T;
+        hoverColor?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
+  variant?: T;
+  color?: T;
+  borderRadius?: T;
   id?: T;
   blockName?: T;
 }
@@ -2234,6 +2354,7 @@ export interface ServicesSelect<T extends boolean = true> {
       };
   slug?: T;
   slugLock?: T;
+  url?: T;
   breadcrumbs?:
     | T
     | {
@@ -2414,7 +2535,11 @@ export interface Footer {
           } | null);
       url?: string | null;
       label: string;
+      variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -2456,7 +2581,11 @@ export interface Header {
           } | null);
       url?: string | null;
       label: string;
+      variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -2521,7 +2650,9 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2547,7 +2678,9 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              variant?: T;
               color?: T;
+              hoverColor?: T;
               buttonShadow?: T;
               className?: T;
             };
@@ -2611,7 +2744,11 @@ export interface LinksBlockRichtextProps {
         } | null);
     url?: string | null;
     label: string;
+    variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -2652,7 +2789,11 @@ export interface LinksGroupRichtextProps {
               } | null);
           url?: string | null;
           label: string;
+          variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };

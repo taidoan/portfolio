@@ -34,11 +34,14 @@
     overflow: hidden;
     padding-block: size-clamp(rem(32), rem(72));
     padding-inline: size-clamp(rem(32), rem(56));
+    text-align: center;
 
     @include mq('md') {
-      &--left {
+      &--left,
+      &--right {
         flex-direction: row;
         gap: rem(40);
+        justify-content: space-between;
         text-align: left;
       }
     }
@@ -47,12 +50,23 @@
       color: var(--clr-secondary-400);
     }
 
-    h3.sub-heading {
-      text-shadow: var(--shadow-small-title);
+    &[data-bg-clr='primary'],
+    &[data-bg-clr='gradient-primary'] {
+      &[data-variant='fill'] {
+        h3.sub-heading {
+          text-shadow: var(--shadow-small-title);
+        }
+
+        p {
+          text-shadow: var(--shadow-small-body);
+        }
+      }
     }
 
-    p {
-      text-shadow: var(--shadow-small-body);
+    &[data-bg-clr='accent'] {
+      span.accent-dot {
+        color: var(--clr-primary-450);
+      }
     }
   }
 
