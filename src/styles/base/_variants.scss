@@ -1,0 +1,20 @@
+@use '@abstracts/_index' as *;
+
+.variant {
+  &--fill {
+    background: var(--clr);
+    color: var(--text-clr);
+  }
+
+  &--outlined {
+    background-color: transparent;
+    box-shadow: 0 0 0 rem(3) var(--clr) inset;
+    color: var(--text-clr, var(--clr));
+
+    &-thick {
+      background-color: transparent;
+      box-shadow: 0 0 0 rem(5) var(--clr) inset;
+      color: var(--text-clr, var(--clr));
+    }
+  }
+}

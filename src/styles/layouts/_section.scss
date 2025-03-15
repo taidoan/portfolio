@@ -50,10 +50,8 @@
       color: var(--clr-secondary-400);
     }
 
-    &.bg--secondary,
-    &.bg--primary,
-    &.bg--gradient-secondary,
-    &.bg--gradient-primary {
+    &[data-bg-clr='primary'],
+    &[data-bg-clr='gradient-primary'] {
       color: var(--clr-light-400);
 
       h3.sub-heading {
@@ -65,7 +63,7 @@
       }
     }
 
-    &.bg--accent {
+    &[data-bg-clr='accent'] {
       span.accent-dot {
         color: var(--clr-primary-450);
       }

@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import type { LinksBlockProps } from '@/payload-types';
-import { CTA } from '.';
+import { CTA } from './index';
 
 const mockContent = {
   root: {
@@ -71,7 +71,7 @@ const mockLink = {
 };
 
 const meta: Meta<typeof CTA> = {
-  title: 'UI/CTA',
+  title: 'Layout/CTA',
   component: CTA,
   tags: ['autodocs'],
   parameters: {
@@ -80,7 +80,7 @@ const meta: Meta<typeof CTA> = {
     },
   },
   argTypes: {
-    background: {
+    color: {
       control: {
         type: 'select',
         options: [
@@ -93,6 +93,12 @@ const meta: Meta<typeof CTA> = {
           'gradient-accent',
           'none',
         ],
+      },
+    },
+    variant: {
+      control: {
+        type: 'select',
+        options: ['fill', 'outlined', 'outlined-thick'],
       },
     },
   },
@@ -113,7 +119,7 @@ export const Default: Story = {
   args: {
     content: mockContent as DefaultTypedEditorState,
     link: mockLink as LinksBlockProps['link'],
-    background: 'primary',
+    color: 'primary',
   },
   render: (args) => <CTA {...args} />,
 };
