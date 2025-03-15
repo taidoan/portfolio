@@ -155,6 +155,7 @@ export const Link: Link = (overrides = {}) => {
       label: 'Hover Color',
       admin: {
         width: '33%',
+        condition: (_, siblingData) => siblingData.variant !== 'outlined',
       },
     },
     {
@@ -170,6 +171,7 @@ export const Link: Link = (overrides = {}) => {
       defaultValue: 'none',
       admin: {
         width: '33%',
+        condition: (_, siblingData) => siblingData.variant !== 'outlined',
       },
     },
     {

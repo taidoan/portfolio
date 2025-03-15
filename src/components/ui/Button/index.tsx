@@ -74,7 +74,7 @@ export const Button = ({
 }: ButtonProps) => {
   const buttonClasses = clsx(style.button, className, {
     [style[`button--clr-${color}`]]: !!color,
-    [style[`button--shadow-${shadow}`]]: shadow && shadow !== 'none',
+    [style[`button--shadow-${shadow}`]]: shadow && shadow !== 'none' && variant !== 'outlined',
     [style[`button--hover-clr-${hoverColor}`]]:
       hoverColor && hoverColor !== 'default' && variant !== 'outlined',
     [style[`button--${variant}`]]: variant,

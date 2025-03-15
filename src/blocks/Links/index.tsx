@@ -20,9 +20,9 @@ export const LinksBlock = ({ className, link }: Props) => {
     <Button
       href={href}
       {...newTabProps}
-      color={link.color || undefined}
+      color={link.color || 'secondary'}
       className={linkClasses}
-      shadow={link.buttonShadow || undefined}
+      shadow={link.buttonShadow || 'none'}
       variant={link.variant || 'fill'}
       hoverColor={link.hoverColor || 'default'}
     >

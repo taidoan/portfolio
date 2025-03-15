@@ -10,7 +10,6 @@ import {
 import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@fields/Breadcrumbs';
-import { url } from 'inspector';
 
 export const Services: CollectionConfig = {
   slug: 'services',
