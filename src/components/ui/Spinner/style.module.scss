@@ -12,3 +12,12 @@
     transform: rotate(1turn);
   }
 }
+
+.spinner__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-body-sm);
+  justify-content: center;
+  margin-block: calc(var(--layout-row-spacing) / 2);
+}

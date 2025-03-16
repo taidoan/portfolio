@@ -1,11 +1,7 @@
 @use '@abstracts/_index' as *;
 
 .archive__container {
-  margin-block: var(--layout-row-spacing);
-}
-
-.archive__gallery-container {
-  margin-top: calc(var(--layout-row-spacing) / 2) !important;
+  gap: rem(56);
 }
 
 .archive__gallery-wrapper {

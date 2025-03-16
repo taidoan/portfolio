@@ -54,7 +54,6 @@ export const Archive = ({
   filterShowAll,
   view = 'grid',
   relation = 'posts',
-  ...rest
 }: Props) => {
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0;
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -159,7 +158,7 @@ export const Archive = ({
   };
 
   return (
-    <section className={clsx(className, 'section', 'archive__container')} {...rest}>
+    <section className={clsx(className, 'section', style.archive__container)} data-testid='archive'>
       {hasCategories ? (
         <Filter
           categories={categories}
@@ -176,9 +175,7 @@ export const Archive = ({
         </Alert>
       )}
 
-      <div>
-        <LazyMotion features={domAnimation}>{renderContent()}</LazyMotion>
-      </div>
+      <LazyMotion features={domAnimation}>{renderContent()}</LazyMotion>
     </section>
   );
 };

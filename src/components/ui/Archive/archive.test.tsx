@@ -159,15 +159,7 @@ const mockData = [
 
 describe('<Archive>', () => {
   it('should render correctly', () => {
-    render(
-      <Archive
-        relation='posts'
-        view='grid'
-        data={mockData}
-        categories={mockCategories}
-        data-testid='archive'
-      />,
-    );
+    render(<Archive relation='posts' view='grid' data={mockData} categories={mockCategories} />);
 
     expect(screen.getByTestId('archive')).toBeInTheDocument();
 
@@ -185,15 +177,7 @@ describe('<Archive>', () => {
   });
 
   it('should render in list view', () => {
-    render(
-      <Archive
-        relation='posts'
-        view='list'
-        data={mockData}
-        categories={mockCategories}
-        data-testid='archive'
-      />,
-    );
+    render(<Archive relation='posts' view='list' data={mockData} categories={mockCategories} />);
 
     expect(screen.queryByTestId('carousel')).not.toBeInTheDocument();
 
@@ -202,15 +186,7 @@ describe('<Archive>', () => {
   });
 
   it('should filter data when a category is selected', () => {
-    render(
-      <Archive
-        relation='posts'
-        view='grid'
-        data={mockData}
-        categories={mockCategories}
-        data-testid='archive'
-      />,
-    );
+    render(<Archive relation='posts' view='grid' data={mockData} categories={mockCategories} />);
 
     const webDesignButton = screen.getByText('Web Design');
     fireEvent.click(webDesignButton);

@@ -197,7 +197,7 @@
 }
 
 .button {
-  --size: #{size-clamp(rem(36), rem(48))};
+  --size: #{size-clamp(rem(42), rem(48))};
   align-items: center;
   background-color: var(--clr-frosted-sage-400);
   border: 0;
@@ -215,10 +215,10 @@
   width: var(--size);
 
   svg {
-    --size: #{size-clamp(rem(20), rem(24))};
+    --size: rem(24);
     height: var(--size);
-    min-height: 20px;
-    min-width: 20px;
+    min-height: rem(24);
+    min-width: rem(24);
     width: var(--size);
   }
 

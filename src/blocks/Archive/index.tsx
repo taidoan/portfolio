@@ -1,4 +1,4 @@
-import { Archive } from '@/components/ui/Archive';
+import { ArchiveClientBlock } from '@/blocks/Archive/archive.client';
 import { ArchiveBlockProps } from '@/payload-types';
 import config from '@payload-config';
 import { getPayload } from 'payload';
@@ -15,7 +15,6 @@ export const ArchiveBlock = async ({
   numberOfProjects,
 }: Props) => {
   const payload = await getPayload({ config: config });
-
   const queryOptions = {
     depth: 1,
     limit: numberOfProjects || 4,
@@ -36,7 +35,6 @@ export const ArchiveBlock = async ({
   }
 
   const { docs: contentData } = content || { docs: [] };
-
   const categoryIdsWithProjects = new Set();
 
   contentData.forEach((item) => {
@@ -57,13 +55,17 @@ export const ArchiveBlock = async ({
   });
 
   return (
-    <Archive
-      data={contentData}
-      relation={data}
-      categories={categories}
-      filterShowAll={filterShowAllButton}
-      view={viewType}
+    <ArchiveClientBlock
+      data={data}
       className={className}
+      filterShowAllButton={filterShowAllButton}
+      viewType={viewType}
+      numberOfProjects={numberOfProjects}
+      initialContent={contentData}
+      initialCategories={categories}
+      initialTotalPages={content?.totalPages || 1}
+      initialCurrentPage={content?.page || 1}
+      blockType='archiveBlock'
     />
   );
 };
