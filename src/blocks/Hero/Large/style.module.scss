@@ -4,8 +4,10 @@
   align-items: center;
   background-color: var(--clr-accent-400);
   border-radius: rem(24);
+  box-shadow: var(--shadow-hero-inner-shadow);
   color: var(--clr-light-400);
   display: flex;
+  filter: var(--shadow-hero-drop-shadow);
   flex-direction: column;
   height: 85vh;
   justify-content: center;

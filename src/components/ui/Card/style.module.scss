@@ -2,8 +2,9 @@
 
 .card {
   background-color: #fff;
+  border: rem(2) solid var(--card-outline-color);
   border-radius: var(--border-radius-medium);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-card-sm);
   color: var(--fc-card);
   width: 100%;
 
