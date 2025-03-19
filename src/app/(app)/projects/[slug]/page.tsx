@@ -5,6 +5,7 @@ import { cache } from 'react';
 import { draftMode } from 'next/headers';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
+import { RichText } from '@/components/ui/RichText';
 import { Redirects } from '@/components/features/Redirects';
 
 export type Args = {
@@ -22,7 +23,16 @@ const Page = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
-  return <>Projects page here</>;
+  return (
+    <>
+      <section className='project__hero'>
+        {page.details?.type}
+        <h1>{page.title}</h1>Projects page here
+      </section>
+      <section>{page.details?.description && <RichText data={page.details.description} />}</section>
+      <section>{page.content && <RichText data={page.content} />}</section>
+    </>
+  );
 };
 
 export default Page;

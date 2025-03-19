@@ -1,54 +1,8 @@
 @use '@abstracts/_index' as *;
 
 .hero {
-  align-items: center;
-  background-color: var(--clr-frosted-sage-300);
-  border-radius: var(--border-radius-medium);
   color: var(--clr-light-400);
-  display: flex;
-  flex-direction: column;
-  height: 50dvh;
-  justify-content: center;
-  overflow: hidden;
-  padding-block: size-clamp(rem(20), rem(80));
-  padding-inline: size-clamp(rem(20), rem(80));
-  position: relative;
-
-  * {
-    z-index: 2;
-  }
-
-  &::before {
-    backdrop-filter: blur(48px);
-    box-shadow: var(--shadow-hero-inner-shadow);
-    content: '';
-    filter: var(--shadow-hero-drop-shadow);
-    inset: 0;
-    position: absolute;
-    z-index: 1;
-  }
-
-  h1 {
-    font-family: var(--ff-display-condensed);
-    margin-bottom: size-clamp(rem(16), rem(32));
-    text-shadow: var(--shadow-large-title);
-
-    &::after {
-      color: var(--clr-accent-400);
-      content: '.';
-    }
-
-    &::selection {
-      color: var(--clr-secondary-400);
-    }
-  }
-
-  p {
-    margin-top: size-clamp(rem(16), rem(32));
-    text-shadow: var(--shadow-large-body);
-
-    &::selection {
-      color: var(--clr-secondary-400);
-    }
-  }
+  @include hero-base;
+  @include hero-blurred;
+  @include hero-medium;
 }

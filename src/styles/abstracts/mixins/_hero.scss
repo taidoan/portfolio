@@ -1,0 +1,122 @@
+@use '@abstracts/functions/units' as *;
+@use '@abstracts/functions/sizeClamp' as *;
+@use '@abstracts/settings/index' as *;
+@use './mq' as *;
+
+////
+/// @group mixins-layout
+////
+
+/// Applies base hero styles to a container.
+/// @example
+///   .element {
+///     @include hero-base;
+///   }
+@mixin hero-base {
+  align-items: center;
+  background-color: var(--clr-light-grey-400);
+  border-radius: var(--border-radius-medium);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+
+  * {
+    z-index: 2;
+  }
+
+  h1 {
+    font-family: var(--ff-display-condensed);
+    margin-bottom: size-clamp(rem(16), rem(32));
+    text-shadow: var(--shadow-large-title);
+
+    &::after {
+      color: var(--clr-accent-400);
+      content: '.';
+
+      @include mq(374, 'max', 'width') {
+        content: '';
+      }
+    }
+
+    &::selection {
+      color: var(--clr-secondary-400);
+    }
+  }
+
+  p {
+    margin-top: size-clamp(rem(16), rem(32));
+    text-shadow: var(--shadow-large-body);
+
+    &::selection {
+      color: var(--clr-secondary-400);
+    }
+  }
+}
+
+/// Applies hero blurred styles to a container.
+/// @example
+///   .element {
+///     @include hero-blurred;
+///   }
+@mixin hero-blurred {
+  &::before {
+    backdrop-filter: blur(48px);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-hero-inner-shadow);
+    content: '';
+    filter: var(--shadow-hero-drop-shadow);
+    inset: 0;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+/// Applies small sized hero styles
+/// @example
+///   .element {
+///     @include hero-small;
+///   }
+@mixin hero-small {
+  & {
+    height: 75dvh;
+    max-height: rem(400);
+    padding: size-clamp(rem(20), rem(80));
+  }
+}
+
+/// Applies medium sized hero styles
+/// @example
+///   .element {
+///     @include hero-medium;
+///   }
+@mixin hero-medium {
+  & {
+    height: 50dvh;
+    max-height: rem(544);
+    padding: size-clamp(rem(20), rem(80));
+  }
+}
+
+/// Applies large sized hero styles
+/// @example
+///   .element {
+///     @include hero-large;
+///   }
+@mixin hero-large {
+  & {
+    height: 85dvh;
+    max-height: rem(800);
+    padding-block: size-clamp(rem(20), rem(48));
+    padding-inline: size-clamp(rem(20), rem(80));
+
+    @include mq('md') {
+      height: 80dvh;
+    }
+
+    @include mq('lg') {
+      height: 75dvh;
+    }
+  }
+}

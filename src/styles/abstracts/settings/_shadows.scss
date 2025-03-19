@@ -19,8 +19,7 @@ $shadows: (
   'small-title': rem(2) rem(2) rem(6) rgba(7, 46, 70, 0.5),
   'small-body': rem(2) rem(2) rem(2) rgba(28, 48, 65, 0.5),
   'hero-inner-shadow': (
-    inset rem(2) rem(2) 0 rgba(0, 0, 0, 0.1),
-    inset rem(-2) rem(-2) 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 0 rem(2) rgba(0, 0, 0, 0.1),
   ),
   'hero-drop-shadow': drop-shadow(rem(1) rem(1) 0 rgba(255, 255, 255, 0.76)),
 );

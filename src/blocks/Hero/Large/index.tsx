@@ -28,7 +28,7 @@ export const LargeHero = ({
     url('${getCDNURL()}/hero.svg') 50% / cover no-repeat`,
       }}
     >
-      <div className={style.container}>{richText && <RichText data={richText} />}</div>
+      {richText && <RichText data={richText} />}
       {showBreadcrumb && breadcrumbsData && breadcrumbsData.length > 0 && (
         <Breadcrumbs
           breadcrumbs={breadcrumbsData}
