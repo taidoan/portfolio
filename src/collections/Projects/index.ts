@@ -9,6 +9,7 @@ import {
 } from '@payloadcms/plugin-seo/fields';
 import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
+import { BreadCrumbs } from '@/fields/Breadcrumbs';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
@@ -130,6 +131,64 @@ export const Projects: CollectionConfig = {
               name: 'content',
               label: 'Project Content',
             },
+          ],
+        },
+        {
+          label: 'Breadcrumbs',
+          name: 'breadcrumbs',
+          fields: [
+            {
+              name: 'showBreadcrumb',
+              type: 'select',
+              label: 'Show Breadcrumb',
+              options: [
+                { value: 'true', label: 'Yes' },
+                { value: 'false', label: 'No' },
+              ],
+              defaultValue: 'true',
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'select',
+                  name: 'breadcrumbContainer',
+                  label: 'Breadcrumb Container',
+                  options: [
+                    { value: 'none', label: 'None' },
+                    { value: 'boxed', label: 'Boxed' },
+                  ],
+                  defaultValue: 'boxed',
+                  admin: {
+                    condition: (_, siblingData) => siblingData.showBreadcrumb === 'true',
+                    width: '50%',
+                  },
+                },
+                {
+                  type: 'select',
+                  name: 'breadcrumbBackground',
+                  label: 'Breadcrumb Background',
+                  options: [
+                    { value: 'none', label: 'None' },
+                    { value: 'light', label: 'Light' },
+                    { value: 'dark', label: 'Dark' },
+                    { value: 'translucent', label: 'Translucent' },
+                  ],
+                  defaultValue: 'translucent',
+                  admin: {
+                    width: '50%',
+                    condition: (_, siblingData) =>
+                      siblingData.showBreadcrumb === 'true' &&
+                      siblingData.breadcrumbContainer === 'boxed',
+                  },
+                },
+              ],
+            },
+            BreadCrumbs({
+              admin: {
+                condition: (_, siblingData) => siblingData.showBreadcrumb === 'true',
+              },
+            }),
           ],
         },
         {

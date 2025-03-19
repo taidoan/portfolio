@@ -305,6 +305,30 @@ export interface Project {
     };
     [k: string]: unknown;
   } | null;
+  breadcrumbs?: {
+    showBreadcrumb?: ('true' | 'false') | null;
+    breadcrumbContainer?: ('none' | 'boxed') | null;
+    breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
+    breadcrumbs?:
+      | {
+          relationTo:
+            | {
+                relationTo: 'pages';
+                value: string | Page;
+              }
+            | {
+                relationTo: 'projects';
+                value: string | Project;
+              }
+            | {
+                relationTo: 'services';
+                value: string | Service;
+              };
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   meta?: {
     title?: string | null;
     /**
@@ -321,20 +345,6 @@ export interface Project {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  title: string;
-  description?: string | null;
-  slug: string;
-  slugLock?: boolean | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -411,6 +421,20 @@ export interface Service {
     | null;
   thumbnail?: (string | null) | Media;
   categories: (string | Category)[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title: string;
+  description?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
+  parentCategory?: (string | null) | Category;
   updatedAt: string;
   createdAt: string;
 }
@@ -2313,6 +2337,20 @@ export interface ProjectsSelect<T extends boolean = true> {
         description?: T;
       };
   content?: T;
+  breadcrumbs?:
+    | T
+    | {
+        showBreadcrumb?: T;
+        breadcrumbContainer?: T;
+        breadcrumbBackground?: T;
+        breadcrumbs?:
+          | T
+          | {
+              relationTo?: T;
+              label?: T;
+              id?: T;
+            };
+      };
   meta?:
     | T
     | {

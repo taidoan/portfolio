@@ -6,6 +6,8 @@ import { draftMode } from 'next/headers';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { RichText } from '@/components/ui/RichText';
+import type { Breadcrumb } from '@/components/ui/Breadcrumbs';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Redirects } from '@/components/features/Redirects';
 
 export type Args = {
@@ -23,11 +25,26 @@ const Page = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
+  const { breadcrumbs } = page;
+
+  const pageIds =
+    breadcrumbs?.breadcrumbs?.map((breadcrumb) => {
+      const value = breadcrumb.relationTo.value;
+      return typeof value === 'object' && value !== null ? value.id : value;
+    }) || [];
+
+  const breadcrumbsData = await getBreadcrumbs(pageIds);
+
   return (
     <>
       <section className='project__hero'>
-        {page.details?.type}
-        <h1>{page.title}</h1>Projects page here
+        <div>
+          <span className='project__hero__project-type'>{page.details?.type}</span>
+          <h1>{page.title}</h1>
+        </div>
+        {breadcrumbs?.showBreadcrumb === 'true' && (
+          <Breadcrumbs breadcrumbs={breadcrumbsData} container='boxed' background='translucent' />
+        )}
       </section>
       <section>{page.details?.description && <RichText data={page.details.description} />}</section>
       <section>{page.content && <RichText data={page.content} />}</section>
@@ -55,4 +72,45 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
   });
 
   return result.docs?.[0] || null;
+});
+
+const getBreadcrumbs = cache(async (pageIds: (string | number)[]) => {
+  const payload = await getPayload({ config: configPromise });
+
+  const pagesData = await payload.find({
+    collection: 'pages',
+    where: { id: { in: pageIds } },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      url: true,
+    },
+    depth: 0,
+    pagination: false,
+    overrideAccess: false,
+  });
+
+  const projectsData = await payload.find({
+    collection: 'projects',
+    where: { id: { in: pageIds } },
+    select: {
+      id: true,
+      title: true,
+    },
+    depth: 0,
+    pagination: false,
+    overrideAccess: false,
+  });
+
+  const breadcrumbsData = [...pagesData.docs, ...projectsData.docs];
+
+  const docsMap: Record<string | number, Breadcrumb> = {};
+  breadcrumbsData.forEach((doc) => {
+    docsMap[doc.id] = doc;
+  });
+
+  const orderedDocs = pageIds.map((id) => docsMap[id]).filter(Boolean);
+
+  return orderedDocs;
 });
