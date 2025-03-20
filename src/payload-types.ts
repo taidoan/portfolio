@@ -90,9 +90,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -269,6 +267,44 @@ export interface HeroBlockProps {
 export interface Project {
   id: string;
   title: string;
+  hero: {
+    /**
+     * Use this if you want to override the project title that appears in the hero.
+     */
+    titleOverride: string;
+    'clonedLock-1148875594'?: boolean | null;
+    /**
+     * Use this if you want to override the project type that appears above the title.
+     */
+    typeOverride: string;
+    'clonedLock-2942989646'?: boolean | null;
+    backgroundImage?: (string | null) | Media;
+    blurredBackground?: ('true' | 'false') | null;
+    breadcrumbs?: {
+      showBreadcrumb?: ('true' | 'false') | null;
+      breadcrumbContainer?: ('none' | 'boxed') | null;
+      breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
+      breadcrumbs?:
+        | {
+            relationTo:
+              | {
+                  relationTo: 'pages';
+                  value: string | Page;
+                }
+              | {
+                  relationTo: 'projects';
+                  value: string | Project;
+                }
+              | {
+                  relationTo: 'services';
+                  value: string | Service;
+                };
+            label: string;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
   details?: {
     date?: string | null;
     type?: string | null;
@@ -308,30 +344,6 @@ export interface Project {
     };
     [k: string]: unknown;
   } | null;
-  breadcrumbs?: {
-    showBreadcrumb?: ('true' | 'false') | null;
-    breadcrumbContainer?: ('none' | 'boxed') | null;
-    breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
-    breadcrumbs?:
-      | {
-          relationTo:
-            | {
-                relationTo: 'pages';
-                value: string | Page;
-              }
-            | {
-                relationTo: 'projects';
-                value: string | Project;
-              }
-            | {
-                relationTo: 'services';
-                value: string | Service;
-              };
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -583,9 +595,7 @@ export interface LinksBlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -701,9 +711,7 @@ export interface LinksGroupBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1218,9 +1226,7 @@ export interface ToolsBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1422,9 +1428,7 @@ export interface TabbedContentBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1533,9 +1537,7 @@ export interface CTABlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -2336,6 +2338,30 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  hero?:
+    | T
+    | {
+        titleOverride?: T;
+        'clonedLock-1148875594'?: T;
+        typeOverride?: T;
+        'clonedLock-2942989646'?: T;
+        backgroundImage?: T;
+        blurredBackground?: T;
+        breadcrumbs?:
+          | T
+          | {
+              showBreadcrumb?: T;
+              breadcrumbContainer?: T;
+              breadcrumbBackground?: T;
+              breadcrumbs?:
+                | T
+                | {
+                    relationTo?: T;
+                    label?: T;
+                    id?: T;
+                  };
+            };
+      };
   details?:
     | T
     | {
@@ -2349,20 +2375,6 @@ export interface ProjectsSelect<T extends boolean = true> {
         description?: T;
       };
   content?: T;
-  breadcrumbs?:
-    | T
-    | {
-        showBreadcrumb?: T;
-        breadcrumbContainer?: T;
-        breadcrumbBackground?: T;
-        breadcrumbs?:
-          | T
-          | {
-              relationTo?: T;
-              label?: T;
-              id?: T;
-            };
-      };
   meta?:
     | T
     | {
@@ -2587,9 +2599,7 @@ export interface Footer {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?:
-        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-        | null;
+      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -2633,22 +2643,13 @@ export interface Header {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?:
-        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-        | null;
+      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
     id?: string | null;
   }[];
-  logoColor:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'light'
-    | 'slate'
-    | 'frosted-sage'
-    | 'urban-steel';
+  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2796,9 +2797,7 @@ export interface LinksBlockRichtextProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -2841,9 +2840,7 @@ export interface LinksGroupRichtextProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -2861,6 +2858,7 @@ export interface LinksGroupRichtextProps {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

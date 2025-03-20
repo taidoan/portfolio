@@ -26,7 +26,8 @@ const Page = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
-  const { breadcrumbs } = page;
+  const { hero } = page;
+  const breadcrumbs = hero?.breadcrumbs;
 
   const pageIds =
     breadcrumbs?.breadcrumbs?.map((breadcrumb) => {
