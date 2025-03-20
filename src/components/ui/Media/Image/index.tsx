@@ -83,7 +83,7 @@ export const ImageMedia = ({
   return (
     <Image
       loader={imageKitLoader}
-      src={src as string}
+      src={encodeURI(src).trim()}
       alt={alt}
       className={`${className} ${s.optimizedImage}`}
       priority={priority}

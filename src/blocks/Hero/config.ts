@@ -36,16 +36,38 @@ export const Hero: Field = {
           label: 'Appearance',
           fields: [
             {
-              name: 'type',
-              label: 'Hero Size',
-              type: 'select',
-              defaultValue: 'large',
-              options: [
-                { value: 'small', label: 'Small' },
-                { value: 'medium', label: 'Medium' },
-                { value: 'large', label: 'Large' },
+              type: 'row',
+              fields: [
+                {
+                  name: 'type',
+                  label: 'Hero Size',
+                  type: 'select',
+                  defaultValue: 'large',
+                  options: [
+                    { value: 'small', label: 'Small' },
+                    { value: 'medium', label: 'Medium' },
+                    { value: 'large', label: 'Large' },
+                  ],
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'blurredBackground',
+                  label: 'Blurred Background',
+                  type: 'select',
+                  defaultValue: 'false',
+                  options: [
+                    { value: 'true', label: 'Yes' },
+                    { value: 'false', label: 'No' },
+                  ],
+                  required: true,
+                  admin: {
+                    width: '50%',
+                  },
+                },
               ],
-              required: true,
             },
             {
               name: 'image',

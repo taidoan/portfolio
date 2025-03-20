@@ -1,15 +1,18 @@
 @use '@abstracts/_index' as *;
 
-.project__hero {
+.hero {
   --font-color: var(--clr-light-400);
   color: var(--font-color);
 
   @include hero-base;
   @include hero-small;
+}
+
+.hero--blurred {
   @include hero-blurred;
 }
 
-.project__hero__project-type {
+.hero__type {
   color: var(--clr-secondary-400);
   @include section-heading;
 }

@@ -3,6 +3,9 @@
 .hero {
   color: var(--clr-light-400);
   @include hero-base;
-  @include hero-blurred;
   @include hero-medium;
+
+  &--blurred {
+    @include hero-blurred;
+  }
 }

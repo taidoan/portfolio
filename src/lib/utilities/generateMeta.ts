@@ -16,7 +16,7 @@ export const generateMeta = async (args: {
   const { doc } = args;
 
   const ogImage = getImageURL(
-    doc?.meta?.image && typeof doc.meta.image === 'object' ? doc.meta.image.value : null,
+    doc?.meta?.image && typeof doc.meta.image === 'object' ? doc.meta.image : null,
   );
 
   const isProject = doc && 'details' in doc;

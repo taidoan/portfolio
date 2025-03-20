@@ -9,9 +9,18 @@ type Cloned = (fieldToUse: string, overrides?: Overrides) => [TextField, Checkbo
 export const ClonedField: Cloned = (fieldToUse = '', overrides = {}) => {
   const { clonedOverrides } = overrides;
 
+  const generateHashCode = (str: string): string => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash << 5) - hash + str.charCodeAt(i);
+      hash = hash & hash;
+    }
+    return `clonedLock-${Math.abs(hash)}`;
+  };
+
   const checkboxField: CheckboxField = {
     type: 'checkbox',
-    name: `clonedLock-${crypto.getRandomValues(new Uint32Array(1))[0]}`,
+    name: generateHashCode(fieldToUse),
     defaultValue: true,
     admin: {
       hidden: true,

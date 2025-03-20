@@ -80,7 +80,6 @@ export const plugins: Plugin[] = [
     generateImage,
     generateDescription,
     uploadsCollection: ['media'],
-    collections: ['pages', 'projects', 'services', 'posts'],
   }),
   redirectsPlugin({
     collections: ['pages', 'projects', 'services'],

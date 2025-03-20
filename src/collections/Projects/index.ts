@@ -93,49 +93,6 @@ export const Projects: CollectionConfig = {
                 },
               ],
             },
-            // {
-            //   type: 'row',
-            //   fields: [
-            //     ...ClonedField('details.type'),
-            //     {
-            //       type: 'checkbox',
-            //       name: 'typeOverride',
-            //       label: 'Type Override',
-            //       defaultValue: false,
-            //       admin: {
-            //         description:
-            //           'Select this option if you want to the override the project type displayed on the hero.',
-            //         style: {
-            //           justifyContent: 'center',
-            //         },
-            //         width: '40%',
-            //       },
-            //       hooks: {
-            //         beforeChange: [
-            //           ({ value, siblingData }) => {
-            //             if (value === false) {
-            //               if (siblingData.typeOverrideText) {
-            //                 delete siblingData.typeOverrideText;
-            //               }
-            //             }
-            //           },
-            //         ],
-            //       },
-            //     },
-            //     {
-            //       type: 'text',
-            //       name: 'typeOverrideText',
-            //       label: 'Type Override Text',
-            //       required: true,
-
-            //       admin: {
-            //         description: 'Enter the text you want to display on the hero above the title.',
-            //         condition: (_, siblingData) => siblingData.typeOverride === true,
-            //         width: '60%',
-            //       },
-            //     },
-            //   ],
-            // },
             {
               type: 'group',
               label: 'Breadcrumbs',

@@ -6,6 +6,7 @@ import { draftMode } from 'next/headers';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { RichText } from '@/components/ui/RichText';
+import { ProjectHero } from '@/blocks/Hero/Project';
 import type { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Redirects } from '@/components/features/Redirects';
@@ -41,16 +42,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
     <>
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
-      <section className='project__hero'>
-        <ImageMedia src={`hero.svg`} alt='Hero' fill />
-        <div>
-          <span className='project__hero__project-type'>{page.details?.type}</span>
-          <h1>{page.title}</h1>
-        </div>
-        {breadcrumbs?.showBreadcrumb === 'true' && (
-          <Breadcrumbs breadcrumbs={breadcrumbsData} container='boxed' background='translucent' />
-        )}
-      </section>
+      <ProjectHero heroData={page} breadcrumbsData={breadcrumbsData} />
       <section>{page.details?.description && <RichText data={page.details.description} />}</section>
       <section>{page.content && <RichText data={page.content} />}</section>
     </>

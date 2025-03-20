@@ -21,15 +21,31 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+  row-gap: rem(20);
   text-align: center;
 
-  * {
+  @include mq('md') {
+    row-gap: rem(32);
+  }
+
+  &::after {
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      rgba(0, 0, 0, 0.18) 44.47%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    content: '';
+    inset: 0;
+    position: absolute;
     z-index: 2;
+  }
+
+  * {
+    z-index: 3;
   }
 
   h1 {
     font-family: var(--ff-display-condensed);
-    margin-bottom: size-clamp(rem(16), rem(32));
     text-shadow: var(--shadow-large-title);
 
     &::after {
@@ -47,7 +63,6 @@
   }
 
   p {
-    margin-top: size-clamp(rem(16), rem(32));
     text-shadow: var(--shadow-large-body);
 
     &::selection {
@@ -57,7 +72,14 @@
 
   img {
     object-fit: cover;
+    user-select: none;
     z-index: 0;
+  }
+
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(12);
   }
 }
 

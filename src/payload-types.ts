@@ -90,7 +90,9 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -198,14 +200,11 @@ export interface Page {
   )[];
   meta?: {
     title?: string | null;
-    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: {
-      relationTo: 'media';
-      value: string | Media;
-    } | null;
+    image?: (string | null) | Media;
+    description?: string | null;
   };
   slug: string;
   slugLock?: boolean | null;
@@ -236,6 +235,7 @@ export interface HeroBlockProps {
     [k: string]: unknown;
   };
   type: 'small' | 'medium' | 'large';
+  blurredBackground: 'true' | 'false';
   image?: (string | null) | Media;
   showBreadcrumb?: ('true' | 'false') | null;
   breadcrumbContainer?: ('none' | 'boxed') | null;
@@ -272,12 +272,12 @@ export interface Project {
      * Use this if you want to override the project title that appears in the hero.
      */
     titleOverride: string;
-    'clonedLock-1148875594'?: boolean | null;
+    'clonedLock-110371416'?: boolean | null;
     /**
      * Use this if you want to override the project type that appears above the title.
      */
     typeOverride: string;
-    'clonedLock-2942989646'?: boolean | null;
+    'clonedLock-1380773734'?: boolean | null;
     backgroundImage?: (string | null) | Media;
     blurredBackground?: ('true' | 'false') | null;
     breadcrumbs?: {
@@ -346,14 +346,11 @@ export interface Project {
   } | null;
   meta?: {
     title?: string | null;
-    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: {
-      relationTo: 'media';
-      value: string | Media;
-    } | null;
+    image?: (string | null) | Media;
+    description?: string | null;
   };
   slug: string;
   slugLock?: boolean | null;
@@ -409,14 +406,11 @@ export interface Service {
   }[];
   meta?: {
     title?: string | null;
-    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: {
-      relationTo: 'media';
-      value: string | Media;
-    } | null;
+    image?: (string | null) | Media;
+    description?: string | null;
   };
   slug: string;
   slugLock?: boolean | null;
@@ -595,7 +589,9 @@ export interface LinksBlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -654,14 +650,11 @@ export interface Post {
   } | null;
   meta?: {
     title?: string | null;
-    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: {
-      relationTo: 'media';
-      value: string | Media;
-    } | null;
+    image?: (string | null) | Media;
+    description?: string | null;
   };
   slug: string;
   slugLock?: boolean | null;
@@ -711,7 +704,9 @@ export interface LinksGroupBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1226,7 +1221,9 @@ export interface ToolsBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1428,7 +1425,9 @@ export interface TabbedContentBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1537,7 +1536,9 @@ export interface CTABlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -1822,8 +1823,8 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        description?: T;
         image?: T;
+        description?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -1840,6 +1841,7 @@ export interface PagesSelect<T extends boolean = true> {
 export interface HeroBlockPropsSelect<T extends boolean = true> {
   richText?: T;
   type?: T;
+  blurredBackground?: T;
   image?: T;
   showBreadcrumb?: T;
   breadcrumbContainer?: T;
@@ -2342,9 +2344,9 @@ export interface ProjectsSelect<T extends boolean = true> {
     | T
     | {
         titleOverride?: T;
-        'clonedLock-1148875594'?: T;
+        'clonedLock-110371416'?: T;
         typeOverride?: T;
-        'clonedLock-2942989646'?: T;
+        'clonedLock-1380773734'?: T;
         backgroundImage?: T;
         blurredBackground?: T;
         breadcrumbs?:
@@ -2379,8 +2381,8 @@ export interface ProjectsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        description?: T;
         image?: T;
+        description?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -2411,8 +2413,8 @@ export interface ServicesSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        description?: T;
         image?: T;
+        description?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -2440,8 +2442,8 @@ export interface PostsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        description?: T;
         image?: T;
+        description?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -2599,7 +2601,9 @@ export interface Footer {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -2643,13 +2647,22 @@ export interface Header {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
     id?: string | null;
   }[];
-  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
+  logoColor:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'light'
+    | 'slate'
+    | 'frosted-sage'
+    | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2797,7 +2810,9 @@ export interface LinksBlockRichtextProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -2840,7 +2855,9 @@ export interface LinksGroupRichtextProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -2858,7 +2875,6 @@ export interface LinksGroupRichtextProps {
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}
