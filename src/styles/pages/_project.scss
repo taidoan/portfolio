@@ -34,3 +34,7 @@
     grid-column: span 6;
   }
 }
+
+.project__gallery-item {
+  border-radius: var(--border-radius-small);
+}

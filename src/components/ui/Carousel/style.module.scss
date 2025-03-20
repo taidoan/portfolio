@@ -163,6 +163,12 @@
   @include mq('md') {
     flex: 0 0 var(--slide-size-lg);
   }
+
+  &:not(.slide--active) {
+    * {
+      box-shadow: none;
+    }
+  }
 }
 
 @each $column in 1, 2, 3, 4, 6, 8, 12 {

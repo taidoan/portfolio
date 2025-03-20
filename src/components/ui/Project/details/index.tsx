@@ -8,6 +8,13 @@ export type ProjectDetailsProps = {
   data: Pick<Project, 'details'>;
 };
 
+/**
+ * This component renders the project details section of a project page.
+ * @param {ProjectDetailsProps} props - The props for the ProjectDetails component.
+ * @returns {React.ReactElement} The rendered component.
+ * @example
+ * <ProjectDetails data={project} />
+ */
 export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
   const { details } = data;
 
@@ -27,7 +34,13 @@ export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
           )}
           {details?.name && (
             <DetailsItem key='client' type='client'>
-              {details?.name}
+              {!details.url ? (
+                details?.name
+              ) : (
+                <Link href={details?.url} target='_blank' rel='noopener noreferrer'>
+                  {details?.name}
+                </Link>
+              )}
             </DetailsItem>
           )}
           {details?.previewLabel && (

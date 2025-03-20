@@ -85,7 +85,7 @@ export const ImageMedia = ({
       loader={imageKitLoader}
       src={encodeURI(src).trim()}
       alt={alt}
-      className={`${className} ${s.optimizedImage}`}
+      className={`${className} ${s.image}`}
       priority={priority}
       sizes={sizes}
       {...(fill ? { fill: true } : { width: width ?? 100, height: height ?? 100 })}

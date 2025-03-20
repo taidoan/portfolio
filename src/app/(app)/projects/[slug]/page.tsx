@@ -13,6 +13,7 @@ import { Redirects } from '@/components/features/Redirects';
 import clsx from 'clsx';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ProjectDetails } from '@/components/ui/Project/details';
+import { ProjectGallery } from '@/components/ui/Project/gallery';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -56,9 +57,11 @@ const Page = async ({ params: paramsPromise }: Args) => {
         <ProjectDetails data={{ details: page.details }} className='project__info' />
       </section>
       <section className={clsx('project__section')}>
-        <Card>
-          <CardBody padding='base'>Gallery here</CardBody>
-        </Card>
+        <ProjectGallery
+          media={{ gallery: page.gallery }}
+          options={{ galleryOptions: page.galleryOptions }}
+          className='project__gallery'
+        />
       </section>
       <section className={clsx('project__section')}>
         <Card>

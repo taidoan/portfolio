@@ -232,7 +232,188 @@ export const Projects: CollectionConfig = {
         },
         {
           label: 'Gallery',
-          fields: [],
+          fields: [
+            {
+              type: 'tabs',
+              tabs: [
+                {
+                  label: 'Media',
+                  fields: [
+                    {
+                      type: 'upload',
+                      name: 'gallery',
+                      relationTo: 'media',
+                      label: 'Gallery',
+                      hasMany: true,
+                    },
+                  ],
+                },
+                {
+                  label: 'Options',
+                  name: 'galleryOptions',
+                  fields: [
+                    {
+                      type: 'row',
+                      fields: [
+                        {
+                          type: 'checkbox',
+                          name: 'autoHeight',
+                          label: 'Auto Height',
+                          defaultValue: false,
+                          required: true,
+                        },
+                        {
+                          type: 'checkbox',
+                          name: 'autoPlay',
+                          label: 'Auto Play',
+                          defaultValue: false,
+                          required: true,
+                        },
+                        {
+                          type: 'checkbox',
+                          name: 'keyboardControls',
+                          label: 'Keyboard Controls',
+                          defaultValue: false,
+                          required: true,
+                        },
+                        {
+                          type: 'checkbox',
+                          name: 'buttonNavigation',
+                          label: 'Button Navigation',
+                          defaultValue: false,
+                          required: true,
+                        },
+                        {
+                          type: 'checkbox',
+                          name: 'pagination',
+                          label: 'Pagination',
+                          defaultValue: false,
+                          required: true,
+                        },
+                        {
+                          type: 'checkbox',
+                          name: 'loop',
+                          label: 'Loop',
+                          defaultValue: false,
+                          required: true,
+                        },
+                      ],
+                    },
+                    {
+                      type: 'row',
+                      fields: [
+                        {
+                          type: 'select',
+                          name: 'direction',
+                          label: 'Direction',
+                          options: [
+                            { value: 'horizontal', label: 'Horizontal' },
+                            { value: 'vertical', label: 'Vertical' },
+                          ],
+                          defaultValue: 'horizontal',
+                          required: true,
+                        },
+                        {
+                          type: 'checkbox',
+                          name: 'focus',
+                          label: 'Focus',
+                          defaultValue: false,
+                          required: true,
+                          admin: {
+                            condition: (_, siblingData) => {
+                              return siblingData.direction === 'vertical';
+                            },
+                          },
+                        },
+                        {
+                          type: 'select',
+                          name: 'paginationType',
+                          label: 'Pagination Type',
+                          options: [
+                            { value: 'bullets', label: 'Bullets' },
+                            { value: 'progress', label: 'Progress' },
+                          ],
+                          defaultValue: 'bullets',
+                          required: true,
+                          admin: {
+                            condition: (_, siblingData) => {
+                              return siblingData.pagination;
+                            },
+                          },
+                        },
+                        {
+                          type: 'select',
+                          name: 'paginationColor',
+                          label: 'Pagination Color',
+                          options: [
+                            { value: 'primary', label: 'Primary' },
+                            { value: 'accent', label: 'Accent' },
+                            { value: 'secondary', label: 'Secondary' },
+                            { value: 'urban-steel', label: 'Urban Steel' },
+                            { value: 'slate', label: 'Slate' },
+                            { value: 'bitter-sweet', label: 'Bitter Sweet' },
+                            { value: 'cherry-punch', label: 'Cherry Punch' },
+                            { value: 'fresh-leaf', label: 'Fresh Leaf' },
+                          ],
+                          defaultValue: 'accent',
+                          required: true,
+                          admin: {
+                            condition: (_, siblingData) => {
+                              return siblingData.pagination;
+                            },
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      type: 'row',
+                      fields: [
+                        {
+                          type: 'number',
+                          name: 'slideSpacing',
+                          label: 'Slide Spacing',
+                          defaultValue: 32,
+                          required: true,
+                          admin: {
+                            description: 'The spacing between slides in pixels.',
+                          },
+                        },
+                        {
+                          type: 'number',
+                          name: 'slidesPerView',
+                          label: 'Slides Per View',
+                          defaultValue: 1,
+                          required: true,
+                          max: 4,
+                          min: 1,
+                          admin: {
+                            description: 'The number of slides to show at a time.',
+                          },
+                        },
+                        {
+                          type: 'select',
+                          name: 'slidesToScroll',
+                          label: 'Slides To Scroll',
+                          defaultValue: '1',
+                          required: true,
+                          options: [
+                            { value: 'auto', label: 'Auto' },
+                            { value: '1', label: '1' },
+                            { value: '2', label: '2' },
+                            { value: '3', label: '3' },
+                            { value: '4', label: '4' },
+                          ],
+                          admin: {
+                            description: 'The number of slides to scroll at a time.',
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
           label: 'Content',
@@ -244,7 +425,6 @@ export const Projects: CollectionConfig = {
             },
           ],
         },
-
         {
           label: 'SEO',
           name: 'meta',

@@ -17,7 +17,7 @@ export type CarouselProps = {
     | 'urban-steel'
     | 'slate'
     | 'bitter-sweet'
-    | 'chery-punch'
+    | 'cherry-punch'
     | 'fresh-leaf';
   direction?: 'vertical' | 'horizontal' | 'vertical-scroll';
   disableAt?: string | null;

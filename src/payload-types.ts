@@ -329,6 +329,42 @@ export interface Project {
       [k: string]: unknown;
     } | null;
   };
+  gallery?: (string | Media)[] | null;
+  galleryOptions: {
+    autoHeight: boolean;
+    autoPlay: boolean;
+    keyboardControls: boolean;
+    buttonNavigation: boolean;
+    pagination: boolean;
+    loop: boolean;
+    direction: 'horizontal' | 'vertical';
+    focus?: boolean | null;
+    paginationType?: ('bullets' | 'progress') | null;
+    paginationColor?:
+      | (
+          | 'primary'
+          | 'accent'
+          | 'secondary'
+          | 'urban-steel'
+          | 'slate'
+          | 'bitter-sweet'
+          | 'cherry-punch'
+          | 'fresh-leaf'
+        )
+      | null;
+    /**
+     * The spacing between slides in pixels.
+     */
+    slideSpacing: number;
+    /**
+     * The number of slides to show at a time.
+     */
+    slidesPerView: number;
+    /**
+     * The number of slides to scroll at a time.
+     */
+    slidesToScroll: 'auto' | '1' | '2' | '3' | '4';
+  };
   content?: {
     root: {
       type: string;
@@ -2375,6 +2411,24 @@ export interface ProjectsSelect<T extends boolean = true> {
         previewLabel?: T;
         previewUrl?: T;
         description?: T;
+      };
+  gallery?: T;
+  galleryOptions?:
+    | T
+    | {
+        autoHeight?: T;
+        autoPlay?: T;
+        keyboardControls?: T;
+        buttonNavigation?: T;
+        pagination?: T;
+        loop?: T;
+        direction?: T;
+        focus?: T;
+        paginationType?: T;
+        paginationColor?: T;
+        slideSpacing?: T;
+        slidesPerView?: T;
+        slidesToScroll?: T;
       };
   content?: T;
   meta?:

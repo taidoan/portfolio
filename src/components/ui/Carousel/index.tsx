@@ -221,7 +221,7 @@ export const Carousel = ({
               scrollSnaps={scrollSnaps}
               selectedIndex={selectedIndex}
               onDotClick={onDotClick}
-              paginationColor={paginationColor}
+              paginationColor={paginationColor || 'accent'}
             />
           )}
           {config.pagination && paginationType === 'progress' && (
