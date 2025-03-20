@@ -54,6 +54,11 @@
       color: var(--clr-secondary-400);
     }
   }
+
+  img {
+    object-fit: cover;
+    z-index: 0;
+  }
 }
 
 /// Applies hero blurred styles to a container.

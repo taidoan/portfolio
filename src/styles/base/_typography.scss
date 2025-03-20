@@ -44,26 +44,11 @@ h1 {
 }
 
 h2.section-heading {
-  color: var(--fc-sub-heading);
-  font-size: var(--fs-section-heading);
-
-  &::selection {
-    color: var(--clr-secondary-400);
-  }
+  @include section-heading;
 }
 
 h3.sub-heading {
-  font-size: var(--fs-sub-heading);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-
-  span.accent-dot {
-    color: var(--clr-accent-400);
-
-    &::selection {
-      color: var(--selection-text-contrast-clr);
-    }
-  }
+  @include sub-heading;
 }
 
 h2.section-heading + h3.sub-heading {

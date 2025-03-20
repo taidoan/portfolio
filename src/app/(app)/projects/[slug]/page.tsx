@@ -9,6 +9,7 @@ import { RichText } from '@/components/ui/RichText';
 import type { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Redirects } from '@/components/features/Redirects';
+import { ImageMedia } from '@/components/ui/Media/Image';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -37,7 +38,10 @@ const Page = async ({ params: paramsPromise }: Args) => {
 
   return (
     <>
+      <Redirects disableNotFound url={url} />
+      {draft && <LivePreviewListener />}
       <section className='project__hero'>
+        <ImageMedia src={`hero.svg`} alt='Hero' fill />
         <div>
           <span className='project__hero__project-type'>{page.details?.type}</span>
           <h1>{page.title}</h1>
@@ -53,6 +57,13 @@ const Page = async ({ params: paramsPromise }: Args) => {
 };
 
 export default Page;
+
+export const generateMetadata = async ({ params: paramsPromise }: Args): Promise<Metadata> => {
+  const { slug = 'home' } = await paramsPromise;
+  const page = await queryPageBySlug({ slug });
+
+  return generateMeta({ doc: page });
+};
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode();

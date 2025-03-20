@@ -14,8 +14,4 @@
   display: block;
   margin-bottom: rem(12);
   @include section-heading;
-
-  h1 {
-    line-height: 1;
-  }
 }

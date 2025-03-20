@@ -200,11 +200,14 @@ export interface Page {
   )[];
   meta?: {
     title?: string | null;
+    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
-    description?: string | null;
+    image?: {
+      relationTo: 'media';
+      value: string | Media;
+    } | null;
   };
   slug: string;
   slugLock?: boolean | null;
@@ -331,11 +334,14 @@ export interface Project {
   };
   meta?: {
     title?: string | null;
+    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
-    description?: string | null;
+    image?: {
+      relationTo: 'media';
+      value: string | Media;
+    } | null;
   };
   slug: string;
   slugLock?: boolean | null;
@@ -391,11 +397,14 @@ export interface Service {
   }[];
   meta?: {
     title?: string | null;
+    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
-    description?: string | null;
+    image?: {
+      relationTo: 'media';
+      value: string | Media;
+    } | null;
   };
   slug: string;
   slugLock?: boolean | null;
@@ -635,11 +644,14 @@ export interface Post {
   } | null;
   meta?: {
     title?: string | null;
+    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
-    description?: string | null;
+    image?: {
+      relationTo: 'media';
+      value: string | Media;
+    } | null;
   };
   slug: string;
   slugLock?: boolean | null;
@@ -1808,8 +1820,8 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        image?: T;
         description?: T;
+        image?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -2355,8 +2367,8 @@ export interface ProjectsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        image?: T;
         description?: T;
+        image?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -2387,8 +2399,8 @@ export interface ServicesSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        image?: T;
         description?: T;
+        image?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -2416,8 +2428,8 @@ export interface PostsSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        image?: T;
         description?: T;
+        image?: T;
       };
   slug?: T;
   slugLock?: T;

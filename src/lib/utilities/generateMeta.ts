@@ -15,13 +15,15 @@ export const generateMeta = async (args: {
 }): Promise<Metadata> => {
   const { doc } = args;
 
-  const ogImage = getImageURL(doc?.meta?.image);
+  const ogImage = getImageURL(
+    doc?.meta?.image && typeof doc.meta.image === 'object' ? doc.meta.image.value : null,
+  );
 
-  const isProject = doc && 'project-details' in doc;
+  const isProject = doc && 'details' in doc;
 
   const title = doc?.meta?.title
     ? isProject
-      ? `${doc.meta.title} | Project by Tai Doan - UI/UX Designer`
+      ? `${doc.meta.title} | ${doc.details?.type} Project by Tai Doan - UI/UX Designer`
       : `${doc.meta.title} | Tai Doan - UI/UX Designer`
     : 'Tai Doan | UI/UX Designer';
 
