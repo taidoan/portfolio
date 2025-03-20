@@ -13,8 +13,8 @@
   --fs-section-heading: #{map.get($type-scale, 'heading', 'section')};
   --fs-button: #{map.get($type-scale, 'button')};
 
-  --spacing-paragraph: #{size-clamp(rem(16), rem(24))};
-  --spacing-sub-headings: #{size-clamp(rem(8), rem(12))};
+  --spacing-paragraph: #{size-clamp(rem(16), rem(20))};
+  --spacing-sub-headings: #{rem(8)};
 }
 
 body {

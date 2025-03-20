@@ -65,7 +65,9 @@ const Page = async ({ params: paramsPromise }: Args) => {
       </section>
       <section className={clsx('project__section')}>
         <Card>
-          <CardBody padding='large'>{page.content && <RichText data={page.content} />}</CardBody>
+          <CardBody padding='large'>
+            {page.content && <RichText converters={headingConverter} data={page.content} />}
+          </CardBody>
         </Card>
       </section>
     </>

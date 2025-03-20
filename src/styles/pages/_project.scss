@@ -20,6 +20,9 @@
 }
 
 .project__description {
+  align-items: center;
+  display: flex;
+
   h2.section-heading {
     color: var(--clr-light-grey-450);
   }
