@@ -8,9 +8,10 @@ import { generateMeta } from '@/lib/utilities/generateMeta';
 import { RichText } from '@/components/ui/RichText';
 import { ProjectHero } from '@/blocks/Hero/Project';
 import type { Breadcrumb } from '@/components/ui/Breadcrumbs';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { Redirects } from '@/components/features/Redirects';
-import { ImageMedia } from '@/components/ui/Media/Image';
+import clsx from 'clsx';
+import { Card, CardBody } from '@/components/ui/Card';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -43,8 +44,28 @@ const Page = async ({ params: paramsPromise }: Args) => {
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
       <ProjectHero heroData={page} breadcrumbsData={breadcrumbsData} />
-      <section>{page.details?.description && <RichText data={page.details.description} />}</section>
-      <section>{page.content && <RichText data={page.content} />}</section>
+      <section className={clsx('project__section', 'project__details')}>
+        <Card className='project__description'>
+          <CardBody padding='large'>
+            {page.details?.description && (
+              <RichText converters={headingConverter} data={page.details.description} />
+            )}
+          </CardBody>
+        </Card>
+        <Card className='project__info'>
+          <CardBody padding='small'>Details here</CardBody>
+        </Card>
+      </section>
+      <section className={clsx('project__section')}>
+        <Card>
+          <CardBody padding='base'>Gallery here</CardBody>
+        </Card>
+      </section>
+      <section className={clsx('project__section')}>
+        <Card>
+          <CardBody padding='large'>{page.content && <RichText data={page.content} />}</CardBody>
+        </Card>
+      </section>
     </>
   );
 };

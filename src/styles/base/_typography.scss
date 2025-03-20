@@ -44,6 +44,7 @@ h1 {
 }
 
 h2.section-heading {
+  color: var(--fc-sub-heading);
   @include section-heading;
 }
 

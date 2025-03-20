@@ -20,8 +20,11 @@ $type-scale: (
     small: rem($heading-font-size-sm),
     base: size-clamp(rem($heading-font-size-sm), rem($heading-font-size)),
     large: size-clamp(rem($heading-font-size), rem($heading-font-size-lg)),
-    section: rem($section-heading-font-size),
-    sub: size-clamp(rem($heading-font-size), rem($sub-heading-font-size)),
+    section: size-clamp(
+        rem(calc($section-heading-font-size * 0.8)),
+        rem($section-heading-font-size)
+      ),
+    sub: size-clamp(rem(calc($heading-font-size * 0.8)), rem($sub-heading-font-size)),
   ),
   card: (
     title: size-clamp(rem($heading-font-size-sm), rem($card-title-font-size)),

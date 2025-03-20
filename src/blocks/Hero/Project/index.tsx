@@ -20,7 +20,7 @@ export const ProjectHero = ({
   const { title, details, hero } = heroData;
   const image = hero.backgroundImage;
 
-  const heroClasses = clsx(style.hero, {
+  const heroClasses = clsx('project__section', style.hero, {
     [style['hero--blurred']]: hero.blurredBackground === 'true',
   });
 

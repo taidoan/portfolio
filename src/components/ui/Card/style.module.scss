@@ -165,6 +165,22 @@
 .card__body {
   padding: rem(16);
 
+  &--p-sm {
+    padding: size-clamp(rem(16), rem(20));
+  }
+
+  &--p-base {
+    padding: size-clamp(rem(16), rem(24));
+  }
+
+  &--p-md {
+    padding: size-clamp(rem(20), rem(32));
+  }
+
+  &--p-lg {
+    padding: size-clamp(rem(24), rem(48));
+  }
+
   @include mq('md') {
     &:has(.card__image__container-align--left, .card__image__container-align--right) {
       align-items: center;
