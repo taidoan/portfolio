@@ -41,3 +41,12 @@
 .project__gallery-item {
   border-radius: var(--border-radius-small);
 }
+
+.project__gallery-caption {
+  background-color: var(--clr-light-grey-200);
+  border-radius: var(--border-radius-small);
+  cursor: default;
+  margin-top: size-clamp(1rem, 1.25rem);
+  padding-block: size-clamp(0.75rem, 1rem);
+  padding-inline: 1rem;
+}

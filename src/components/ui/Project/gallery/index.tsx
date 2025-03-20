@@ -1,6 +1,7 @@
 import type { Project } from '@/payload-types';
 import { ImageMedia } from '@components/ui/Media/Image';
 import { VideoMedia } from '@components/ui/Media/Video';
+import { RichText } from '@components/ui/RichText';
 import { Carousel } from '@components/ui/Carousel';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
@@ -60,6 +61,12 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
                 videoWidth={item.width}
                 style={{ aspectRatio: `${item.width} / ${item.height}` }}
               />
+            )}
+
+            {typeof item === 'object' && item.caption && (
+              <figcaption className='project__gallery-caption'>
+                <RichText data={item.caption} />
+              </figcaption>
             )}
           </CardBody>
         </Card>
