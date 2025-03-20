@@ -1,6 +1,5 @@
 import { render, screen, act } from '@testing-library/react';
 import { Card, CardTitle, CardBody, CardImage, CardContent } from '.';
-import { getCDNURL } from '@/lib/utilities/getURLs';
 import style from './style.module.scss';
 
 const mockData = {
@@ -109,11 +108,11 @@ describe('<CardBody>', () => {
 
 describe('<CardImage>', () => {
   it('renders a card image component', () => {
-    const expectedUrl = `https://ik.imagekit.io/1ih3i3bte/media/tr:w-3840,q-80,f-auto,tr-progressive//api/media/file/Urban%2520Bites%2520Thumbnail.webp`;
+    const expectedUrl = `https://ik.imagekit.io/1ih3i3bte/media/tr:w-3840,q-80,f-auto,tr-progressive/Urban%2520Bites%2520Thumbnail.webp`;
 
     render(
       <Card>
-        <CardImage src={mockData.thumbnail?.url || null} alt='Example Image' />
+        <CardImage src={mockData.thumbnail?.filename || null} alt='Example Image' />
       </Card>,
     );
     const cardImage = screen.getByAltText('Example Image');
@@ -134,8 +133,7 @@ describe('<CardImage>', () => {
   });
 
   it('renders a thumbnail if the data has a thumbnail', () => {
-    const mockCDNUrl = getCDNURL();
-    const expectedUrl = `${mockCDNUrl}/tr:w-3840,q-80,f-auto,tr-progressive/${encodeURI(mockData.thumbnail.filename)}`;
+    const expectedUrl = `https://ik.imagekit.io/1ih3i3bte/media/tr:w-3840,q-80,f-auto,tr-progressive/Urban%2520Bites%2520Thumbnail.webp`;
 
     render(
       <Card data={mockData}>
@@ -160,8 +158,7 @@ describe('<CardImage>', () => {
     expect(cardLink).toHaveAttribute('href', '/example');
     expect(cardLink).toHaveAttribute('target', '_blank');
     expect(cardLink).toHaveAttribute('title', 'Example Link');
-    const mockCDNUrl = getCDNURL();
-    const expectedUrl = `${mockCDNUrl}/tr:w-3840,q-80,f-auto,tr-progressive/${encodeURI(mockData.thumbnail.filename)}`;
+    const expectedUrl = `https://ik.imagekit.io/1ih3i3bte/media/tr:w-3840,q-80,f-auto,tr-progressive/Urban%2520Bites%2520Thumbnail.webp`;
     const cardImage = screen.getByAltText('Example Image');
     expect(cardImage).toBeInTheDocument();
     expect(cardImage).toHaveAttribute('src', expectedUrl);

@@ -12,6 +12,7 @@ import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { Redirects } from '@/components/features/Redirects';
 import clsx from 'clsx';
 import { Card, CardBody } from '@/components/ui/Card';
+import { ProjectDetails } from '@/components/ui/Project/details';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -52,9 +53,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
             )}
           </CardBody>
         </Card>
-        <Card className='project__info'>
-          <CardBody padding='small'>Details here</CardBody>
-        </Card>
+        <ProjectDetails data={{ details: page.details }} className='project__info' />
       </section>
       <section className={clsx('project__section')}>
         <Card>
