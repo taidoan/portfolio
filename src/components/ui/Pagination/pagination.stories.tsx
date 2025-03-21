@@ -6,7 +6,6 @@ import {
   PaginationLink,
   PaginationPrev,
   PaginationNext,
-  PaginationDots,
 } from '.';
 
 const meta: Meta<typeof Pagination> = {

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
-import configPromise from '@payload-config';
-import { getPayload, type RequiredDataFromCollectionSlug } from 'payload';
-import { cache } from 'react';
+import type { RequiredDataFromCollectionSlug } from 'payload';
 import { draftMode } from 'next/headers';
+import { queryProjects } from '@/lib/utilities/queries/queryPagination';
+import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
+import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { RichText } from '@/components/ui/RichText';
 import { ProjectHero } from '@/blocks/Hero/Project';
-import type { Breadcrumb } from '@/components/ui/Breadcrumbs';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { Redirects } from '@/components/features/Redirects';
 import clsx from 'clsx';
@@ -26,7 +26,11 @@ const Page = async ({ params: paramsPromise }: Args) => {
   const url = '/projects/' + slug;
   const page: RequiredDataFromCollectionSlug<'projects'> | null = await queryPageBySlug({
     slug,
+    collection: 'projects',
   });
+
+  const pagination = await queryProjects({ slug });
+  console.log(pagination);
 
   if (!page) return <Redirects url={url} />;
 
@@ -39,7 +43,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
       return typeof value === 'object' && value !== null ? value.id : value;
     }) || [];
 
-  const breadcrumbsData = await getBreadcrumbs(pageIds);
+  const breadcrumbsData = await queryBreadcrumbs(pageIds);
 
   return (
     <>
@@ -70,6 +74,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
           </CardBody>
         </Card>
       </section>
+      <section>Paggination here</section>
     </>
   );
 };
@@ -78,68 +83,7 @@ export default Page;
 
 export const generateMetadata = async ({ params: paramsPromise }: Args): Promise<Metadata> => {
   const { slug = 'home' } = await paramsPromise;
-  const page = await queryPageBySlug({ slug });
+  const page = await queryPageBySlug({ slug, collection: 'projects' });
 
   return generateMeta({ doc: page });
 };
-
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode();
-  const payload = await getPayload({ config: configPromise });
-
-  const result = await payload.find({
-    collection: 'projects',
-    draft,
-    limit: 1,
-    pagination: false,
-    overrideAccess: draft,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  });
-
-  return result.docs?.[0] || null;
-});
-
-const getBreadcrumbs = cache(async (pageIds: (string | number)[]) => {
-  const payload = await getPayload({ config: configPromise });
-
-  const pagesData = await payload.find({
-    collection: 'pages',
-    where: { id: { in: pageIds } },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      url: true,
-    },
-    depth: 0,
-    pagination: false,
-    overrideAccess: false,
-  });
-
-  const projectsData = await payload.find({
-    collection: 'projects',
-    where: { id: { in: pageIds } },
-    select: {
-      id: true,
-      title: true,
-    },
-    depth: 0,
-    pagination: false,
-    overrideAccess: false,
-  });
-
-  const breadcrumbsData = [...pagesData.docs, ...projectsData.docs];
-
-  const docsMap: Record<string | number, Breadcrumb> = {};
-  breadcrumbsData.forEach((doc) => {
-    docsMap[doc.id] = doc;
-  });
-
-  const orderedDocs = pageIds.map((id) => docsMap[id]).filter(Boolean);
-
-  return orderedDocs;
-});
