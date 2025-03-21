@@ -17,7 +17,9 @@ export const queryProjects = cache(async ({ slug }: { slug: string }) => {
     limit: 1,
   });
 
-  if (!currentProject) return { prevProject: null, nextProject: null };
+  if (!currentProject) {
+    throw new Error('Current project not found');
+  }
 
   const { createdAt } = currentProject;
 

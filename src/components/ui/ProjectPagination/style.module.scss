@@ -1,50 +1,48 @@
 @use '@abstracts/_index' as *;
 
+.project__pagination {
+  overflow: hidden;
+}
+
 .project__pagination__content {
   align-items: center;
-  background-color: transparent;
-  border: rem(2) solid var(--card-outline-color);
+  background-color: var(--card-outline-color);
   border-radius: var(--border-radius-small);
-  display: flex;
-  flex-direction: column;
+  column-gap: rem(16);
+  display: grid;
   font-size: var(--fs-body-sm);
+  grid-template-columns: 1fr auto 1fr;
   list-style: none;
-  padding: 0;
-
-  @include mq('base-lg') {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    padding-block: size-clamp(rem(16), rem(24));
-    padding-inline: size-clamp(rem(16), rem(28));
-  }
+  padding-block: size-clamp(rem(16), rem(24));
+  padding-inline: size-clamp(rem(16), rem(28));
 }
 
 .project__pagination__item {
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: rem(12) rem(16);
   row-gap: rem(2);
-  text-align: center;
-  width: 100%;
 
   &--archive {
-    border-block: rem(2) solid var(--card-outline-color);
+    border-block: rem(2) solid var(--clr-frosted-pearl-400);
+  }
+
+  &:last-of-type {
+    align-items: flex-end;
+    justify-self: end;
+
+    .project__pagination__link {
+      justify-content: flex-end;
+      text-align: right;
+    }
   }
 
   @include mq('base-lg') {
     align-items: start;
     padding: 0;
-    text-align: left;
 
     &--archive {
       border: none;
-    }
-
-    &:last-of-type {
-      align-items: flex-end;
-      justify-self: end;
-      text-align: right;
     }
   }
 }
@@ -54,9 +52,8 @@
   color: var(--clr-slate-450);
   column-gap: rem(12);
   display: flex;
+  position: relative;
   text-decoration: none;
-  text-overflow: ellipsis;
-  width: fit-content;
 
   &:hover {
     color: var(--clr-secondary-400);
@@ -77,7 +74,7 @@
 
   svg {
     --size: #{size-clamp(rem(16), rem(24))};
-    color: var(--clr-light-grey-350);
+    color: var(--clr-urban-steel-250);
     display: none;
     min-block-size: var(--size);
     min-inline-size: var(--size);
@@ -92,7 +89,7 @@
 
 .project__pagination__archive-link {
   --size: #{size-clamp(rem(16), rem(24))};
-  background-color: var(--clr-light-grey-250);
+  background-color: var(--clr-frosted-pearl-450);
   border-radius: var(--border-radius-small);
   border-radius: var(--border-radius-circle);
   justify-content: center;
@@ -131,8 +128,12 @@
 
 .project__pagination__label {
   color: var(--clr-urban-steel-350);
+  display: none;
   font-family: var(--ff-display-condensed);
   font-size: var(--fs-body-sm);
   font-weight: 700;
   text-transform: uppercase;
+  @include mq('base-lg') {
+    display: block;
+  }
 }

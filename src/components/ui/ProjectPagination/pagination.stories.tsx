@@ -7,7 +7,7 @@ import {
   PaginationArchiveItem,
   PaginationNextLabel,
   PaginationPreviousLabel,
-} from '.';
+} from './components';
 
 const meta: Meta<typeof Pagination> = {
   title: 'UI/ProjectPagination',

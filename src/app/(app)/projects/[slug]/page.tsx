@@ -14,6 +14,7 @@ import clsx from 'clsx';
 import { Card, CardBody } from '@/components/ui/Card';
 import { ProjectDetails } from '@/components/ui/Project/details';
 import { ProjectGallery } from '@/components/ui/Project/gallery';
+import { ProjectPagination } from '@/components/ui/ProjectPagination';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -30,7 +31,6 @@ const Page = async ({ params: paramsPromise }: Args) => {
   });
 
   const pagination = await queryProjects({ slug });
-  console.log(pagination);
 
   if (!page) return <Redirects url={url} />;
 
@@ -74,7 +74,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
           </CardBody>
         </Card>
       </section>
-      <section>Paggination here</section>
+      <ProjectPagination className={clsx('project__section')} data={pagination} />
     </>
   );
 };

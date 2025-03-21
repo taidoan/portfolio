@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationNextLabel,
   PaginationPreviousLabel,
-} from '.';
+} from './components';
 import { getServerSideURL } from '@/lib/utilities/getURLs';
 const SERVER_SIDE_URL = getServerSideURL();
 
