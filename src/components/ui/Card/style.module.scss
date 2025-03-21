@@ -34,11 +34,19 @@
 }
 
 .card__title {
+  display: inline-block;
   margin-bottom: size-clamp(rem(8), rem(4));
+  width: 100%;
+
   &__link {
     color: inherit;
+    display: inline-block;
+    overflow: hidden;
     text-decoration: none;
+    text-overflow: ellipsis;
     transition: color var(--transition-duration);
+    white-space: nowrap;
+    width: calc(100%);
 
     &:focus-visible {
       @include focused();
@@ -217,7 +225,7 @@
 
 .card__content {
   display: block;
-
+  width: 100%;
   @include mq('md') {
     padding-inline: rem(8);
   }
@@ -231,6 +239,12 @@
     display: flex;
     gap: rem(16);
     justify-content: space-between;
+
+    .card__content-wrapper {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
   }
 
   &--inside {
@@ -247,8 +261,8 @@
 .card__content__project-icon-link {
   color: var(--clr-frosted-sage-400);
   display: none;
+  min-width: rem(24);
   transition: color var(--transition-duration-fast) ease;
-
   svg {
     transform: rotate(0);
     transition: transform var(--transition-duration-fast) ease;

@@ -32,7 +32,7 @@ export const CardContent = ({ children, className, insideContainer = false }: Ca
 
   return (
     <div className={cardContentClasses} data-testid='card-content'>
-      <div>{children}</div>
+      <div className={style['card__content-wrapper']}>{children}</div>
       {relation === 'projects' && link && viewProjectIcon}
     </div>
   );

@@ -3,6 +3,12 @@ import { draftMode } from 'next/headers';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 
+/**
+ * Query a page by its slug and collection.
+ * @param {string} slug - The slug of the page to query.
+ * @param {T} collection - The collection of the page to query.
+ * @returns {Promise<RequiredDataFromCollectionSlug<T> | null>} - The page with the given slug.
+ */
 export const queryPageBySlug = cache(
   async <T extends 'projects' | 'pages' | 'categories' | 'media' | 'services' | 'posts'>({
     slug,
