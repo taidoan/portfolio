@@ -243,7 +243,10 @@ export const LightboxContainer = forwardRef<HTMLDialogElement, LightboxContainer
           maxScale={2.5}
           doubleClick={{ mode: 'toggle' }}
           initialScale={1}
+          initialPositionX={0}
+          initialPositionY={0}
           centerOnInit={true}
+          limitToBounds={true}
         >
           {({ zoomIn, zoomOut, resetTransform }) => (
             <TransformContext.Provider value={{ zoomIn, zoomOut, resetTransform }}>

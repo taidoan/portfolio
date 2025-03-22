@@ -127,17 +127,29 @@
 
 .lightbox__content {
   align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 
-  img {
+  img,
+  video {
     height: auto;
-    width: 100%;
+    margin-inline: auto;
+    max-height: 100vh;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
   }
 }
 
 .lightbox__wrapper {
-  display: block;
-  height: 100dvh !important;
-  margin-inline: auto !important;
+  align-items: center;
+  display: flex;
+  height: 100% !important;
+  justify-content: center;
+  max-height: 100vh !important;
+  overflow: hidden;
   width: 100% !important;
   z-index: 1;
 }
