@@ -16,9 +16,7 @@ type TransformContextType = {
   zoomOut: () => void;
   resetTransform: () => void;
 };
-
 const TransformContext = createContext<TransformContextType | null>(null);
-
 const useTransform = () => {
   const context = useContext(TransformContext);
   if (!context) {
@@ -148,12 +146,7 @@ type LightboxTopBarProps = {
   onClose?: () => void;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const LightboxTopBar = ({
-  className,
-  dialogRef,
-  onClose,
-  ...props
-}: LightboxTopBarProps) => {
+export const LightboxTopBar = ({ className, dialogRef, onClose }: LightboxTopBarProps) => {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
   const handleClose = () => {
@@ -164,7 +157,7 @@ export const LightboxTopBar = ({
   };
 
   return (
-    <div className={clsx(className, style['lightbox__top-bar'])} {...props}>
+    <div className={clsx(className, style['lightbox__top-bar'])}>
       <div className={style['lightbox__counter']}>Counter here</div>
       <div className={style['lightbox__controls']}>
         <LightboxZoomButton data-testid='zoomLightbox' />
@@ -201,13 +194,21 @@ type LightboxContainerProps = {
 
 export const LightboxContainer = forwardRef<HTMLDialogElement, LightboxContainerProps>(
   ({ className, children, open, ...props }, ref) => {
+    useEffect(() => {
+      const dialog = (ref as React.RefObject<HTMLDialogElement>).current;
+      if (!dialog) return;
+
+      if (dialog) {
+        if (open && !dialog.open) {
+          dialog.showModal();
+        } else if (!open && dialog.open) {
+          dialog.close();
+        }
+      }
+    }, [open, ref]);
+
     return (
-      <dialog
-        ref={ref}
-        className={clsx(className, style['lightbox__container'])}
-        open={open}
-        {...props}
-      >
+      <dialog ref={ref} className={clsx(className, style['lightbox__container'])} {...props}>
         <TransformWrapper
           minScale={1}
           maxScale={2.5}

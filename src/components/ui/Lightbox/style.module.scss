@@ -6,14 +6,20 @@
   box-shadow: none;
   color: var(--clr-light-400);
   height: 100vh;
+  left: 0;
   max-block-size: 100vh;
   max-inline-size: 100vw;
   overflow-x: scroll;
   padding: 0;
-  position: relative;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: var(--z-index-modal);
+
   &[open] {
     &::backdrop {
       animation: backdropFadeDark var(--transition-duration-slow) ease-in-out forwards;
+      z-index: 399;
     }
   }
 

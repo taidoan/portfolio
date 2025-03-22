@@ -1,22 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { Lightbox } from './index';
+import { Lightbox } from '.';
 
 describe('<Lightbox>', () => {
-  it('renders the open lightbox button and opens the lightbox when clicked', () => {
-    render(
-      <Lightbox data-testid='lightbox'>
-        <div>Lightbox Content</div>
-      </Lightbox>,
-    );
-
-    expect(screen.getByTestId('openLightbox')).toBeInTheDocument();
-
-    const openLightbox = (HTMLDialogElement.prototype.showModal = vi.fn());
-    screen.getByTestId('openLightbox').click();
-    expect(openLightbox).toHaveBeenCalled();
-    expect(screen.getByTestId('lightbox')).toBeInTheDocument();
-  });
-
   it('renders the lightbox when open', () => {
     render(
       <Lightbox data-testid='lightbox' open={true}>
@@ -31,10 +16,11 @@ describe('<Lightbox>', () => {
 
   it('it closes the lightbox when the close button is clicked', async () => {
     const closeLightbox = (HTMLDialogElement.prototype.close = vi.fn());
-    render(<Lightbox onClose={closeLightbox}>Lightbox Content</Lightbox>);
-
-    const openButton = screen.getByTestId('openLightbox');
-    fireEvent.click(openButton);
+    render(
+      <Lightbox onClose={closeLightbox} open={true}>
+        Lightbox Content
+      </Lightbox>,
+    );
 
     const closeButton = screen.getByTestId('closeLightbox');
     fireEvent.click(closeButton);
@@ -56,13 +42,10 @@ describe('<Lightbox>', () => {
     const closeMock = vi.fn();
     const onCloseMock = vi.fn();
     render(
-      <Lightbox onClose={onCloseMock} data-testid='lightbox'>
+      <Lightbox onClose={onCloseMock} data-testid='lightbox' open={true}>
         Lightbox Content
       </Lightbox>,
     );
-
-    const openButton = screen.getByTestId('openLightbox');
-    fireEvent.click(openButton);
 
     const dialog = screen.getByTestId('lightbox') as HTMLDialogElement;
 

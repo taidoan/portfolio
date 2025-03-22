@@ -79,6 +79,7 @@ export const Carousel = ({
   keyboardControls,
   buttonNavigation,
   paginationColor,
+  startIndex = 0,
   ...props
 }: CarouselProps) => {
   const isMediaQueryMatched = useMediaQuery(disableAt || 'none');
@@ -107,6 +108,7 @@ export const Carousel = ({
     slidesToScroll: slidesToScroll as EmblaOptionsType['slidesToScroll'],
     axis: direction === 'vertical' || direction === 'vertical-scroll' ? 'y' : 'x',
     breakpoints: disableAt ? { [disableAt]: { active: false } } : undefined,
+    startIndex,
   };
 
   const plugins = [

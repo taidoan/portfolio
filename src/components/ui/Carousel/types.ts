@@ -25,4 +25,5 @@ export type CarouselProps = {
   autoPlay?: boolean;
   keyboardControls?: boolean;
   buttonNavigation?: boolean;
+  startIndex?: number;
 };

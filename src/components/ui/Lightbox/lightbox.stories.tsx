@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useRef } from 'react';
-import { Lightbox } from './index';
+import { Lightbox } from '.';
 import Image from 'next/image';
 
 const meta: Meta<typeof Lightbox> = {
@@ -23,14 +23,11 @@ const meta: Meta<typeof Lightbox> = {
 export default meta;
 type Story = StoryObj<typeof Lightbox>;
 
-// Wrapper component to ensure the dialog is shown
-
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const LightboxWrapper = (args: any) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    // Call showModal() on the dialog after it's mounted
     if (dialogRef.current && !dialogRef.current.open) {
       dialogRef.current.showModal();
     }
@@ -48,7 +45,6 @@ export const AlwaysOpen: Story = {
   render: (args) => <LightboxWrapper {...args} />,
 };
 
-// You can add additional stories to show different states or content
 export const WithLargeContent: Story = {
   args: {
     children: (
