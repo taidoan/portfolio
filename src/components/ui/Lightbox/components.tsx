@@ -16,7 +16,9 @@ type TransformContextType = {
   zoomOut: () => void;
   resetTransform: () => void;
 };
+
 const TransformContext = createContext<TransformContextType | null>(null);
+
 const useTransform = () => {
   const context = useContext(TransformContext);
   if (!context) {
@@ -140,13 +142,40 @@ const LightboxFullscreenButton = ({
   );
 };
 
+type LightboxCounterProps = {
+  className?: string;
+  currentIndex?: number;
+  totalSlides?: number;
+};
+
+const LightboxCounter = ({
+  className,
+  currentIndex,
+  totalSlides,
+  ...props
+}: LightboxCounterProps) => {
+  return (
+    <div className={clsx(className, style['lightbox__counter'])} {...props}>
+      {totalSlides && totalSlides > 1 ? `${(currentIndex ?? 0) + 1} of ${totalSlides}` : null}
+    </div>
+  );
+};
+
 type LightboxTopBarProps = {
   className?: string;
   dialogRef: React.RefObject<HTMLDialogElement | null>;
   onClose?: () => void;
+  currentIndex?: number;
+  totalSlides?: number;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const LightboxTopBar = ({ className, dialogRef, onClose }: LightboxTopBarProps) => {
+export const LightboxTopBar = ({
+  className,
+  dialogRef,
+  onClose,
+  currentIndex,
+  totalSlides,
+}: LightboxTopBarProps) => {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
   const handleClose = () => {
@@ -158,7 +187,7 @@ export const LightboxTopBar = ({ className, dialogRef, onClose }: LightboxTopBar
 
   return (
     <div className={clsx(className, style['lightbox__top-bar'])}>
-      <div className={style['lightbox__counter']}>Counter here</div>
+      <LightboxCounter currentIndex={currentIndex} totalSlides={totalSlides} />
       <div className={style['lightbox__controls']}>
         <LightboxZoomButton data-testid='zoomLightbox' />
         {!isIOS && <LightboxFullscreenButton data-testid='fullscreenLightbox' />}

@@ -2,6 +2,7 @@
 
 import { useState, Fragment } from 'react';
 import type { Project } from '@/payload-types';
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { ImageMedia } from '@components/ui/Media/Image';
 import { VideoMedia } from '@components/ui/Media/Video';
 import { RichText } from '@components/ui/RichText';
@@ -91,6 +92,10 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
           open={lightboxOpen}
           onClose={() => setLightboxOpen(false)}
           initialIndex={currentIndex}
+          captions={gallery?.map(
+            (item) =>
+              (typeof item === 'object' && (item.caption as DefaultTypedEditorState)) || null,
+          )}
         >
           {gallery?.map((item, index) => {
             if (typeof item === 'object') {

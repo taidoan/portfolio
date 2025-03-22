@@ -1,3 +1,4 @@
+import { EmblaCarouselType } from 'embla-carousel';
 export type CarouselProps = {
   children?: React.ReactNode[] | React.ReactNode;
   className?: string | undefined | null;
@@ -26,4 +27,5 @@ export type CarouselProps = {
   keyboardControls?: boolean;
   buttonNavigation?: boolean;
   startIndex?: number;
+  onInit?: (api: EmblaCarouselType) => void;
 };

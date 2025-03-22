@@ -65,7 +65,7 @@ export const Carousel = ({
   className,
   wrapperClassName,
   slideClassName,
-  slidesPerView = 3,
+  slidesPerView = 1,
   slidesToScroll = 'auto',
   slideSpacing = 16,
   loop = false,
@@ -80,6 +80,7 @@ export const Carousel = ({
   buttonNavigation,
   paginationColor,
   startIndex = 0,
+  onInit,
   ...props
 }: CarouselProps) => {
   const isMediaQueryMatched = useMediaQuery(disableAt || 'none');
@@ -156,6 +157,12 @@ export const Carousel = ({
     onScroll(emblaApi);
     emblaApi.on('reInit', onScroll).on('scroll', onScroll).on('slideFocus', onScroll);
   }, [emblaApi, onScroll]);
+
+  useEffect(() => {
+    if (emblaApi && onInit) {
+      onInit(emblaApi);
+    }
+  }, [emblaApi, onInit]);
 
   useKeyboard({
     isEnabled: keyboardControls,
