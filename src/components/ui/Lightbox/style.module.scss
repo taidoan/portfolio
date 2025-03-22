@@ -37,6 +37,7 @@
     background: transparent;
   }
   to {
+    -webkit-backdrop-filter: blur(25px);
     backdrop-filter: blur(25px);
     background: rgba(0, 0, 0, 0.85);
   }
@@ -49,6 +50,7 @@
   justify-content: space-between;
   padding: rem(16);
   position: absolute;
+  text-shadow: var(--shadow-small-body);
   width: 100%;
   z-index: 2;
 }
@@ -116,7 +118,7 @@
 }
 
 .lightbox__caption {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.5);
   border: rem(1) solid rgba(white, 0.15);
   border-radius: rem(8);
   color: var(--clr-light-400);
@@ -144,10 +146,7 @@
 }
 
 .lightbox__wrapper {
-  align-items: center;
-  display: flex;
   height: 100% !important;
-  justify-content: center;
   max-height: 100vh !important;
   overflow: hidden;
   width: 100% !important;

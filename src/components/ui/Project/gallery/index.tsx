@@ -47,6 +47,7 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
         buttonNavigation={galleryOptions.buttonNavigation}
         slideSpacing={galleryOptions.slideSpacing}
         slidesPerView={galleryOptions.slidesPerView}
+        slideClassName='project__gallery__slide'
         autoHeight={galleryOptions.autoHeight}
         paginationType={galleryOptions.paginationType}
         paginationColor={galleryOptions.paginationColor || 'accent'}

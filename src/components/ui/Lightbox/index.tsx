@@ -43,8 +43,6 @@ export const Lightbox = ({
   const totalSlides = Children.count(children);
 
   const itemCaptions = items.map((item) => item.caption || null);
-
-  // Use provided captions or extracted ones
   const displayCaptions = captions.length > 0 ? captions : itemCaptions;
 
   const handleOverlayClick = (event: React.MouseEvent<HTMLDialogElement>) => {
@@ -139,6 +137,7 @@ export const Lightbox = ({
               className={style.lightbox__carousel}
               {...carouselOptions}
               onInit={handleEmblaInit}
+              slideClassName={style['lightbox__carousel-slide']}
             >
               {children}
             </Carousel>

@@ -156,7 +156,7 @@ const LightboxCounter = ({
 }: LightboxCounterProps) => {
   return (
     <div className={clsx(className, style['lightbox__counter'])} {...props}>
-      {totalSlides && totalSlides > 1 ? `${(currentIndex ?? 0) + 1} of ${totalSlides}` : null}
+      {totalSlides && totalSlides > 0 ? `${(currentIndex ?? 0) + 1} of ${totalSlides}` : null}
     </div>
   );
 };
