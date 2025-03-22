@@ -1,0 +1,137 @@
+@use '@abstracts/_index' as *;
+
+.lightbox__container {
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--clr-light-400);
+  height: 100vh;
+  max-block-size: 100vh;
+  max-inline-size: 100vw;
+  overflow-x: scroll;
+  padding: 0;
+  position: relative;
+  &[open] {
+    &::backdrop {
+      animation: backdropFadeDark var(--transition-duration-slow) ease-in-out forwards;
+    }
+  }
+
+  &:not([open]) {
+    &::backdrop {
+      animation: backdropFadeDark var(--transition-duration-slow) ease backwards;
+      animation-direction: reverse;
+    }
+  }
+}
+
+@keyframes backdropFadeDark {
+  from {
+    backdrop-filter: initial;
+    background: transparent;
+  }
+  to {
+    backdrop-filter: blur(25px);
+    background: rgba(0, 0, 0, 0.85);
+  }
+}
+
+.lightbox__top-bar,
+.lightbox__bottom-bar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: rem(16);
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.lightbox__top-bar {
+  background-image: linear-gradient(black -50%, transparent 100%);
+  top: 0;
+}
+
+.lightbox__bottom-bar {
+  background-image: linear-gradient(transparent 0, black 200%);
+  bottom: 0;
+}
+
+.lightbox__controls {
+  display: flex;
+  gap: rem(12);
+}
+
+.lightbox__counter {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: rem(1) solid rgba(white, 0.15);
+  border-radius: rem(8);
+  color: var(--clr-light-400);
+  font-size: var(--fs-small);
+  padding: rem(8) rem(12);
+}
+
+.lightbox__control-button {
+  --button-size: #{size-clamp(rem(32), rem(40))};
+  align-items: center;
+  appearance: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: rem(1) solid rgba(white, 0.15);
+  border-radius: var(--border-radius-circle);
+  color: var(--clr-light-400);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  outline: 0;
+  padding: size-clamp(rem(12), rem(16));
+  transition:
+    background-color var(--transition-duration-fast) ease,
+    box-shadow var(--transition-duration-fast) ease,
+    outline var(--transition-duration-fast) ease;
+
+  &:hover {
+    background-color: var(--clr-accent-400);
+    border-color: var(--clr-accent-400);
+    color: var(--clr-light-400);
+  }
+
+  &:focus-visible {
+    @include focused-box;
+    background-color: var(--clr-accent-400);
+    border-color: var(--clr-accent-400);
+    color: var(--clr-light-400);
+  }
+
+  svg {
+    --size: #{size-clamp(rem(16), rem(20))};
+    height: var(--size);
+    width: var(--size);
+  }
+}
+
+.lightbox__caption {
+  background-color: rgba(0, 0, 0, 0.25);
+  border: rem(1) solid rgba(white, 0.15);
+  border-radius: rem(8);
+  color: var(--clr-light-400);
+  font-size: var(--fs-body-sm);
+  padding: rem(12) rem(16);
+  width: 100%;
+}
+
+.lightbox__content {
+  align-items: center;
+
+  img {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.lightbox__wrapper {
+  display: block;
+  height: 100dvh !important;
+  margin-inline: auto !important;
+  width: 100% !important;
+  z-index: 1;
+}
