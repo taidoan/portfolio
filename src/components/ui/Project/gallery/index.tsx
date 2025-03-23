@@ -58,38 +58,42 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
         showPaginationCounter={true}
         controlsClassName='project__gallery__controls'
       >
-        {gallery?.map((item, index) => (
-          <Card key={index}>
-            <CardBody padding='base'>
-              {typeof item === 'object' && item.mimeType?.includes('image') && (
-                <ImageMedia
-                  src={item.filename || null}
-                  alt={item.alt || ''}
-                  width={item.width}
-                  height={item.height}
-                  onClick={() => openLightbox(index)}
-                  className='project__gallery-item'
-                />
-              )}
+        {gallery?.map((item, index) => {
+          const { media } = item;
 
-              {typeof item === 'object' && item.mimeType?.includes('video') && (
-                <VideoMedia
-                  src={item.filename || null}
-                  playerWidth={item.width || ''}
-                  videoHeight={item.height}
-                  videoWidth={item.width}
-                  style={{ aspectRatio: `${item.width} / ${item.height}` }}
-                />
-              )}
+          return (
+            <Card key={index}>
+              <CardBody padding='base'>
+                {media && typeof media === 'object' && media.mimeType?.includes('image') && (
+                  <ImageMedia
+                    src={media.filename || null}
+                    alt={media.alt || ''}
+                    width={media.width}
+                    height={media.height}
+                    onClick={() => openLightbox(index)}
+                    className='project__gallery-item'
+                  />
+                )}
 
-              {typeof item === 'object' && item.caption && (
-                <figcaption className='project__gallery-caption'>
-                  <RichText data={item.caption} />
-                </figcaption>
-              )}
-            </CardBody>
-          </Card>
-        ))}
+                {media && typeof media === 'object' && media.mimeType?.includes('video') && (
+                  <VideoMedia
+                    src={media.filename || null}
+                    playerWidth={media.width || ''}
+                    videoHeight={media.height}
+                    videoWidth={media.width}
+                    style={{ aspectRatio: `${media.width} / ${media.height}` }}
+                  />
+                )}
+
+                {typeof item === 'object' && item.showCaption && item.caption && (
+                  <figcaption className='project__gallery-caption'>
+                    <RichText data={item.caption} />
+                  </figcaption>
+                )}
+              </CardBody>
+            </Card>
+          );
+        })}
       </Carousel>
       {lightboxOpen && (
         <Lightbox
@@ -98,35 +102,45 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
           initialIndex={currentIndex}
           captions={gallery?.map(
             (item) =>
-              (typeof item === 'object' && (item.caption as DefaultTypedEditorState)) || null,
+              (typeof item === 'object' &&
+                item.showCaption &&
+                (item.caption as DefaultTypedEditorState)) ||
+              null,
           )}
         >
           {gallery?.map((item, index) => {
-            if (typeof item === 'object') {
-              if (item.mimeType?.includes('image')) {
-                return (
-                  <ImageMedia
-                    key={index}
-                    src={item.filename || null}
-                    alt={item.alt || ''}
-                    width={item.width}
-                    height={item.height}
-                  />
-                );
-              } else if (item.mimeType?.includes('video')) {
-                return (
-                  <VideoMedia
-                    key={index}
-                    src={item.filename || null}
-                    playerWidth={item.width || ''}
-                    videoHeight={item.height}
-                    videoWidth={item.width}
-                    style={{ aspectRatio: `${item.width} / ${item.height}` }}
-                  />
-                );
-              }
+            const { media } = item;
+
+            if (!media || typeof media !== 'object')
+              return (
+                <Alert severity='error' key={index}>
+                  <AlertTitle>Invalid Media</AlertTitle>
+                  <p>The media for this item is missing or invalid.</p>
+                </Alert>
+              );
+
+            if (media.mimeType?.includes('image')) {
+              return (
+                <ImageMedia
+                  key={index}
+                  src={media.filename || null}
+                  alt={media.alt || ''}
+                  width={media.width}
+                  height={media.height}
+                />
+              );
+            } else if (media.mimeType?.includes('video')) {
+              return (
+                <VideoMedia
+                  key={index}
+                  src={media.filename || null}
+                  playerWidth={media.width || ''}
+                  videoHeight={media.height}
+                  videoWidth={media.width}
+                  style={{ aspectRatio: `${media.width} / ${media.height}` }}
+                />
+              );
             }
-            return null;
           })}
         </Lightbox>
       )}

@@ -11,6 +11,7 @@ import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@/fields/Breadcrumbs';
 import { ClonedField } from '@/fields/ClonedField';
+import { CaptionEditor } from '@/lib/editor/caption';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
@@ -240,11 +241,35 @@ export const Projects: CollectionConfig = {
                   label: 'Media',
                   fields: [
                     {
-                      type: 'upload',
+                      type: 'array',
                       name: 'gallery',
-                      relationTo: 'media',
-                      label: 'Gallery',
-                      hasMany: true,
+                      label: false,
+                      labels: {
+                        singular: 'Gallery Item',
+                        plural: 'Gallery Items',
+                      },
+                      fields: [
+                        {
+                          type: 'upload',
+                          relationTo: 'media',
+                          name: 'media',
+                          required: true,
+                        },
+                        {
+                          type: 'checkbox',
+                          name: 'showCaption',
+                          label: 'Show Caption',
+                          defaultValue: false,
+                        },
+                        {
+                          type: 'richText',
+                          name: 'caption',
+                          editor: CaptionEditor,
+                          admin: {
+                            condition: (_, siblingData) => siblingData.showCaption,
+                          },
+                        },
+                      ],
                     },
                   ],
                 },
@@ -422,6 +447,19 @@ export const Projects: CollectionConfig = {
               type: 'richText',
               name: 'content',
               label: 'Project Content',
+            },
+          ],
+        },
+        {
+          label: 'CTA',
+          fields: [
+            {
+              type: 'richText',
+              name: 'cta',
+              label: 'Page CTA',
+              admin: {
+                description: 'Add a call to action to the bottom of the page.',
+              },
             },
           ],
         },

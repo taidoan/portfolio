@@ -7,14 +7,10 @@ import {
   StrikethroughFeature,
   AlignFeature,
   FixedToolbarFeature,
-  HeadingFeature,
-  BlocksFeature,
 } from '@payloadcms/richtext-lexical';
 import { LinksFeature } from './features/link';
-import { DividerBlock } from '@/blocks/Divider/config';
-import { MediaRichtextBlock } from '@/blocks/MediaRichtext/config';
 
-export const editor = lexicalEditor({
+export const CaptionEditor = lexicalEditor({
   features: () => {
     return [
       FixedToolbarFeature(),
@@ -24,13 +20,7 @@ export const editor = lexicalEditor({
       StrikethroughFeature(),
       AlignFeature(),
       ParagraphFeature(),
-      HeadingFeature({
-        enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-      }),
       LinksFeature(),
-      BlocksFeature({
-        blocks: [DividerBlock, MediaRichtextBlock],
-      }),
     ];
   },
 });

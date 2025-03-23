@@ -1,5 +1,6 @@
 import { Block } from 'payload';
 import { GridAppearance } from '@/fields/GridAppearance';
+import { CaptionEditor } from '@/lib/editor/caption';
 
 export const MediaBlock: Block = {
   slug: 'mediaBlock',
@@ -63,9 +64,18 @@ export const MediaBlock: Block = {
               ],
             },
             {
+              type: 'checkbox',
+              name: 'showCaption',
+              label: 'Show Caption',
+              defaultValue: false,
+            },
+            {
               type: 'richText',
+              editor: CaptionEditor,
               name: 'caption',
-              label: 'Caption',
+              admin: {
+                condition: (_, siblingData) => siblingData.showCaption,
+              },
             },
           ],
         },

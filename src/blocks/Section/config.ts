@@ -16,6 +16,7 @@ import { BackgroundColour } from '@/fields/BackgroundColour';
 import { BorderRadius } from '@/fields/BorderRadius';
 import { ClassName } from '@/fields/ClassName';
 import { SectionTypeField } from '@/fields/SectionType';
+
 const Blocks = [
   DividerBlock,
   LinksBlock,
@@ -82,6 +83,34 @@ export const SectionBlock: Block = {
                   type: 'row',
                   fields: [
                     SectionTypeField,
+                    {
+                      type: 'select',
+                      name: 'alignContent',
+                      label: 'Align Content',
+                      options: [
+                        { value: 'left', label: 'Left' },
+                        { value: 'right', label: 'Right' },
+                      ],
+                      defaultValue: 'left',
+                      admin: {
+                        width: '50%',
+                        condition: (_, siblingData) => siblingData.sectionType !== 'default',
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: 'row',
+                  admin: {
+                    condition: (_, siblingData) => {
+                      if (siblingData.sectionType === 'boxed') {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    },
+                  },
+                  fields: [
                     BackgroundColour({
                       admin: {
                         width: '50%',
@@ -99,33 +128,6 @@ export const SectionBlock: Block = {
                         ],
                       },
                     }),
-                  ],
-                },
-                {
-                  type: 'row',
-                  admin: {
-                    condition: (_, siblingData) => {
-                      if (siblingData.sectionType === 'boxed') {
-                        return true;
-                      } else {
-                        return false;
-                      }
-                    },
-                  },
-                  fields: [
-                    {
-                      type: 'select',
-                      name: 'alignContent',
-                      label: 'Align Content',
-                      options: [
-                        { value: 'left', label: 'Left' },
-                        { value: 'right', label: 'Right' },
-                      ],
-                      defaultValue: 'left',
-                      admin: {
-                        width: '50%',
-                      },
-                    },
                     BorderRadius({
                       admin: { width: '50%' },
                     }),

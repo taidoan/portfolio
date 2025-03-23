@@ -5,14 +5,21 @@ export type Props = {
   className?: string;
 } & CTABlockProps;
 
-export const CTABlock = ({ className, content, link, variant, color, borderRadius }: Props) => {
+export const CTABlock = ({
+  className,
+  content,
+  link,
+  blockVariant,
+  backgroundColour,
+  borderRadius,
+}: Props) => {
   return (
     <CTA
       content={content}
       link={link}
       className={className}
-      color={color || 'secondary'}
-      variant={variant || 'fill'}
+      color={backgroundColour || 'secondary'}
+      variant={blockVariant || 'fill'}
       borderRadius={borderRadius || 'medium'}
     />
   );

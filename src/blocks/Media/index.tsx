@@ -4,7 +4,7 @@ import { VideoMedia } from '@/components/ui/Media/Video';
 import RichText from '@/components/ui/RichText';
 import style from './style.module.scss';
 import clsx from 'clsx';
-import { Alert } from '@/components/ui/Alert';
+import { Alert, AlertTitle } from '@/components/ui/Alert';
 
 export type Props = {
   className?: string;
@@ -12,16 +12,22 @@ export type Props = {
 
 export const MediaBlock = ({
   media,
-  caption,
   videoPlayerWidth,
   videoWidth,
   videoHeight,
   borderRadius,
   borderRadiusSides,
   className,
+  showCaption,
+  caption,
 }: Props) => {
   if (!media || typeof media !== 'object' || !media.mimeType) {
-    return 'No media could be found.';
+    return (
+      <Alert severity='error'>
+        <AlertTitle>No Media</AlertTitle>
+        <p>No media could be found. Please check the media and try again.</p>
+      </Alert>
+    );
   }
 
   const isVideo = media.mimeType.startsWith('video/');
@@ -82,11 +88,12 @@ export const MediaBlock = ({
         />
       ) : (
         <Alert severity='error'>
+          <AlertTitle>Unsupported Media</AlertTitle>
           Unsupported media type, the media must be either a video or an image.
         </Alert>
       )}
 
-      {caption && (
+      {showCaption && caption && (
         <figcaption className={style.caption}>
           <RichText data={caption} />
         </figcaption>

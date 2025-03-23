@@ -167,21 +167,6 @@ export interface User {
 export interface Media {
   id: string;
   alt: string;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -342,7 +327,28 @@ export interface Project {
       [k: string]: unknown;
     } | null;
   };
-  gallery?: (string | Media)[] | null;
+  gallery?:
+    | {
+        media: string | Media;
+        showCaption?: boolean | null;
+        caption?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
   galleryOptions: {
     autoHeight: boolean;
     autoPlay: boolean;
@@ -370,6 +376,24 @@ export interface Project {
     slidesToScroll: 'auto' | '1' | '2' | '3' | '4';
   };
   content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Add a call to action to the bottom of the page.
+   */
+  cta?: {
     root: {
       type: string;
       children: {
@@ -576,6 +600,7 @@ export interface SectionBlockProps {
      * The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.
      */
     sectionType?: ('default' | 'full-width' | 'boxed') | null;
+    alignContent?: ('left' | 'right') | null;
     backgroundColour?:
       | (
           | 'none'
@@ -588,8 +613,7 @@ export interface SectionBlockProps {
           | 'gradient-accent'
         )
       | null;
-    alignContent?: ('left' | 'right') | null;
-    borderRadius?: ('small' | 'medium' | 'large' | 'circle') | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   };
   blockName?: string | null;
   hiddenSlug?: string | null;
@@ -839,6 +863,7 @@ export interface IntroBlockProps {
 export interface MediaBlockProps {
   media: string | Media;
   mediaType?: ('image' | 'video') | null;
+  showCaption?: boolean | null;
   caption?: {
     root: {
       type: string;
@@ -1572,20 +1597,20 @@ export interface CTABlockProps {
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
-  variant?: ('fill' | 'outlined' | 'outlined-thick') | null;
-  color?:
+  blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+  backgroundColour?:
     | (
+        | 'none'
         | 'primary'
         | 'secondary'
         | 'accent'
-        | 'light'
+        | 'gradient-light'
         | 'gradient-primary'
         | 'gradient-secondary'
         | 'gradient-accent'
-        | 'gradient-light'
       )
     | null;
-  borderRadius?: ('none' | 'small' | 'medium' | 'large') | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'ctaBlock';
@@ -1819,7 +1844,6 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
-  caption?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1932,8 +1956,8 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
     | T
     | {
         sectionType?: T;
-        backgroundColour?: T;
         alignContent?: T;
+        backgroundColour?: T;
         borderRadius?: T;
       };
   blockName?: T;
@@ -2027,6 +2051,7 @@ export interface IntroBlockPropsSelect<T extends boolean = true> {
 export interface MediaBlockPropsSelect<T extends boolean = true> {
   media?: T;
   mediaType?: T;
+  showCaption?: T;
   caption?: T;
   borderRadius?: T;
   borderRadiusSides?: T;
@@ -2346,8 +2371,8 @@ export interface CTABlockPropsSelect<T extends boolean = true> {
         buttonShadow?: T;
         className?: T;
       };
-  variant?: T;
-  color?: T;
+  blockVariant?: T;
+  backgroundColour?: T;
   borderRadius?: T;
   id?: T;
   blockName?: T;
@@ -2407,7 +2432,14 @@ export interface ProjectsSelect<T extends boolean = true> {
         previewUrl?: T;
         description?: T;
       };
-  gallery?: T;
+  gallery?:
+    | T
+    | {
+        media?: T;
+        showCaption?: T;
+        caption?: T;
+        id?: T;
+      };
   galleryOptions?:
     | T
     | {
@@ -2426,6 +2458,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         slidesToScroll?: T;
       };
   content?: T;
+  cta?: T;
   meta?:
     | T
     | {
@@ -2901,6 +2934,16 @@ export interface LinksGroupRichtextProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'links-group-richtext';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaRichtextBlockProps".
+ */
+export interface MediaRichtextBlockProps {
+  media: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaRichtextBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

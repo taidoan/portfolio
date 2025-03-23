@@ -67,13 +67,15 @@ const Page = async ({ params: paramsPromise }: Args) => {
           className='project__gallery'
         />
       </section>
-      <section className={clsx('project__section')}>
-        <Card>
-          <CardBody padding='large'>
-            {page.content && <RichText converters={headingConverter} data={page.content} />}
-          </CardBody>
-        </Card>
-      </section>
+      {page.content && (
+        <section className={clsx('project__section', 'project__content')}>
+          <Card>
+            <CardBody padding='large'>
+              {<RichText converters={headingConverter} data={page.content} />}
+            </CardBody>
+          </Card>
+        </section>
+      )}
       <ProjectPagination className={clsx('project__section')} data={pagination} />
     </>
   );

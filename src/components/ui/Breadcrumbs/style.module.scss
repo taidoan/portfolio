@@ -65,6 +65,7 @@
 
 .breadcrumb__link {
   color: inherit;
+  cursor: pointer !important;
   text-decoration: none;
   text-decoration-color: var(--clr-accent-400);
   transition: text-decoration var(--transition-duration);
