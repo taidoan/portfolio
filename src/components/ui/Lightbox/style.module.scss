@@ -19,6 +19,7 @@
   &[open] {
     &::backdrop {
       animation: backdropFadeDark var(--transition-duration-slow) ease-in-out forwards;
+      cursor: default;
       z-index: 399;
     }
   }
@@ -48,7 +49,7 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: rem(16);
+  padding: size-clamp(rem(16), rem(24));
   position: absolute;
   text-shadow: var(--shadow-small-body);
   width: 100%;
@@ -56,12 +57,20 @@
 }
 
 .lightbox__top-bar {
-  background-image: linear-gradient(black -50%, transparent 100%);
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.25) 50%,
+    transparent 100%
+  );
   top: 0;
 }
 
 .lightbox__bottom-bar {
-  background-image: linear-gradient(transparent 0, black 200%);
+  background-image: linear-gradient(
+    transparent 0,
+    rgba(0, 0, 0, 0.25) 70%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
   bottom: 0;
 }
 
@@ -117,6 +126,22 @@
   }
 }
 
+.lightbox__navigation-button {
+  border: 0;
+  box-shadow: var(--shadow-button);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-index-modal);
+  &--next {
+    right: size-clamp(rem(16), rem(24));
+  }
+
+  &--prev {
+    left: size-clamp(rem(16), rem(24));
+  }
+}
+
 .lightbox__caption {
   background-color: rgba(0, 0, 0, 0.5);
   border: rem(1) solid rgba(white, 0.15);
@@ -156,4 +181,15 @@
 .lightbox__carousel {
   --slide-size-md: 100%;
   --slide-size-lg: 100%;
+}
+
+.lightbox__carousel-slide {
+  cursor: default;
+
+  img,
+  video,
+  figure {
+    cursor: grab;
+    pointer-events: all !important;
+  }
 }

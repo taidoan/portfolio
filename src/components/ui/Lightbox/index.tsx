@@ -10,6 +10,7 @@ import {
   LightboxContent,
   LightboxTopBar,
   LightboxContainer,
+  LightboxNavigationButton,
 } from './components';
 import { Carousel } from '@components/ui/Carousel';
 import { RichText } from '@components/ui/RichText';
@@ -34,7 +35,6 @@ export const Lightbox = ({
   initialIndex = 0,
   captions = [],
   items = [],
-
   ...props
 }: LightboxProps) => {
   const lightboxRef = useRef<HTMLDialogElement | null>(null);
@@ -107,11 +107,22 @@ export const Lightbox = ({
     setEmblaApi(api);
   };
 
+  const handleOnNext = () => {
+    if (emblaApi) {
+      emblaApi.scrollNext();
+    }
+  };
+
+  const handleOnPrev = () => {
+    if (emblaApi) {
+      emblaApi.scrollPrev();
+    }
+  };
+
   const carouselOptions = {
     slidesPerView: 1,
     slidesToScroll: 1,
     keyboardControls: true,
-    autoHeight: true,
     startIndex: initialIndex,
   };
 
@@ -131,6 +142,7 @@ export const Lightbox = ({
           currentIndex={activeIndex}
           totalSlides={totalSlides}
         />
+        <LightboxNavigationButton onClick={() => handleOnPrev()} direction='prev' />
         <LightboxContent>
           {totalSlides > 1 ? (
             <Carousel
@@ -145,6 +157,7 @@ export const Lightbox = ({
             <>{children}</>
           )}
         </LightboxContent>
+        <LightboxNavigationButton onClick={() => handleOnNext()} direction='next' />
         <LightboxBottomBar>
           {displayCaptions[activeIndex] && (
             <LightboxCaption>

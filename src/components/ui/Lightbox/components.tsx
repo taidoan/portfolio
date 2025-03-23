@@ -9,6 +9,8 @@ import {
   IconZoomOutFilled,
   IconMaximize,
   IconMinimize,
+  IconCaretRightFilled,
+  IconCaretLeftFilled,
 } from '@tabler/icons-react';
 
 type TransformContextType = {
@@ -142,6 +144,33 @@ const LightboxFullscreenButton = ({
   );
 };
 
+type LightboxNavigationProps = {
+  className?: string;
+  onClick: () => void;
+  direction: 'next' | 'prev';
+};
+
+export const LightboxNavigationButton = ({
+  className,
+  onClick,
+  direction,
+  ...props
+}: LightboxNavigationProps) => {
+  return (
+    <LightboxControlButton
+      className={clsx(
+        `${style['lightbox__navigation-button']} ${style[`lightbox__navigation-button--${direction}`]}`,
+        className,
+      )}
+      onClick={onClick}
+      aria-label={`Go to ${direction} slide`}
+      {...props}
+    >
+      {direction === 'next' ? <IconCaretRightFilled /> : <IconCaretLeftFilled />}
+    </LightboxControlButton>
+  );
+};
+
 type LightboxCounterProps = {
   className?: string;
   currentIndex?: number;
@@ -156,7 +185,11 @@ const LightboxCounter = ({
 }: LightboxCounterProps) => {
   return (
     <div className={clsx(className, style['lightbox__counter'])} {...props}>
-      {totalSlides && totalSlides > 0 ? `${(currentIndex ?? 0) + 1} of ${totalSlides}` : null}
+      {totalSlides && totalSlides > 0 ? (
+        <>
+          <strong>{(currentIndex ?? 0) + 1}</strong> of {totalSlides}
+        </>
+      ) : null}
     </div>
   );
 };
