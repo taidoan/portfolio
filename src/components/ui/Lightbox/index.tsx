@@ -27,6 +27,21 @@ export type LightboxProps = {
   items?: Array<{ caption?: DefaultTypedEditorState }>;
 };
 
+/**
+ * Lightbox component is a modal that displays a large image or video. It will automatically display a carousel if more than one piece of media is provided. It can be used to display additional information or content related to the main image
+ * @param {LightboxProps} props - Lightbox component props
+ * @returns {React.ReactElement} Lightbox component
+ * @example
+ * <Lightbox
+ *   className={className}
+ *   children={children}
+ *   onClose={onClose}
+ *   open={open}
+ *   initialIndex={initialIndex}
+ *   captions={captions}
+ *   items={items}
+ * />
+ */
 export const Lightbox = ({
   className,
   children,
@@ -142,7 +157,9 @@ export const Lightbox = ({
           currentIndex={activeIndex}
           totalSlides={totalSlides}
         />
-        <LightboxNavigationButton onClick={() => handleOnPrev()} direction='prev' />
+        {totalSlides > 1 && (
+          <LightboxNavigationButton onClick={() => handleOnPrev()} direction='prev' />
+        )}
         <LightboxContent>
           {totalSlides > 1 ? (
             <Carousel
@@ -157,7 +174,9 @@ export const Lightbox = ({
             <>{children}</>
           )}
         </LightboxContent>
-        <LightboxNavigationButton onClick={() => handleOnNext()} direction='next' />
+        {totalSlides > 1 && (
+          <LightboxNavigationButton onClick={() => handleOnNext()} direction='next' />
+        )}
         <LightboxBottomBar>
           {displayCaptions[activeIndex] && (
             <LightboxCaption>

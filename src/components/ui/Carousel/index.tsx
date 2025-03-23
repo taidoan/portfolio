@@ -81,6 +81,7 @@ export const Carousel = ({
   paginationColor,
   startIndex = 0,
   showPaginationCounter,
+  controlsClassName,
   onInit,
   ...props
 }: CarouselProps) => {
@@ -226,7 +227,7 @@ export const Carousel = ({
         <div className={wrapperClasses}>{renderSlides()}</div>
       </div>
       {isActive && childrenCount > 1 && (
-        <div className={style.controls}>
+        <div className={clsx(style.controls, controlsClassName)}>
           {config.buttonNav && <ButtonNavigation onPrev={scrollPrev} onNext={scrollNext} />}
           {config.pagination && paginationType === 'bullets' && (
             <Pagination

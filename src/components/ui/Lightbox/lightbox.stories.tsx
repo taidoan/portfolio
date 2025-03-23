@@ -7,6 +7,11 @@ const meta: Meta<typeof Lightbox> = {
   title: 'UI/Lightbox',
   component: Lightbox,
   tags: ['autodocs'],
+  parameters: {
+    default: 'Default',
+    description:
+      'Lightbox component is a modal that displays a large image or video. It will automatically display a carousel if more than one piece of media is provided. It can be used to display additional information or content related to the main image.',
+  },
   args: {
     children: (
       <Image
@@ -36,23 +41,27 @@ const LightboxWrapper = (args: any) => {
   return <Lightbox {...args} ref={dialogRef} />;
 };
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+const LightboxTest: React.FC<any> = (props) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  return (
+    <>
+      <button onClick={() => dialogRef.current?.showModal()}>Open Lightbox</button>
+      <Lightbox {...props} ref={dialogRef} />
+    </>
+  );
+};
+
 export const Default: Story = {
   args: {},
+  render: (args) => <LightboxTest {...args} />,
 };
 
 export const AlwaysOpen: Story = {
-  args: {},
-  render: (args) => <LightboxWrapper {...args} />,
-};
-
-export const WithLargeContent: Story = {
-  args: {
-    children: (
-      <div style={{ width: '800px', height: '600px' }}>
-        <h2>Large Content Example</h2>
-        <p>This demonstrates how the lightbox handles larger content.</p>
-      </div>
-    ),
+  parameters: {
+    description: 'Lightbox is always open',
   },
+  args: {},
   render: (args) => <LightboxWrapper {...args} />,
 };

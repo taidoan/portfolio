@@ -185,7 +185,7 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin-top: size-clamp(rem(16), rem(24));
   padding-inline: rem(8);
 
   @include mq('md') {
@@ -337,13 +337,18 @@
   max-width: 90%;
   overflow: hidden;
   position: relative;
-  width: size-clamp(7.5rem, 10rem);
+  width: size-clamp(7rem, 10rem);
 
   &__wrapper {
     align-items: center;
     display: flex;
     gap: rem(12);
     justify-content: space-between;
+
+    @include mq('md') {
+      gap: rem(20);
+      justify-self: flex-end;
+    }
   }
 
   &__bar {

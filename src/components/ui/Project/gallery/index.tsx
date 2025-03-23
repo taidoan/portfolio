@@ -55,6 +55,7 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
         autoPlay={galleryOptions.autoPlay}
         keyboardControls={galleryOptions.keyboardControls}
         showPaginationCounter={true}
+        controlsClassName='project__gallery__controls'
       >
         {gallery?.map((item, index) => (
           <Card key={index}>

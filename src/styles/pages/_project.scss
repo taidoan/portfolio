@@ -55,3 +55,9 @@
   padding-block: size-clamp(0.75rem, 1rem);
   padding-inline: 1rem;
 }
+
+.project__gallery__controls {
+  @include mq('md') {
+    justify-content: flex-end !important;
+  }
+}
