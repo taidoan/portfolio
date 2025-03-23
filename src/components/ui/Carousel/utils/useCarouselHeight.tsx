@@ -3,7 +3,7 @@ import { useEffect, RefObject, useRef } from 'react';
 export const useCarouselHeight = (
   direction: string,
   numSlides: number,
-  slidesPerView: number,
+  slidesPerView: number, // Consider removing if unused
   childrenRefs: RefObject<Array<HTMLDivElement | null>>,
   carouselRef: RefObject<HTMLDivElement | null>,
 ) => {
@@ -14,7 +14,7 @@ export const useCarouselHeight = (
   useEffect(() => {
     if (direction !== 'vertical' && direction !== 'vertical-scroll') return;
 
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
     const calculateHeight = () => {
       if (processingRef.current) return;
@@ -40,7 +40,8 @@ export const useCarouselHeight = (
           }
         });
 
-        let remValue = Math.round(totalHeight / 16);
+        const fontSizeInPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        let remValue = Math.round(totalHeight / fontSizeInPx);
         remValue = Math.min(remValue, MAX_HEIGHT_REM);
 
         if (Math.abs(remValue - lastHeightRef.current) > 2 && remValue > 0 && remValue < 100) {

@@ -80,6 +80,7 @@ export const Carousel = ({
   buttonNavigation,
   paginationColor,
   startIndex = 0,
+  showPaginationCounter,
   onInit,
   ...props
 }: CarouselProps) => {
@@ -210,6 +211,8 @@ export const Carousel = ({
     return slides;
   };
 
+  const totalSlides = Children.count(children);
+
   return (
     <div
       ref={carouselRef}
@@ -234,17 +237,24 @@ export const Carousel = ({
             />
           )}
           {config.pagination && paginationType === 'progress' && (
-            <div className={style.progress}>
-              <div
-                className={clsx(style['progress__bar'], {
-                  [`bg--${paginationColor}`]: paginationColor,
-                })}
-                style={
-                  direction === 'vertical-scroll'
-                    ? { transform: `translate3d(0px,${scrollProgress}%,0px)` }
-                    : { transform: `translate3d(${scrollProgress}%,0px,0px)` }
-                }
-              />
+            <div className={style.progress__wrapper}>
+              <div className={style.progress}>
+                <div
+                  className={clsx(style['progress__bar'], {
+                    [`bg--${paginationColor}`]: paginationColor,
+                  })}
+                  style={
+                    direction === 'vertical-scroll'
+                      ? { transform: `translate3d(0px,${scrollProgress}%,0px)` }
+                      : { transform: `translate3d(${scrollProgress}%,0px,0px)` }
+                  }
+                />
+              </div>
+              {showPaginationCounter === true && (
+                <span className={style.progress__counter}>
+                  <strong>{selectedIndex + 1}</strong> of {totalSlides}
+                </span>
+              )}
             </div>
           )}
         </div>

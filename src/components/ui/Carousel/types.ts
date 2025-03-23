@@ -20,6 +20,7 @@ export type CarouselProps = {
     | 'bitter-sweet'
     | 'cherry-punch'
     | 'fresh-leaf';
+  showPaginationCounter?: boolean;
   direction?: 'vertical' | 'horizontal' | 'vertical-scroll';
   disableAt?: string | null;
   autoHeight?: boolean;
