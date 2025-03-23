@@ -27,7 +27,8 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
   if (!gallery || typeof gallery !== 'object' || !gallery.length) {
     return (
       <Alert severity='warning'>
-        <AlertTitle>No Gallery Items</AlertTitle>No gallery were found for this project.
+        <AlertTitle>No Gallery Items</AlertTitle>
+        <p>No gallery were found for this project.</p>
       </Alert>
     );
   }
