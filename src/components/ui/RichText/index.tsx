@@ -7,9 +7,14 @@ import { SerializedBlockNode } from '@payloadcms/richtext-lexical';
 import { DividerBlock } from '@/blocks/Divider';
 import { LinksRichtextBlock } from '@/blocks/LinkRichtext';
 import { LinksGroupRichtextBlock } from '@/blocks/LinkRichtext/Group';
+import { MediaRichTextBlock } from '@/blocks/MediaRichtext';
 import { internalDocToHref } from './utils';
 import { RichTextProps, NodeTypes } from './types';
-import type { LinksBlockRichtextProps, LinksGroupRichtextProps } from '@/payload-types';
+import type {
+  LinksBlockRichtextProps,
+  LinksGroupRichtextProps,
+  MediaRichtextBlockProps,
+} from '@/payload-types';
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
@@ -30,6 +35,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     }) => {
       if (node.fields.blockType !== 'links-group-richtext') return null;
       return <LinksGroupRichtextBlock {...node.fields} />;
+    },
+    mediaRichtextBlock: ({ node }: { node: SerializedBlockNode<MediaRichtextBlockProps> }) => {
+      if (node.fields.blockType !== 'mediaRichtextBlock') return null;
+      return <MediaRichTextBlock {...node.fields} />;
     },
   },
 });

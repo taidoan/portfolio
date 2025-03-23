@@ -862,7 +862,7 @@ export interface IntroBlockProps {
  */
 export interface MediaBlockProps {
   media: string | Media;
-  mediaType?: ('image' | 'video') | null;
+  mediaType: 'image' | 'video';
   showCaption?: boolean | null;
   caption?: {
     root: {
@@ -879,7 +879,7 @@ export interface MediaBlockProps {
     };
     [k: string]: unknown;
   } | null;
-  borderRadius?: ('small' | 'medium' | 'large' | 'circle') | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
   videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
   videoWidth?: number | null;
@@ -2940,7 +2940,29 @@ export interface LinksGroupRichtextProps {
  * via the `definition` "MediaRichtextBlockProps".
  */
 export interface MediaRichtextBlockProps {
+  mediaType: 'image' | 'video';
   media: string | Media;
+  showCaption?: boolean | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
+  videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
+  videoWidth?: number | null;
+  videoHeight?: number | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaRichtextBlock';
