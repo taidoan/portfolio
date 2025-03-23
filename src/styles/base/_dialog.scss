@@ -10,7 +10,6 @@ dialog {
   border-radius: var(--border-radius-medium);
   box-shadow: var(--shadow-menu);
   color: var(--fc-card);
-  display: grid;
   margin: auto;
   max-inline-size: min(80vw, 50ch);
   overflow: visible;
@@ -30,6 +29,7 @@ dialog {
 
   &[open] {
     animation: fadeIn var(--transition-duration-fast) ease-in-out forwards;
+    display: grid;
 
     &::backdrop {
       animation: backdropFade var(--transition-duration-slow) ease-in-out forwards;

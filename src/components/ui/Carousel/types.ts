@@ -1,3 +1,4 @@
+import { EmblaCarouselType } from 'embla-carousel';
 export type CarouselProps = {
   children?: React.ReactNode[] | React.ReactNode;
   className?: string | undefined | null;
@@ -19,10 +20,14 @@ export type CarouselProps = {
     | 'bitter-sweet'
     | 'cherry-punch'
     | 'fresh-leaf';
+  showPaginationCounter?: boolean;
   direction?: 'vertical' | 'horizontal' | 'vertical-scroll';
   disableAt?: string | null;
   autoHeight?: boolean;
   autoPlay?: boolean;
   keyboardControls?: boolean;
   buttonNavigation?: boolean;
+  startIndex?: number;
+  controlsClassName?: string;
+  onInit?: (api: EmblaCarouselType) => void;
 };

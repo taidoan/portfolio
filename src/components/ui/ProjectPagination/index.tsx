@@ -33,17 +33,14 @@ export const ProjectPagination = ({ className, data, ...props }: ProjectPaginati
       <PaginationContent>
         <PaginationItem>
           <PaginationPreviousLabel />
-          <PaginationLink
-            href={`${SERVER_SIDE_URL}/projects/${data.prevProject.slug}`}
-            type='previous'
-          >
+          <PaginationLink href={`/projects/${data.prevProject.slug}`} type='previous'>
             {data.prevProject.title}
           </PaginationLink>
         </PaginationItem>
         <PaginationArchiveItem />
         <PaginationItem>
           <PaginationNextLabel />
-          <PaginationLink href={`${SERVER_SIDE_URL}/projects/${data.nextProject.slug}`} type='next'>
+          <PaginationLink href={`/projects/${data.nextProject.slug}`} type='next'>
             {data.nextProject.title}
           </PaginationLink>
         </PaginationItem>

@@ -122,6 +122,10 @@ figcaption {
   color: var(--clr-urban-steel-600);
   font-size: var(--fs-body-sm);
   text-align: left;
+
+  p + p {
+    margin-top: 0;
+  }
 }
 
 @include mq('md') {

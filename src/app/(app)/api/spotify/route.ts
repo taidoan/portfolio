@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getTopTracks } from '@/lib/spotify';
 
-export const dynamic = 'force-dynamic'; // Or remove this line to use default caching
+export const dynamic = 'force-dynamic';
 
-// Set cache revalidation
-export const revalidate = 86400; // Cache for 1 hour (in seconds)
+export const revalidate = 86400;
 
 export async function GET(request: Request) {
   try {
@@ -15,7 +14,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json(topTracks, {
       headers: {
-        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
+        'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=172800',
       },
     });
   } catch (_error) {

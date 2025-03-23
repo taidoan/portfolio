@@ -14,7 +14,6 @@
 ///   }
 @mixin hero-base {
   align-items: center;
-  background-color: var(--clr-light-grey-400);
   border-radius: var(--border-radius-medium);
   display: flex;
   flex-direction: column;
@@ -90,6 +89,7 @@
 ///   }
 @mixin hero-blurred {
   &::before {
+    -webkit-backdrop-filter: blur(48px);
     backdrop-filter: blur(48px);
     border-radius: var(--border-radius-medium);
     box-shadow: var(--shadow-hero-inner-shadow);

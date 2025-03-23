@@ -1,0 +1,295 @@
+import React, { useState, forwardRef, createContext, useContext, useEffect, useRef } from 'react';
+import clsx from 'clsx';
+import style from './style.module.scss';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+
+import {
+  IconX,
+  IconZoomInFilled,
+  IconZoomOutFilled,
+  IconMaximize,
+  IconMinimize,
+  IconCaretRightFilled,
+  IconCaretLeftFilled,
+} from '@tabler/icons-react';
+
+type TransformContextType = {
+  zoomIn: () => void;
+  zoomOut: () => void;
+  resetTransform: () => void;
+};
+
+const TransformContext = createContext<TransformContextType | null>(null);
+
+const useTransform = () => {
+  const context = useContext(TransformContext);
+  if (!context) {
+    throw new Error('useTransform must be used within a TransformContext.Provider');
+  }
+  return context;
+};
+
+const LightboxControlButton = forwardRef<
+  HTMLButtonElement,
+  React.HTMLAttributes<HTMLButtonElement>
+>(({ className, ...props }, ref) => (
+  <button ref={ref} className={clsx(className, style['lightbox__control-button'])} {...props} />
+));
+
+LightboxControlButton.displayName = 'LightboxControlButton';
+
+const LightboxCloseButton = ({ className, ...props }: React.HTMLAttributes<HTMLButtonElement>) => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      buttonRef.current?.focus();
+    }, 100);
+  }, []);
+
+  return (
+    <LightboxControlButton
+      ref={buttonRef}
+      className={clsx(className, style['lightbox__close-button'])}
+      aria-label='Close Lightbox'
+      {...props}
+    >
+      <IconX stroke={4} />
+    </LightboxControlButton>
+  );
+};
+
+const LightboxZoomButton = ({ className, ...props }: React.HTMLAttributes<HTMLButtonElement>) => {
+  const [isZoomed, setIsZoomed] = useState(false);
+  const { zoomIn, zoomOut } = useTransform();
+
+  const toggleZoom = () => {
+    if (isZoomed) {
+      zoomOut();
+    } else {
+      zoomIn();
+    }
+    setIsZoomed((prev) => !prev);
+  };
+
+  return (
+    <LightboxControlButton
+      className={clsx(className, style['lightbox__zoom-button'])}
+      onClick={toggleZoom}
+      aria-label='Toggle Zoom'
+      {...props}
+    >
+      {isZoomed ? <IconZoomOutFilled /> : <IconZoomInFilled />}
+    </LightboxControlButton>
+  );
+};
+
+const LightboxFullscreenButton = ({
+  className,
+  ...props
+}: {
+  className?: string;
+} & React.HTMLAttributes<HTMLButtonElement>) => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!isFullscreen) {
+      if (document.fullscreenEnabled) {
+        try {
+          const contentElement =
+            document.querySelector(`.${style['lightbox__content']}`) ||
+            document.querySelector('.react-transform-component');
+
+          if (contentElement) {
+            contentElement.requestFullscreen().catch((err) => {
+              console.error('Error entering content fullscreen:', err);
+
+              document.documentElement
+                .requestFullscreen()
+                .catch((err) => console.error('Fallback also failed:', err));
+            });
+          } else {
+            document.documentElement.requestFullscreen();
+          }
+        } catch (e) {
+          console.error('Error requesting fullscreen:', e);
+        }
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
+  return (
+    <LightboxControlButton
+      className={clsx(className, style['lightbox__fullscreen-button'])}
+      onClick={toggleFullscreen}
+      aria-label={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+      {...props}
+    >
+      {isFullscreen ? <IconMinimize stroke={3} /> : <IconMaximize stroke={3} />}
+    </LightboxControlButton>
+  );
+};
+
+type LightboxNavigationProps = {
+  className?: string;
+  onClick: () => void;
+  direction: 'next' | 'prev';
+};
+
+export const LightboxNavigationButton = ({
+  className,
+  onClick,
+  direction,
+  ...props
+}: LightboxNavigationProps) => {
+  return (
+    <LightboxControlButton
+      className={clsx(
+        `${style['lightbox__navigation-button']} ${style[`lightbox__navigation-button--${direction}`]}`,
+        className,
+      )}
+      onClick={onClick}
+      aria-label={`Go to ${direction} slide`}
+      {...props}
+    >
+      {direction === 'next' ? <IconCaretRightFilled /> : <IconCaretLeftFilled />}
+    </LightboxControlButton>
+  );
+};
+
+type LightboxCounterProps = {
+  className?: string;
+  currentIndex?: number;
+  totalSlides?: number;
+};
+
+const LightboxCounter = ({
+  className,
+  currentIndex,
+  totalSlides,
+  ...props
+}: LightboxCounterProps) => {
+  return (
+    <div className={clsx(className, style['lightbox__counter'])} {...props}>
+      {totalSlides && totalSlides > 0 ? (
+        <>
+          <strong>{(currentIndex ?? 0) + 1}</strong> of {totalSlides}
+        </>
+      ) : null}
+    </div>
+  );
+};
+
+type LightboxTopBarProps = {
+  className?: string;
+  dialogRef: React.RefObject<HTMLDialogElement | null>;
+  onClose?: () => void;
+  currentIndex?: number;
+  totalSlides?: number;
+} & React.HTMLAttributes<HTMLDivElement>;
+
+export const LightboxTopBar = ({
+  className,
+  dialogRef,
+  onClose,
+  currentIndex,
+  totalSlides,
+}: LightboxTopBarProps) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+  const handleClose = () => {
+    if (dialogRef.current) {
+      dialogRef.current.close();
+      onClose?.();
+    }
+  };
+
+  return (
+    <div className={clsx(className, style['lightbox__top-bar'])}>
+      <LightboxCounter currentIndex={currentIndex} totalSlides={totalSlides} />
+      <div className={style['lightbox__controls']}>
+        <LightboxZoomButton data-testid='zoomLightbox' />
+        {!isIOS && <LightboxFullscreenButton data-testid='fullscreenLightbox' />}
+        <LightboxCloseButton onClick={handleClose} data-testid='closeLightbox' />
+      </div>
+    </div>
+  );
+};
+
+export const LightboxCaption = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <figcaption className={clsx(className, style['lightbox__caption'])} {...props} />
+);
+
+export const LightboxBottomBar = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={clsx(className, style['lightbox__bottom-bar'])} {...props} />
+);
+
+export const LightboxContent = ({ children }: React.HTMLAttributes<HTMLDivElement>) => (
+  <TransformComponent
+    wrapperClass={style.lightbox__wrapper}
+    contentClass={style['lightbox__content']}
+  >
+    {children}
+  </TransformComponent>
+);
+
+type LightboxContainerProps = {
+  open: boolean;
+} & React.HTMLAttributes<HTMLDialogElement>;
+
+export const LightboxContainer = forwardRef<HTMLDialogElement, LightboxContainerProps>(
+  ({ className, children, open, ...props }, ref) => {
+    useEffect(() => {
+      const dialog = (ref as React.RefObject<HTMLDialogElement>).current;
+      if (!dialog) return;
+
+      if (dialog) {
+        if (open && !dialog.open) {
+          dialog.showModal();
+        } else if (!open && dialog.open) {
+          dialog.close();
+        }
+      }
+    }, [open, ref]);
+
+    return (
+      <dialog ref={ref} className={clsx(className, style['lightbox__container'])} {...props}>
+        <TransformWrapper
+          minScale={1}
+          maxScale={2.5}
+          doubleClick={{ mode: 'toggle' }}
+          initialScale={1}
+          initialPositionX={0}
+          initialPositionY={0}
+          centerOnInit={true}
+          limitToBounds={true}
+        >
+          {({ zoomIn, zoomOut, resetTransform }) => (
+            <TransformContext.Provider value={{ zoomIn, zoomOut, resetTransform }}>
+              {children}
+            </TransformContext.Provider>
+          )}
+        </TransformWrapper>
+      </dialog>
+    );
+  },
+);
+
+LightboxContainer.displayName = 'LightboxContainer';
