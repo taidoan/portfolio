@@ -1,5 +1,7 @@
 import { Alert, AlertTitle } from '@/components/ui/Alert';
 import { getCDNURL } from '@/lib/utilities/getURLs';
+import clsx from 'clsx';
+import s from './../style.module.scss';
 
 const urlEndpoint = getCDNURL();
 
@@ -49,11 +51,15 @@ export const PDFMedia = ({
 
   return (
     <iframe
-      src={srcToUse}
+      src={`https://docs.google.com/viewer?url=${encodeURIComponent(srcToUse)}&embedded=true`}
       width={width}
       height={height}
-      style={{ border: 'none', ...style }}
-      className={className}
+      style={style}
+      className={clsx(s.iframePDF, className)}
+      content='application/pdf'
+      title='PDF Viewer'
+      loading='lazy'
+      allow='fullscreen'
     />
   );
 };

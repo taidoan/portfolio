@@ -5,3 +5,13 @@
   user-select: none;
   width: 100%;
 }
+
+.iframePDF {
+  border: rem(2) solid var(--card-outline-color);
+  object-fit: contain;
+  overflow: scroll;
+
+  @include mq(600, 'max', 'width') {
+    height: 300px;
+  }
+}
