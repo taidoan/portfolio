@@ -19,14 +19,28 @@ export const MediaBlock: Block = {
         {
           label: 'Media',
           fields: [
+            MediaType(),
             {
               type: 'row',
-              fields: [MediaUpload(), MediaType(), ShowCaption(), Caption()],
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    MediaUpload({
+                      admin: {
+                        width: '100%',
+                      },
+                    }),
+                  ],
+                },
+              ],
             },
+            ShowCaption(),
+            Caption(),
           ],
         },
         {
-          label: 'Appearance',
+          label: 'Options',
           fields: [
             {
               type: 'row',
@@ -46,7 +60,34 @@ export const MediaBlock: Block = {
               },
               fields: [VideoPlayerWidth(), VideoWidth(), VideoHeight()],
             },
+            {
+              type: 'row',
+              admin: {
+                condition: (_, siblingData) => {
+                  return siblingData.media && siblingData.mediaType === 'pdf';
+                },
+              },
+              fields: [
+                {
+                  type: 'text',
+                  name: 'pdfWidth',
+                  label: 'PDF Width',
+                  defaultValue: '100%',
+                },
+                {
+                  type: 'text',
+                  name: 'pdfHeight',
+                  label: 'PDF Height',
+                  defaultValue: '600px',
+                },
+              ],
+            },
             GridAppearance(),
+            {
+              type: 'text',
+              name: 'className',
+              label: 'Custom Class Name',
+            },
           ],
         },
       ],

@@ -254,6 +254,12 @@ export const Projects: CollectionConfig = {
                           relationTo: 'media',
                           name: 'media',
                           required: true,
+                          filterOptions: {
+                            or: [
+                              { mimeType: { contains: 'image' } },
+                              { mimeType: { contains: 'video' } },
+                            ],
+                          },
                         },
                         {
                           type: 'checkbox',

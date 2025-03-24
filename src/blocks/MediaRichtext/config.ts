@@ -40,6 +40,33 @@ export const MediaRichtextBlock: Block = {
               },
               fields: [VideoPlayerWidth(), VideoWidth(), VideoHeight()],
             },
+            {
+              type: 'row',
+              admin: {
+                condition: (_, siblingData) => {
+                  return siblingData.media && siblingData.mediaType === 'pdf';
+                },
+              },
+              fields: [
+                {
+                  type: 'text',
+                  name: 'pdfWidth',
+                  label: 'PDF Width',
+                  defaultValue: '100%',
+                },
+                {
+                  type: 'text',
+                  name: 'pdfHeight',
+                  label: 'PDF Height',
+                  defaultValue: '600px',
+                },
+              ],
+            },
+            {
+              type: 'text',
+              name: 'className',
+              label: 'Custom Class Name',
+            },
           ],
         },
       ],

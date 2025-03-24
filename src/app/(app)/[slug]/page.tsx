@@ -8,9 +8,6 @@ import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { Redirects } from '@/components/features/Redirects';
 import { RenderHero } from '@/blocks/Hero/renderHero';
 import { RenderBlocks } from '@/blocks/RenderBlocks';
-import { ImageMedia } from '@components/ui/Media/Image';
-import { PDFMedia } from '@/components/ui/Media/PDF';
-import { Media } from '@/components/ui/Media';
 
 export type Args = {
   params: Promise<{
@@ -47,11 +44,6 @@ const Page = async ({ params: paramsPromise }: Args) => {
       {draft && <LivePreviewListener />}
       <RenderHero heroData={hero} breadcrumbsData={breadcrumbsData} />
       <RenderBlocks blocks={layout} />
-      {/* <ImageMedia
-        src='https://images.unsplash.com/photo-1735825764452-7c77b0bbd7a7'
-        alt='Unsplash'
-      /> */}
-      <Media src='ssstwitter.com_1713704080981.mp4' alt='Unsplash' />
     </>
   );
 };

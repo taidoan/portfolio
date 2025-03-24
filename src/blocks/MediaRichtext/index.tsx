@@ -1,13 +1,12 @@
 import type { MediaRichtextBlockProps } from '@/payload-types';
-import { ImageMedia } from '@components/ui/Media/Image';
-import { VideoMedia } from '@components/ui/Media/Video';
+import { Media } from '@components/ui/Media';
 import RichText from '@components/ui/RichText';
 import style from './../Media/style.module.scss';
 import clsx from 'clsx';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
 
 export type Props = {
-  className?: string;
+  className?: string | undefined | null;
 } & MediaRichtextBlockProps;
 
 export const MediaRichTextBlock = ({
@@ -20,6 +19,8 @@ export const MediaRichTextBlock = ({
   className,
   showCaption,
   caption,
+  pdfHeight,
+  pdfWidth,
 }: Props) => {
   if (!media || typeof media !== 'object' || !media.mimeType) {
     return (
@@ -32,11 +33,13 @@ export const MediaRichTextBlock = ({
 
   const isVideo = media.mimeType.startsWith('video/');
   const isImage = media.mimeType.startsWith('image/');
+  const isPDF = media.mimeType.startsWith('application/pdf');
 
   const figureClasses = clsx(style.container, {
     [`${className}`]: className,
     [`${style.image}`]: isImage,
     [`${style.video}`]: isVideo,
+    [`${style.pdf}`]: isPDF,
   });
 
   const borderRadiusValue = borderRadius
@@ -46,27 +49,23 @@ export const MediaRichTextBlock = ({
   let appearanceStyles: Record<string, string> = {};
 
   if (borderRadiusSides) {
-    const safeBorderRadiusSides = Array.isArray(borderRadiusSides)
+    const sides = Array.isArray(borderRadiusSides)
       ? borderRadiusSides
       : borderRadiusSides
         ? [borderRadiusSides]
         : [];
 
-    appearanceStyles = safeBorderRadiusSides.reduce((styles, side) => {
-      switch (side) {
-        case 'all':
-          return { ...styles, borderRadius: borderRadiusValue };
-        case 'top-left':
-          return { ...styles, borderTopLeftRadius: borderRadiusValue };
-        case 'top-right':
-          return { ...styles, borderTopRightRadius: borderRadiusValue };
-        case 'bottom-left':
-          return { ...styles, borderBottomLeftRadius: borderRadiusValue };
-        case 'bottom-right':
-          return { ...styles, borderBottomRightRadius: borderRadiusValue };
-        default:
-          return styles;
-      }
+    const radiusMap = {
+      all: 'borderRadius',
+      'top-left': 'borderTopLeftRadius',
+      'top-right': 'borderTopRightRadius',
+      'bottom-left': 'borderBottomLeftRadius',
+      'bottom-right': 'borderBottomRightRadius',
+    };
+
+    appearanceStyles = sides.reduce((styles, side) => {
+      const property = radiusMap[side];
+      return property ? { ...styles, [property]: borderRadiusValue } : styles;
     }, {});
   }
 
@@ -75,7 +74,7 @@ export const MediaRichTextBlock = ({
   return (
     <figure className={figureClasses}>
       {isVideo ? (
-        <VideoMedia
+        <Media
           src={encodedFilename}
           playerWidth={videoPlayerWidth ?? '100%'}
           videoHeight={videoHeight || 432}
@@ -83,14 +82,21 @@ export const MediaRichTextBlock = ({
           style={appearanceStyles}
         />
       ) : isImage ? (
-        <ImageMedia
+        <Media
           src={encodedFilename ?? ''}
-          width={media.width}
-          height={media.height}
+          width={media.width!}
+          height={media.height!}
           alt='Description'
           sizes='100vw'
           className={style.image}
           style={appearanceStyles}
+        />
+      ) : isPDF ? (
+        <Media
+          src={encodedFilename}
+          style={appearanceStyles}
+          pdfHeight={pdfHeight || '600px'}
+          pdfWidth={pdfWidth || '100%'}
         />
       ) : (
         <Alert severity='error'>

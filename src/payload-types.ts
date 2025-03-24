@@ -861,8 +861,8 @@ export interface IntroBlockProps {
  * via the `definition` "MediaBlockProps".
  */
 export interface MediaBlockProps {
+  mediaType: 'image' | 'video' | 'pdf';
   media: string | Media;
-  mediaType: 'image' | 'video';
   showCaption?: boolean | null;
   caption?: {
     root: {
@@ -884,6 +884,8 @@ export interface MediaBlockProps {
   videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
   videoWidth?: number | null;
   videoHeight?: number | null;
+  pdfWidth?: string | null;
+  pdfHeight?: string | null;
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
    */
@@ -911,6 +913,7 @@ export interface MediaBlockProps {
     alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
     justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
   };
+  className?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -2049,8 +2052,8 @@ export interface IntroBlockPropsSelect<T extends boolean = true> {
  * via the `definition` "MediaBlockProps_select".
  */
 export interface MediaBlockPropsSelect<T extends boolean = true> {
-  media?: T;
   mediaType?: T;
+  media?: T;
   showCaption?: T;
   caption?: T;
   borderRadius?: T;
@@ -2058,6 +2061,8 @@ export interface MediaBlockPropsSelect<T extends boolean = true> {
   videoPlayerWidth?: T;
   videoWidth?: T;
   videoHeight?: T;
+  pdfWidth?: T;
+  pdfHeight?: T;
   gridAppearance?:
     | T
     | {
@@ -2065,6 +2070,7 @@ export interface MediaBlockPropsSelect<T extends boolean = true> {
         alignSelf?: T;
         justifySelf?: T;
       };
+  className?: T;
   id?: T;
   blockName?: T;
 }
@@ -2940,7 +2946,7 @@ export interface LinksGroupRichtextProps {
  * via the `definition` "MediaRichtextBlockProps".
  */
 export interface MediaRichtextBlockProps {
-  mediaType: 'image' | 'video';
+  mediaType: 'image' | 'video' | 'pdf';
   media: string | Media;
   showCaption?: boolean | null;
   caption?: {
@@ -2963,6 +2969,9 @@ export interface MediaRichtextBlockProps {
   videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
   videoWidth?: number | null;
   videoHeight?: number | null;
+  pdfWidth?: string | null;
+  pdfHeight?: string | null;
+  className?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaRichtextBlock';

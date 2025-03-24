@@ -29,6 +29,8 @@ export const MediaType = (
             return 'image';
           } else if (mediaDoc?.mimeType?.startsWith('video/')) {
             return 'video';
+          } else if (mediaDoc?.mimeType?.startsWith('application/pdf')) {
+            return 'pdf';
           }
 
           return value;
@@ -38,6 +40,7 @@ export const MediaType = (
     options: [
       { value: 'image', label: 'Image' },
       { value: 'video', label: 'Video' },
+      { value: 'pdf', label: 'PDF' },
     ],
   };
 
@@ -58,6 +61,7 @@ export const MediaUpload = (
     required: true,
     admin: {
       ...overrides.admin,
+      width: '100%',
     },
     hooks: {
       ...overrides.hooks,

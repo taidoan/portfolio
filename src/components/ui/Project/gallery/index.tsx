@@ -3,8 +3,7 @@
 import { useState, Fragment } from 'react';
 import type { Project } from '@/payload-types';
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
-import { ImageMedia } from '@components/ui/Media/Image';
-import { VideoMedia } from '@components/ui/Media/Video';
+import { Media } from '@components/ui/Media';
 import { RichText } from '@components/ui/RichText';
 import { Carousel } from '@components/ui/Carousel';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -65,19 +64,19 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
             <Card key={index}>
               <CardBody padding='base'>
                 {media && typeof media === 'object' && media.mimeType?.includes('image') && (
-                  <ImageMedia
-                    src={media.filename || null}
+                  <Media
+                    src={media.filename || undefined}
                     alt={media.alt || ''}
-                    width={media.width}
-                    height={media.height}
+                    width={typeof media.width === 'number' ? media.width : undefined}
+                    height={typeof media.height === 'number' ? media.height : undefined}
                     onClick={() => openLightbox(index)}
                     className='project__gallery-item'
                   />
                 )}
 
                 {media && typeof media === 'object' && media.mimeType?.includes('video') && (
-                  <VideoMedia
-                    src={media.filename || null}
+                  <Media
+                    src={typeof media.filename === 'string' ? media.filename : undefined}
                     playerWidth={media.width || ''}
                     videoHeight={media.height || 432}
                     videoWidth={media.width || 768}
@@ -121,19 +120,19 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
 
             if (media.mimeType?.includes('image')) {
               return (
-                <ImageMedia
+                <Media
                   key={index}
-                  src={media.filename || null}
+                  src={media.filename || undefined}
                   alt={media.alt || ''}
-                  width={media.width}
-                  height={media.height}
+                  width={typeof media.width === 'number' ? media.width : undefined}
+                  height={typeof media.height === 'number' ? media.height : undefined}
                 />
               );
             } else if (media.mimeType?.includes('video')) {
               return (
-                <VideoMedia
+                <Media
                   key={index}
-                  src={media.filename || null}
+                  src={typeof media.filename === 'string' ? media.filename : undefined}
                   playerWidth={media.width || ''}
                   videoHeight={media.height || 432}
                   videoWidth={media.width || 768}
