@@ -82,15 +82,17 @@ export const MediaRichTextBlock = ({
           style={appearanceStyles}
         />
       ) : isImage ? (
-        <Media
-          src={encodedFilename ?? ''}
-          width={media.width!}
-          height={media.height!}
-          alt='Description'
-          sizes='100vw'
-          className={style.image}
-          style={appearanceStyles}
-        />
+        <picture>
+          <Media
+            src={encodedFilename ?? ''}
+            width={media.width!}
+            height={media.height!}
+            alt='Description'
+            sizes='100vw'
+            className={style.image}
+            style={appearanceStyles}
+          />
+        </picture>
       ) : isPDF ? (
         <Media
           src={encodedFilename}

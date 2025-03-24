@@ -69,13 +69,10 @@
     }
   }
 
-  picture {
+  img {
+    object-fit: cover;
+    user-select: none;
     z-index: 0;
-
-    img {
-      object-fit: cover;
-      user-select: none;
-    }
   }
 
   .hero__text {

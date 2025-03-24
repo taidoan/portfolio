@@ -85,21 +85,19 @@ export const ImageMedia = ({
     typeof src === 'string' && src.startsWith('http') && !src.includes(urlEndpoint);
 
   return (
-    <picture>
-      <Image
-        {...(!isStaticImage && !isDirectURL ? { loader: imageKitLoader } : {})}
-        src={isStaticImage ? src.src : encodeURI(src).trim()}
-        alt={alt}
-        className={`${className} ${s.image}`}
-        priority={priority}
-        sizes={sizes}
-        {...(fill ? { fill: true } : { width: width ?? 100, height: height ?? 100 })}
-        quality={quality}
-        style={style}
-        placeholder='blur'
-        blurDataURL={placeholderBlur}
-        onClick={onClick}
-      />
-    </picture>
+    <Image
+      {...(!isStaticImage && !isDirectURL ? { loader: imageKitLoader } : {})}
+      src={isStaticImage ? src.src : encodeURI(src).trim()}
+      alt={alt}
+      className={`${className} ${s.image}`}
+      priority={priority}
+      sizes={sizes}
+      {...(fill ? { fill: true } : { width: width ?? 100, height: height ?? 100 })}
+      quality={quality}
+      style={style}
+      placeholder='blur'
+      blurDataURL={placeholderBlur}
+      onClick={onClick}
+    />
   );
 };
