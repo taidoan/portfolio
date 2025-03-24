@@ -11,6 +11,11 @@ import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@/fields/Breadcrumbs';
 import { ClonedField } from '@/fields/ClonedField';
+import { Link } from '@fields/Link';
+import { BorderRadius } from '@/fields/BorderRadius';
+import { BackgroundColour } from '@/fields/BackgroundColour';
+import { BlockVariant } from '@/fields/BlockVariant';
+
 import { CaptionEditor } from '@/lib/editor/caption';
 
 export const Projects: CollectionConfig = {
@@ -156,6 +161,10 @@ export const Projects: CollectionConfig = {
         {
           label: 'Details',
           name: 'details',
+          admin: {
+            description:
+              'The details of the project. These details will appear on the project page.',
+          },
           fields: [
             {
               type: 'row',
@@ -239,6 +248,10 @@ export const Projects: CollectionConfig = {
               tabs: [
                 {
                   label: 'Media',
+                  admin: {
+                    description:
+                      'The media to display in the gallery. They can be either images or videos and will be displayed in a carousel if more than one item is provided.',
+                  },
                   fields: [
                     {
                       type: 'array',
@@ -280,7 +293,11 @@ export const Projects: CollectionConfig = {
                   ],
                 },
                 {
-                  label: 'Options',
+                  label: 'Carousel Options',
+                  admin: {
+                    description:
+                      'Customize the appearance and behavior of the carousel. The carousel will automatically adjust to the number of items provided.',
+                  },
                   name: 'galleryOptions',
                   fields: [
                     {
@@ -448,6 +465,10 @@ export const Projects: CollectionConfig = {
         },
         {
           label: 'Content',
+          admin: {
+            description:
+              'The content to display on the project page, this will appear below the gallery.',
+          },
           fields: [
             {
               type: 'richText',
@@ -458,14 +479,43 @@ export const Projects: CollectionConfig = {
         },
         {
           label: 'CTA',
+          admin: {
+            description:
+              'The call to action section of the project page. This will appear at the bottom of the page.',
+          },
           fields: [
             {
               type: 'richText',
-              name: 'cta',
-              label: 'Page CTA',
+              name: 'ctaContent',
+              label: 'Content',
               admin: {
-                description: 'Add a call to action to the bottom of the page.',
+                description: 'The content to display in the CTA.',
               },
+            },
+            Link({
+              linkOverrides: {
+                label: 'Link',
+                name: 'ctaLink',
+                admin: {
+                  description: 'The link to display in the CTA.',
+                  hideGutter: true,
+                },
+              },
+            }),
+            {
+              type: 'group',
+              name: 'ctaAppearance',
+              label: 'Appearance',
+              admin: {
+                description: 'Customize the appearance of the CTA.',
+                hideGutter: true,
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [BlockVariant(), BackgroundColour(), BorderRadius()],
+                },
+              ],
             },
           ],
         },

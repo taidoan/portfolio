@@ -303,6 +303,9 @@ export interface Project {
         | null;
     };
   };
+  /**
+   * The details of the project. These details will appear on the project page.
+   */
   details?: {
     date?: string | null;
     type?: string | null;
@@ -349,6 +352,9 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Customize the appearance and behavior of the carousel. The carousel will automatically adjust to the number of items provided.
+   */
   galleryOptions: {
     autoHeight: boolean;
     autoPlay: boolean;
@@ -391,9 +397,9 @@ export interface Project {
     [k: string]: unknown;
   } | null;
   /**
-   * Add a call to action to the bottom of the page.
+   * The content to display in the CTA.
    */
-  cta?: {
+  ctaContent?: {
     root: {
       type: string;
       children: {
@@ -408,6 +414,60 @@ export interface Project {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * The link to display in the CTA.
+   */
+  ctaLink: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  /**
+   * Customize the appearance of the CTA.
+   */
+  ctaAppearance?: {
+    blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+        )
+      | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  };
   meta?: {
     title?: string | null;
     /**
@@ -516,6 +576,49 @@ export interface Category {
   parentCategory?: (string | null) | Category;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -687,49 +790,6 @@ export interface LinksBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'links';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2464,7 +2524,28 @@ export interface ProjectsSelect<T extends boolean = true> {
         slidesToScroll?: T;
       };
   content?: T;
-  cta?: T;
+  ctaContent?: T;
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        variant?: T;
+        color?: T;
+        hoverColor?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
+  ctaAppearance?:
+    | T
+    | {
+        blockVariant?: T;
+        backgroundColour?: T;
+        borderRadius?: T;
+      };
   meta?:
     | T
     | {

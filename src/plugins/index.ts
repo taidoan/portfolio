@@ -25,6 +25,7 @@ const generateDescription: GenerateDescription<Post | Project> = ({ doc }) => {
       (child): child is { type: string; version: number; children: { text: string }[] } =>
         typeof child.type === 'string' &&
         typeof child.version === 'number' &&
+        child.type === 'paragraph' &&
         Array.isArray(child.children) &&
         typeof child.children[0]?.text === 'string',
     );

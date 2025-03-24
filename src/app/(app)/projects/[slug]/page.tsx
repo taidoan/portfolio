@@ -15,6 +15,7 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { ProjectDetails } from '@/components/ui/Project/details';
 import { ProjectGallery } from '@/components/ui/Project/gallery';
 import { ProjectPagination } from '@/components/ui/ProjectPagination';
+import { CTA } from '@/components/layout/CTA';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -77,6 +78,16 @@ const Page = async ({ params: paramsPromise }: Args) => {
         </section>
       )}
       <ProjectPagination className={clsx('project__section')} data={pagination} />
+      {page.ctaContent && (
+        <CTA
+          className='project__section'
+          link={page.ctaLink}
+          content={page.ctaContent}
+          variant={page.ctaAppearance?.blockVariant || 'fill'}
+          color={page.ctaAppearance?.backgroundColour || 'primary'}
+          borderRadius={page.ctaAppearance?.borderRadius || 'medium'}
+        />
+      )}
     </>
   );
 };
