@@ -25,7 +25,6 @@ describe('<DetailsList>', () => {
 describe('<ProjectDetails />', () => {
   const mockDetails: Pick<Project, 'details'> = {
     details: {
-      date: '2024-10-17T12:00:00.000Z',
       type: 'Branding & Website',
       tools: 'Figma, NextJS, SCSS',
       name: 'Urban Bites',
@@ -38,7 +37,6 @@ describe('<ProjectDetails />', () => {
   it('renders project details correctly', () => {
     render(<ProjectDetails data={mockDetails} className='project__info' />);
 
-    expect(screen.getByText('17/10/2024')).toBeInTheDocument(); // Check formatted date
     expect(screen.getByText('Figma, NextJS, SCSS')).toBeInTheDocument();
     expect(screen.getByText('Urban Bites')).toBeInTheDocument();
     expect(screen.getByText('Live Preview')).toBeInTheDocument();
