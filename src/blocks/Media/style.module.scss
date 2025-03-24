@@ -1,5 +1,17 @@
 @use '@abstracts/_index' as *;
 
+.container {
+  margin-block: calc(var(--spacing-paragraph) * 2);
+
+  &:first-child {
+    margin-block-start: 0;
+  }
+
+  &:last-child {
+    margin-block-end: 0;
+  }
+}
+
 .image__container {
   height: auto;
   overflow: hidden;

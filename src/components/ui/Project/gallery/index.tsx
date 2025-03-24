@@ -79,8 +79,8 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
                   <VideoMedia
                     src={media.filename || null}
                     playerWidth={media.width || ''}
-                    videoHeight={media.height}
-                    videoWidth={media.width}
+                    videoHeight={media.height || 432}
+                    videoWidth={media.width || 768}
                     style={{ aspectRatio: `${media.width} / ${media.height}` }}
                   />
                 )}
@@ -135,8 +135,8 @@ export const ProjectGallery = ({ className, media, options }: GalleryProps) => {
                   key={index}
                   src={media.filename || null}
                   playerWidth={media.width || ''}
-                  videoHeight={media.height}
-                  videoWidth={media.width}
+                  videoHeight={media.height || 432}
+                  videoWidth={media.width || 768}
                   style={{ aspectRatio: `${media.width} / ${media.height}` }}
                 />
               );

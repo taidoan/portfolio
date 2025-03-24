@@ -33,7 +33,7 @@ export const MediaRichTextBlock = ({
   const isVideo = media.mimeType.startsWith('video/');
   const isImage = media.mimeType.startsWith('image/');
 
-  const figureClasses = clsx({
+  const figureClasses = clsx(style.container, {
     [`${className}`]: className,
     [`${style.image}`]: isImage,
     [`${style.video}`]: isVideo,
@@ -46,7 +46,13 @@ export const MediaRichTextBlock = ({
   let appearanceStyles: Record<string, string> = {};
 
   if (borderRadiusSides) {
-    appearanceStyles = borderRadiusSides.reduce((styles, side) => {
+    const safeBorderRadiusSides = Array.isArray(borderRadiusSides)
+      ? borderRadiusSides
+      : borderRadiusSides
+        ? [borderRadiusSides]
+        : [];
+
+    appearanceStyles = safeBorderRadiusSides.reduce((styles, side) => {
       switch (side) {
         case 'all':
           return { ...styles, borderRadius: borderRadiusValue };
@@ -72,8 +78,8 @@ export const MediaRichTextBlock = ({
         <VideoMedia
           src={encodedFilename}
           playerWidth={videoPlayerWidth ?? '100%'}
-          videoHeight={videoHeight}
-          videoWidth={videoWidth}
+          videoHeight={videoHeight || 432}
+          videoWidth={videoWidth || 768}
           style={appearanceStyles}
         />
       ) : isImage ? (

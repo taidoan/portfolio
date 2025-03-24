@@ -41,6 +41,11 @@ const nextConfig: NextConfig = {
         hostname: 'placeimg.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+      },
     ],
   },
 };

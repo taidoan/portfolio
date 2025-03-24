@@ -40,6 +40,7 @@ export const BorderRadiusSides = (
     name: 'borderRadiusSides',
     label: 'Apply Border Radius Sides',
     hasMany: true,
+    required: true,
     admin: {
       ...overrides.admin,
       condition: (_, siblingData) =>

@@ -46,7 +46,13 @@ export const MediaBlock = ({
   let appearanceStyles: Record<string, string> = {};
 
   if (borderRadiusSides) {
-    appearanceStyles = borderRadiusSides.reduce((styles, side) => {
+    const safeBorderRadiusSides = Array.isArray(borderRadiusSides)
+      ? borderRadiusSides
+      : borderRadiusSides
+        ? [borderRadiusSides]
+        : [];
+
+    appearanceStyles = safeBorderRadiusSides.reduce((styles, side) => {
       switch (side) {
         case 'all':
           return { ...styles, borderRadius: borderRadiusValue };
@@ -72,8 +78,8 @@ export const MediaBlock = ({
         <VideoMedia
           src={encodedFilename}
           playerWidth={videoPlayerWidth ?? '100%'}
-          videoHeight={videoHeight}
-          videoWidth={videoWidth}
+          videoHeight={videoHeight || 432}
+          videoWidth={videoWidth || 768}
           style={appearanceStyles}
         />
       ) : isImage ? (
