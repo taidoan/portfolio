@@ -62,4 +62,9 @@ export default buildConfig({
   }),
   sharp,
   plugins: [...plugins],
+  upload: {
+    limits: {
+      fileSize: 5000000,
+    },
+  },
 });

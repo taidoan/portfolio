@@ -15,11 +15,12 @@ export const CardTitle = ({ children, className }: CardTitleProps) => {
 
   if (link && link.href) {
     return (
-      <h4 className={cardTitleClasses}>
+      <h4 className={cardTitleClasses} title={data?.title} aria-label={data?.title}>
         <Link
           href={link.href}
           target={link.target}
           title={link.title}
+          aria-label={link.title}
           rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
           className={style.card__title__link}
         >

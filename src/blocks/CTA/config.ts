@@ -1,5 +1,8 @@
 import { Block } from 'payload';
 import { Link } from '@fields/Link';
+import { BorderRadius } from '@/fields/BorderRadius';
+import { BackgroundColour } from '@/fields/BackgroundColour';
+import { BlockVariant } from '@/fields/BlockVariant';
 
 export const CTABlock: Block = {
   slug: 'ctaBlock',
@@ -30,47 +33,7 @@ export const CTABlock: Block = {
           fields: [
             {
               type: 'row',
-              fields: [
-                {
-                  type: 'select',
-                  name: 'variant',
-                  label: 'Variant',
-                  options: [
-                    { label: 'Fill', value: 'fill' },
-                    { label: 'Outlined', value: 'outlined' },
-                    { label: 'Outlined Thick', value: 'outlined-thick' },
-                  ],
-                  defaultValue: 'fill',
-                },
-                {
-                  type: 'select',
-                  name: 'color',
-                  label: 'Color',
-                  options: [
-                    { label: 'Primary', value: 'primary' },
-                    { label: 'Secondary', value: 'secondary' },
-                    { label: 'Accent', value: 'accent' },
-                    { label: 'Light', value: 'light' },
-                    { label: 'Gradient Primary', value: 'gradient-primary' },
-                    { label: 'Gradient Secondary', value: 'gradient-secondary' },
-                    { label: 'Gradient Accent', value: 'gradient-accent' },
-                    { label: 'Gradient Light', value: 'gradient-light' },
-                  ],
-                  defaultValue: 'secondary',
-                },
-                {
-                  type: 'select',
-                  name: 'borderRadius',
-                  label: 'Border Radius',
-                  options: [
-                    { label: 'None', value: 'none' },
-                    { label: 'Small', value: 'small' },
-                    { label: 'Medium', value: 'medium' },
-                    { label: 'Large', value: 'large' },
-                  ],
-                  defaultValue: 'medium',
-                },
-              ],
+              fields: [BlockVariant(), BackgroundColour(), BorderRadius()],
             },
           ],
         },

@@ -65,7 +65,7 @@ export const Carousel = ({
   className,
   wrapperClassName,
   slideClassName,
-  slidesPerView = 3,
+  slidesPerView = 1,
   slidesToScroll = 'auto',
   slideSpacing = 16,
   loop = false,
@@ -79,6 +79,10 @@ export const Carousel = ({
   keyboardControls,
   buttonNavigation,
   paginationColor,
+  startIndex = 0,
+  showPaginationCounter,
+  controlsClassName,
+  onInit,
   ...props
 }: CarouselProps) => {
   const isMediaQueryMatched = useMediaQuery(disableAt || 'none');
@@ -107,6 +111,7 @@ export const Carousel = ({
     slidesToScroll: slidesToScroll as EmblaOptionsType['slidesToScroll'],
     axis: direction === 'vertical' || direction === 'vertical-scroll' ? 'y' : 'x',
     breakpoints: disableAt ? { [disableAt]: { active: false } } : undefined,
+    startIndex,
   };
 
   const plugins = [
@@ -155,6 +160,12 @@ export const Carousel = ({
     emblaApi.on('reInit', onScroll).on('scroll', onScroll).on('slideFocus', onScroll);
   }, [emblaApi, onScroll]);
 
+  useEffect(() => {
+    if (emblaApi && onInit) {
+      onInit(emblaApi);
+    }
+  }, [emblaApi, onInit]);
+
   useKeyboard({
     isEnabled: keyboardControls,
     onNext: scrollNext,
@@ -201,6 +212,8 @@ export const Carousel = ({
     return slides;
   };
 
+  const totalSlides = Children.count(children);
+
   return (
     <div
       ref={carouselRef}
@@ -214,28 +227,35 @@ export const Carousel = ({
         <div className={wrapperClasses}>{renderSlides()}</div>
       </div>
       {isActive && childrenCount > 1 && (
-        <div className={style.controls}>
+        <div className={clsx(style.controls, controlsClassName)}>
           {config.buttonNav && <ButtonNavigation onPrev={scrollPrev} onNext={scrollNext} />}
           {config.pagination && paginationType === 'bullets' && (
             <Pagination
               scrollSnaps={scrollSnaps}
               selectedIndex={selectedIndex}
               onDotClick={onDotClick}
-              paginationColor={paginationColor}
+              paginationColor={paginationColor || 'accent'}
             />
           )}
           {config.pagination && paginationType === 'progress' && (
-            <div className={style.progress}>
-              <div
-                className={clsx(style['progress__bar'], {
-                  [`bg--${paginationColor}`]: paginationColor,
-                })}
-                style={
-                  direction === 'vertical-scroll'
-                    ? { transform: `translate3d(0px,${scrollProgress}%,0px)` }
-                    : { transform: `translate3d(${scrollProgress}%,0px,0px)` }
-                }
-              />
+            <div className={style.progress__wrapper}>
+              <div className={style.progress}>
+                <div
+                  className={clsx(style['progress__bar'], {
+                    [`bg--${paginationColor}`]: paginationColor,
+                  })}
+                  style={
+                    direction === 'vertical-scroll'
+                      ? { transform: `translate3d(0px,${scrollProgress}%,0px)` }
+                      : { transform: `translate3d(${scrollProgress}%,0px,0px)` }
+                  }
+                />
+              </div>
+              {showPaginationCounter === true && (
+                <span className={style.progress__counter}>
+                  <strong>{selectedIndex + 1}</strong> of {totalSlides}
+                </span>
+              )}
             </div>
           )}
         </div>

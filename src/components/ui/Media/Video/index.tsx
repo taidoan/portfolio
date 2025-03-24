@@ -5,14 +5,14 @@ const urlEndpoint = getCDNURL();
 
 export interface VideoMediaProps {
   src: string | null | undefined;
-  videoWidth?: number | null;
+  videoWidth?: number;
   playerWidth?: string | number;
-  videoHeight?: number | null;
-  style?: Record<string, string>;
+  videoHeight?: number;
+  style?: React.CSSProperties;
 }
 
 /**
- * OptimizedVideo component is a reusable component that renders a video element with a poster image generated from the video file using ImageKit.
+ * VideoMedia component is a reusable component that renders a video element with a poster image generated from the video file using ImageKit.
  * @param {VideoMediaProps} props
  * @param {string} [props.src] - The source URL of the video file.
  * @param {number} [props.videoWidth=640] - The width of the video in pixels.
@@ -22,13 +22,13 @@ export interface VideoMediaProps {
  * @see {@link https://imagekit.io/docs/video-transformation ImageKit Video Optimization}
  * @example
  * ```tsx
- * <OptimizedVideo src="video.mp4" />
+ * <VideoMedia src="video.mp4" />
  * ```
  */
 export const VideoMedia = ({
   src,
-  videoWidth,
-  videoHeight,
+  videoWidth = 768,
+  videoHeight = 432,
   playerWidth,
   style = {},
 }: VideoMediaProps) => {

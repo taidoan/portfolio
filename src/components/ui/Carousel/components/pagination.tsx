@@ -87,7 +87,7 @@ export interface PaginationProps {
     | 'urban-steel'
     | 'slate'
     | 'bitter-sweet'
-    | 'chery-punch'
+    | 'cherry-punch'
     | 'fresh-leaf';
 }
 

@@ -18,6 +18,7 @@
   --success-bg-clr: #{$success-background-color};
   --warning-bg-clr: #{$warning-background-color};
   --error-bg-clr: #{$error-background-color};
+  --card-outline-color: #{$card-outline-color};
 }
 
 .bg--primary {
@@ -27,6 +28,7 @@
 
 .bg--secondary {
   background-color: var(--clr-secondary-400);
+  color: var(--clr-light-400);
 }
 
 .bg--accent {

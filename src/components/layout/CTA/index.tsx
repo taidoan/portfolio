@@ -23,7 +23,7 @@ export type CTAProps = {
   className?: string;
   content: DefaultTypedEditorState;
   link: LinksBlockProps['link'];
-  borderRadius?: 'none' | 'small' | 'medium' | 'large';
+  borderRadius?: 'none' | 'small' | 'medium' | 'large' | 'circle';
   color?: ColorType;
   variant?: VariantType;
 };

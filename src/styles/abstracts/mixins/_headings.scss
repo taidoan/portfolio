@@ -1,0 +1,36 @@
+////
+/// @group mixins-headings
+////
+
+/// Applies section heading styles to a container.
+/// @example
+///   .element {
+///     @include section-heading;
+///   }
+@mixin section-heading {
+  font-family: var(--ff-display-condensed);
+  font-size: var(--fs-section-heading);
+  font-weight: 700;
+  line-height: 0.8;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+/// Applies sub heading styles to a container.
+/// @example
+///   .element {
+///     @include sub-heading;
+///   }
+@mixin sub-heading {
+  font-size: var(--fs-sub-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+
+  span.accent-dot {
+    color: var(--clr-accent-400);
+
+    &::selection {
+      color: var(--selection-text-contrast-clr);
+    }
+  }
+}

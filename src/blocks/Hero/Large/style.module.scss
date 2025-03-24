@@ -1,76 +1,11 @@
 @use '@abstracts/_index' as *;
 
 .hero {
-  align-items: center;
-  background-color: var(--clr-accent-400);
-  border-radius: rem(24);
   color: var(--clr-light-400);
-  display: flex;
-  flex-direction: column;
-  height: 85vh;
-  justify-content: center;
-  overflow: hidden;
-  padding-block: size-clamp(rem(20), rem(48));
-  padding-inline: size-clamp(rem(20), rem(80));
-  position: relative;
-  text-align: center;
+  @include hero-base;
+  @include hero-large;
 
-  * {
-    z-index: 2;
-  }
-
-  @include mq('md') {
-    height: 80vh;
-  }
-
-  @include mq('lg') {
-    height: 75vh;
-  }
-}
-
-.container {
-  --gap: #{rem(24)};
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-
-  @include mq('md') {
-    --gap: #{rem(40)};
-  }
-
-  h1 {
-    font-family: var(--ff-display-condensed);
-    margin-bottom: size-clamp(rem(16), rem(32));
-    text-shadow: var(--shadow-large-title);
-
-    &::selection {
-      color: var(--clr-secondary-400);
-    }
-
-    &::after {
-      color: var(--clr-accent-400);
-      content: '.';
-    }
-
-    @include mq(374, 'max', 'width') {
-      &::after {
-        content: '';
-      }
-    }
-  }
-
-  p {
-    margin-top: size-clamp(rem(8), rem(16));
-    text-shadow: var(--shadow-large-body);
-
-    &::selection {
-      color: var(--clr-secondary-400);
-    }
-  }
-
-  .cta {
-    &:hover {
-      box-shadow: 0 rem(6) rem(16) rgb(255, 255, 255) !important;
-    }
+  &--blurred {
+    @include hero-blurred;
   }
 }

@@ -5,7 +5,12 @@ import { Fragment } from 'react';
 import { internalDocToHref } from './../utils';
 import { SerializedHeadingNode, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 import { DividerBlock } from '@/blocks/Divider';
-import type { LinksBlockRichtextProps, LinksGroupRichtextProps } from '@/payload-types';
+import { MediaRichTextBlock } from '@/blocks/MediaRichtext';
+import type {
+  LinksBlockRichtextProps,
+  LinksGroupRichtextProps,
+  MediaRichtextBlockProps,
+} from '@/payload-types';
 
 export const headingConverter: JSXConvertersFunction = ({ defaultConverters }) => ({
   ...defaultConverters,
@@ -26,6 +31,10 @@ export const headingConverter: JSXConvertersFunction = ({ defaultConverters }) =
     }) => {
       if (node.fields.blockType !== 'links-group-richtext') return null;
       return <LinksGroupRichtextBlock {...node.fields} />;
+    },
+    mediaRichtextBlock: ({ node }: { node: SerializedBlockNode<MediaRichtextBlockProps> }) => {
+      if (node.fields.blockType !== 'mediaRichtextBlock') return null;
+      return <MediaRichTextBlock {...node.fields} />;
     },
   },
   heading: (args) => {

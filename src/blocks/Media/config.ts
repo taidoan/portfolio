@@ -1,5 +1,9 @@
 import { Block } from 'payload';
 import { GridAppearance } from '@/fields/GridAppearance';
+import { BorderRadius, BorderRadiusSides } from '@/fields/BorderRadius';
+import { VideoHeight, VideoPlayerWidth, VideoWidth } from '@/fields/VideoAppearance';
+import { Caption, ShowCaption } from '@/fields/Caption';
+import { MediaType, MediaUpload } from '@/fields/MediaUpload';
 
 export const MediaBlock: Block = {
   slug: 'mediaBlock',
@@ -15,62 +19,28 @@ export const MediaBlock: Block = {
         {
           label: 'Media',
           fields: [
+            MediaType(),
             {
               type: 'row',
               fields: [
                 {
-                  type: 'upload',
-                  name: 'media',
-                  label: 'Media',
-                  relationTo: 'media',
-                  required: true,
-                },
-                {
-                  type: 'select',
-                  name: 'mediaType',
-                  label: 'Media Type',
-                  required: true,
-                  options: [
-                    { value: 'image', label: 'Image' },
-                    { value: 'video', label: 'Video' },
-                  ],
-                  hooks: {
-                    beforeValidate: [
-                      async ({ siblingData, req, value }) => {
-                        if (!siblingData.media) return false;
-
-                        const mediaDoc = await req.payload.findByID({
-                          collection: 'media',
-                          id: siblingData.media,
-                        });
-
-                        if (mediaDoc?.mimeType?.startsWith('image/')) {
-                          return 'image';
-                        } else if (mediaDoc?.mimeType?.startsWith('video/')) {
-                          return 'video';
-                        }
-
-                        return value;
+                  type: 'row',
+                  fields: [
+                    MediaUpload({
+                      admin: {
+                        width: '100%',
                       },
-                    ],
-                  },
-                  admin: {
-                    condition: (_, siblingData) => {
-                      return siblingData.media;
-                    },
-                  },
+                    }),
+                  ],
                 },
               ],
             },
-            {
-              type: 'richText',
-              name: 'caption',
-              label: 'Caption',
-            },
+            ShowCaption(),
+            Caption(),
           ],
         },
         {
-          label: 'Appearance',
+          label: 'Options',
           fields: [
             {
               type: 'row',
@@ -79,34 +49,7 @@ export const MediaBlock: Block = {
                   return siblingData.media && siblingData.mediaType;
                 },
               },
-              fields: [
-                {
-                  type: 'select',
-                  name: 'borderRadius',
-                  label: 'Border Radius',
-                  options: [
-                    { value: 'small', label: 'Small' },
-                    { value: 'medium', label: 'Medium' },
-                    { value: 'large', label: 'Large' },
-                    { value: 'circle', label: 'Circle' },
-                  ],
-                  defaultValue: 'medium',
-                },
-                {
-                  type: 'select',
-                  hasMany: true,
-                  name: 'borderRadiusSides',
-                  label: 'Apply Border Radius Sides',
-                  options: [
-                    { value: 'top-left', label: 'Top Left' },
-                    { value: 'top-right', label: 'Top Right' },
-                    { value: 'bottom-left', label: 'Bottom Left' },
-                    { value: 'bottom-right', label: 'Bottom Right' },
-                    { value: 'all', label: 'All Corners' },
-                  ],
-                  defaultValue: 'all',
-                },
-              ],
+              fields: [BorderRadius(), BorderRadiusSides()],
             },
             {
               type: 'row',
@@ -115,34 +58,36 @@ export const MediaBlock: Block = {
                   return siblingData.media && siblingData.mediaType === 'video';
                 },
               },
+              fields: [VideoPlayerWidth(), VideoWidth(), VideoHeight()],
+            },
+            {
+              type: 'row',
+              admin: {
+                condition: (_, siblingData) => {
+                  return siblingData.media && siblingData.mediaType === 'pdf';
+                },
+              },
               fields: [
                 {
-                  type: 'select',
-                  name: 'videoPlayerWidth',
-                  label: 'Video Player Width',
-                  options: [
-                    { value: '100%', label: '100%' },
-                    { value: '50%', label: '50%' },
-                    { value: '33%', label: '33%' },
-                    { value: '25%', label: '25%' },
-                  ],
+                  type: 'text',
+                  name: 'pdfWidth',
+                  label: 'PDF Width',
                   defaultValue: '100%',
                 },
                 {
-                  type: 'number',
-                  name: 'videoWidth',
-                  label: 'Video Width in px',
-                  defaultValue: 640,
-                },
-                {
-                  type: 'number',
-                  name: 'videoHeight',
-                  label: 'Video Height in px',
-                  defaultValue: 360,
+                  type: 'text',
+                  name: 'pdfHeight',
+                  label: 'PDF Height',
+                  defaultValue: '600px',
                 },
               ],
             },
             GridAppearance(),
+            {
+              type: 'text',
+              name: 'className',
+              label: 'Custom Class Name',
+            },
           ],
         },
       ],

@@ -7,6 +7,7 @@
 /// This is used for shadows throughout the project.
 /// @type map
 $shadows: (
+  'card-sm': 0 rem(5) rem(10.6) rgba(0, 0, 0, 0.02),
   'card': 0 rem(12) rem(16) rgba(0, 0, 0, 0.05),
   'card-dark': 0 rem(12) rem(16) hsla(207, 40%, 17%, 0.25),
   'button-sm': 0 rem(2) rem(8) rgba(0, 0, 0, 0.15),
@@ -17,4 +18,8 @@ $shadows: (
   'large-body': rem(1) rem(1) rem(2) rgba(28, 48, 65, 0.5),
   'small-title': rem(2) rem(2) rem(6) rgba(7, 46, 70, 0.5),
   'small-body': rem(2) rem(2) rem(2) rgba(28, 48, 65, 0.5),
+  'hero-inner-shadow': (
+    inset 0 0 0 rem(2) rgba(0, 0, 0, 0.1),
+  ),
+  'hero-drop-shadow': drop-shadow(rem(1) rem(1) 0 rgba(255, 255, 255, 0.76)),
 );

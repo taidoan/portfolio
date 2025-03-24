@@ -2,8 +2,9 @@
 
 .card {
   background-color: #fff;
+  border: rem(2) solid var(--card-outline-color);
   border-radius: var(--border-radius-medium);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-card-sm);
   color: var(--fc-card);
   width: 100%;
 
@@ -33,11 +34,19 @@
 }
 
 .card__title {
+  display: inline-block;
   margin-bottom: size-clamp(rem(8), rem(4));
+  width: 100%;
+
   &__link {
     color: inherit;
+    display: inline-block;
+    overflow: hidden;
     text-decoration: none;
+    text-overflow: ellipsis;
     transition: color var(--transition-duration);
+    white-space: nowrap;
+    width: calc(100%);
 
     &:focus-visible {
       @include focused();
@@ -164,6 +173,22 @@
 .card__body {
   padding: rem(16);
 
+  &--p-sm {
+    padding: size-clamp(rem(16), rem(20));
+  }
+
+  &--p-base {
+    padding: size-clamp(rem(16), rem(24));
+  }
+
+  &--p-md {
+    padding: size-clamp(rem(20), rem(32));
+  }
+
+  &--p-lg {
+    padding: size-clamp(rem(24), rem(48));
+  }
+
   @include mq('md') {
     &:has(.card__image__container-align--left, .card__image__container-align--right) {
       align-items: center;
@@ -200,7 +225,7 @@
 
 .card__content {
   display: block;
-
+  width: 100%;
   @include mq('md') {
     padding-inline: rem(8);
   }
@@ -214,6 +239,12 @@
     display: flex;
     gap: rem(16);
     justify-content: space-between;
+
+    .card__content-wrapper {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
   }
 
   &--inside {
@@ -230,8 +261,8 @@
 .card__content__project-icon-link {
   color: var(--clr-frosted-sage-400);
   display: none;
+  min-width: rem(24);
   transition: color var(--transition-duration-fast) ease;
-
   svg {
     transform: rotate(0);
     transition: transform var(--transition-duration-fast) ease;

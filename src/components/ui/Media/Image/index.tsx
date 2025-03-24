@@ -1,13 +1,13 @@
 'use client';
-import Image, { ImageLoaderProps } from 'next/image';
+import Image, { ImageLoaderProps, StaticImageData } from 'next/image';
 import { getCDNURL } from '@/lib/utilities/getURLs';
 import { Alert, AlertTitle } from '@components/ui/Alert';
 import s from './../style.module.scss';
 
 const urlEndpoint = getCDNURL();
 
-export interface ImageMedia {
-  src: string | null;
+export interface ImageMediaProps {
+  src: string | StaticImageData | null;
   alt: string;
   width?: number | null;
   height?: number | null;
@@ -16,7 +16,7 @@ export interface ImageMedia {
   sizes?: string;
   fill?: boolean;
   quality?: number;
-  style?: Record<string, string>;
+  style?: React.CSSProperties;
   onClick?: () => void;
 }
 
@@ -27,7 +27,7 @@ const imageKitLoader = ({ src, width, quality }: ImageLoaderProps): string => {
 };
 
 /**
- * OptimizedImage component is a reusable component that extends the NextJS image component with ImageKit optimizations.
+ * ImageMedia component is a reusable component that extends the NextJS image component with ImageKit optimizations.
  * @param {ImageMedia} props
  * @param {string} [props.src] - The source URL of the image.
  * @param {string} [props.alt] - The alternative text for the image.
@@ -43,7 +43,7 @@ const imageKitLoader = ({ src, width, quality }: ImageLoaderProps): string => {
  * @see {@link https://nextjs.org/docs/app/building-your-application/optimizing/image-optimization NextJS Image Optimization}
  * @example
  * ```tsx
- * <OptimizedImage src="image.jpg" />
+ * <ImageMedia src="image.jpg" />
  * ```
  */
 export const ImageMedia = ({
@@ -58,7 +58,7 @@ export const ImageMedia = ({
   quality = 80,
   style = {},
   onClick,
-}: ImageMedia) => {
+}: ImageMediaProps) => {
   const placeholderBlur =
     'data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAB0CWJaACdAFAAAD+2iaVorpfvri5shvAAAA=';
 
@@ -80,12 +80,16 @@ export const ImageMedia = ({
     );
   }
 
+  const isStaticImage = typeof src === 'object' && 'src' in src;
+  const isDirectURL =
+    typeof src === 'string' && src.startsWith('http') && !src.includes(urlEndpoint);
+
   return (
     <Image
-      loader={imageKitLoader}
-      src={src as string}
+      {...(!isStaticImage && !isDirectURL ? { loader: imageKitLoader } : {})}
+      src={isStaticImage ? src.src : encodeURI(src).trim()}
       alt={alt}
-      className={`${className} ${s.optimizedImage}`}
+      className={`${className} ${s.image}`}
       priority={priority}
       sizes={sizes}
       {...(fill ? { fill: true } : { width: width ?? 100, height: height ?? 100 })}

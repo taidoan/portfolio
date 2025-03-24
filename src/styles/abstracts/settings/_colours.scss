@@ -18,6 +18,7 @@ $colour-palette: (
   'stormy-slate': hsla(215, 11%, 43%, 1),
   'white': hsla(0, 0%, 100%, 1),
   'frosted-sage': hsla(60, 7%, 86%, 1),
+  'frosted-pearl': hsla(60, 5%, 93%, 1),
   'urban-steel': hsla(220, 2%, 61%, 1),
   'bittersweet': hsl(8.05deg, 100%, 67.8%, 1),
   'old-gold': hsla(47.1deg, 73.1%, 57.6%, 1),
@@ -39,6 +40,7 @@ $project-colours: (
   light: generate-shades(map.get($colour-palette, 'baby-powder')),
   slate: generate-shades(map.get($colour-palette, 'stormy-slate')),
   frosted-sage: generate-shades(map.get($colour-palette, 'frosted-sage')),
+  frosted-pearl: generate-shades(map.get($colour-palette, 'frosted-pearl')),
   urban-steel: generate-shades(map.get($colour-palette, 'urban-steel')),
   old-gold: generate-shades(map.get($colour-palette, 'old-gold')),
   bittersweet: generate-shades(map.get($colour-palette, 'bittersweet')),
@@ -84,6 +86,11 @@ $font-body-color-light: map.get($project-colours, light, 400);
 /// Colour used for subtitles or taglines
 /// @type Color
 $font-subtitle-color: map.get($project-colours, ash, 400);
+
+/// Card outline colour
+/// Colour used for card outlines
+/// @type Color
+$card-outline-color: map.get($project-colours, frosted-pearl, 400);
 
 /// Card font colour
 /// Colour used for card text

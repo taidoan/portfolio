@@ -12,12 +12,36 @@ import { Project, Page, Service, Post } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 
 const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Tai Doan` : 'Tai Doan Portfolio Website';
+  return doc?.title ? `${doc.title}` : 'Tai Doan Portfolio Website';
 };
 
-const generateDescription: GenerateDescription<Post> = ({ doc }) => {
-  const text = doc?.excerpt || '';
-  return text.length > 160 ? text.slice(0, 157) + '...' : text;
+const generateDescription: GenerateDescription<Post | Project> = ({ doc }) => {
+  let text = '';
+
+  if ('excerpt' in doc && typeof doc.excerpt === 'string') {
+    text = doc.excerpt;
+  } else if ('details' in doc && doc.details?.description?.root?.children) {
+    const firstTextNode = doc.details.description.root.children.find(
+      (child): child is { type: string; version: number; children: { text: string }[] } =>
+        typeof child.type === 'string' &&
+        typeof child.version === 'number' &&
+        child.type === 'paragraph' &&
+        Array.isArray(child.children) &&
+        typeof child.children[0]?.text === 'string',
+    );
+
+    if (firstTextNode) {
+      text = firstTextNode.children[0].text;
+    }
+  }
+
+  text = text || 'No description available';
+
+  if (text.length > 160) {
+    return text.slice(0, text.lastIndexOf(' ', 157)) + '...';
+  }
+
+  return text;
 };
 
 const generateURL: GenerateURL<Project | Page | Service | Post> = ({ doc }) => {

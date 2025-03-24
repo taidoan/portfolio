@@ -8,8 +8,11 @@ import {
   AlignFeature,
   FixedToolbarFeature,
   HeadingFeature,
+  BlocksFeature,
 } from '@payloadcms/richtext-lexical';
 import { LinksFeature } from './features/link';
+import { DividerBlock } from '@/blocks/Divider/config';
+import { MediaRichtextBlock } from '@/blocks/MediaRichtext/config';
 
 export const editor = lexicalEditor({
   features: () => {
@@ -25,6 +28,9 @@ export const editor = lexicalEditor({
         enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
       }),
       LinksFeature(),
+      BlocksFeature({
+        blocks: [DividerBlock, MediaRichtextBlock],
+      }),
     ];
   },
 });

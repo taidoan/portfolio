@@ -90,9 +90,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -235,6 +233,7 @@ export interface HeroBlockProps {
     [k: string]: unknown;
   };
   type: 'small' | 'medium' | 'large';
+  blurredBackground: 'true' | 'false';
   image?: (string | null) | Media;
   showBreadcrumb?: ('true' | 'false') | null;
   breadcrumbContainer?: ('none' | 'boxed') | null;
@@ -266,6 +265,47 @@ export interface HeroBlockProps {
 export interface Project {
   id: string;
   title: string;
+  hero: {
+    /**
+     * Use this if you want to override the project title that appears in the hero.
+     */
+    titleOverride: string;
+    'clonedLock-110371416'?: boolean | null;
+    /**
+     * Use this if you want to override the project type that appears above the title.
+     */
+    typeOverride: string;
+    'clonedLock-1380773734'?: boolean | null;
+    backgroundImage?: (string | null) | Media;
+    blurredBackground?: ('true' | 'false') | null;
+    breadcrumbs?: {
+      showBreadcrumb?: ('true' | 'false') | null;
+      breadcrumbContainer?: ('none' | 'boxed') | null;
+      breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
+      breadcrumbs?:
+        | {
+            relationTo:
+              | {
+                  relationTo: 'pages';
+                  value: string | Page;
+                }
+              | {
+                  relationTo: 'projects';
+                  value: string | Project;
+                }
+              | {
+                  relationTo: 'services';
+                  value: string | Service;
+                };
+            label: string;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
+  /**
+   * The details of the project. These details will appear on the project page.
+   */
   details?: {
     date?: string | null;
     type?: string | null;
@@ -290,6 +330,57 @@ export interface Project {
       [k: string]: unknown;
     } | null;
   };
+  gallery?:
+    | {
+        media: string | Media;
+        showCaption?: boolean | null;
+        caption?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Customize the appearance and behavior of the carousel. The carousel will automatically adjust to the number of items provided.
+   */
+  galleryOptions: {
+    autoHeight: boolean;
+    autoPlay: boolean;
+    keyboardControls: boolean;
+    buttonNavigation: boolean;
+    pagination: boolean;
+    loop: boolean;
+    direction: 'horizontal' | 'vertical';
+    focus?: boolean | null;
+    paginationType?: ('bullets' | 'progress') | null;
+    paginationColor?:
+      | ('primary' | 'accent' | 'secondary' | 'urban-steel' | 'slate' | 'bitter-sweet' | 'cherry-punch' | 'fresh-leaf')
+      | null;
+    /**
+     * The spacing between slides in pixels.
+     */
+    slideSpacing: number;
+    /**
+     * The number of slides to show at a time.
+     */
+    slidesPerView: number;
+    /**
+     * The number of slides to scroll at a time.
+     */
+    slidesToScroll: 'auto' | '1' | '2' | '3' | '4';
+  };
   content?: {
     root: {
       type: string;
@@ -305,6 +396,78 @@ export interface Project {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * The content to display in the CTA.
+   */
+  ctaContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The link to display in the CTA.
+   */
+  ctaLink: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  /**
+   * Customize the appearance of the CTA.
+   */
+  ctaAppearance?: {
+    blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+        )
+      | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  };
   meta?: {
     title?: string | null;
     /**
@@ -321,20 +484,6 @@ export interface Project {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  title: string;
-  description?: string | null;
-  slug: string;
-  slugLock?: boolean | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -413,6 +562,63 @@ export interface Service {
   categories: (string | Category)[];
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title: string;
+  description?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
+  parentCategory?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -497,6 +703,7 @@ export interface SectionBlockProps {
      * The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.
      */
     sectionType?: ('default' | 'full-width' | 'boxed') | null;
+    alignContent?: ('left' | 'right') | null;
     backgroundColour?:
       | (
           | 'none'
@@ -509,8 +716,7 @@ export interface SectionBlockProps {
           | 'gradient-accent'
         )
       | null;
-    alignContent?: ('left' | 'right') | null;
-    borderRadius?: ('small' | 'medium' | 'large' | 'circle') | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   };
   blockName?: string | null;
   hiddenSlug?: string | null;
@@ -550,9 +756,7 @@ export interface LinksBlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -589,49 +793,6 @@ export interface LinksBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LinksGroupBlockProps".
  */
 export interface LinksGroupBlockProps {
@@ -665,9 +826,7 @@ export interface LinksGroupBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -762,8 +921,9 @@ export interface IntroBlockProps {
  * via the `definition` "MediaBlockProps".
  */
 export interface MediaBlockProps {
+  mediaType: 'image' | 'video' | 'pdf';
   media: string | Media;
-  mediaType?: ('image' | 'video') | null;
+  showCaption?: boolean | null;
   caption?: {
     root: {
       type: string;
@@ -779,11 +939,13 @@ export interface MediaBlockProps {
     };
     [k: string]: unknown;
   } | null;
-  borderRadius?: ('small' | 'medium' | 'large' | 'circle') | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
   videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
   videoWidth?: number | null;
   videoHeight?: number | null;
+  pdfWidth?: string | null;
+  pdfHeight?: string | null;
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
    */
@@ -811,6 +973,7 @@ export interface MediaBlockProps {
     alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
     justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
   };
+  className?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -1182,9 +1345,7 @@ export interface ToolsBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1386,9 +1547,7 @@ export interface TabbedContentBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1497,26 +1656,24 @@ export interface CTABlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
-  variant?: ('fill' | 'outlined' | 'outlined-thick') | null;
-  color?:
+  blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+  backgroundColour?:
     | (
+        | 'none'
         | 'primary'
         | 'secondary'
         | 'accent'
-        | 'light'
+        | 'gradient-light'
         | 'gradient-primary'
         | 'gradient-secondary'
         | 'gradient-accent'
-        | 'gradient-light'
       )
     | null;
-  borderRadius?: ('none' | 'small' | 'medium' | 'large') | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'ctaBlock';
@@ -1802,6 +1959,7 @@ export interface PagesSelect<T extends boolean = true> {
 export interface HeroBlockPropsSelect<T extends boolean = true> {
   richText?: T;
   type?: T;
+  blurredBackground?: T;
   image?: T;
   showBreadcrumb?: T;
   breadcrumbContainer?: T;
@@ -1861,8 +2019,8 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
     | T
     | {
         sectionType?: T;
-        backgroundColour?: T;
         alignContent?: T;
+        backgroundColour?: T;
         borderRadius?: T;
       };
   blockName?: T;
@@ -1954,14 +2112,17 @@ export interface IntroBlockPropsSelect<T extends boolean = true> {
  * via the `definition` "MediaBlockProps_select".
  */
 export interface MediaBlockPropsSelect<T extends boolean = true> {
-  media?: T;
   mediaType?: T;
+  media?: T;
+  showCaption?: T;
   caption?: T;
   borderRadius?: T;
   borderRadiusSides?: T;
   videoPlayerWidth?: T;
   videoWidth?: T;
   videoHeight?: T;
+  pdfWidth?: T;
+  pdfHeight?: T;
   gridAppearance?:
     | T
     | {
@@ -1969,6 +2130,7 @@ export interface MediaBlockPropsSelect<T extends boolean = true> {
         alignSelf?: T;
         justifySelf?: T;
       };
+  className?: T;
   id?: T;
   blockName?: T;
 }
@@ -2275,8 +2437,8 @@ export interface CTABlockPropsSelect<T extends boolean = true> {
         buttonShadow?: T;
         className?: T;
       };
-  variant?: T;
-  color?: T;
+  blockVariant?: T;
+  backgroundColour?: T;
   borderRadius?: T;
   id?: T;
   blockName?: T;
@@ -2300,6 +2462,30 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  hero?:
+    | T
+    | {
+        titleOverride?: T;
+        'clonedLock-110371416'?: T;
+        typeOverride?: T;
+        'clonedLock-1380773734'?: T;
+        backgroundImage?: T;
+        blurredBackground?: T;
+        breadcrumbs?:
+          | T
+          | {
+              showBreadcrumb?: T;
+              breadcrumbContainer?: T;
+              breadcrumbBackground?: T;
+              breadcrumbs?:
+                | T
+                | {
+                    relationTo?: T;
+                    label?: T;
+                    id?: T;
+                  };
+            };
+      };
   details?:
     | T
     | {
@@ -2312,7 +2498,54 @@ export interface ProjectsSelect<T extends boolean = true> {
         previewUrl?: T;
         description?: T;
       };
+  gallery?:
+    | T
+    | {
+        media?: T;
+        showCaption?: T;
+        caption?: T;
+        id?: T;
+      };
+  galleryOptions?:
+    | T
+    | {
+        autoHeight?: T;
+        autoPlay?: T;
+        keyboardControls?: T;
+        buttonNavigation?: T;
+        pagination?: T;
+        loop?: T;
+        direction?: T;
+        focus?: T;
+        paginationType?: T;
+        paginationColor?: T;
+        slideSpacing?: T;
+        slidesPerView?: T;
+        slidesToScroll?: T;
+      };
   content?: T;
+  ctaContent?: T;
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        variant?: T;
+        color?: T;
+        hoverColor?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
+  ctaAppearance?:
+    | T
+    | {
+        blockVariant?: T;
+        backgroundColour?: T;
+        borderRadius?: T;
+      };
   meta?:
     | T
     | {
@@ -2537,9 +2770,7 @@ export interface Footer {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?:
-        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-        | null;
+      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -2583,22 +2814,13 @@ export interface Header {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?:
-        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-        | null;
+      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
     id?: string | null;
   }[];
-  logoColor:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'light'
-    | 'slate'
-    | 'frosted-sage'
-    | 'urban-steel';
+  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2746,9 +2968,7 @@ export interface LinksBlockRichtextProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -2791,9 +3011,7 @@ export interface LinksGroupRichtextProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -2806,11 +3024,47 @@ export interface LinksGroupRichtextProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaRichtextBlockProps".
+ */
+export interface MediaRichtextBlockProps {
+  mediaType: 'image' | 'video' | 'pdf';
+  media: string | Media;
+  showCaption?: boolean | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
+  videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
+  videoWidth?: number | null;
+  videoHeight?: number | null;
+  pdfWidth?: string | null;
+  pdfHeight?: string | null;
+  className?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaRichtextBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

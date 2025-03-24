@@ -1,10 +1,11 @@
 import type { HeroBlockProps } from '@/payload-types';
-import { RichText } from '@/components/ui/RichText';
-import style from './style.module.scss';
-import clsx from 'clsx';
-import { getCDNURL } from '@/lib/utilities/getURLs';
 import type { Breadcrumbs as BreadcrumbsType } from '@/components/ui/Breadcrumbs';
+import clsx from 'clsx';
+
+import { RichText } from '@/components/ui/RichText';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { ImageMedia } from '@components/ui/Media/Image';
+import style from './style.module.scss';
 
 export type LargeHeroProps = HeroBlockProps & {
   breadcrumbsData?: BreadcrumbsType;
@@ -17,18 +18,18 @@ export const LargeHero = ({
   breadcrumbsData,
   breadcrumbContainer,
   breadcrumbBackground,
+  blurredBackground,
 }: LargeHeroProps) => {
-  const heroClasses = clsx('section', style.hero);
+  const heroClasses = clsx('section', style.hero, {
+    [style['hero--blurred']]: blurredBackground === 'true',
+  });
 
   return (
-    <section
-      className={heroClasses}
-      style={{
-        background: `radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.18) 44.47%, rgba(255, 255, 255, 0) 100%),
-    url('${getCDNURL()}/hero.svg') 50% / cover no-repeat`,
-      }}
-    >
-      <div className={style.container}>{richText && <RichText data={richText} />}</div>
+    <section className={heroClasses}>
+      {typeof image === 'object' && (
+        <ImageMedia src={image?.filename || null} alt={image?.alt || ''} fill />
+      )}
+      {richText && <RichText data={richText} />}
       {showBreadcrumb && breadcrumbsData && breadcrumbsData.length > 0 && (
         <Breadcrumbs
           breadcrumbs={breadcrumbsData}
