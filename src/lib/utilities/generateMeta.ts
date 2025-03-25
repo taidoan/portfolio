@@ -19,13 +19,7 @@ export const generateMeta = async (args: {
     doc?.meta?.image && typeof doc.meta.image === 'object' ? doc.meta.image : null,
   );
 
-  const isProject = doc && 'details' in doc;
-
-  const title = doc?.meta?.title
-    ? isProject
-      ? `${doc.meta.title} | ${doc.details?.type} Project by Tai Doan - UI/UX Designer`
-      : `${doc.meta.title} | Tai Doan - UI/UX Designer`
-    : 'Tai Doan | UI/UX Designer';
+  const title = doc?.meta?.title || 'Tai Doan | UI/UX Designer - Online Portfolio';
 
   return {
     title,

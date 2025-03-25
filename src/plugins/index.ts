@@ -12,7 +12,30 @@ import { Project, Page, Service, Post } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 
 const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) => {
-  return doc?.title ? `${doc.title}` : 'Tai Doan Portfolio Website';
+  const isProject = doc?.url?.includes('projects') && 'details' in doc;
+  const isService = doc?.url?.includes('services');
+  const isPost = doc?.url?.includes('posts');
+  const isCategory = doc?.url?.includes('categories');
+
+  let title;
+
+  if (isProject) {
+    title = doc?.title
+      ? `${doc.title} | ${doc.details?.type || 'Project'} by Tai Doan - UI/UX Designer`
+      : `Project by Tai Doan - UI/UX Designer`;
+  } else if (isService) {
+    title = doc?.title
+      ? `${doc.title} | Service by Tai Doan - UI/UX Designer`
+      : `Service by Tai Doan - UI/UX Designer`;
+  } else if (isPost) {
+    title = `${doc.title} | Tai Doan - UI/UX Designer`;
+  } else if (isCategory) {
+    title = `${doc.title} Category | Tai Doan - UI/UX Designer`;
+  } else {
+    title = `${doc?.title || 'Untitled'} | Tai Doan - UI/UX Designer`;
+  }
+
+  return title || 'Tai Doan Portfolio Website';
 };
 
 const generateDescription: GenerateDescription<Post | Project | Service> = ({ doc }) => {
@@ -59,7 +82,7 @@ const generateDescription: GenerateDescription<Post | Project | Service> = ({ do
 
 const generateURL: GenerateURL<Project | Page | Service | Post> = ({ doc }) => {
   const url = getServerSideURL();
-  return doc?.slug ? `${url}/${doc.slug}` : url;
+  return doc?.url ? `${doc.url}` : url;
 };
 
 const generateImage: GenerateImage<Project | Page | Post> = ({ doc }) => {
