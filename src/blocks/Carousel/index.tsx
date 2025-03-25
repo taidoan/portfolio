@@ -24,6 +24,7 @@ export const CarouselBlock = ({
   slideColumnSpan,
   responsive,
   breakpointSelection,
+  featuredItems,
 }: Props) => {
   const hasItems = carouselItems && Array.isArray(carouselItems) && carouselItems.length > 0;
 
@@ -41,6 +42,8 @@ export const CarouselBlock = ({
   const wrapperClasses = clsx({
     [`${carouselClassNames?.wrapper}`]: carouselClassNames?.wrapper,
     [`${style[`grid-template-cols__${gridColumns}`]}`]: responsive && gridColumns,
+    [`${style[`featured-items--${featuredItems}`]}`]:
+      responsive && featuredItems && featuredItems !== '0',
   });
 
   const slideClasses = clsx({

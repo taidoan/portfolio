@@ -181,6 +181,18 @@
   }
 }
 
+.featured-items--1 {
+  *:first-of-type {
+    grid-column: span 12;
+  }
+}
+
+.featured-items--2 {
+  *:nth-of-type(-n + 2) {
+    grid-column: span 6;
+  }
+}
+
 .controls {
   align-items: center;
   display: flex;

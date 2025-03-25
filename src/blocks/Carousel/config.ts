@@ -238,6 +238,7 @@ export const CarouselBlock: Block = {
                 {
                   name: 'breakpointSelection',
                   type: 'text',
+                  required: true,
                   admin: {
                     condition: (_, siblingData) => siblingData.responsive === true,
                     components: {
@@ -257,6 +258,11 @@ export const CarouselBlock: Block = {
                   type: 'select',
                   name: 'gridColumns',
                   label: 'Grid Columns',
+                  admin: {
+                    description: 'What it the size of the grid?',
+                    width: '50%',
+                    readOnly: true,
+                  },
                   options: [
                     { value: '1', label: '1 Column' },
                     { value: '2', label: '2 Columns' },
@@ -266,11 +272,17 @@ export const CarouselBlock: Block = {
                     { value: '8', label: '8 Columns' },
                     { value: '12', label: '12 Columns' },
                   ],
+                  defaultValue: '12',
+                  required: true,
                 },
                 {
                   type: 'select',
                   name: 'slideColumnSpan',
                   label: 'Slide Column Span',
+                  admin: {
+                    description: 'How many colummns should the slides span?',
+                    width: '50%',
+                  },
                   options: [
                     { value: '1', label: '1 Column' },
                     { value: '2', label: '2 Columns' },
@@ -279,6 +291,31 @@ export const CarouselBlock: Block = {
                     { value: '6', label: 'Half (6 Columns)' },
                     { value: '12', label: 'Full Width (12 Columns)' },
                   ],
+                  defaultValue: '4',
+                  required: true,
+                },
+              ],
+            },
+            {
+              type: 'row',
+              admin: {
+                condition: (_, siblingData) => siblingData.responsive === true,
+              },
+              fields: [
+                {
+                  name: 'featuredItems',
+                  type: 'select',
+                  label: 'Featured Items',
+                  admin: {
+                    description:
+                      'The amount of featured items, these will appear larger compared to the rest of the items.',
+                  },
+                  options: [
+                    { value: '0', label: 'No Featured Slides' },
+                    { value: '1', label: 'One' },
+                    { value: '2', label: 'Two' },
+                  ],
+                  defaultValue: '0',
                 },
               ],
             },
