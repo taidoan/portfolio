@@ -15,7 +15,7 @@ const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) 
   return doc?.title ? `${doc.title}` : 'Tai Doan Portfolio Website';
 };
 
-const generateDescription: GenerateDescription<Post | Project> = ({ doc }) => {
+const generateDescription: GenerateDescription<Post | Project | Service> = ({ doc }) => {
   let text = '';
 
   if ('excerpt' in doc && typeof doc.excerpt === 'string') {
@@ -33,12 +33,25 @@ const generateDescription: GenerateDescription<Post | Project> = ({ doc }) => {
     if (firstTextNode) {
       text = firstTextNode.children[0].text;
     }
+  } else if ('description' in doc && doc.description && doc.description.root?.children) {
+    const firstTextNode = doc.description.root.children.find(
+      (child): child is { type: string; version: number; children: { text: string }[] } =>
+        typeof child.type === 'string' &&
+        typeof child.version === 'number' &&
+        child.type === 'paragraph' &&
+        Array.isArray(child.children) &&
+        typeof child.children[0]?.text === 'string',
+    );
+
+    if (firstTextNode) {
+      text = firstTextNode.children[0].text;
+    }
   }
 
   text = text || 'No description available';
 
-  if (text.length > 160) {
-    return text.slice(0, text.lastIndexOf(' ', 157)) + '...';
+  if (text.length > 150) {
+    return text.slice(0, text.lastIndexOf(' ', 147)) + '...';
   }
 
   return text;

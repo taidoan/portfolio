@@ -93,7 +93,9 @@ export const Services: CollectionConfig = {
               hasGenerateFn: true,
             }),
 
-            MetaDescriptionField({}),
+            MetaDescriptionField({
+              hasGenerateFn: true,
+            }),
             PreviewField({
               hasGenerateFn: true,
               titlePath: 'meta.title',
