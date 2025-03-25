@@ -41,7 +41,9 @@ export const SectionBlock = ({
   const hasContent =
     boxedContent || (sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0);
   const hasBlocks = sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0;
-  const isBlocksLayout = appearance?.sectionType === 'default' && hasBlocks;
+  const isBlocksLayout =
+    (appearance?.sectionType === 'default' || appearance?.sectionType === 'full-width') &&
+    hasBlocks;
   const isBoxedLayout =
     appearance?.sectionType === 'boxed' && boxedContent && boxedContent.root.children.length > 0;
 

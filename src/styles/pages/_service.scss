@@ -1,5 +1,9 @@
 @use '@abstracts/_index' as *;
 
+.service__section + .section {
+  margin-top: var(--layout-row-spacing);
+}
+
 .service__image-container {
   align-items: center;
   background-color: var(--card-outline-color) !important;
