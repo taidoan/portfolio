@@ -12,6 +12,10 @@
     margin-top: var(--layout-row-spacing);
   }
 
+  & + .project__section {
+    margin-top: var(--layout-row-spacing-sm);
+  }
+
   &__group {
     row-gap: 0;
   }

@@ -6,7 +6,7 @@ import s from './../style.module.scss';
 const urlEndpoint = getCDNURL();
 
 export type PDFMediaProps = {
-  src: string;
+  src: string | null | undefined;
   width?: string | number;
   height?: string | number;
   style?: React.CSSProperties;

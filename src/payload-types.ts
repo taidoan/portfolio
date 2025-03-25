@@ -504,6 +504,40 @@ export interface Project {
  */
 export interface Service {
   id: string;
+  hero: {
+    /**
+     * Use this if you want to override the service title that appears in the hero.
+     */
+    titleOverride: string;
+    'clonedLock-110371416'?: boolean | null;
+    subtitle?: string | null;
+    backgroundImage?: (string | null) | Media;
+    blurredBackground?: ('true' | 'false') | null;
+    breadcrumbs?: {
+      showBreadcrumb?: ('true' | 'false') | null;
+      breadcrumbContainer?: ('none' | 'boxed') | null;
+      breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
+      breadcrumbs?:
+        | {
+            relationTo:
+              | {
+                  relationTo: 'pages';
+                  value: string | Page;
+                }
+              | {
+                  relationTo: 'projects';
+                  value: string | Project;
+                }
+              | {
+                  relationTo: 'services';
+                  value: string | Service;
+                };
+            label: string;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
   title: string;
   image?: (string | null) | Media;
   description: {
@@ -552,25 +586,6 @@ export interface Service {
   slug: string;
   slugLock?: boolean | null;
   url?: string | null;
-  breadcrumbs?:
-    | {
-        relationTo:
-          | {
-              relationTo: 'pages';
-              value: string | Page;
-            }
-          | {
-              relationTo: 'projects';
-              value: string | Project;
-            }
-          | {
-              relationTo: 'services';
-              value: string | Service;
-            };
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
   thumbnail?: (string | null) | Media;
   categories: (string | Category)[];
   updatedAt: string;
@@ -2601,6 +2616,29 @@ export interface ProjectsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        titleOverride?: T;
+        'clonedLock-110371416'?: T;
+        subtitle?: T;
+        backgroundImage?: T;
+        blurredBackground?: T;
+        breadcrumbs?:
+          | T
+          | {
+              showBreadcrumb?: T;
+              breadcrumbContainer?: T;
+              breadcrumbBackground?: T;
+              breadcrumbs?:
+                | T
+                | {
+                    relationTo?: T;
+                    label?: T;
+                    id?: T;
+                  };
+            };
+      };
   title?: T;
   image?: T;
   description?: T;
@@ -2622,13 +2660,6 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   url?: T;
-  breadcrumbs?:
-    | T
-    | {
-        relationTo?: T;
-        label?: T;
-        id?: T;
-      };
   thumbnail?: T;
   categories?: T;
   updatedAt?: T;

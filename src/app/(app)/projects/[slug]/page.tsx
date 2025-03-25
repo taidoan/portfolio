@@ -51,7 +51,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
       <ProjectHero heroData={page} breadcrumbsData={breadcrumbsData} />
-      <section className={clsx('project__section', 'project__details')}>
+      <section className={clsx('section', 'project__details')}>
         <Card className='project__description'>
           <CardBody padding='large'>
             {page.details?.description && (
@@ -61,11 +61,10 @@ const Page = async ({ params: paramsPromise }: Args) => {
         </Card>
         <ProjectDetails data={{ details: page.details }} className='project__info' />
       </section>
-      <section className={clsx('project__section')}>
+      <section className={clsx('project__section', 'project__gallery')}>
         <ProjectGallery
           media={{ gallery: page.gallery }}
           options={{ galleryOptions: page.galleryOptions }}
-          className='project__gallery'
         />
       </section>
       {page.content && (
@@ -77,10 +76,13 @@ const Page = async ({ params: paramsPromise }: Args) => {
           </Card>
         </section>
       )}
-      <ProjectPagination className={clsx('project__section')} data={pagination} />
+      <ProjectPagination
+        className={clsx('project__section', 'project__pagination')}
+        data={pagination}
+      />
       {page.ctaContent && (
         <CTA
-          className='project__section'
+          className='project__section project__cta'
           link={page.ctaLink}
           content={page.ctaContent}
           variant={page.ctaAppearance?.blockVariant || 'fill'}

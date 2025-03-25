@@ -1,0 +1,18 @@
+@use '@abstracts/_index' as *;
+
+.hero {
+  --font-color: var(--clr-light-400);
+  color: var(--font-color);
+
+  @include hero-base;
+  @include hero-small;
+}
+
+.hero--blurred {
+  @include hero-blurred;
+}
+
+.hero__subtitle {
+  color: var(--clr-secondary-400);
+  @include section-heading;
+}
