@@ -1,10 +1,10 @@
 import style from './style.module.scss';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { ImageMedia } from '@components/ui/Media/Image';
+import { Media } from '@components/ui/Media';
 import { Alert, AlertTitle } from '@components/ui/Alert';
 import { useCardContext } from './index';
-import type { Media, Project, Service, Post } from '@/payload-types';
+import type { Media as MediaType, Project, Service, Post } from '@/payload-types';
 import type { CardData } from './index';
 
 const isProject = (
@@ -21,12 +21,12 @@ const isService = (
   return 'image' in data;
 };
 
-const isMedia = (value: string | Media): value is Media => {
+const isMedia = (value: string | MediaType): value is MediaType => {
   return typeof value === 'object' && value !== null && 'filename' in value;
 };
 
 export type CardImageProps = {
-  src?: string | Media | null;
+  src?: string | MediaType | null;
   alt?: string;
   className?: string;
   borderRadius?: 'top' | 'bottom' | 'left' | 'right' | 'all' | 'none' | null;
@@ -70,11 +70,11 @@ export const CardImage = ({
 
   const image = (
     <>
-      <ImageMedia
-        src={srcToUse}
+      <Media
+        src={srcToUse || ''}
         alt={altToUse}
-        width={widthToUse}
-        height={heightToUse}
+        width={widthToUse || 200}
+        height={heightToUse || 200}
         className={imageClasses}
         sizes={relation === 'projects' ? '556px' : '100vw'}
       />
