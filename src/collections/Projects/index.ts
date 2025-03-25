@@ -552,7 +552,7 @@ export const Projects: CollectionConfig = {
       ],
     },
     ...SlugField(),
-    urlField(),
+    urlField('slug', 'projects'),
     {
       name: 'thumbnail',
       type: 'upload',

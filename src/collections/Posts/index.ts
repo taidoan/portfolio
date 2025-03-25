@@ -82,7 +82,7 @@ export const Posts: CollectionConfig = {
       ],
     },
     ...SlugField(),
-    urlField(),
+    urlField('slug', 'posts'),
     {
       name: 'thumbnail',
       type: 'upload',

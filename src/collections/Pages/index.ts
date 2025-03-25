@@ -122,7 +122,7 @@ export const Pages: CollectionConfig = {
       ],
     },
     ...SlugField(),
-    urlField(),
+    urlField('slug'),
     {
       name: 'thumbnail',
       type: 'upload',

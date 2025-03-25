@@ -109,7 +109,7 @@ export const Services: CollectionConfig = {
       ],
     },
     ...SlugField('title'),
-    urlField(),
+    urlField('slug', 'services'),
     BreadCrumbs({
       admin: {
         position: 'sidebar',

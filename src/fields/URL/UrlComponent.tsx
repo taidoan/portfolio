@@ -9,9 +9,10 @@ import './index.scss';
 
 export type UrlComponentProps = {
   fieldToUse: string;
+  collection?: string;
 } & TextFieldClientProps;
 
-export const UrlComponent = ({ field, fieldToUse, path }: UrlComponentProps) => {
+export const UrlComponent = ({ field, fieldToUse, path, collection }: UrlComponentProps) => {
   const { label } = field;
   const { value, setValue } = useField<string>({ path: path || field.name });
 
@@ -21,13 +22,14 @@ export const UrlComponent = ({ field, fieldToUse, path }: UrlComponentProps) => 
 
   useEffect(() => {
     if (targetFieldValue) {
-      const fullUrl = `${getServerSideURL()}/${targetFieldValue}`;
+      let fullUrl = `${getServerSideURL()}/${targetFieldValue}`;
+      if (collection) fullUrl = `${getServerSideURL()}/${collection}/${targetFieldValue}`;
 
       if (value !== fullUrl) setValue(fullUrl);
     } else {
       if (value !== '') setValue('');
     }
-  }, [targetFieldValue, value, setValue, path]);
+  }, [targetFieldValue, value, setValue, path, collection]);
 
   const handleCopy = async () => {
     if (value) {
