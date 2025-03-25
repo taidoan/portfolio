@@ -103,7 +103,7 @@ export const SectionBlock: Block = {
                   type: 'row',
                   admin: {
                     condition: (_, siblingData) => {
-                      if (siblingData.sectionType === 'boxed') {
+                      if (siblingData.sectionType !== 'default') {
                         return true;
                       } else {
                         return false;
@@ -129,7 +129,10 @@ export const SectionBlock: Block = {
                       },
                     }),
                     BorderRadius({
-                      admin: { width: '50%' },
+                      admin: {
+                        width: '50%',
+                        condition: (_, siblingData) => siblingData.sectionType === 'boxed',
+                      },
                     }),
                   ],
                 },

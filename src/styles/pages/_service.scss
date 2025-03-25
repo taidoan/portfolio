@@ -26,6 +26,12 @@
   }
 }
 
+@include mq('md') {
+  .service__item-container + .service__item-container {
+    margin-top: size-clamp(rem(16), rem(24));
+  }
+}
+
 .service__item {
   align-items: center;
   background-color: var(--clr-light-grey-150);
@@ -61,10 +67,12 @@
 }
 
 .service__item-divider {
-  display: none !important;
+  margin-inline: auto;
+  width: 66% !important;
 
   @include mq('md') {
-    display: block !important;
+    margin-inline: 0;
+    width: initial;
   }
 }
 

@@ -11,6 +11,8 @@ import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@fields/Breadcrumbs';
 import { ClonedField } from '@/fields/ClonedField';
+import { SectionBlock } from '@/blocks/Section/config';
+import { CTABlock } from '@/blocks/CTA/config';
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -194,6 +196,12 @@ export const Services: CollectionConfig = {
               type: 'richText',
               name: 'introContent',
               label: 'Intro Content',
+            },
+            {
+              type: 'blocks',
+              name: 'pageBlocks',
+              label: 'Page Blocks',
+              blocks: [SectionBlock, CTABlock],
             },
           ],
         },

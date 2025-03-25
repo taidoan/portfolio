@@ -12,10 +12,10 @@ import { RichText } from '@/components/ui/RichText';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { SlugPageHero } from '@/blocks/Hero/SlugPage';
 import { Media } from '@components/ui/Media';
-import { CTA } from '@/components/layout/CTA';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Divider } from '@/components/ui/Divider';
 import { Carousel } from '@/components/ui/Carousel';
+import { RenderBlocks } from '@/blocks/RenderBlocks';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -32,7 +32,7 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
-  const { hero, introContent, image, items } = page;
+  const { hero, introContent, image, items, pageBlocks } = page;
   const breadcrumbs = hero?.breadcrumbs;
 
   const pageIds =
@@ -73,7 +73,15 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
       </section>
       <Card className={clsx('service__section', 'text-align__left')}>
         <CardBody padding='base'>
-          <Carousel disableAt={'(min-width: 64em)'} pagination buttonNavigation>
+          <Carousel
+            disableAt={'(min-width: 64em)'}
+            pagination
+            buttonNavigation
+            slideClassName='service__item-container'
+            keyboardControls
+            autoHeight
+            loop
+          >
             {items?.length > 0 &&
               items.map((item, index) => {
                 const itemImage = item.image;
@@ -103,6 +111,7 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
           </Carousel>
         </CardBody>
       </Card>
+      {pageBlocks && <RenderBlocks blocks={pageBlocks} />}
     </>
   );
 };

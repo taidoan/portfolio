@@ -594,6 +594,7 @@ export interface Service {
     };
     [k: string]: unknown;
   } | null;
+  pageBlocks?: (SectionBlockProps | CTABlockProps)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -610,106 +611,6 @@ export interface Service {
   categories: (string | Category)[];
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  title: string;
-  description?: string | null;
-  slug: string;
-  slugLock?: boolean | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "DividerBlockProps".
- */
-export interface DividerBlockProps {
-  type?: ('content' | 'section') | null;
-  weight?: ('minimal' | 'thin' | 'thick') | null;
-  width?: ('full' | 'default' | 'half') | null;
-  centered?: boolean | null;
-  color?: ('primary' | 'secondary' | 'accent' | 'light-grey') | null;
-  opacity?: number | null;
-  className?: string | null;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'divider';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -770,6 +671,49 @@ export interface SectionBlockProps {
   hiddenSlug?: string | null;
   id?: string | null;
   blockType: 'section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DividerBlockProps".
+ */
+export interface DividerBlockProps {
+  type?: ('content' | 'section') | null;
+  weight?: ('minimal' | 'thin' | 'thick') | null;
+  width?: ('full' | 'default' | 'half') | null;
+  centered?: boolean | null;
+  color?: ('primary' | 'secondary' | 'accent' | 'light-grey') | null;
+  opacity?: number | null;
+  className?: string | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'divider';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -840,6 +784,63 @@ export interface LinksBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'links';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title: string;
+  description?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
+  parentCategory?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1491,6 +1492,78 @@ export interface TopTracksBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTABlockProps".
+ */
+export interface CTABlockProps {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  link: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+  backgroundColour?:
+    | (
+        | 'none'
+        | 'primary'
+        | 'secondary'
+        | 'accent'
+        | 'gradient-light'
+        | 'gradient-primary'
+        | 'gradient-secondary'
+        | 'gradient-accent'
+      )
+    | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SectionGroupBlockProps".
  */
 export interface SectionGroupBlockProps {
@@ -1673,78 +1746,6 @@ export interface TabbedContentBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabbedContentBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTABlockProps".
- */
-export interface CTABlockProps {
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  link: {
-    type: 'reference' | 'custom';
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'projects';
-          value: string | Project;
-        } | null)
-      | ({
-          relationTo: 'services';
-          value: string | Service;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null)
-      | ({
-          relationTo: 'categories';
-          value: string | Category;
-        } | null);
-    url?: string | null;
-    label: string;
-    variant?: ('fill' | 'outlined') | null;
-    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
-    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
-    className?: string | null;
-  };
-  blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
-  backgroundColour?:
-    | (
-        | 'none'
-        | 'primary'
-        | 'secondary'
-        | 'accent'
-        | 'gradient-light'
-        | 'gradient-primary'
-        | 'gradient-secondary'
-        | 'gradient-accent'
-      )
-    | null;
-  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'ctaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2672,6 +2673,12 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   introContent?: T;
+  pageBlocks?:
+    | T
+    | {
+        section?: T | SectionBlockPropsSelect<T>;
+        ctaBlock?: T | CTABlockPropsSelect<T>;
+      };
   meta?:
     | T
     | {
