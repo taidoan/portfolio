@@ -120,13 +120,13 @@ export const CardBlock = async ({
             <p>{project.details.type}</p>
           ) : null}
 
-          {isService && serviceContent && serviceContent.root.children.length > 1 ? (
+          {isService && serviceContent && serviceContent.root.children.length > 0 ? (
             <RichText data={serviceContent} />
           ) : service?.description ? (
             <RichText data={service?.description} />
           ) : null}
 
-          {isPost && postContent && postContent.root.children.length > 1 ? (
+          {isPost && postContent && postContent.root.children.length > 0 ? (
             <RichText data={postContent} />
           ) : post?.excerpt ? (
             <p>{post?.excerpt}</p>
