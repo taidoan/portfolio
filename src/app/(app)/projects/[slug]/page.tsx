@@ -23,7 +23,7 @@ export type Args = {
 
 const Page = async ({ params: paramsPromise }: Args) => {
   const { isEnabled: draft } = await draftMode();
-  const { slug = 'home' } = await paramsPromise;
+  const { slug = '' } = await paramsPromise;
 
   const url = '/projects/' + slug;
   const page: RequiredDataFromCollectionSlug<'projects'> | null = await queryPageBySlug({

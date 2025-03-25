@@ -10,7 +10,17 @@ export const SlugPageHero = ({
   heroData,
   breadcrumbsData,
 }: {
-  heroData: Omit<Project & Service, 'id' | 'createdAt' | 'updatedAt' | 'items' | 'description'> & {
+  heroData: Omit<
+    Project & Service,
+    | 'id'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'description'
+    | 'items'
+    | 'ctaLink'
+    | 'galleryOptions'
+    | 'layout'
+  > & {
     id?: string;
     createdAt?: string;
     updatedAt?: string;
@@ -31,7 +41,7 @@ export const SlugPageHero = ({
       )}
       <div className='hero__text'>
         <span className={style.hero__subtitle}>
-          {hero.typeOverride ? hero.typeOverride : (details?.type ?? hero.subtitle)}
+          {hero.typeOverride ? hero.typeOverride : details?.type}
         </span>
         <h1>{hero.titleOverride ? hero.titleOverride : title}</h1>
       </div>

@@ -506,11 +506,15 @@ export interface Service {
   id: string;
   hero: {
     /**
+     * Use this if you want to override the project type that appears above the title.
+     */
+    typeOverride: string;
+    'clonedLock-1050015322'?: boolean | null;
+    /**
      * Use this if you want to override the service title that appears in the hero.
      */
     titleOverride: string;
     'clonedLock-110371416'?: boolean | null;
-    subtitle?: string | null;
     backgroundImage?: (string | null) | Media;
     blurredBackground?: ('true' | 'false') | null;
     breadcrumbs?: {
@@ -575,6 +579,7 @@ export interface Service {
     image: string | Media;
     id?: string | null;
   }[];
+  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps | ArchiveBlockProps)[];
   meta?: {
     title?: string | null;
     /**
@@ -586,67 +591,11 @@ export interface Service {
   slug: string;
   slugLock?: boolean | null;
   url?: string | null;
+  collectionTitle?: string | null;
   thumbnail?: (string | null) | Media;
   categories: (string | Category)[];
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  title: string;
-  description?: string | null;
-  slug: string;
-  slugLock?: boolean | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -820,6 +769,63 @@ export interface LinksBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'links';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title: string;
+  description?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
+  parentCategory?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2619,9 +2625,10 @@ export interface ServicesSelect<T extends boolean = true> {
   hero?:
     | T
     | {
+        typeOverride?: T;
+        'clonedLock-1050015322'?: T;
         titleOverride?: T;
         'clonedLock-110371416'?: T;
-        subtitle?: T;
         backgroundImage?: T;
         blurredBackground?: T;
         breadcrumbs?:
@@ -2650,6 +2657,14 @@ export interface ServicesSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
+  layout?:
+    | T
+    | {
+        divider?: T | DividerBlockPropsSelect<T>;
+        section?: T | SectionBlockPropsSelect<T>;
+        sectionGroup?: T | SectionGroupBlockPropsSelect<T>;
+        archiveBlock?: T | ArchiveBlockPropsSelect<T>;
+      };
   meta?:
     | T
     | {
@@ -2660,6 +2675,7 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   url?: T;
+  collectionTitle?: T;
   thumbnail?: T;
   categories?: T;
   updatedAt?: T;

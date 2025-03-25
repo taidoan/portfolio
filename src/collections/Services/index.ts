@@ -11,6 +11,10 @@ import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@fields/Breadcrumbs';
 import { ClonedField } from '@/fields/ClonedField';
+import { DividerBlock } from '@/blocks/Divider/config';
+import { SectionBlock } from '@/blocks/Section/config';
+import { SectionGroupBlock } from '@/blocks/Section/Group/config';
+import { ArchiveBlock } from '@/blocks/Archive/config';
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -31,6 +35,17 @@ export const Services: CollectionConfig = {
           label: 'Hero',
           name: 'hero',
           fields: [
+            ...ClonedField('collectionTitle', {
+              clonedOverrides: {
+                name: 'typeOverride',
+                label: 'Subtitle Override',
+                admin: {
+                  description:
+                    'Use this if you want to override the project type that appears above the title.',
+                  width: '50%',
+                },
+              },
+            }),
             ...ClonedField('title', {
               clonedOverrides: {
                 name: 'titleOverride',
@@ -42,12 +57,6 @@ export const Services: CollectionConfig = {
                 },
               },
             }),
-            {
-              type: 'text',
-              name: 'subtitle',
-              label: 'Subtitle',
-              defaultValue: 'Service',
-            },
             {
               type: 'row',
               fields: [
@@ -183,6 +192,18 @@ export const Services: CollectionConfig = {
           ],
         },
         {
+          label: 'Layout',
+          fields: [
+            {
+              type: 'blocks',
+              name: 'layout',
+              label: false,
+              blocks: [DividerBlock, SectionBlock, SectionGroupBlock, ArchiveBlock],
+              required: true,
+            },
+          ],
+        },
+        {
           label: 'SEO',
           name: 'meta',
           fields: [
@@ -216,6 +237,19 @@ export const Services: CollectionConfig = {
     },
     ...SlugField('title'),
     urlField('slug', 'services'),
+    {
+      name: 'collectionTitle',
+      type: 'text',
+      defaultValue: 'Services',
+      label: 'Collection',
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        style: {
+          display: 'none',
+        },
+      },
+    },
     {
       name: 'thumbnail',
       type: 'upload',
