@@ -23,7 +23,7 @@ export const queryPageBySlug = cache(
     const result = await payload.find({
       collection: collection,
       draft,
-      limit: 1,
+      limit: 2,
       pagination: false,
       overrideAccess: draft,
       where: {

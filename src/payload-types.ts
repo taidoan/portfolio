@@ -630,6 +630,7 @@ export interface SectionBlockProps {
         | BioBlockProps
         | ToolsBlockProps
         | TopTracksBlockProps
+        | RelatedProjectsBlockProps
       )[]
     | null;
   boxedContent?: {
@@ -1492,6 +1493,44 @@ export interface TopTracksBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedProjectsBlockProps".
+ */
+export interface RelatedProjectsBlockProps {
+  relatedCollection: 'projects' | 'posts';
+  relatedCategory: 'branding' | 'digital' | 'marketing' | 'print' | 'graphic-design';
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'relatedProjectsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CTABlockProps".
  */
 export interface CTABlockProps {
@@ -2082,6 +2121,7 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         bioBlock?: T | BioBlockPropsSelect<T>;
         toolsBlock?: T | ToolsBlockPropsSelect<T>;
         topTracksBlock?: T | TopTracksBlockPropsSelect<T>;
+        relatedProjectsBlock?: T | RelatedProjectsBlockPropsSelect<T>;
       };
   boxedContent?: T;
   appearance?:
@@ -2390,6 +2430,23 @@ export interface TopTracksBlockPropsSelect<T extends boolean = true> {
   loop?: T;
   slideSpacing?: T;
   focus?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedProjectsBlockProps_select".
+ */
+export interface RelatedProjectsBlockPropsSelect<T extends boolean = true> {
+  relatedCollection?: T;
+  relatedCategory?: T;
   gridAppearance?:
     | T
     | {

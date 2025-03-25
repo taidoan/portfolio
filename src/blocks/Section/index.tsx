@@ -13,6 +13,7 @@ import { CarouselBlock } from '../Carousel';
 import { BioBlock } from '../Bio';
 import { ToolsBlock } from '../Tools';
 import { TopTracksBlock } from '../TopTracks';
+import { RelatedProjectsBlock } from '../RelatedProjects';
 
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -29,6 +30,7 @@ const blockComponents = {
   bioBlock: BioBlock,
   toolsBlock: ToolsBlock,
   topTracksBlock: TopTracksBlock,
+  relatedProjectsBlock: RelatedProjectsBlock,
 };
 
 export const SectionBlock = ({

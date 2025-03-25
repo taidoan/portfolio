@@ -10,6 +10,7 @@ import { CarouselBlock } from '../Carousel/config';
 import { BioBlock } from '../Bio/config';
 import { ToolsBlock } from '../Tools/config';
 import { TopTracksBlock } from '../TopTracks/config';
+import { RelatedProjectsBlock } from '../RelatedProjects/config';
 
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
@@ -29,6 +30,7 @@ const Blocks = [
   BioBlock,
   ToolsBlock,
   TopTracksBlock,
+  RelatedProjectsBlock,
 ];
 
 export const SectionBlock: Block = {
