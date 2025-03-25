@@ -7,7 +7,7 @@ import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { RichText } from '@/components/ui/RichText';
-import { ProjectHero } from '@/blocks/Hero/Project';
+import { SlugPageHero } from '@/blocks/Hero/SlugPage';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { Redirects } from '@/components/features/Redirects';
 import clsx from 'clsx';
@@ -50,7 +50,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
     <>
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
-      <ProjectHero heroData={page} breadcrumbsData={breadcrumbsData} />
+      <SlugPageHero heroData={page} breadcrumbsData={breadcrumbsData} />
       <section className={clsx('section', 'project__details')}>
         <Card className='project__description'>
           <CardBody padding='large'>

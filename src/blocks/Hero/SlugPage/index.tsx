@@ -1,23 +1,23 @@
-import type { Service } from '@/payload-types';
+import type { Project, Service } from '@/payload-types';
 import type { Breadcrumbs as BreadcrumbsType } from '@/components/ui/Breadcrumbs';
 import clsx from 'clsx';
 
-import { Media } from '@components/ui/Media';
+import { ImageMedia } from '@components/ui/Media/Image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import style from './style.module.scss';
 
-export const ServiceHero = ({
+export const SlugPageHero = ({
   heroData,
   breadcrumbsData,
 }: {
-  heroData: Omit<Service, 'id' | 'createdAt' | 'updatedAt'> & {
+  heroData: Omit<Project & Service, 'id' | 'createdAt' | 'updatedAt' | 'items' | 'description'> & {
     id?: string;
     createdAt?: string;
     updatedAt?: string;
   };
   breadcrumbsData: BreadcrumbsType;
 }) => {
-  const { title, hero } = heroData;
+  const { title, details, hero } = heroData;
   const image = hero.backgroundImage;
 
   const heroClasses = clsx('section', style.hero, {
@@ -26,9 +26,13 @@ export const ServiceHero = ({
 
   return (
     <section className={heroClasses}>
-      {typeof image === 'object' && <Media src={image?.filename} alt={image?.alt || ''} fill />}
+      {typeof image === 'object' && (
+        <ImageMedia src={image?.filename || null} alt={image?.alt || ''} fill />
+      )}
       <div className='hero__text'>
-        <span className={style.hero__subtitle}>{hero.subtitle}</span>
+        <span className={style.hero__subtitle}>
+          {hero.typeOverride ? hero.typeOverride : (details?.type ?? hero.subtitle)}
+        </span>
         <h1>{hero.titleOverride ? hero.titleOverride : title}</h1>
       </div>
       {hero.breadcrumbs?.showBreadcrumb === 'true' && (
