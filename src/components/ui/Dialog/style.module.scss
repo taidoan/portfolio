@@ -28,4 +28,9 @@
   &:focus-visible {
     @include focused-box;
   }
+
+  svg {
+    min-height: calc(var(--size) / 2.5);
+    min-width: calc(var(--size) / 2.5);
+  }
 }
