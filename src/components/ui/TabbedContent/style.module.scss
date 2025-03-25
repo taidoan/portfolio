@@ -111,8 +111,10 @@
   }
 
   &--first-cat-active {
-    border-radius: 0 var(--border-radius-small) var(--border-radius-small)
-      var(--border-radius-small);
+    @include mq('md') {
+      border-radius: 0 var(--border-radius-small) var(--border-radius-small)
+        var(--border-radius-small);
+    }
   }
 
   &-wrapper {
@@ -145,7 +147,7 @@
   align-items: center;
   background-color: var(--clr-light-grey-150);
   border-radius: var(--border-radius-small);
-  color: var(--clr-slate-300);
+  color: var(--clr-slate-350);
   display: flex;
   flex-direction: column;
   gap: rem(24);
