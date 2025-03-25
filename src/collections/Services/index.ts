@@ -11,10 +11,6 @@ import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@fields/Breadcrumbs';
 import { ClonedField } from '@/fields/ClonedField';
-import { DividerBlock } from '@/blocks/Divider/config';
-import { SectionBlock } from '@/blocks/Section/config';
-import { SectionGroupBlock } from '@/blocks/Section/Group/config';
-import { ArchiveBlock } from '@/blocks/Archive/config';
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -192,14 +188,12 @@ export const Services: CollectionConfig = {
           ],
         },
         {
-          label: 'Layout',
+          label: 'Content',
           fields: [
             {
-              type: 'blocks',
-              name: 'layout',
-              label: false,
-              blocks: [DividerBlock, SectionBlock, SectionGroupBlock, ArchiveBlock],
-              required: true,
+              type: 'richText',
+              name: 'introContent',
+              label: 'Intro Content',
             },
           ],
         },

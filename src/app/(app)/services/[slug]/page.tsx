@@ -11,8 +11,11 @@ import { Redirects } from '@/components/features/Redirects';
 import { RichText } from '@/components/ui/RichText';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { SlugPageHero } from '@/blocks/Hero/SlugPage';
-import { RenderBlocks } from '@/blocks/RenderBlocks';
+import { Media } from '@components/ui/Media';
 import { CTA } from '@/components/layout/CTA';
+import { Card, CardBody } from '@/components/ui/Card';
+import { Divider } from '@/components/ui/Divider';
+import { Carousel } from '@/components/ui/Carousel';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -29,7 +32,7 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
-  const { hero, layout } = page;
+  const { hero, introContent, image, items } = page;
   const breadcrumbs = hero?.breadcrumbs;
 
   const pageIds =
@@ -45,7 +48,61 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
       <SlugPageHero heroData={page} breadcrumbsData={breadcrumbsData} />
-      <RenderBlocks blocks={layout} />
+      <section className={clsx('section', 'text-align__left')}>
+        <div className={'section__wrapper'}>
+          {introContent && (
+            <RichText
+              converters={headingConverter}
+              data={introContent}
+              className={clsx('col-span-10', 'align-self__center')}
+            />
+          )}
+          <div className={'col-span-1'}></div>
+          {image && typeof image === 'object' && (
+            <div className={clsx('col-span-5', 'align-self__center', 'service__image-container')}>
+              <Media
+                src={image.filename}
+                alt={image.alt || ''}
+                width={image.width ? image.width : undefined}
+                height={image.height ? image.height : undefined}
+                className='service__image'
+              />
+            </div>
+          )}
+        </div>
+      </section>
+      <Card className={clsx('service__section', 'text-align__left')}>
+        <CardBody padding='base'>
+          <Carousel disableAt={'(min-width: 64em)'} pagination buttonNavigation>
+            {items?.length > 0 &&
+              items.map((item, index) => {
+                const itemImage = item.image;
+                return (
+                  <div className='service__item' key={index}>
+                    {itemImage && typeof itemImage === 'object' && (
+                      <Media
+                        src={itemImage.filename}
+                        alt={itemImage.alt || ''}
+                        width={itemImage.width ? itemImage.width : undefined}
+                        height={itemImage.height ? itemImage.height : undefined}
+                        className='service__item-image'
+                      />
+                    )}
+                    <div className='service__item-content'>
+                      <h2 className='service__item-title'>{item.title}</h2>
+                      <Divider
+                        type='content'
+                        color='light-grey'
+                        className='service__item-divider'
+                      />
+                      <RichText data={item.description} />
+                    </div>
+                  </div>
+                );
+              })}
+          </Carousel>
+        </CardBody>
+      </Card>
     </>
   );
 };

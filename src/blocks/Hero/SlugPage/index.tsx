@@ -19,7 +19,7 @@ export const SlugPageHero = ({
     | 'items'
     | 'ctaLink'
     | 'galleryOptions'
-    | 'layout'
+    | 'introContent'
   > & {
     id?: string;
     createdAt?: string;

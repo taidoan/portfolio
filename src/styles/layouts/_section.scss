@@ -12,7 +12,8 @@
     margin-top: var(--layout-row-spacing);
   }
 
-  & + .project__section {
+  & + .project__section,
+  & + .service__section {
     margin-top: var(--layout-row-spacing-sm);
   }
 

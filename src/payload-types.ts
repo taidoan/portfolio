@@ -579,7 +579,21 @@ export interface Service {
     image: string | Media;
     id?: string | null;
   }[];
-  layout: (DividerBlockProps | SectionBlockProps | SectionGroupBlockProps | ArchiveBlockProps)[];
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   meta?: {
     title?: string | null;
     /**
@@ -596,6 +610,63 @@ export interface Service {
   categories: (string | Category)[];
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title: string;
+  description?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
+  parentCategory?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -769,63 +840,6 @@ export interface LinksBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'links';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  title: string;
-  description?: string | null;
-  slug: string;
-  slugLock?: boolean | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2657,14 +2671,7 @@ export interface ServicesSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
-  layout?:
-    | T
-    | {
-        divider?: T | DividerBlockPropsSelect<T>;
-        section?: T | SectionBlockPropsSelect<T>;
-        sectionGroup?: T | SectionGroupBlockPropsSelect<T>;
-        archiveBlock?: T | ArchiveBlockPropsSelect<T>;
-      };
+  introContent?: T;
   meta?:
     | T
     | {
