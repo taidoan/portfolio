@@ -187,6 +187,10 @@
 .filter__item-image {
   block-size: size-clamp(rem(120), rem(160));
   inline-size: size-clamp(rem(120), rem(160));
+
+  &[src$='.svg'] {
+    width: auto;
+  }
 }
 
 @include mq('md') {
