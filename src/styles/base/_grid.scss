@@ -2,7 +2,7 @@
 
 :root {
   --layout-row-spacing: #{size-clamp(rem($section-spacing-base), rem($section-spacing-desktop))};
-  --padding-inline: #{rem($padding-inline-base)};
+  --padding-inline: #{size-clamp(rem($padding-inline-base), rem($padding-inline-large))};
   --content-max-width: #{rem($project-max-width)};
 }
 
