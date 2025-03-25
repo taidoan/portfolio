@@ -58,6 +58,8 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+          export HUSKY=0
+
           if [[ -n "$(git status --porcelain)" ]]; then
             git add .
             git commit -m "docs: update documentation [skip ci]"
