@@ -1,4 +1,4 @@
-@use "@abstracts/_index" as *;
+@use '@abstracts/_index' as *;
 
 .base {
   background-color: var(--clr-frosted-sage-400);
@@ -51,7 +51,7 @@
   }
 
   &.content {
-    margin-block: size-clamp(rem(16), rem(24));
+    margin-block: var(--spacing-paragraph);
   }
 
   &.section {

@@ -10,6 +10,9 @@ import {
 import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@fields/Breadcrumbs';
+import { ClonedField } from '@/fields/ClonedField';
+import { SectionBlock } from '@/blocks/Section/config';
+import { CTABlock } from '@/blocks/CTA/config';
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -26,6 +29,116 @@ export const Services: CollectionConfig = {
     {
       type: 'tabs',
       tabs: [
+        {
+          label: 'Hero',
+          name: 'hero',
+          fields: [
+            ...ClonedField('collectionTitle', {
+              clonedOverrides: {
+                name: 'typeOverride',
+                label: 'Subtitle Override',
+                admin: {
+                  description:
+                    'Use this if you want to override the project type that appears above the title.',
+                  width: '50%',
+                },
+              },
+            }),
+            ...ClonedField('title', {
+              clonedOverrides: {
+                name: 'titleOverride',
+                label: 'Title Override',
+                admin: {
+                  description:
+                    'Use this if you want to override the service title that appears in the hero.',
+                  width: '50%',
+                },
+              },
+            }),
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'upload',
+                  name: 'backgroundImage',
+                  relationTo: 'media',
+                  label: 'Background Image',
+                  admin: {
+                    width: '60%',
+                  },
+                },
+                {
+                  type: 'select',
+                  name: 'blurredBackground',
+                  options: [
+                    { value: 'true', label: 'Yes ' },
+                    { value: 'false', label: 'No' },
+                  ],
+                  admin: {
+                    width: '40%',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'group',
+              label: 'Breadcrumbs',
+              name: 'breadcrumbs',
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'showBreadcrumb',
+                      type: 'select',
+                      label: 'Show Breadcrumb',
+                      options: [
+                        { value: 'true', label: 'Yes' },
+                        { value: 'false', label: 'No' },
+                      ],
+                      defaultValue: 'true',
+                    },
+                    {
+                      type: 'select',
+                      name: 'breadcrumbContainer',
+                      label: 'Breadcrumb Container',
+                      options: [
+                        { value: 'none', label: 'None' },
+                        { value: 'boxed', label: 'Boxed' },
+                      ],
+                      defaultValue: 'boxed',
+                      admin: {
+                        condition: (_, siblingData) => siblingData.showBreadcrumb === 'true',
+                      },
+                    },
+                    {
+                      type: 'select',
+                      name: 'breadcrumbBackground',
+                      label: 'Breadcrumb Background',
+                      options: [
+                        { value: 'none', label: 'None' },
+                        { value: 'light', label: 'Light' },
+                        { value: 'dark', label: 'Dark' },
+                        { value: 'translucent', label: 'Translucent' },
+                      ],
+                      defaultValue: 'translucent',
+                      admin: {
+                        condition: (_, siblingData) =>
+                          siblingData.showBreadcrumb === 'true' &&
+                          siblingData.breadcrumbContainer === 'boxed',
+                      },
+                    },
+                  ],
+                },
+                BreadCrumbs({
+                  admin: {
+                    condition: (_, siblingData) => siblingData.showBreadcrumb === 'true',
+                  },
+                }),
+              ],
+            },
+          ],
+        },
         {
           label: 'Services',
           fields: [
@@ -77,6 +190,22 @@ export const Services: CollectionConfig = {
           ],
         },
         {
+          label: 'Content',
+          fields: [
+            {
+              type: 'richText',
+              name: 'introContent',
+              label: 'Intro Content',
+            },
+            {
+              type: 'blocks',
+              name: 'pageBlocks',
+              label: 'Page Blocks',
+              blocks: [SectionBlock, CTABlock],
+            },
+          ],
+        },
+        {
           label: 'SEO',
           name: 'meta',
           fields: [
@@ -110,11 +239,19 @@ export const Services: CollectionConfig = {
     },
     ...SlugField('title'),
     urlField('slug', 'services'),
-    BreadCrumbs({
+    {
+      name: 'collectionTitle',
+      type: 'text',
+      defaultValue: 'Services',
+      label: 'Collection',
       admin: {
+        readOnly: true,
         position: 'sidebar',
+        style: {
+          display: 'none',
+        },
       },
-    }),
+    },
     {
       name: 'thumbnail',
       type: 'upload',

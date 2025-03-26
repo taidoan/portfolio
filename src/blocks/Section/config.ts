@@ -10,6 +10,7 @@ import { CarouselBlock } from '../Carousel/config';
 import { BioBlock } from '../Bio/config';
 import { ToolsBlock } from '../Tools/config';
 import { TopTracksBlock } from '../TopTracks/config';
+import { RelatedProjectsBlock } from '../RelatedProjects/config';
 
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/fields/BackgroundColour';
@@ -29,6 +30,7 @@ const Blocks = [
   BioBlock,
   ToolsBlock,
   TopTracksBlock,
+  RelatedProjectsBlock,
 ];
 
 export const SectionBlock: Block = {
@@ -103,7 +105,7 @@ export const SectionBlock: Block = {
                   type: 'row',
                   admin: {
                     condition: (_, siblingData) => {
-                      if (siblingData.sectionType === 'boxed') {
+                      if (siblingData.sectionType !== 'default') {
                         return true;
                       } else {
                         return false;
@@ -129,7 +131,10 @@ export const SectionBlock: Block = {
                       },
                     }),
                     BorderRadius({
-                      admin: { width: '50%' },
+                      admin: {
+                        width: '50%',
+                        condition: (_, siblingData) => siblingData.sectionType === 'boxed',
+                      },
                     }),
                   ],
                 },

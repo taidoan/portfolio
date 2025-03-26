@@ -504,6 +504,44 @@ export interface Project {
  */
 export interface Service {
   id: string;
+  hero: {
+    /**
+     * Use this if you want to override the project type that appears above the title.
+     */
+    typeOverride: string;
+    'clonedLock-1050015322'?: boolean | null;
+    /**
+     * Use this if you want to override the service title that appears in the hero.
+     */
+    titleOverride: string;
+    'clonedLock-110371416'?: boolean | null;
+    backgroundImage?: (string | null) | Media;
+    blurredBackground?: ('true' | 'false') | null;
+    breadcrumbs?: {
+      showBreadcrumb?: ('true' | 'false') | null;
+      breadcrumbContainer?: ('none' | 'boxed') | null;
+      breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
+      breadcrumbs?:
+        | {
+            relationTo:
+              | {
+                  relationTo: 'pages';
+                  value: string | Page;
+                }
+              | {
+                  relationTo: 'projects';
+                  value: string | Project;
+                }
+              | {
+                  relationTo: 'services';
+                  value: string | Service;
+                };
+            label: string;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
   title: string;
   image?: (string | null) | Media;
   description: {
@@ -541,63 +579,7 @@ export interface Service {
     image: string | Media;
     id?: string | null;
   }[];
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  slug: string;
-  slugLock?: boolean | null;
-  url?: string | null;
-  breadcrumbs?:
-    | {
-        relationTo:
-          | {
-              relationTo: 'pages';
-              value: string | Page;
-            }
-          | {
-              relationTo: 'projects';
-              value: string | Project;
-            }
-          | {
-              relationTo: 'services';
-              value: string | Service;
-            };
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
-  thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  title: string;
-  description?: string | null;
-  slug: string;
-  slugLock?: boolean | null;
-  parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  content?: {
+  introContent?: {
     root: {
       type: string;
       children: {
@@ -612,6 +594,7 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  pageBlocks?: (SectionBlockProps | CTABlockProps)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -623,15 +606,72 @@ export interface Post {
   slug: string;
   slugLock?: boolean | null;
   url?: string | null;
+  collectionTitle?: string | null;
   thumbnail?: (string | null) | Media;
   categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlockProps".
+ */
+export interface SectionBlockProps {
+  sectionBlocks?:
+    | (
+        | DividerBlockProps
+        | LinksBlockProps
+        | LinksGroupBlockProps
+        | IntroBlockProps
+        | MediaBlockProps
+        | CardBlockProps
+        | AccordionBlockProps
+        | CarouselBlockProps
+        | BioBlockProps
+        | ToolsBlockProps
+        | TopTracksBlockProps
+        | RelatedProjectsBlockProps
+      )[]
+    | null;
+  boxedContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  appearance?: {
+    /**
+     * The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.
+     */
+    sectionType?: ('default' | 'full-width' | 'boxed') | null;
+    alignContent?: ('left' | 'right') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+        )
+      | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  };
+  blockName?: string | null;
+  hiddenSlug?: string | null;
+  id?: string | null;
+  blockType: 'section';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -675,66 +715,6 @@ export interface DividerBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'divider';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SectionBlockProps".
- */
-export interface SectionBlockProps {
-  sectionBlocks?:
-    | (
-        | DividerBlockProps
-        | LinksBlockProps
-        | LinksGroupBlockProps
-        | IntroBlockProps
-        | MediaBlockProps
-        | CardBlockProps
-        | AccordionBlockProps
-        | CarouselBlockProps
-        | BioBlockProps
-        | ToolsBlockProps
-        | TopTracksBlockProps
-      )[]
-    | null;
-  boxedContent?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  appearance?: {
-    /**
-     * The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.
-     */
-    sectionType?: ('default' | 'full-width' | 'boxed') | null;
-    alignContent?: ('left' | 'right') | null;
-    backgroundColour?:
-      | (
-          | 'none'
-          | 'primary'
-          | 'secondary'
-          | 'accent'
-          | 'gradient-light'
-          | 'gradient-primary'
-          | 'gradient-secondary'
-          | 'gradient-accent'
-        )
-      | null;
-    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
-  };
-  blockName?: string | null;
-  hiddenSlug?: string | null;
-  id?: string | null;
-  blockType: 'section';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -805,6 +785,63 @@ export interface LinksBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'links';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  slugLock?: boolean | null;
+  url?: string | null;
+  thumbnail?: (string | null) | Media;
+  categories: (string | Category)[];
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title: string;
+  description?: string | null;
+  slug: string;
+  slugLock?: boolean | null;
+  parentCategory?: (string | null) | Category;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1456,6 +1493,117 @@ export interface TopTracksBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedProjectsBlockProps".
+ */
+export interface RelatedProjectsBlockProps {
+  relatedCollection: 'projects' | 'posts';
+  relatedCategory: 'branding' | 'digital' | 'marketing' | 'print' | 'graphic-design';
+  numberOfRelatedItems: number;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'relatedProjectsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTABlockProps".
+ */
+export interface CTABlockProps {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  link: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+  backgroundColour?:
+    | (
+        | 'none'
+        | 'primary'
+        | 'secondary'
+        | 'accent'
+        | 'gradient-light'
+        | 'gradient-primary'
+        | 'gradient-secondary'
+        | 'gradient-accent'
+      )
+    | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SectionGroupBlockProps".
  */
 export interface SectionGroupBlockProps {
@@ -1638,78 +1786,6 @@ export interface TabbedContentBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabbedContentBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTABlockProps".
- */
-export interface CTABlockProps {
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  link: {
-    type: 'reference' | 'custom';
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'projects';
-          value: string | Project;
-        } | null)
-      | ({
-          relationTo: 'services';
-          value: string | Service;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null)
-      | ({
-          relationTo: 'categories';
-          value: string | Category;
-        } | null);
-    url?: string | null;
-    label: string;
-    variant?: ('fill' | 'outlined') | null;
-    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
-    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
-    className?: string | null;
-  };
-  blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
-  backgroundColour?:
-    | (
-        | 'none'
-        | 'primary'
-        | 'secondary'
-        | 'accent'
-        | 'gradient-light'
-        | 'gradient-primary'
-        | 'gradient-secondary'
-        | 'gradient-accent'
-      )
-    | null;
-  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'ctaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2046,6 +2122,7 @@ export interface SectionBlockPropsSelect<T extends boolean = true> {
         bioBlock?: T | BioBlockPropsSelect<T>;
         toolsBlock?: T | ToolsBlockPropsSelect<T>;
         topTracksBlock?: T | TopTracksBlockPropsSelect<T>;
+        relatedProjectsBlock?: T | RelatedProjectsBlockPropsSelect<T>;
       };
   boxedContent?: T;
   appearance?:
@@ -2366,6 +2443,24 @@ export interface TopTracksBlockPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedProjectsBlockProps_select".
+ */
+export interface RelatedProjectsBlockPropsSelect<T extends boolean = true> {
+  relatedCollection?: T;
+  relatedCategory?: T;
+  numberOfRelatedItems?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SectionGroupBlockProps_select".
  */
 export interface SectionGroupBlockPropsSelect<T extends boolean = true> {
@@ -2601,6 +2696,30 @@ export interface ProjectsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        typeOverride?: T;
+        'clonedLock-1050015322'?: T;
+        titleOverride?: T;
+        'clonedLock-110371416'?: T;
+        backgroundImage?: T;
+        blurredBackground?: T;
+        breadcrumbs?:
+          | T
+          | {
+              showBreadcrumb?: T;
+              breadcrumbContainer?: T;
+              breadcrumbBackground?: T;
+              breadcrumbs?:
+                | T
+                | {
+                    relationTo?: T;
+                    label?: T;
+                    id?: T;
+                  };
+            };
+      };
   title?: T;
   image?: T;
   description?: T;
@@ -2612,6 +2731,13 @@ export interface ServicesSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
+  introContent?: T;
+  pageBlocks?:
+    | T
+    | {
+        section?: T | SectionBlockPropsSelect<T>;
+        ctaBlock?: T | CTABlockPropsSelect<T>;
+      };
   meta?:
     | T
     | {
@@ -2622,13 +2748,7 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   url?: T;
-  breadcrumbs?:
-    | T
-    | {
-        relationTo?: T;
-        label?: T;
-        id?: T;
-      };
+  collectionTitle?: T;
   thumbnail?: T;
   categories?: T;
   updatedAt?: T;

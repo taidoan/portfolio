@@ -2,8 +2,11 @@
 
 :root {
   --layout-row-spacing: #{size-clamp(rem($section-spacing-base), rem($section-spacing-desktop))};
+  --layout-row-spacing-sm: #{size-clamp(rem($section-spacing-base), rem($section-spacing-md))};
+  --block-row-spacing: #{size-clamp(rem($block-spacing-base), rem($block-spacing-desktop))};
   --padding-inline: #{size-clamp(rem($padding-inline-base), rem($padding-inline-large))};
   --content-max-width: #{rem($project-max-width)};
+  --block-column-spacing: #{rem($block-spacing-base)};
 }
 
 main {

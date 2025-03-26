@@ -7,7 +7,7 @@ import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { RichText } from '@/components/ui/RichText';
-import { ProjectHero } from '@/blocks/Hero/Project';
+import { SlugPageHero } from '@/blocks/Hero/SlugPage';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { Redirects } from '@/components/features/Redirects';
 import clsx from 'clsx';
@@ -23,7 +23,7 @@ export type Args = {
 
 const Page = async ({ params: paramsPromise }: Args) => {
   const { isEnabled: draft } = await draftMode();
-  const { slug = 'home' } = await paramsPromise;
+  const { slug = '' } = await paramsPromise;
 
   const url = '/projects/' + slug;
   const page: RequiredDataFromCollectionSlug<'projects'> | null = await queryPageBySlug({
@@ -50,8 +50,8 @@ const Page = async ({ params: paramsPromise }: Args) => {
     <>
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
-      <ProjectHero heroData={page} breadcrumbsData={breadcrumbsData} />
-      <section className={clsx('project__section', 'project__details')}>
+      <SlugPageHero heroData={page} breadcrumbsData={breadcrumbsData} />
+      <section className={clsx('section', 'project__details')}>
         <Card className='project__description'>
           <CardBody padding='large'>
             {page.details?.description && (
@@ -61,11 +61,10 @@ const Page = async ({ params: paramsPromise }: Args) => {
         </Card>
         <ProjectDetails data={{ details: page.details }} className='project__info' />
       </section>
-      <section className={clsx('project__section')}>
+      <section className={clsx('project__section', 'project__gallery')}>
         <ProjectGallery
           media={{ gallery: page.gallery }}
           options={{ galleryOptions: page.galleryOptions }}
-          className='project__gallery'
         />
       </section>
       {page.content && (
@@ -77,10 +76,13 @@ const Page = async ({ params: paramsPromise }: Args) => {
           </Card>
         </section>
       )}
-      <ProjectPagination className={clsx('project__section')} data={pagination} />
+      <ProjectPagination
+        className={clsx('project__section', 'project__pagination')}
+        data={pagination}
+      />
       {page.ctaContent && (
         <CTA
-          className='project__section'
+          className='project__section project__cta'
           link={page.ctaLink}
           content={page.ctaContent}
           variant={page.ctaAppearance?.blockVariant || 'fill'}

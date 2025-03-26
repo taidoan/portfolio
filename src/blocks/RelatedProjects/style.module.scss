@@ -1,0 +1,23 @@
+@use '@abstracts/_index' as *;
+
+@include mq('md') {
+  .related-projects__wrapper {
+    display: grid;
+    gap: var(--block-column-spacing);
+  }
+  .related-projects__wrapper--grid-cols-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .related-projects__wrapper--grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .related-projects__wrapper--grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .related-projects__wrapper--grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

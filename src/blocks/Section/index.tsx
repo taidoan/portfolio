@@ -13,6 +13,7 @@ import { CarouselBlock } from '../Carousel';
 import { BioBlock } from '../Bio';
 import { ToolsBlock } from '../Tools';
 import { TopTracksBlock } from '../TopTracks';
+import { RelatedProjectsBlock } from '../RelatedProjects';
 
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -29,6 +30,7 @@ const blockComponents = {
   bioBlock: BioBlock,
   toolsBlock: ToolsBlock,
   topTracksBlock: TopTracksBlock,
+  relatedProjectsBlock: RelatedProjectsBlock,
 };
 
 export const SectionBlock = ({
@@ -41,7 +43,9 @@ export const SectionBlock = ({
   const hasContent =
     boxedContent || (sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0);
   const hasBlocks = sectionBlocks && Array.isArray(sectionBlocks) && sectionBlocks.length > 0;
-  const isBlocksLayout = appearance?.sectionType === 'default' && hasBlocks;
+  const isBlocksLayout =
+    (appearance?.sectionType === 'default' || appearance?.sectionType === 'full-width') &&
+    hasBlocks;
   const isBoxedLayout =
     appearance?.sectionType === 'boxed' && boxedContent && boxedContent.root.children.length > 0;
 

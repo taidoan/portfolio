@@ -12,7 +12,7 @@
   @include hero-blurred;
 }
 
-.hero__type {
+.hero__subtitle {
   color: var(--clr-secondary-400);
   @include section-heading;
 }

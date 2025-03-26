@@ -29,7 +29,12 @@ $padding-block-base: 12px;
 /// Section spacing
 /// This is the spacing between sections.
 /// @type number
-$section-spacing-base: 56px;
+$section-spacing-base: 48px;
+
+/// Section spacing md
+/// This is the a medium spacing between sections.
+/// @type number
+$section-spacing-md: 64px;
 
 /// Section spacing
 /// This is the spacing between sections on desktop screens.
