@@ -57,9 +57,15 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
               className={clsx('col-span-10', 'align-self__center')}
             />
           )}
-          <div className={'col-span-1'}></div>
           {image && typeof image === 'object' && (
-            <div className={clsx('col-span-5', 'align-self__center', 'service__image-container')}>
+            <div
+              className={clsx(
+                'col-span-6',
+                'align-self__center',
+                'service__image-container',
+                'just-self__end',
+              )}
+            >
               <Media
                 src={image.filename}
                 alt={image.alt || ''}
@@ -69,48 +75,48 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
               />
             </div>
           )}
+          <Card className={clsx('text-align__left', 'col-span-16')}>
+            <CardBody padding='base'>
+              <Carousel
+                disableAt={'(min-width: 64em)'}
+                pagination
+                buttonNavigation
+                slideClassName='service__item-container'
+                keyboardControls
+                autoHeight
+                loop
+              >
+                {items?.length > 0 &&
+                  items.map((item, index) => {
+                    const itemImage = item.image;
+                    return (
+                      <div className='service__item' key={index}>
+                        {itemImage && typeof itemImage === 'object' && (
+                          <Media
+                            src={itemImage.filename}
+                            alt={itemImage.alt || ''}
+                            width={itemImage.width ? itemImage.width : undefined}
+                            height={itemImage.height ? itemImage.height : undefined}
+                            className='service__item-image'
+                          />
+                        )}
+                        <div className='service__item-content'>
+                          <h2 className='service__item-title'>{item.title}</h2>
+                          <Divider
+                            type='content'
+                            color='light-grey'
+                            className='service__item-divider'
+                          />
+                          <RichText data={item.description} />
+                        </div>
+                      </div>
+                    );
+                  })}
+              </Carousel>
+            </CardBody>
+          </Card>
         </div>
       </section>
-      <Card className={clsx('service__section', 'text-align__left')}>
-        <CardBody padding='base'>
-          <Carousel
-            disableAt={'(min-width: 64em)'}
-            pagination
-            buttonNavigation
-            slideClassName='service__item-container'
-            keyboardControls
-            autoHeight
-            loop
-          >
-            {items?.length > 0 &&
-              items.map((item, index) => {
-                const itemImage = item.image;
-                return (
-                  <div className='service__item' key={index}>
-                    {itemImage && typeof itemImage === 'object' && (
-                      <Media
-                        src={itemImage.filename}
-                        alt={itemImage.alt || ''}
-                        width={itemImage.width ? itemImage.width : undefined}
-                        height={itemImage.height ? itemImage.height : undefined}
-                        className='service__item-image'
-                      />
-                    )}
-                    <div className='service__item-content'>
-                      <h2 className='service__item-title'>{item.title}</h2>
-                      <Divider
-                        type='content'
-                        color='light-grey'
-                        className='service__item-divider'
-                      />
-                      <RichText data={item.description} />
-                    </div>
-                  </div>
-                );
-              })}
-          </Carousel>
-        </CardBody>
-      </Card>
       {pageBlocks && <RenderBlocks blocks={pageBlocks} />}
     </>
   );

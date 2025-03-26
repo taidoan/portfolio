@@ -24,6 +24,9 @@
 
   &-container {
     display: none;
+    justify-self: end;
+    width: 90%;
+
     @include mq('md') {
       display: block;
     }

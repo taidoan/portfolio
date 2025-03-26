@@ -1498,6 +1498,7 @@ export interface TopTracksBlockProps {
 export interface RelatedProjectsBlockProps {
   relatedCollection: 'projects' | 'posts';
   relatedCategory: 'branding' | 'digital' | 'marketing' | 'print' | 'graphic-design';
+  numberOfRelatedItems: number;
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
    */
@@ -2447,6 +2448,7 @@ export interface TopTracksBlockPropsSelect<T extends boolean = true> {
 export interface RelatedProjectsBlockPropsSelect<T extends boolean = true> {
   relatedCollection?: T;
   relatedCategory?: T;
+  numberOfRelatedItems?: T;
   gridAppearance?:
     | T
     | {

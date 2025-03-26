@@ -7,17 +7,36 @@ import { DataFromCollectionSlug } from 'payload';
 
 type ValidCollection = Extract<CollectionSlug, 'projects' | 'posts'>;
 
-interface QueryOptions {
+type QueryOptions = {
   collection: ValidCollection;
-  category?: string;
-}
+  category: string;
+  items?: number;
+};
 
 const VALID_COLLECTIONS = ['projects', 'posts'] as const;
 
+/**
+ * Queries related posts or projects from a specified collection based on category.
+ *
+ * @param {QueryOptions} options - The options for the query.
+ * @param {ValidCollection} options.collection - The collection slug to query ('projects' or 'posts').
+ * @param {string} options.category - The category slug to filter results by.
+ * @param {number} [options.items=3] - The number of items to return (default is 3).
+ * @returns {Promise<Array<DataFromCollectionSlug>>} - A promise that resolves to an array of related items.
+ *
+ * @example
+ * const relatedProjects = await queryRelatedProjects({
+ *   collection: 'projects',
+ *   category: 'design',
+ *   items: 3,
+ * });
+ * console.log(relatedProjects); // Logs an array of project objects with category 'design'
+ */
 export const queryRelatedProjects = cache(
   async ({
     collection,
     category,
+    items = 3,
   }: QueryOptions): Promise<DataFromCollectionSlug<ValidCollection>[]> => {
     if (!VALID_COLLECTIONS.includes(collection)) {
       throw new Error(
@@ -30,7 +49,7 @@ export const queryRelatedProjects = cache(
 
       const relatedItems = await payload.find({
         collection,
-        limit: 3,
+        limit: items,
         pagination: false,
         overrideAccess: false,
         depth: 4,
