@@ -14,6 +14,7 @@ export const CarouselSlide = memo(
   ({ child, isActive, slideClasses, isCarouselActive, ref }: CarouselSlideProps) => {
     const slideClassNames = clsx(slideClasses, {
       [style['slide--active']]: isCarouselActive && isActive,
+      [style['slide--carousel-disabled']]: !isCarouselActive,
     });
 
     return (

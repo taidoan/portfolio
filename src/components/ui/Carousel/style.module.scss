@@ -160,7 +160,7 @@
     flex: 0 0 var(--slide-size-lg);
   }
 
-  &:not(.slide--active) {
+  &:not(.slide--active):not(.slide--carousel-disabled) {
     * {
       box-shadow: none;
     }
