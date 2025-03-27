@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, authenticatedOrPublished } from '@/access';
+import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
 import { revalidateDelete, revalidateProject } from './hooks/revalidateProject';
 import {
   MetaDescriptionField,
@@ -29,6 +30,17 @@ export const Projects: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    livePreview: {
+      url: ({ data, req }) => {
+        const path = generatePreviewPath({
+          slug: typeof data?.slug === 'string' ? data.slug : '',
+          collection: 'projects',
+          req,
+        });
+
+        return path;
+      },
+    },
   },
   versions: {
     maxPerDoc: 50,

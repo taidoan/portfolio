@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
-import { authenticated, anyone } from '@/access';
+import { authenticated, authenticatedOrPublished } from '@/access';
+import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -17,13 +18,32 @@ import { CTABlock } from '@/blocks/CTA/config';
 export const Services: CollectionConfig = {
   slug: 'services',
   access: {
-    read: anyone,
+    read: authenticatedOrPublished,
     create: authenticated,
     update: authenticated,
     delete: authenticated,
   },
   admin: {
     useAsTitle: 'title',
+    livePreview: {
+      url: ({ data, req }) => {
+        const path = generatePreviewPath({
+          slug: typeof data?.slug === 'string' ? data.slug : '',
+          collection: 'services',
+          req,
+        });
+
+        return path;
+      },
+    },
+  },
+  versions: {
+    maxPerDoc: 50,
+    drafts: {
+      autosave: {
+        interval: 100,
+      },
+    },
   },
   fields: [
     {
