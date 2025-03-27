@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, authenticatedOrPublished } from '@/access';
 import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
+import { revalidateService, revalidateDelete } from './hooks/revalidateServices';
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -36,6 +37,10 @@ export const Services: CollectionConfig = {
         return path;
       },
     },
+  },
+  hooks: {
+    afterChange: [revalidateService],
+    afterDelete: [revalidateDelete],
   },
   versions: {
     maxPerDoc: 50,
