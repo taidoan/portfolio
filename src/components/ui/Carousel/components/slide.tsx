@@ -13,7 +13,7 @@ export type CarouselSlideProps = {
 export const CarouselSlide = memo(
   ({ child, isActive, slideClasses, isCarouselActive, ref }: CarouselSlideProps) => {
     const slideClassNames = clsx(slideClasses, {
-      [style['slide--active']]: isActive,
+      [style['slide--active']]: isCarouselActive && isActive,
     });
 
     return (
