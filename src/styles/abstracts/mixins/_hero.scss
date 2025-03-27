@@ -112,6 +112,10 @@
     max-height: rem(400);
     padding: size-clamp(rem(20), rem(80));
   }
+
+  @include mq('md') {
+    row-gap: rem(40);
+  }
 }
 
 /// Applies medium sized hero styles
