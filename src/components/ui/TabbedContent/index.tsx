@@ -138,8 +138,8 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
                           : null
                       }
                       alt={item.image.alt || ''}
-                      width={item.image.width}
-                      height={item.image.height}
+                      width={160}
+                      height={160}
                       className={style['filter__item-image']}
                     />
                   )}
