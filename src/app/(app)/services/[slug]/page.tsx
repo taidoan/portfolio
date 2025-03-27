@@ -69,8 +69,8 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
               <Media
                 src={image.filename}
                 alt={image.alt || ''}
-                width={image.width ? image.width : undefined}
-                height={image.height ? image.height : undefined}
+                width={200}
+                height={200}
                 className='service__image'
               />
             </div>

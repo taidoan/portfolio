@@ -20,6 +20,8 @@
 
   &[src$='.svg'] {
     max-height: rem(200);
+    min-height: rem(200);
+    width: auto;
   }
 
   &-container {
@@ -28,7 +30,9 @@
     width: 90%;
 
     @include mq('md') {
-      display: block;
+      align-items: center;
+      display: flex;
+      justify-content: center;
     }
   }
 }
