@@ -1,4 +1,4 @@
-@use '@abstracts/settings/zIndex' as *;
+@use '@abstracts/settings/zindex' as *;
 
 :root {
   @each $z, $value in $z-index-map {
