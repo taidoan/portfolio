@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, authenticatedOrPublished } from '@/access';
+import { revalidateDelete, revalidateProject } from './hooks/revalidateProject';
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -37,6 +38,10 @@ export const Projects: CollectionConfig = {
         interval: 100,
       },
     },
+  },
+  hooks: {
+    afterChange: [revalidateProject],
+    afterDelete: [revalidateDelete],
   },
   fields: [
     {
