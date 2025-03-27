@@ -165,6 +165,12 @@
       box-shadow: none;
     }
   }
+
+  &--vertical-active {
+    > div:first-of-type {
+      box-shadow: var(--shadow-card-sm) !important;
+    }
+  }
 }
 
 @each $column in 1, 2, 3, 4, 6, 8, 12 {

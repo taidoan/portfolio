@@ -193,7 +193,10 @@ export const Carousel = ({
         key={index}
         child={child}
         isActive={index === selectedIndex}
-        slideClasses={slideClasses}
+        slideClasses={clsx(slideClasses, {
+          [style[`slide--vertical-active`]]:
+            direction === 'vertical-scroll' ? index === selectedIndex + 1 : index === selectedIndex,
+        })}
         isCarouselActive={isActive}
         ref={
           index < numSlides
