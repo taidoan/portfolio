@@ -73,6 +73,7 @@ export const Categories: CollectionConfig = {
                     { value: 'translucent', label: 'Translucent' },
                   ],
                   defaultValue: 'translucent',
+                  required: true,
                   admin: {
                     width: '50%',
                     condition: (_, siblingData) =>
@@ -88,12 +89,12 @@ export const Categories: CollectionConfig = {
                   options: [
                     { value: 'secondary', label: 'Secondary' },
                     { value: 'accent', label: 'Accent' },
-                    { value: 'primary', label: 'Primary' },
                     { value: 'urban-steel', label: 'Urban Steel' },
                     { value: 'slate', label: 'Slate' },
                     { value: 'light-grey', label: 'Light Grey' },
                   ],
                   defaultValue: 'secondary',
+                  required: true,
                   admin: {
                     width: '50%',
                     condition: (_, siblingData) =>

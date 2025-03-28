@@ -13,14 +13,17 @@ export type ArchiveHeroProps = {
 
 export const ArchiveHero = ({ heroData, breadcrumbsData }: ArchiveHeroProps) => {
   const { title, heroContent, breadcrumb } = heroData;
-  console.log(breadcrumb);
 
   return (
     <section className={style.hero}>
       <h2 className='section-heading'>Archive</h2>
       <h1>{title}</h1>
       {breadcrumb && (
-        <Breadcrumbs breadcrumbs={breadcrumbsData} container={breadcrumb.breadcrumbContainer} />
+        <Breadcrumbs
+          breadcrumbs={breadcrumbsData}
+          container={breadcrumb.breadcrumbContainer}
+          outlineColor={breadcrumb.breadcrumbOutlineColor}
+        />
       )}
       {heroContent && <RichText data={heroContent} />}
     </section>

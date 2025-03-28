@@ -925,7 +925,7 @@ export interface Category {
     breadcrumbContainer?: ('none' | 'boxed' | 'outlined') | null;
     breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
     breadcrumbOutlineColor?:
-      | ('secondary' | 'accent' | 'primary' | 'urban-steel' | 'slate' | 'light-grey')
+      | ('secondary' | 'accent' | 'urban-steel' | 'slate' | 'light-grey')
       | null;
     breadcrumbs?:
       | {
