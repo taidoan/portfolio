@@ -7,9 +7,9 @@ import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 
 import { LivePreviewListener } from '@/components/features/LivePreview';
+import { RenderBlocks } from '@/blocks/RenderBlocks';
 import { ArchiveHero } from '@/blocks/Hero/Archive';
 import { Redirects } from '@/components/features/Redirects';
-import { CTA } from '@/components/layout/CTA';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -25,7 +25,7 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
   });
 
   if (!page) return <Redirects url={url} />;
-  const { breadcrumb, ctaContent, ctaAppearance, ctaLink } = page;
+  const { breadcrumb, layout } = page;
 
   const pageIds =
     breadcrumb?.breadcrumbs?.map((breadcrumb) => {
@@ -41,17 +41,8 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
       {<LivePreviewListener />}
       <ArchiveHero heroData={page} breadcrumbsData={breadcrumbsData} />
       <section className={clsx('section', 'bg--gradient-grey', 'full-width')}>
-        <section>hey</section>
+        {layout && <RenderBlocks blocks={layout} />}
       </section>
-      {ctaContent && (
-        <CTA
-          content={ctaContent}
-          link={ctaLink}
-          color={ctaAppearance?.backgroundColour || 'primary'}
-          variant={ctaAppearance?.blockVariant || 'fill'}
-          borderRadius={ctaAppearance?.borderRadius || 'medium'}
-        />
-      )}
     </>
   );
 };

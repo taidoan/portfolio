@@ -27,7 +27,7 @@ export type Props = {
   filter?: boolean;
   filterShowAll?: boolean;
   view?: 'grid' | 'list';
-  relation: 'posts' | 'projects';
+  relation: 'posts' | 'projects' | 'categories';
 };
 
 const isCategory = (category: string | Category | Pick<Category, 'title' | 'slug' | 'id'>) => {

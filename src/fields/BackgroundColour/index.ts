@@ -25,6 +25,7 @@ export const BackgroundColour = (
       { value: 'gradient-primary', label: 'Primary Gradient' },
       { value: 'gradient-secondary', label: 'Secondary Gradient' },
       { value: 'gradient-accent', label: 'Accent Gradient' },
+      { value: 'gradient-grey', label: 'Light Grey Gradient' },
     ],
   };
 

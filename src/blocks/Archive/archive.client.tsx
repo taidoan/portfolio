@@ -66,7 +66,7 @@ export const ArchiveClientBlock = ({
     <>
       <Archive
         data={contentData}
-        relation={data}
+        relation={data === 'categories' ? 'projects' : data}
         categories={categories}
         filter={showFilter}
         filterShowAll={filterShowAllButton || true}

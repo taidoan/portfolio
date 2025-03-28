@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { createContext, useContext } from 'react';
 import type { Project, Service, Post, Category } from '@/payload-types';
 
-export type Relation = 'projects' | 'services' | 'posts' | string | null;
+export type Relation = 'projects' | 'services' | 'posts' | 'categories' | string | null;
 export type CardData =
   | (Pick<Project, 'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url'> & {
       categories: Omit<Category, 'ctaLink' | 'parentCategory'>[];

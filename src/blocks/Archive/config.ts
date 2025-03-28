@@ -26,10 +26,23 @@ export const ArchiveBlock: Block = {
                   options: [
                     { value: 'projects', label: 'Projects' },
                     { value: 'posts', label: 'Posts' },
+                    { value: 'categories', label: 'Categories' },
                   ],
                   defaultValue: 'projects',
                   admin: {
                     width: '50%',
+                  },
+                },
+                {
+                  type: 'relationship',
+                  name: 'categoriesToArchive',
+                  label: 'Categories to Archive',
+                  required: true,
+                  relationTo: 'categories',
+                  hasMany: true,
+                  admin: {
+                    width: '50%',
+                    condition: (_, siblingData) => siblingData.data === 'categories',
                   },
                 },
                 {

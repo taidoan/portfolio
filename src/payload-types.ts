@@ -348,6 +348,7 @@ export interface SectionBlockProps {
           | 'gradient-primary'
           | 'gradient-secondary'
           | 'gradient-accent'
+          | 'gradient-grey'
         )
       | null;
     borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
@@ -644,6 +645,7 @@ export interface Project {
           | 'gradient-primary'
           | 'gradient-secondary'
           | 'gradient-accent'
+          | 'gradient-grey'
         )
       | null;
     borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
@@ -845,6 +847,7 @@ export interface CTABlockProps {
         | 'gradient-primary'
         | 'gradient-secondary'
         | 'gradient-accent'
+        | 'gradient-grey'
       )
     | null;
   borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
@@ -943,85 +946,54 @@ export interface Category {
         }[]
       | null;
   };
-  /**
-   * The content to display in the CTA.
-   */
-  ctaContent?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * The link to display in the CTA.
-   */
-  ctaLink: {
-    type: 'reference' | 'custom';
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'projects';
-          value: string | Project;
-        } | null)
-      | ({
-          relationTo: 'services';
-          value: string | Service;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null)
-      | ({
-          relationTo: 'categories';
-          value: string | Category;
-        } | null);
-    url?: string | null;
-    label: string;
-    variant?: ('fill' | 'outlined') | null;
-    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
-    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
-    className?: string | null;
-  };
-  /**
-   * Customize the appearance of the CTA.
-   */
-  ctaAppearance?: {
-    blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
-    backgroundColour?:
-      | (
-          | 'none'
-          | 'primary'
-          | 'secondary'
-          | 'accent'
-          | 'gradient-light'
-          | 'gradient-primary'
-          | 'gradient-secondary'
-          | 'gradient-accent'
-        )
-      | null;
-    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
-  };
+  layout?: (ArchiveBlockProps | CTABlockProps)[] | null;
   slug: string;
   slugLock?: boolean | null;
   parentCategory?: (string | null) | Category;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArchiveBlockProps".
+ */
+export interface ArchiveBlockProps {
+  data: 'projects' | 'posts' | 'categories';
+  categoriesToArchive?: (string | Category)[] | null;
+  showFilter: boolean;
+  filterShowAllButton?: boolean | null;
+  viewType: 'list' | 'grid';
+  numberOfProjects: number;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'archiveBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1731,6 +1703,7 @@ export interface SectionGroupBlockProps {
           | 'gradient-primary'
           | 'gradient-secondary'
           | 'gradient-accent'
+          | 'gradient-grey'
         )
       | null;
   };
@@ -1738,47 +1711,6 @@ export interface SectionGroupBlockProps {
   hiddenSlug?: string | null;
   id?: string | null;
   blockType: 'sectionGroup';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlockProps".
- */
-export interface ArchiveBlockProps {
-  data: 'projects' | 'posts';
-  showFilter: boolean;
-  filterShowAllButton?: boolean | null;
-  viewType: 'list' | 'grid';
-  numberOfProjects: number;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'archiveBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2596,6 +2528,7 @@ export interface SectionGroupBlockPropsSelect<T extends boolean = true> {
  */
 export interface ArchiveBlockPropsSelect<T extends boolean = true> {
   data?: T;
+  categoriesToArchive?: T;
   showFilter?: T;
   filterShowAllButton?: T;
   viewType?: T;
@@ -2705,27 +2638,11 @@ export interface CategoriesSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  ctaContent?: T;
-  ctaLink?:
+  layout?:
     | T
     | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-        variant?: T;
-        color?: T;
-        hoverColor?: T;
-        buttonShadow?: T;
-        className?: T;
-      };
-  ctaAppearance?:
-    | T
-    | {
-        blockVariant?: T;
-        backgroundColour?: T;
-        borderRadius?: T;
+        archiveBlock?: T | ArchiveBlockPropsSelect<T>;
+        ctaBlock?: T | CTABlockPropsSelect<T>;
       };
   slug?: T;
   slugLock?: T;

@@ -11,6 +11,7 @@ export const ArchiveBlock = async ({
   data,
   className,
   showFilter,
+  categoriesToArchive,
   filterShowAllButton,
   viewType,
   numberOfProjects,
@@ -33,6 +34,24 @@ export const ArchiveBlock = async ({
       collection: 'posts',
       ...queryOptions,
     });
+  } else if (data === 'categories') {
+    if (categoriesToArchive && categoriesToArchive.length > 0) {
+      content = await payload.find({
+        collection: 'projects',
+        where: {
+          categories: {
+            in: categoriesToArchive.map((category) =>
+              typeof category === 'string' ? category : category.id,
+            ),
+          },
+        },
+        ...queryOptions,
+      });
+    } else {
+      content = { docs: [] };
+    }
+  } else {
+    content = { docs: [] };
   }
 
   const { docs: contentData } = content || { docs: [] };

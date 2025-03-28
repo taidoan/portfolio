@@ -30,5 +30,9 @@
     grid-column: full-width;
     grid-template-columns: inherit;
     padding-block: var(--layout-row-spacing);
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
   }
 }
