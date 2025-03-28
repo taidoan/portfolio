@@ -28,6 +28,7 @@ export const ArchiveClientBlock = ({
   data,
   className,
   showFilter,
+  categoriesToArchive,
   filterShowAllButton,
   viewType,
   numberOfProjects,
@@ -47,7 +48,18 @@ export const ArchiveClientBlock = ({
     setIsLoading(true);
 
     try {
-      const result = await fetchArchiveData(data, pageNumber, numberOfProjects || 4);
+      const result = await fetchArchiveData(
+        data,
+        pageNumber,
+        numberOfProjects || 4,
+        data === 'categories'
+          ? categoriesToArchive?.length
+            ? categoriesToArchive.map((category) =>
+                typeof category === 'string' ? category : category.id,
+              )
+            : undefined
+          : undefined,
+      );
       if (result.success && result.data) {
         setContentData(result.data.docs);
         setTotalPages(result.data.totalPages);

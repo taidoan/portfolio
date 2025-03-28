@@ -4,21 +4,41 @@ import config from '@payload-config';
 import { getPayload } from 'payload';
 import type { CollectionSlug } from 'payload';
 
-export const fetchArchiveData = async (collection: CollectionSlug, page: number, limit: number) => {
+export const fetchArchiveData = async (
+  collection: CollectionSlug | 'categories',
+  page: number,
+  limit: number,
+  categoriesToArchive?: string[],
+) => {
   try {
     const payload = await getPayload({ config: config });
 
-    if (!collection || !['projects', 'posts'].includes(collection)) {
+    // If collection is categories, we'll fetch projects
+    const targetCollection = collection === 'categories' ? 'projects' : collection;
+
+    if (!targetCollection || !['projects', 'posts'].includes(targetCollection)) {
       return { success: false, error: 'Invalid collection' };
     }
 
-    const content = await payload.find({
-      collection: collection,
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    const queryOptions: any = {
+      collection: targetCollection,
       limit: limit,
       page: page,
       depth: 1,
       overrideAccess: false,
-    });
+    };
+
+    // Add category filtering when needed
+    if (collection === 'categories' && categoriesToArchive && categoriesToArchive.length > 0) {
+      queryOptions.where = {
+        categories: {
+          in: categoriesToArchive,
+        },
+      };
+    }
+
+    const content = await payload.find(queryOptions);
 
     return { success: true, data: content };
   } catch (error) {
