@@ -27,6 +27,7 @@ export type Props = {
 export const ArchiveClientBlock = ({
   data,
   className,
+  showFilter,
   filterShowAllButton,
   viewType,
   numberOfProjects,
@@ -67,7 +68,8 @@ export const ArchiveClientBlock = ({
         data={contentData}
         relation={data}
         categories={categories}
-        filterShowAll={filterShowAllButton}
+        filter={showFilter}
+        filterShowAll={filterShowAllButton || true}
         view={viewType}
         className={className}
       />

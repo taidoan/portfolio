@@ -34,15 +34,27 @@ export const ArchiveBlock: Block = {
                 },
                 {
                   type: 'checkbox',
+                  name: 'showFilter',
+                  label: 'Show Filter',
+                  defaultValue: true,
+                  required: true,
+                  admin: {
+                    style: {
+                      justifyContent: 'center',
+                    },
+                  },
+                },
+                {
+                  type: 'checkbox',
                   name: 'filterShowAllButton',
                   label: 'Show All Button',
                   defaultValue: true,
                   required: true,
                   admin: {
-                    width: '50%',
                     style: {
                       justifyContent: 'center',
                     },
+                    condition: (_, siblingData) => siblingData.showFilter,
                   },
                 },
               ],

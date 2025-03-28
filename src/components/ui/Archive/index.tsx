@@ -24,6 +24,7 @@ export type Props = {
   data: CardData[];
   categories?: Omit<Category, 'ctaLink' | 'parentCategory'>[];
   className?: string;
+  filter?: boolean;
   filterShowAll?: boolean;
   view?: 'grid' | 'list';
   relation: 'posts' | 'projects';
@@ -52,6 +53,7 @@ export const Archive = ({
   categories,
   className,
   filterShowAll,
+  filter = true,
   view = 'grid',
   relation = 'posts',
 }: Props) => {
@@ -159,7 +161,7 @@ export const Archive = ({
 
   return (
     <section className={clsx(className, 'section', style.archive__container)} data-testid='archive'>
-      {hasCategories ? (
+      {hasCategories && filter === true ? (
         <Filter
           categories={categories}
           iconMap={iconMap}
@@ -168,7 +170,7 @@ export const Archive = ({
           showAllButton={filterShowAll}
           onSelectCategoryAction={handleFilterChange}
         />
-      ) : (
+      ) : hasCategories && filter === false ? null : (
         <Alert severity='warning'>
           <AlertTitle>No categories found</AlertTitle>
           No categories were found

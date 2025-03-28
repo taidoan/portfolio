@@ -10,6 +10,7 @@ export type Props = {
 export const ArchiveBlock = async ({
   data,
   className,
+  showFilter,
   filterShowAllButton,
   viewType,
   numberOfProjects,
@@ -58,6 +59,7 @@ export const ArchiveBlock = async ({
     <ArchiveClientBlock
       data={data}
       className={className}
+      showFilter={showFilter}
       filterShowAllButton={filterShowAllButton}
       viewType={viewType}
       numberOfProjects={numberOfProjects}

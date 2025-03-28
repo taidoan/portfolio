@@ -1745,7 +1745,8 @@ export interface SectionGroupBlockProps {
  */
 export interface ArchiveBlockProps {
   data: 'projects' | 'posts';
-  filterShowAllButton: boolean;
+  showFilter: boolean;
+  filterShowAllButton?: boolean | null;
   viewType: 'list' | 'grid';
   numberOfProjects: number;
   /**
@@ -2595,6 +2596,7 @@ export interface SectionGroupBlockPropsSelect<T extends boolean = true> {
  */
 export interface ArchiveBlockPropsSelect<T extends boolean = true> {
   data?: T;
+  showFilter?: T;
   filterShowAllButton?: T;
   viewType?: T;
   numberOfProjects?: T;
