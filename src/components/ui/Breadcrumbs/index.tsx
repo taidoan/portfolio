@@ -23,6 +23,7 @@ export type BreadcrumbsProps = {
   container?: 'none' | 'boxed' | 'outlined' | null;
   outlineColor?: 'secondary' | 'accent' | 'primary' | 'slate' | 'light-grey' | 'urban-steel' | null;
   background?: 'none' | 'light' | 'dark' | 'translucent';
+  className?: string;
 };
 
 export const Breadcrumbs = ({
@@ -31,6 +32,7 @@ export const Breadcrumbs = ({
   container = 'none',
   background = 'none',
   outlineColor = 'secondary',
+  className,
 }: BreadcrumbsProps) => {
   const internalIsMediumScreen = useMediaQuery('(min-width: 48em)');
   if (!breadcrumbs || breadcrumbs.length === 0) return null;
@@ -47,7 +49,7 @@ export const Breadcrumbs = ({
   });
 
   return (
-    <nav aria-label='breadcrumb' data-testid='breadcrumbs'>
+    <nav aria-label='breadcrumb' data-testid='breadcrumbs' className={className}>
       <ol className={breadcrumbsClasses}>
         {breadcrumbs.map((breadcrumb, index) => {
           const isLast = index === breadcrumbs.length - 1;

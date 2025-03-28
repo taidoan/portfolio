@@ -1,10 +1,9 @@
 import type { Category } from '@/payload-types';
 import type { Breadcrumbs as BreadcrumbsType } from '@/components/ui/Breadcrumbs';
-import { clsx } from 'clsx';
 
 import { RichText } from '@/components/ui/RichText';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import style from './../LowImpact/style.module.scss';
+import style from './style.module.scss';
 
 export type ArchiveHeroProps = {
   heroData: Pick<Category, 'title' | 'heroContent' | 'breadcrumb'>;
@@ -23,8 +22,10 @@ export const ArchiveHero = ({ heroData, breadcrumbsData }: ArchiveHeroProps) => 
           breadcrumbs={breadcrumbsData}
           container={breadcrumb.breadcrumbContainer}
           outlineColor={breadcrumb.breadcrumbOutlineColor}
+          className={style.hero__breadcrumbs}
         />
       )}
+
       {heroContent && <RichText data={heroContent} />}
     </section>
   );
