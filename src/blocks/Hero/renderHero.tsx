@@ -1,14 +1,13 @@
 import type { HeroBlockProps } from '@/payload-types';
 import { LargeHero } from './Large';
 import { MediumHero } from './Medium';
-import { SmallHero } from './Small';
+import { LowImpactHero } from './LowImpact';
 import type { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-const heroes: Record<
-  HeroBlockProps['type'],
+const defaultHeroes: Record<
+  'medium' | 'large',
   React.FC<HeroBlockProps & { breadcrumbsData?: Breadcrumbs }>
 > = {
-  small: SmallHero,
   medium: MediumHero,
   large: LargeHero,
 };
@@ -19,11 +18,13 @@ type RenderHeroProps = {
 };
 
 export const RenderHero: React.FC<RenderHeroProps> = ({ heroData, breadcrumbsData }) => {
-  const { type } = heroData;
+  const { type, heroStyle } = heroData;
 
-  if (!type) return null;
+  if (!type || !heroStyle) return null;
 
-  const Heroes = heroes[type];
+  const Heroes =
+    heroStyle === 'lowImpact' ? LowImpactHero : type in defaultHeroes ? defaultHeroes[type] : null;
+
   if (!Heroes) return null;
 
   return <Heroes {...heroData} breadcrumbsData={breadcrumbsData} />;

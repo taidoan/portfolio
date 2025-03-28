@@ -13,12 +13,6 @@ export const Hero: Field = {
   fields: [
     {
       type: 'tabs',
-      admin: {
-        style: {
-          height: '50%',
-          backgroundColor: 'red',
-        },
-      },
       tabs: [
         {
           label: 'Content',
@@ -36,7 +30,20 @@ export const Hero: Field = {
           label: 'Appearance',
           fields: [
             {
+              type: 'select',
+              name: 'heroStyle',
+              label: 'Style',
+              options: [
+                { value: 'default', label: 'Default' },
+                { value: 'lowImpact', label: 'Low Impact' },
+              ],
+              defaultValue: 'default',
+            },
+            {
               type: 'row',
+              admin: {
+                condition: (_, siblingData) => siblingData.heroStyle === 'default',
+              },
               fields: [
                 {
                   name: 'type',
@@ -44,7 +51,6 @@ export const Hero: Field = {
                   type: 'select',
                   defaultValue: 'large',
                   options: [
-                    { value: 'small', label: 'Small' },
                     { value: 'medium', label: 'Medium' },
                     { value: 'large', label: 'Large' },
                   ],
@@ -74,6 +80,9 @@ export const Hero: Field = {
               type: 'upload',
               label: 'Background Image',
               relationTo: 'media',
+              admin: {
+                condition: (_, siblingData) => siblingData.heroStyle === 'default',
+              },
             },
           ],
         },

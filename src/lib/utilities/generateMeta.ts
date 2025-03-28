@@ -11,7 +11,7 @@ const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
 };
 
 export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Project> | Partial<Service>;
+  doc: Partial<Page> | Partial<Project> | Partial<Service> | null;
 }): Promise<Metadata> => {
   const { doc } = args;
 

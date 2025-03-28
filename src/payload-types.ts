@@ -235,7 +235,8 @@ export interface HeroBlockProps {
     };
     [k: string]: unknown;
   };
-  type: 'small' | 'medium' | 'large';
+  heroStyle?: ('default' | 'lowImpact') | null;
+  type: 'medium' | 'large';
   blurredBackground: 'true' | 'false';
   image?: (string | null) | Media;
   showBreadcrumb?: ('true' | 'false') | null;
@@ -2069,6 +2070,7 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface HeroBlockPropsSelect<T extends boolean = true> {
   richText?: T;
+  heroStyle?: T;
   type?: T;
   blurredBackground?: T;
   image?: T;

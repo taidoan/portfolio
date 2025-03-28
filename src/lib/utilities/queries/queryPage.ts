@@ -17,13 +17,18 @@ export const queryPageBySlug = cache(
     slug: string;
     collection: T;
   }) => {
+    if (!slug || !collection) {
+      console.warn('Invalid query parameters: slug or collection missing');
+      return null;
+    }
+
     const { isEnabled: draft } = await draftMode();
     const payload = await getPayload({ config: configPromise });
 
     const result = await payload.find({
       collection: collection,
       draft,
-      limit: 2,
+      limit: 1,
       pagination: false,
       overrideAccess: draft,
       where: {

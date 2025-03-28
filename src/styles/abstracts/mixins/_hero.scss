@@ -7,6 +7,45 @@
 /// @group mixins-layout
 ////
 
+/// Applies hero text styles
+/// @example
+///   .element {
+///     @include hero-text;
+///   }
+@mixin hero-text {
+  h1 {
+    font-family: var(--ff-display-condensed);
+    text-shadow: var(--shadow-large-title);
+
+    &::after {
+      color: var(--clr-accent-400);
+      content: '.';
+
+      @include mq(374, 'max', 'width') {
+        content: '';
+      }
+    }
+
+    &::selection {
+      color: var(--clr-secondary-400);
+    }
+  }
+
+  p {
+    text-shadow: var(--shadow-large-body);
+
+    &::selection {
+      color: var(--clr-secondary-400);
+    }
+  }
+
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(12);
+  }
+}
+
 /// Applies base hero styles to a container.
 /// @example
 ///   .element {
@@ -39,34 +78,10 @@
     z-index: 2;
   }
 
+  @include hero-text();
+
   * {
     z-index: 3;
-  }
-
-  h1 {
-    font-family: var(--ff-display-condensed);
-    text-shadow: var(--shadow-large-title);
-
-    &::after {
-      color: var(--clr-accent-400);
-      content: '.';
-
-      @include mq(374, 'max', 'width') {
-        content: '';
-      }
-    }
-
-    &::selection {
-      color: var(--clr-secondary-400);
-    }
-  }
-
-  p {
-    text-shadow: var(--shadow-large-body);
-
-    &::selection {
-      color: var(--clr-secondary-400);
-    }
   }
 
   img {
@@ -74,11 +89,25 @@
     user-select: none;
     z-index: 0;
   }
+}
 
-  .hero__text {
-    display: flex;
-    flex-direction: column;
-    row-gap: rem(12);
+/// Applies low impact hero styles to a container.
+/// @example
+///   .element {
+///     @include hero-low-impact;
+///   }
+@mixin hero-low-impact {
+  align-items: flex-start;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  @include hero-text();
+
+  h1,
+  p {
+    text-shadow: none;
   }
 }
 
