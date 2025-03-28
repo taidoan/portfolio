@@ -1,5 +1,6 @@
 import type { Category } from '@/payload-types';
 import type { Breadcrumbs as BreadcrumbsType } from '@/components/ui/Breadcrumbs';
+import clsx from 'clsx';
 
 import { RichText } from '@/components/ui/RichText';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -14,7 +15,7 @@ export const ArchiveHero = ({ heroData, breadcrumbsData }: ArchiveHeroProps) => 
   const { title, heroContent, breadcrumb } = heroData;
 
   return (
-    <section className={style.hero}>
+    <section className={clsx(style.hero, 'section')}>
       <h2 className='section-heading'>Archive</h2>
       <h1>{title}</h1>
       {breadcrumb && (

@@ -125,7 +125,7 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
 export default ServicePage;
 
 export const generateMetadata = async ({ params: paramsPromise }: Args): Promise<Metadata> => {
-  const { slug = 'home' } = await paramsPromise;
+  const { slug = '' } = await paramsPromise;
   const page = await queryPageBySlug({ slug, collection: 'services' });
 
   return generateMeta({ doc: page });

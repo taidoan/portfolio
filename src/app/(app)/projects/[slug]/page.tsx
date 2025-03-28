@@ -97,7 +97,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
 export default Page;
 
 export const generateMetadata = async ({ params: paramsPromise }: Args): Promise<Metadata> => {
-  const { slug = 'home' } = await paramsPromise;
+  const { slug = '' } = await paramsPromise;
   const page = await queryPageBySlug({ slug, collection: 'projects' });
 
   return generateMeta({ doc: page });

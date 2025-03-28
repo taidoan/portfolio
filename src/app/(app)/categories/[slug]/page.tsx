@@ -9,6 +9,7 @@ import { generateMeta } from '@/lib/utilities/generateMeta';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { ArchiveHero } from '@/blocks/Hero/Archive';
 import { Redirects } from '@/components/features/Redirects';
+import { CTA } from '@/components/layout/CTA';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -24,7 +25,7 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
   });
 
   if (!page) return <Redirects url={url} />;
-  const { heroContent, breadcrumb } = page;
+  const { breadcrumb, ctaContent, ctaAppearance, ctaLink } = page;
 
   const pageIds =
     breadcrumb?.breadcrumbs?.map((breadcrumb) => {
@@ -39,8 +40,27 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
       <Redirects disableNotFound url={url} />
       {<LivePreviewListener />}
       <ArchiveHero heroData={page} breadcrumbsData={breadcrumbsData} />
+      <section className={clsx('section', 'bg--gradient-grey', 'full-width')}>
+        <section>hey</section>
+      </section>
+      {ctaContent && (
+        <CTA
+          content={ctaContent}
+          link={ctaLink}
+          color={ctaAppearance?.backgroundColour || 'primary'}
+          variant={ctaAppearance?.blockVariant || 'fill'}
+          borderRadius={ctaAppearance?.borderRadius || 'medium'}
+        />
+      )}
     </>
   );
 };
 
 export default CategoryPage;
+
+export const generateMetadata = async ({ params: paramsPromise }: Args): Promise<Metadata> => {
+  const { slug = '' } = await paramsPromise;
+  const page = await queryPageBySlug({ slug, collection: 'categories' });
+
+  return generateMeta({ doc: page });
+};
