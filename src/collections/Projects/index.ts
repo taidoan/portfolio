@@ -13,12 +13,9 @@ import { SlugField } from '@/fields/Slug';
 import { urlField } from '@/fields/URL';
 import { BreadCrumbs } from '@/fields/Breadcrumbs';
 import { ClonedField } from '@/fields/ClonedField';
-import { Link } from '@fields/Link';
-import { BorderRadius } from '@/fields/BorderRadius';
-import { BackgroundColour } from '@/fields/BackgroundColour';
-import { BlockVariant } from '@/fields/BlockVariant';
 
 import { CaptionEditor } from '@/lib/editor/caption';
+import { CTAFields } from '@/fields/CTAFields';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
@@ -500,41 +497,7 @@ export const Projects: CollectionConfig = {
             description:
               'The call to action section of the project page. This will appear at the bottom of the page.',
           },
-          fields: [
-            {
-              type: 'richText',
-              name: 'ctaContent',
-              label: 'Content',
-              admin: {
-                description: 'The content to display in the CTA.',
-              },
-            },
-            Link({
-              linkOverrides: {
-                label: 'Link',
-                name: 'ctaLink',
-                admin: {
-                  description: 'The link to display in the CTA.',
-                  hideGutter: true,
-                },
-              },
-            }),
-            {
-              type: 'group',
-              name: 'ctaAppearance',
-              label: 'Appearance',
-              admin: {
-                description: 'Customize the appearance of the CTA.',
-                hideGutter: true,
-              },
-              fields: [
-                {
-                  type: 'row',
-                  fields: [BlockVariant(), BackgroundColour(), BorderRadius()],
-                },
-              ],
-            },
-          ],
+          fields: [CTAFields()],
         },
         {
           label: 'SEO',

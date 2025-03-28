@@ -52,11 +52,13 @@ h3.sub-heading {
   @include sub-heading;
 }
 
-h2.section-heading + h3.sub-heading {
+h2.section-heading + h3.sub-heading,
+h2.section-heading + h1 {
   margin-top: var(--spacing-sub-headings);
 }
 
-h3.sub-heading + p {
+h3.sub-heading + p,
+h1 + p {
   margin-top: var(--spacing-paragraph);
 }
 

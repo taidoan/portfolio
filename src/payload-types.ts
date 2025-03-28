@@ -244,23 +244,188 @@ export interface HeroBlockProps {
   breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
   breadcrumbs?:
     | {
-        relationTo:
-          | {
-              relationTo: 'pages';
-              value: string | Page;
-            }
-          | {
-              relationTo: 'projects';
-              value: string | Project;
-            }
-          | {
-              relationTo: 'services';
-              value: string | Service;
-            };
+        relationTo: {
+          relationTo: 'pages';
+          value: string | Page;
+        };
         label: string;
         id?: string | null;
       }[]
     | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DividerBlockProps".
+ */
+export interface DividerBlockProps {
+  type?: ('content' | 'section') | null;
+  weight?: ('minimal' | 'thin' | 'thick') | null;
+  width?: ('full' | 'default' | 'half') | null;
+  centered?: boolean | null;
+  color?: ('primary' | 'secondary' | 'accent' | 'light-grey') | null;
+  opacity?: number | null;
+  className?: string | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'divider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlockProps".
+ */
+export interface SectionBlockProps {
+  sectionBlocks?:
+    | (
+        | DividerBlockProps
+        | LinksBlockProps
+        | LinksGroupBlockProps
+        | IntroBlockProps
+        | MediaBlockProps
+        | CardBlockProps
+        | AccordionBlockProps
+        | CarouselBlockProps
+        | BioBlockProps
+        | ToolsBlockProps
+        | TopTracksBlockProps
+        | RelatedProjectsBlockProps
+      )[]
+    | null;
+  boxedContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  appearance?: {
+    /**
+     * The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.
+     */
+    sectionType?: ('default' | 'full-width' | 'boxed') | null;
+    alignContent?: ('left' | 'right') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+        )
+      | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  };
+  blockName?: string | null;
+  hiddenSlug?: string | null;
+  id?: string | null;
+  blockType: 'section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksBlockProps".
+ */
+export interface LinksBlockProps {
+  link: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'links';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -617,26 +782,10 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SectionBlockProps".
+ * via the `definition` "CTABlockProps".
  */
-export interface SectionBlockProps {
-  sectionBlocks?:
-    | (
-        | DividerBlockProps
-        | LinksBlockProps
-        | LinksGroupBlockProps
-        | IntroBlockProps
-        | MediaBlockProps
-        | CardBlockProps
-        | AccordionBlockProps
-        | CarouselBlockProps
-        | BioBlockProps
-        | ToolsBlockProps
-        | TopTracksBlockProps
-        | RelatedProjectsBlockProps
-      )[]
-    | null;
-  boxedContent?: {
+export interface CTABlockProps {
+  content: {
     root: {
       type: string;
       children: {
@@ -650,80 +799,7 @@ export interface SectionBlockProps {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
-  appearance?: {
-    /**
-     * The layout of the section, you can choose between a blocks layout, boxed content, or full-width blocks layout.
-     */
-    sectionType?: ('default' | 'full-width' | 'boxed') | null;
-    alignContent?: ('left' | 'right') | null;
-    backgroundColour?:
-      | (
-          | 'none'
-          | 'primary'
-          | 'secondary'
-          | 'accent'
-          | 'gradient-light'
-          | 'gradient-primary'
-          | 'gradient-secondary'
-          | 'gradient-accent'
-        )
-      | null;
-    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   };
-  blockName?: string | null;
-  hiddenSlug?: string | null;
-  id?: string | null;
-  blockType: 'section';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "DividerBlockProps".
- */
-export interface DividerBlockProps {
-  type?: ('content' | 'section') | null;
-  weight?: ('minimal' | 'thin' | 'thick') | null;
-  width?: ('full' | 'default' | 'half') | null;
-  centered?: boolean | null;
-  color?: ('primary' | 'secondary' | 'accent' | 'light-grey') | null;
-  opacity?: number | null;
-  className?: string | null;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'divider';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinksBlockProps".
- */
-export interface LinksBlockProps {
   link: {
     type: 'reference' | 'custom';
     newTab?: boolean | null;
@@ -758,36 +834,23 @@ export interface LinksBlockProps {
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
+  blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+  backgroundColour?:
+    | (
+        | 'none'
+        | 'primary'
+        | 'secondary'
+        | 'accent'
+        | 'gradient-light'
+        | 'gradient-primary'
+        | 'gradient-secondary'
+        | 'gradient-accent'
+      )
+    | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'links';
+  blockType: 'ctaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -840,6 +903,120 @@ export interface Category {
   id: string;
   title: string;
   description?: string | null;
+  heroContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The breadcrumbs for the category. These breadcrumbs will appear at the top of the page.
+   */
+  breadcrumb?: {
+    breadcrumbContainer?: ('none' | 'boxed' | 'outlined') | null;
+    breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
+    breadcrumbOutlineColor?:
+      | ('secondary' | 'accent' | 'primary' | 'urban-steel' | 'slate' | 'light-grey')
+      | null;
+    breadcrumbs?:
+      | {
+          relationTo:
+            | {
+                relationTo: 'pages';
+                value: string | Page;
+              }
+            | {
+                relationTo: 'categories';
+                value: string | Category;
+              };
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * The content to display in the CTA.
+   */
+  ctaContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The link to display in the CTA.
+   */
+  ctaLink: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  /**
+   * Customize the appearance of the CTA.
+   */
+  ctaAppearance?: {
+    blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+        )
+      | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  };
   slug: string;
   slugLock?: boolean | null;
   parentCategory?: (string | null) | Category;
@@ -1532,78 +1709,6 @@ export interface RelatedProjectsBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'relatedProjectsBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTABlockProps".
- */
-export interface CTABlockProps {
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  link: {
-    type: 'reference' | 'custom';
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'projects';
-          value: string | Project;
-        } | null)
-      | ({
-          relationTo: 'services';
-          value: string | Service;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null)
-      | ({
-          relationTo: 'categories';
-          value: string | Category;
-        } | null);
-    url?: string | null;
-    label: string;
-    variant?: ('fill' | 'outlined') | null;
-    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
-    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
-    className?: string | null;
-  };
-  blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
-  backgroundColour?:
-    | (
-        | 'none'
-        | 'primary'
-        | 'secondary'
-        | 'accent'
-        | 'gradient-light'
-        | 'gradient-primary'
-        | 'gradient-secondary'
-        | 'gradient-accent'
-      )
-    | null;
-  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'ctaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2583,6 +2688,43 @@ export interface CTABlockPropsSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  heroContent?: T;
+  breadcrumb?:
+    | T
+    | {
+        breadcrumbContainer?: T;
+        breadcrumbBackground?: T;
+        breadcrumbOutlineColor?: T;
+        breadcrumbs?:
+          | T
+          | {
+              relationTo?: T;
+              label?: T;
+              id?: T;
+            };
+      };
+  ctaContent?: T;
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        variant?: T;
+        color?: T;
+        hoverColor?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
+  ctaAppearance?:
+    | T
+    | {
+        blockVariant?: T;
+        backgroundColour?: T;
+        borderRadius?: T;
+      };
   slug?: T;
   slugLock?: T;
   parentCategory?: T;

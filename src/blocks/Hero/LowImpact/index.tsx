@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import { RichText } from '@/components/ui/RichText';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import style from './style.module.scss';
 
 export type LowImpactHeroProps = HeroBlockProps & {
@@ -21,6 +22,7 @@ export const LowImpactHero = ({
 
   return (
     <section className={heroClasses}>
+      {richText && <RichText converters={headingConverter} data={richText} />}
       {showBreadcrumb && breadcrumbsData && breadcrumbsData.length > 0 && (
         <Breadcrumbs
           breadcrumbs={breadcrumbsData}
@@ -28,7 +30,6 @@ export const LowImpactHero = ({
           background={breadcrumbBackground || 'none'}
         />
       )}
-      {richText && <RichText data={richText} />}
     </section>
   );
 };

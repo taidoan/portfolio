@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Filter } from './index';
+import type { Category } from '@/payload-types';
 
 const meta: Meta<typeof Filter> = {
   title: 'UI/Filter',
@@ -53,7 +54,7 @@ export const Categories: Story = {
           updatedAt: '2025-03-10T11:59:44.547Z',
           title: 'Digital',
           id: '67ceccd600d7591f31a008bc',
-        },
+        } as Category,
         createdAt: '2025-03-10T11:32:12.746Z',
         updatedAt: '2025-03-10T11:58:10.905Z',
         title: 'Web Design',

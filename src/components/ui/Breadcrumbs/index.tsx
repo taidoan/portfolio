@@ -20,7 +20,8 @@ export type Breadcrumbs = Breadcrumb[] | null | undefined;
 export type BreadcrumbsProps = {
   breadcrumbs: Breadcrumb[] | undefined | [] | null;
   isMediumScreen?: boolean;
-  container?: 'none' | 'boxed';
+  container?: 'none' | 'boxed' | 'outlined' | null;
+  outlineColor?: 'secondary' | 'accent' | 'primary' | 'urban-steel' | 'slate' | 'light-grey';
   background?: 'none' | 'light' | 'dark' | 'translucent';
 };
 

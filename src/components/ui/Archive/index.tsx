@@ -22,7 +22,7 @@ import style from './style.module.scss';
 
 export type Props = {
   data: CardData[];
-  categories?: Category[];
+  categories?: Omit<Category, 'ctaLink' | 'parentCategory'>[];
   className?: string;
   filterShowAll?: boolean;
   view?: 'grid' | 'list';

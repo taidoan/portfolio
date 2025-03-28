@@ -71,7 +71,7 @@ export const Pages: CollectionConfig = {
       tabs: [
         {
           label: 'Hero',
-          fields: [Hero],
+          fields: [Hero({ breadcrumbRelation: ['pages'] })],
         },
         {
           label: 'Layout',

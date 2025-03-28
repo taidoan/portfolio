@@ -70,7 +70,7 @@ vi.mock('@components/ui/Alert', () => ({
   ),
 }));
 
-const mockCategories: Category[] = [
+const mockCategories: Omit<Category, 'ctaLink'>[] = [
   {
     description: 'Creating visually appealing and functional designs for physical materials.',
     slug: 'print',
@@ -92,7 +92,7 @@ const mockCategories: Category[] = [
       updatedAt: '2025-03-10T11:59:44.547Z',
       title: 'Digital',
       id: '67ceccd600d7591f31a008bc',
-    },
+    } as Category,
     createdAt: '2025-03-10T11:32:12.746Z',
     updatedAt: '2025-03-10T11:58:10.905Z',
     title: 'Web Design',
