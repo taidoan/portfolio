@@ -3,8 +3,8 @@ import { authenticated, anyone } from '@/access';
 import { BlocksEditor } from '@/fields/Lexical/BlocksEditor';
 import { SlugField } from '@fields/Slug';
 import { BreadCrumbs } from '@/fields/Breadcrumbs';
+import { CTAFields } from '@/fields/CTAFields';
 import { ArchiveBlock } from '@/blocks/Archive/config';
-import { CTABlock } from '@/blocks/CTA/config';
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -112,14 +112,29 @@ export const Categories: CollectionConfig = {
           ],
         },
         {
-          label: 'Page Layout',
+          label: 'Archive',
           fields: [
             {
               type: 'blocks',
               name: 'layout',
-              blocks: [ArchiveBlock, CTABlock],
+              blocks: [ArchiveBlock],
+              defaultValue: 'archiveBlock',
+              minRows: 1,
+              maxRows: 1,
+              label: false,
+              labels: {
+                singular: 'Archive',
+                plural: 'Archives',
+              },
+              admin: {
+                initCollapsed: false,
+              },
             },
           ],
+        },
+        {
+          label: 'CTA',
+          fields: [CTAFields()],
         },
       ],
     },

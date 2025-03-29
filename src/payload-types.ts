@@ -946,7 +946,82 @@ export interface Category {
         }[]
       | null;
   };
-  layout?: (ArchiveBlockProps | CTABlockProps)[] | null;
+  layout?: ArchiveBlockProps[] | null;
+  /**
+   * The content to display in the CTA.
+   */
+  ctaContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The link to display in the CTA.
+   */
+  ctaLink: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  /**
+   * Customize the appearance of the CTA.
+   */
+  ctaAppearance?: {
+    blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+          | 'gradient-grey'
+        )
+      | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  };
   slug: string;
   slugLock?: boolean | null;
   parentCategory?: (string | null) | Category;
@@ -2642,7 +2717,28 @@ export interface CategoriesSelect<T extends boolean = true> {
     | T
     | {
         archiveBlock?: T | ArchiveBlockPropsSelect<T>;
-        ctaBlock?: T | CTABlockPropsSelect<T>;
+      };
+  ctaContent?: T;
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        variant?: T;
+        color?: T;
+        hoverColor?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
+  ctaAppearance?:
+    | T
+    | {
+        blockVariant?: T;
+        backgroundColour?: T;
+        borderRadius?: T;
       };
   slug?: T;
   slugLock?: T;
