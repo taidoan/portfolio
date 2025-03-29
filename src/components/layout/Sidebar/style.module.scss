@@ -3,10 +3,14 @@
 aside.sidebar {
   --text-color: var(--clr-urban-steel-400);
   --icon-color: var(--clr-light-grey-400);
+  --parent-padding: #{size-clamp(rem(16), rem(20))};
+  --child-padding: #{size-clamp(rem(12), rem(16))};
 
   display: flex;
   flex-direction: column;
-  gap: size-clamp(rem(16), rem(32));
+  gap: size-clamp(rem(24), rem(32));
+  position: sticky;
+  top: 0;
 }
 
 .sidebar__block {
@@ -15,8 +19,30 @@ aside.sidebar {
   border-radius: var(--border-radius-medium);
   box-shadow: var(--shadow-card-sm);
   color: var(--text-color);
-  padding: size-clamp(rem(16), rem(32));
+  padding: size-clamp(rem(20), rem(32));
   text-align: left;
+
+  a {
+    align-items: center;
+    color: inherit;
+    display: flex;
+    font-weight: 650;
+    gap: size-clamp(rem(8), rem(12));
+    text-decoration: none;
+    width: 100%;
+
+    &:focus,
+    &:focus-visible {
+      color: var(--clr-secondary-400);
+    }
+
+    &:hover {
+      color: var(--clr-secondary-400);
+      text-decoration: underline;
+      text-decoration-color: var(--clr-accent-400);
+      text-decoration-thickness: rem(3);
+    }
+  }
 }
 
 .sidebar__block-title {
@@ -27,4 +53,66 @@ aside.sidebar {
   color: var(--icon-color);
   min-block-size: rem(24);
   min-inline-size: rem(24);
+  transition: color var(--transition-duration) ease;
+}
+
+.sidebar__block-list {
+  font-size: var(--fs-body-sm);
+  list-style: none;
+  padding: 0;
+
+  li {
+    padding-block: var(--parent-padding);
+
+    a {
+      justify-content: space-between;
+
+      &:hover {
+        --icon-color: var(--clr-accent-400);
+      }
+    }
+
+    & + li {
+      border-top: rem(2) solid var(--clr-gallery-400);
+    }
+
+    &:first-of-type {
+      padding-top: 0;
+    }
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.sidebar__block-subcat-list {
+  font-size: var(--fs-small);
+  list-style: none;
+  margin-top: var(--parent-padding);
+  padding: 0;
+  padding-block: var(--child-padding);
+
+  a {
+    font-weight: 400;
+    justify-content: flex-start !important;
+
+    &:hover {
+      text-decoration-thickness: rem(2);
+      --icon-color: var(--clr-accent-400);
+    }
+  }
+
+  & + li {
+    border-top: rem(1) solid var(--clr-gallery-400);
+  }
+
+  &:first-of-type {
+    border-top: rem(2) solid var(--clr-gallery-400);
+    padding-top: var(--child-padding);
+  }
+
+  &:last-of-type {
+    padding-bottom: 0;
+  }
 }

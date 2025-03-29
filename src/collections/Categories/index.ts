@@ -22,6 +22,7 @@ export const Categories: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      index: true,
       label: 'Category Name',
       required: true,
       unique: true,
@@ -147,6 +148,7 @@ export const Categories: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
+      index: true,
     },
   ],
 };

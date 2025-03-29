@@ -85,6 +85,7 @@ a {
   text-decoration-thickness: rem(2);
   transition-duration: var(--transition-duration);
   transition-property: color, text-decoration;
+  transition-timing-function: ease;
 
   &:hover {
     color: var(--clr-primary-700);
