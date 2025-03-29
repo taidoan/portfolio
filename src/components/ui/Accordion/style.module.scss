@@ -77,7 +77,6 @@
 }
 
 .accordion__title {
-  --gap: #{rem(16)};
   align-items: center;
   background: none;
   border: 0;
@@ -87,7 +86,7 @@
   font-family: var(--ff-display-condensed);
   font-size: var(--fs-heading);
   font-weight: 800;
-  gap: var(--gap);
+  gap: size-clamp(rem(16), rem(24));
   line-height: 1;
   padding: 0;
   text-transform: uppercase;
@@ -100,10 +99,6 @@
 
   &[data-active='true'] {
     color: var(--fc-card);
-  }
-
-  @include mq('md') {
-    --gap: #{rem(24)};
   }
 }
 

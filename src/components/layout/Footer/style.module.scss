@@ -21,23 +21,18 @@ footer.footer {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: rem(16);
+  gap: size-clamp(rem(16), rem(12));
 
   @include mq('md') {
     align-items: flex-start;
-    gap: rem(12);
   }
 }
 
 .footer__site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: rem(12);
+  gap: size-clamp(rem(12), rem(32));
   justify-content: center;
-
-  @include mq('md') {
-    column-gap: rem(32);
-  }
 }
 
 .footer__copyright {

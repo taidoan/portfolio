@@ -2,7 +2,7 @@
 
 .tools__block {
   display: grid;
-  gap: rem(16);
+  gap: size-clamp(rem(16), rem(24));
   grid-template-columns: repeat(3, 1fr);
   padding: size-clamp(rem(16), rem(32));
 
@@ -11,7 +11,6 @@
   }
 
   @include mq('md') {
-    gap: rem(24);
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -43,13 +42,12 @@
 .tools__modal-container {
   align-items: center;
   display: grid;
-  gap: rem(16);
+  gap: size-clamp(rem(16), rem(24));
   grid-template-columns: 1fr;
   justify-content: center;
 
   @include mq(665) {
     display: grid;
-    gap: rem(24);
     grid-template-columns: auto 1fr 1fr 1fr;
     padding-top: 0;
   }

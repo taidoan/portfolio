@@ -6,7 +6,13 @@ export type Props = {
 };
 
 const Sidebar = ({ className }: Props) => {
-  return <aside className={className || ''}>sidebar here</aside>;
+  return (
+    <aside className={clsx(className, style.sidebar)}>
+      <p>First block</p>
+      <p>Second block</p>
+      <p>Third block</p>
+    </aside>
+  );
 };
 
 export default Sidebar;

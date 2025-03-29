@@ -1,0 +1,7 @@
+@use '@abstracts/_index' as *;
+
+aside.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: size-clamp(rem(16), rem(32));
+}

@@ -3,14 +3,10 @@
 .filter__container {
   display: flex;
   flex-wrap: wrap;
-  gap: rem(12);
+  gap: size-clamp(rem(12), rem(16));
   justify-content: center;
   list-style: none;
   padding: 0;
-
-  @include mq('md') {
-    gap: 1rem;
-  }
 }
 
 .filter__button {

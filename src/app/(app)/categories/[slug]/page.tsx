@@ -12,7 +12,6 @@ import { ArchiveHero } from '@/blocks/Hero/Archive';
 import { Redirects } from '@/components/features/Redirects';
 import { CTA } from '@/components/layout/CTA';
 import Sidebar from '@/components/layout/Sidebar';
-import { ArchiveBlock } from '@/blocks/Archive';
 
 export type Args = {
   params: Promise<{ slug: string }>;
