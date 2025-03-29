@@ -28,12 +28,12 @@ const getIcon = (label: string | undefined | null) => {
   return iconMap[label as keyof typeof iconMap] || null;
 };
 
-export const SidebarCategoriesBlock = async ({ className }: Props) => {
+export const SidebarCategoriesBlock = async ({ className, showSubCategories, title }: Props) => {
   const categories = await fetchCategories();
 
   return (
     <section className={clsx(className, style.sidebar__block)}>
-      <h2 className={style['sidebar__block-title']}>Categories</h2>
+      <h2 className={style['sidebar__block-title']}>{title || 'Categories'}</h2>
       <Divider
         type='content'
         color='light-grey'
@@ -50,33 +50,34 @@ export const SidebarCategoriesBlock = async ({ className }: Props) => {
                 {getIcon(topLevelCategory.slug)}
               </Link>
 
-              {categories.docs.some(
-                (childCategory) =>
-                  childCategory.parentCategory &&
-                  childCategory.parentCategory.id === topLevelCategory.id,
-              ) && (
-                <ul className={style['sidebar__block-subcat-list']}>
-                  {categories.docs
-                    .filter(
-                      (childCategory) =>
-                        childCategory.parentCategory &&
-                        childCategory.parentCategory.id === topLevelCategory.id,
-                    )
-                    .map((childCategory) => (
-                      <li key={childCategory.slug}>
-                        <Link href={`/categories/${childCategory.slug}`}>
-                          {
-                            <IconArrowNarrowRight
-                              stroke={3}
-                              className={style['sidebar__block-icon']}
-                            />
-                          }
-                          {childCategory.title}
-                        </Link>
-                      </li>
-                    ))}
-                </ul>
-              )}
+              {showSubCategories === true &&
+                categories.docs.some(
+                  (childCategory) =>
+                    childCategory.parentCategory &&
+                    childCategory.parentCategory.id === topLevelCategory.id,
+                ) && (
+                  <ul className={style['sidebar__block-subcat-list']}>
+                    {categories.docs
+                      .filter(
+                        (childCategory) =>
+                          childCategory.parentCategory &&
+                          childCategory.parentCategory.id === topLevelCategory.id,
+                      )
+                      .map((childCategory) => (
+                        <li key={childCategory.slug}>
+                          <Link href={`/categories/${childCategory.slug}`}>
+                            {
+                              <IconArrowNarrowRight
+                                stroke={3}
+                                className={style['sidebar__block-icon']}
+                              />
+                            }
+                            {childCategory.title}
+                          </Link>
+                        </li>
+                      ))}
+                  </ul>
+                )}
             </li>
           ))}
       </ul>

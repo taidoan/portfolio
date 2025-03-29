@@ -2,12 +2,21 @@ import { SidebarLatestBlockProps } from '@/payload-types';
 import clsx from 'clsx';
 import style from '@/components/layout/Sidebar/style.module.scss';
 import { Divider } from '@/components/ui/Divider';
+import { queryLatestPosts } from '@/lib/utilities/queries/queryLatestPosts';
+import Link from 'next/link';
 
 export type Props = {
   className?: string;
 } & SidebarLatestBlockProps;
 
-export const SidebarLatestBlock = ({ className }: Props) => {
+export const SidebarLatestBlock = async ({ className, numberOfPosts }: Props) => {
+  const posts = await queryLatestPosts();
+  const sortedPosts = posts.docs
+    .slice()
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+  console.log(posts.docs);
+
   return (
     <section className={clsx(className, style.sidebar__block)}>
       <h2 className={style['sidebar__block-title']}>Latest Posts</h2>
@@ -18,9 +27,9 @@ export const SidebarLatestBlock = ({ className }: Props) => {
         width='full'
       />
       <ul className={style['sidebar__block-list']}>
-        <li>Post 1</li>
-        <li>Post 2</li>
-        <li>Post 3</li>
+        {sortedPosts.map((post) => (
+          <li key={post.slug}>{post.title}</li>
+        ))}
       </ul>
     </section>
   );

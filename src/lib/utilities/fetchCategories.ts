@@ -3,6 +3,58 @@ import { cache } from 'react';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 
+/**
+ * Fetches the categories from the 'categories' collection.
+ * @returns {Promise<PaginatedDocs<Category> | null>} - The categories.
+ * @throws {Error} - If an error occurs during the fetch.
+ * @example
+ * const categories = await fetchCategories();
+ * console.log(categories);
+ *
+ * // Output:
+ * // {
+ * //   docs: [
+ * //     {
+ * //       id: '67ceccd600d7591f31a008bc',
+ * //       title: 'Branding',
+ * //       slug: 'branding',
+ * //       parentCategory: null,
+ * //       updatedAt: '2025-03-10T11:33:28.064Z',
+ * //       createdAt: '2025-03-10T11:33:28.064Z'
+ * //     },
+ * //     {
+ * //       id: '67cecdbc00d7591f31a0091b',
+ * //       title: 'Digital',
+ * //       slug: 'digital',
+ * //       parentCategory: null,
+ * //       updatedAt: '2025-03-10T11:33:28.064Z',
+ * //       createdAt: '2025-03-10T11:33:28.064Z'
+ * //     },
+ * //     {
+ * //       id: '67cece0800d7591f31a00957',
+ * //       title: 'Print',
+ * //       slug: 'print',
+ * //       parentCategory: null,
+ * //       updatedAt: '2025-03-10T11:33:28.064Z',
+ * //       createdAt: '2025-03-10T11:33:28.064Z'
+ * //     },
+ * //     {
+ * //       id: '67cece0800d7591f31a00957',
+ * //       title: 'Graphic Design',
+ * //       slug: 'graphic-design',
+ * //       parentCategory: null,
+ * //       updatedAt: '2025-03-10T11:33:28.064Z',
+ * //       createdAt: '2025-03-10T11:33:28.064Z'
+ * //     }
+ * //   ],
+ * //   totalPages: 1,
+ * //   page: 1,
+ * //   limit: 50,
+ * //   totalDocs: 3,
+ * //   nextPage: null,
+ * //   prevPage: null
+ * // }
+ */
 export const fetchCategories = cache(async () => {
   try {
     const payload = await getPayload({ config: configPromise });
