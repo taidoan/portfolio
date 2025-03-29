@@ -3,3 +3,9 @@
 .categories__main {
   padding-bottom: 0 !important;
 }
+
+.categories__wrapper {
+  @include mq('md') {
+    gap: rem(56);
+  }
+}

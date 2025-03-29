@@ -8,9 +8,18 @@ export type Props = {
 const Sidebar = ({ className }: Props) => {
   return (
     <aside className={clsx(className, style.sidebar)}>
-      <p>First block</p>
-      <p>Second block</p>
-      <p>Third block</p>
+      <div className={style.sidebar__block}>
+        <h2 className={style['sidebar__block-title']}>Block Title</h2>
+        First block
+      </div>
+      <div className={style.sidebar__block}>
+        <h2 className={style['sidebar__block-title']}>Block Title</h2>
+        Second block
+      </div>
+      <div className={style.sidebar__block}>
+        <h2 className={style['sidebar__block-title']}>Block Title</h2>
+        Third block
+      </div>
     </aside>
   );
 };

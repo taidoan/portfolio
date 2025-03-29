@@ -43,7 +43,7 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
       {<LivePreviewListener />}
       <ArchiveHero heroData={page} breadcrumbsData={breadcrumbsData} />
       <section className={clsx('section', 'bg--gradient-grey', 'full-width', 'categories__main')}>
-        <section className='section__wrapper'>
+        <section className={clsx('section__wrapper', 'categories__wrapper')}>
           <div className='col-span-11'>{layout && <RenderBlocks blocks={layout} />}</div>
           <Sidebar className='col-span-5' />
         </section>
