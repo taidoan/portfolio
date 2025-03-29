@@ -8,8 +8,6 @@ import { Divider } from '@/components/ui/Divider';
 import {
   IconArrowNarrowRight,
   IconPaletteFilled,
-  IconAppWindow,
-  IconPencil,
   IconCode,
   IconDeviceDesktopFilled,
   IconPaintFilled,
