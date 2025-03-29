@@ -1,17 +1,22 @@
 @use '@abstracts/_index' as *;
 
 .archive__container {
+  container-type: inline-size;
   gap: rem(56);
 }
 
 .archive__gallery-wrapper {
-  @include mq('md') {
+  @container (min-width: #{rem(calc($project-max-width / 2))}) {
     display: grid;
     gap: rem(34);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @container (min-width: #{rem(938)}) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @include mq('md-lg') {
+  @container (min-width: #{rem($project-max-width)}) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
