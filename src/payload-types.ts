@@ -105,12 +105,14 @@ export interface Config {
     social: Social;
     footer: Footer;
     header: Header;
+    sidebar: Sidebar;
   };
   globalsSelect: {
     breakpoints: BreakpointsSelect<false> | BreakpointsSelect<true>;
     social: SocialSelect<false> | SocialSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
+    sidebar: SidebarSelect<false> | SidebarSelect<true>;
   };
   locale: null;
   user: User & {
@@ -3153,6 +3155,53 @@ export interface Header {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sidebar".
+ */
+export interface Sidebar {
+  id: string;
+  /**
+   * Control what blocks are shown in the sidebar.
+   */
+  sidebarBlocks?:
+    | (SidebarCategoriesBlockProps | SidebarLatestBlockProps | SidebarTagsBlockProps)[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarCategoriesBlockProps".
+ */
+export interface SidebarCategoriesBlockProps {
+  title: string;
+  showSubCategories: boolean;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sidebarCategoriesBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarLatestBlockProps".
+ */
+export interface SidebarLatestBlockProps {
+  title: string;
+  numberOfPosts: number;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sidebarLatestBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarTagsBlockProps".
+ */
+export interface SidebarTagsBlockProps {
+  title: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sidebarTagsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "breakpoints_select".
  */
 export interface BreakpointsSelect<T extends boolean = true> {
@@ -3239,6 +3288,51 @@ export interface HeaderSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sidebar_select".
+ */
+export interface SidebarSelect<T extends boolean = true> {
+  sidebarBlocks?:
+    | T
+    | {
+        sidebarCategoriesBlock?: T | SidebarCategoriesBlockPropsSelect<T>;
+        sidebarLatestBlock?: T | SidebarLatestBlockPropsSelect<T>;
+        sidebarTagsBlock?: T | SidebarTagsBlockPropsSelect<T>;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarCategoriesBlockProps_select".
+ */
+export interface SidebarCategoriesBlockPropsSelect<T extends boolean = true> {
+  title?: T;
+  showSubCategories?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarLatestBlockProps_select".
+ */
+export interface SidebarLatestBlockPropsSelect<T extends boolean = true> {
+  title?: T;
+  numberOfPosts?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarTagsBlockProps_select".
+ */
+export interface SidebarTagsBlockPropsSelect<T extends boolean = true> {
+  title?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

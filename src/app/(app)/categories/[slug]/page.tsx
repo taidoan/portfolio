@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { generateMeta } from '@/lib/utilities/generateMeta';
+import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { RenderBlocks } from '@/blocks/RenderBlocks';
@@ -37,6 +38,8 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
 
   const breadcrumbsData = await queryBreadcrumbs(pageIds);
 
+  const sidebarData = await getCachedGlobal('sidebar', 2)();
+
   return (
     <>
       <Redirects disableNotFound url={url} />
@@ -45,7 +48,7 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
       <section className={clsx('section', 'bg--gradient-grey', 'full-width', 'categories__main')}>
         <section className={clsx('section__wrapper', 'categories__wrapper')}>
           <div className='col-span-11'>{layout && <RenderBlocks blocks={layout} />}</div>
-          <Sidebar className='col-span-5' />
+          <Sidebar data={sidebarData} className='col-span-5' />
         </section>
       </section>
       {ctaContent && (

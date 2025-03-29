@@ -13,7 +13,6 @@ export const fetchArchiveData = async (
   try {
     const payload = await getPayload({ config: config });
 
-    // If collection is categories, we'll fetch projects
     const targetCollection = collection === 'categories' ? 'projects' : collection;
 
     if (!targetCollection || !['projects', 'posts'].includes(targetCollection)) {
@@ -29,7 +28,6 @@ export const fetchArchiveData = async (
       overrideAccess: false,
     };
 
-    // Add category filtering when needed
     if (collection === 'categories' && categoriesToArchive && categoriesToArchive.length > 0) {
       queryOptions.where = {
         categories: {
