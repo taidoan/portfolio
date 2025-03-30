@@ -1,5 +1,6 @@
 import { GlobalConfig } from 'payload';
 import { authenticated, anyone } from '@/access';
+import { revalidateGlobal } from '@/globals/hooks/revalidateGlobal';
 
 export const Social: GlobalConfig = {
   slug: 'social',
@@ -66,5 +67,6 @@ export const Social: GlobalConfig = {
         return data;
       },
     ],
+    afterChange: [revalidateGlobal('social')],
   },
 };

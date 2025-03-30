@@ -1,12 +1,16 @@
 import { GlobalConfig } from 'payload';
 import { Link } from '@/fields/Link';
 import { anyone, authenticated } from '@/access';
+import { revalidateGlobal } from '@/globals/hooks/revalidateGlobal';
 
 export const Header: GlobalConfig = {
   slug: 'header',
   access: {
     read: anyone,
     update: authenticated,
+  },
+  hooks: {
+    afterChange: [revalidateGlobal('header')],
   },
   fields: [
     {

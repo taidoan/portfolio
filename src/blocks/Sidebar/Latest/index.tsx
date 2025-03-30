@@ -11,11 +11,7 @@ export type Props = {
 
 export const SidebarLatestBlock = async ({ className, numberOfPosts }: Props) => {
   const posts = await queryLatestPosts();
-  const sortedPosts = posts.docs
-    .slice()
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-  console.log(posts.docs);
+  const filteredPosts = posts.docs.slice(0, numberOfPosts);
 
   return (
     <section className={clsx(className, style.sidebar__block)}>
@@ -27,7 +23,7 @@ export const SidebarLatestBlock = async ({ className, numberOfPosts }: Props) =>
         width='full'
       />
       <ul className={style['sidebar__block-list']}>
-        {sortedPosts.map((post) => (
+        {filteredPosts.map((post) => (
           <li key={post.slug}>{post.title}</li>
         ))}
       </ul>

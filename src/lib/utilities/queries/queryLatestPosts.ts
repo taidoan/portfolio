@@ -2,7 +2,7 @@
 import { getPayload } from 'payload';
 import configPromise from '@/payload.config';
 import { cache } from 'react';
-export const queryLatestPosts = cache(async ({ limit = 6 }: { limit?: number } = {}) => {
+export const queryLatestPosts = cache(async ({ limit = 8 }: { limit?: number } = {}) => {
   try {
     const payload = await getPayload({ config: configPromise });
     const posts = await payload.find({

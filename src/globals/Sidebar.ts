@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'payload';
 import { anyone, authenticated } from '@/access';
 import { SidebarCategoriesBlock, SidebarLatestBlock, SidebarTagsBlock } from '@/blocks/Sidebar';
+import { revalidateGlobal } from '@/globals/hooks/revalidateGlobal';
 
 const blocks = [SidebarCategoriesBlock, SidebarLatestBlock, SidebarTagsBlock];
 
@@ -9,6 +10,9 @@ export const Sidebar: GlobalConfig = {
   access: {
     read: anyone,
     update: authenticated,
+  },
+  hooks: {
+    afterChange: [revalidateGlobal('sidebar')],
   },
   fields: [
     {
