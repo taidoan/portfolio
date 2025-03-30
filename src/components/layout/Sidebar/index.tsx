@@ -3,9 +3,9 @@ import type { Sidebar as SidebarType } from '@/payload-types';
 import clsx from 'clsx';
 import style from './style.module.scss';
 
-import { SidebarCategoriesBlock } from '@/blocks/Sidebar/Categories';
-import { SidebarLatestBlock } from '@/blocks/Sidebar/Latest';
-import { SidebarTagsBlock } from '@/blocks/Sidebar/Tags';
+import { SidebarCategoriesBlock } from '@/payload/blocks/Sidebar/Categories';
+import { SidebarLatestBlock } from '@/payload/blocks/Sidebar/Latest';
+import { SidebarTagsBlock } from '@/payload/blocks/Sidebar/Tags';
 
 export type Props = {
   data: SidebarType;

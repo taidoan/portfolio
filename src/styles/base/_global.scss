@@ -6,6 +6,8 @@ body {
 
   *::selection {
     background-color: var(--selection-bg-clr);
+    color: var(--focus-text-clr);
+    text-shadow: none;
   }
 
   &[data-locked] {

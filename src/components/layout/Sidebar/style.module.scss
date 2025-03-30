@@ -21,7 +21,9 @@ aside.sidebar {
   color: var(--text-color);
   padding: size-clamp(rem(20), rem(32));
   text-align: left;
-  transition: background-color var(--transition-duration) ease;
+  transition:
+    color var(--transition-duration) ease-in-out,
+    background-color var(--transition-duration) ease;
 
   &:hover {
     background-color: #fff;

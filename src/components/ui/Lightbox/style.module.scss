@@ -181,6 +181,10 @@
 .lightbox__carousel {
   --slide-size-md: 100%;
   --slide-size-lg: 100%;
+
+  > div:first-child {
+    container-type: normal;
+  }
 }
 
 .lightbox__carousel-slide {

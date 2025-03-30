@@ -6,8 +6,8 @@ import { generateMeta } from '@/lib/utilities/generateMeta';
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { Redirects } from '@/components/features/Redirects';
-import { RenderHero } from '@/blocks/Hero/renderHero';
-import { RenderBlocks } from '@/blocks/RenderBlocks';
+import { RenderHero } from '@/payload/blocks/Hero/renderHero';
+import { RenderBlocks } from '@/payload/blocks/RenderBlocks';
 
 export type Args = {
   params: Promise<{

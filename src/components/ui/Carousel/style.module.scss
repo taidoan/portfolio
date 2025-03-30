@@ -62,6 +62,8 @@
   }
 
   &[data-direction='vertical-scroll'] {
+    width: 100%;
+
     .progress {
       align-self: center;
       background-color: var(--clr-light-grey-200);

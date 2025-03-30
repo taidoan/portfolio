@@ -7,7 +7,7 @@ import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { RichText } from '@/components/ui/RichText';
-import { SlugPageHero } from '@/blocks/Hero/SlugPage';
+import { SlugPageHero } from '@/payload/blocks/Hero/SlugPage';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { Redirects } from '@/components/features/Redirects';
 import clsx from 'clsx';

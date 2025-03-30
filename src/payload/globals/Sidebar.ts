@@ -1,0 +1,37 @@
+import { GlobalConfig } from 'payload';
+import { anyone, authenticated } from '@/payload/access';
+import {
+  SidebarCategoriesBlock,
+  SidebarLatestBlock,
+  SidebarTagsBlock,
+} from '@/payload/blocks/Sidebar';
+import { revalidateGlobal } from '@/payload/globals/hooks/revalidateGlobal';
+
+const blocks = [SidebarCategoriesBlock, SidebarLatestBlock, SidebarTagsBlock];
+
+export const Sidebar: GlobalConfig = {
+  slug: 'sidebar',
+  access: {
+    read: anyone,
+    update: authenticated,
+  },
+  hooks: {
+    afterChange: [revalidateGlobal('sidebar')],
+  },
+  fields: [
+    {
+      name: 'sidebarBlocks',
+      label: 'Sidebar Blocks',
+      labels: {
+        singular: 'Block',
+        plural: 'Blocks',
+      },
+      type: 'blocks',
+      blocks: blocks,
+      maxRows: 5,
+      admin: {
+        description: 'Control what blocks are shown in the sidebar.',
+      },
+    },
+  ],
+};

@@ -1,11 +1,11 @@
 import { JSXConvertersFunction, LinkJSXConverter } from '@payloadcms/richtext-lexical/react';
-import { LinksRichtextBlock } from '@/blocks/LinkRichtext';
-import { LinksGroupRichtextBlock } from '@/blocks/LinkRichtext/Group';
+import { LinksRichtextBlock } from '@/payload/blocks/LinkRichtext';
+import { LinksGroupRichtextBlock } from '@/payload/blocks/LinkRichtext/Group';
 import { Fragment } from 'react';
 import { internalDocToHref } from './../utils';
 import { SerializedHeadingNode, SerializedBlockNode } from '@payloadcms/richtext-lexical';
-import { DividerBlock } from '@/blocks/Divider';
-import { MediaRichTextBlock } from '@/blocks/MediaRichtext';
+import { DividerBlock } from '@/payload/blocks/Divider';
+import { MediaRichTextBlock } from '@/payload/blocks/MediaRichtext';
 import type {
   LinksBlockRichtextProps,
   LinksGroupRichtextProps,

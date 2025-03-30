@@ -8,8 +8,8 @@ import { generateMeta } from '@/lib/utilities/generateMeta';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 
 import { LivePreviewListener } from '@/components/features/LivePreview';
-import { RenderBlocks } from '@/blocks/RenderBlocks';
-import { ArchiveHero } from '@/blocks/Hero/Archive';
+import { RenderBlocks } from '@/payload/blocks/RenderBlocks';
+import { ArchiveHero } from '@/payload/blocks/Hero/Archive';
 import { Redirects } from '@/components/features/Redirects';
 import { CTA } from '@/components/layout/CTA';
 import Sidebar from '@/components/layout/Sidebar';
