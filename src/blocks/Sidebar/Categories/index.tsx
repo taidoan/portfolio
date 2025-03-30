@@ -7,10 +7,10 @@ import style from '@/components/layout/Sidebar/style.module.scss';
 import { Divider } from '@/components/ui/Divider';
 import {
   IconArrowNarrowRight,
-  IconPaletteFilled,
+  IconPalette,
   IconCode,
-  IconDeviceDesktopFilled,
-  IconPaintFilled,
+  IconDeviceDesktop,
+  IconPaint,
 } from '@tabler/icons-react';
 
 export type Props = {
@@ -18,9 +18,9 @@ export type Props = {
 } & SidebarCategoriesBlockProps;
 
 const iconMap: Record<string, JSX.Element> = {
-  branding: <IconPaletteFilled className={style['sidebar__block-icon']} />,
-  digital: <IconDeviceDesktopFilled className={style['sidebar__block-icon']} />,
-  'graphic-design': <IconPaintFilled className={style['sidebar__block-icon']} />,
+  branding: <IconPalette className={style['sidebar__block-icon']} />,
+  digital: <IconDeviceDesktop className={style['sidebar__block-icon']} />,
+  'graphic-design': <IconPaint className={style['sidebar__block-icon']} />,
   development: <IconCode className={style['sidebar__block-icon']} />,
 };
 
