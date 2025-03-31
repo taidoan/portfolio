@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, authenticatedOrPublished } from '@/payload/access';
-import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
+import { generatePreviewPath } from '@utilities/generatePreviewPath';
 import { revalidateDelete, revalidateProject } from './hooks/revalidateProject';
 import {
   MetaDescriptionField,
@@ -9,13 +9,13 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { SlugField } from '@/payload/fields/Slug';
-import { urlField } from '@/payload/fields/URL';
-import { BreadCrumbs } from '@/payload/fields/Breadcrumbs';
-import { ClonedField } from '@/payload/fields/ClonedField';
+import { SlugField } from '@fields/Slug';
+import { urlField } from '@fields/URL';
+import { BreadCrumbs } from '@fields/Breadcrumbs';
+import { ClonedField } from '@fields/ClonedField';
 
-import { CaptionEditor } from '@/lib/editor/caption';
-import { CTAFields } from '@/payload/fields/CTAFields';
+import { CaptionEditor } from '@editor/caption';
+import { CTAFields } from '@fields/CTAFields';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',

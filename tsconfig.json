@@ -23,16 +23,18 @@
       "@config": ["./config"],
       "@scripts/*": ["./scripts/*"],
       "@payload-config": ["./src/payload.config.ts"],
-      "@fields/*": ["src/payload/fields/*"],
+      "@access": ["./src/payload/access"],
+      "@fields/*": ["./src/payload/fields/*"],
       "@utilities/*": ["./src/lib/utilities/*"],
       "@components/*": ["./src/components/*"],
-      "@collections/*": ["src/payload/collections/*"],
-      "@globals/*": ["src/payload/globals/*"],
+      "@collections/*": ["./src/payload/collections/*"],
+      "@globals/*": ["./src/payload/globals/*"],
       "@hooks/*": ["./src/lib/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/styles/*"],
       "@abstracts/*": ["./src/styles/abstracts/*"],
-      "@editor/*": ["./src/lib/editor/*"]
+      "@editor/*": ["./src/lib/editor/*"],
+      "@blocks/*": ["./src/payload/blocks/*"]
     },
     "target": "ES2022",
     "types": ["vitest/globals"]

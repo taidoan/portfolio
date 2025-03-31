@@ -9,12 +9,12 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { SlugField } from '@/payload/fields/Slug';
-import { urlField } from '@/payload/fields/URL';
-import { BreadCrumbs } from '@/payload/fields/Breadcrumbs';
-import { ClonedField } from '@/payload/fields/ClonedField';
-import { SectionBlock } from '@/payload/blocks/Section/config';
-import { CTABlock } from '@/payload/blocks/CTA/config';
+import { SlugField } from '@fields/Slug';
+import { urlField } from '@fields/URL';
+import { BreadCrumbs } from '@fields/Breadcrumbs';
+import { ClonedField } from '@fields/ClonedField';
+import { SectionBlock } from '@blocks/Section/config';
+import { CTABlock } from '@blocks/CTA/config';
 
 export const Services: CollectionConfig = {
   slug: 'services',

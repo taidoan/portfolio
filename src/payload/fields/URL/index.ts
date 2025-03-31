@@ -16,7 +16,7 @@ export const urlField = (fieldToUse = 'slug', collection?: string): TextField =>
       position: 'sidebar',
       components: {
         Field: {
-          path: '@/fields/URL/UrlComponent#UrlComponent',
+          path: '@fields/URL/UrlComponent#UrlComponent',
           clientProps: {
             fieldToUse,
             collection: collection,

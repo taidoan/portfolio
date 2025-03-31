@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { authenticatedOrPublished, authenticated } from '@/payload/access';
+import { authenticatedOrPublished, authenticated } from '@access';
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -7,17 +7,17 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { SlugField } from '@/payload/fields/Slug';
-import { urlField } from '@/payload/fields/URL';
-import { Hero } from '@/payload/blocks/Hero/config';
-import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
+import { SlugField } from '@fields/Slug';
+import { urlField } from '@fields/URL';
+import { Hero } from '@blocks/Hero/config';
+import { generatePreviewPath } from '@utilities/generatePreviewPath';
 import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
-import { DividerBlock } from '@/payload/blocks/Divider/config';
-import { SectionBlock } from '@/payload/blocks/Section/config';
-import { SectionGroupBlock } from '@/payload/blocks/Section/Group/config';
-import { ArchiveBlock } from '@/payload/blocks/Archive/config';
-import { TabbedContentBlock } from '@/payload/blocks/TabbedContent/config';
-import { CTABlock } from '@/payload/blocks/CTA/config';
+import { DividerBlock } from '@blocks/Divider/config';
+import { SectionBlock } from '@blocks/Section/config';
+import { SectionGroupBlock } from '@blocks/Section/Group/config';
+import { ArchiveBlock } from '@blocks/Archive/config';
+import { TabbedContentBlock } from '@blocks/TabbedContent/config';
+import { CTABlock } from '@blocks/CTA/config';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',

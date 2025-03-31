@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, anyone } from '@/payload/access';
-import { BlocksEditor } from '@/payload/fields/Lexical/BlocksEditor';
-import { SlugField } from '@/payload/fields/Slug';
-import { BreadCrumbs } from '@/payload/fields/Breadcrumbs';
-import { CTAFields } from '@/payload/fields/CTAFields';
-import { ArchiveBlock } from '@/payload/blocks/Archive/config';
+import { BlocksEditor } from '@fields/Lexical/BlocksEditor';
+import { SlugField } from '@fields/Slug';
+import { BreadCrumbs } from '@fields/Breadcrumbs';
+import { CTAFields } from '@fields/CTAFields';
+import { ArchiveBlock } from '@blocks/Archive/config';
 
 export const Categories: CollectionConfig = {
   slug: 'categories',

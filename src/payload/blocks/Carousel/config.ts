@@ -242,7 +242,7 @@ export const CarouselBlock: Block = {
                   admin: {
                     condition: (_, siblingData) => siblingData.responsive === true,
                     components: {
-                      Field: '@/fields/Breakpoints/index#BreakpointComponent',
+                      Field: '@fields/Breakpoints/index#BreakpointComponent',
                     },
                   },
                 },

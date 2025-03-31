@@ -43,7 +43,7 @@ export const ClassName: ClassName = (fieldToUse = 'blockName', overrides = {}) =
       width: '50%',
       components: {
         Field: {
-          path: '@/fields/ClassName/ClassNameComponent#ClassNameComponent',
+          path: '@fields/ClassName/ClassNameComponent#ClassNameComponent',
           clientProps: {
             fieldToUse,
           },

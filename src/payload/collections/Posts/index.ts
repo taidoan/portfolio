@@ -7,8 +7,8 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
-import { SlugField } from '@/payload/fields/Slug';
-import { urlField } from '@/payload/fields/URL';
+import { SlugField } from '@fields/Slug';
+import { urlField } from '@fields/URL';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -96,7 +96,7 @@ export const Posts: CollectionConfig = {
       name: 'categories',
       type: 'relationship',
       relationTo: 'categories',
-      label: 'Project Categories',
+      label: 'Categories',
       hasMany: true,
       required: true,
       admin: {
@@ -110,6 +110,16 @@ export const Posts: CollectionConfig = {
       label: 'Excerpt',
       admin: {
         description: 'A short description of the post, used for previews and listings.',
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'tags',
+      type: 'relationship',
+      hasMany: true,
+      relationTo: 'tags',
+      label: 'Tags',
+      admin: {
         position: 'sidebar',
       },
     },

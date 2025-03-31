@@ -39,7 +39,7 @@ export const ClonedField: Cloned = (fieldToUse = '', overrides = {}) => {
       ...(clonedOverrides?.admin || {}),
       components: {
         Field: {
-          path: '@/fields/ClonedField/component#ClonedFieldComponent',
+          path: '@fields/ClonedField/component#ClonedFieldComponent',
           clientProps: {
             fieldToUse,
             checkboxFieldPath: checkboxField.name,
