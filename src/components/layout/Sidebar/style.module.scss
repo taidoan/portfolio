@@ -21,13 +21,11 @@ aside.sidebar {
   color: var(--text-color);
   padding: size-clamp(rem(20), rem(32));
   text-align: left;
-  transition:
-    color var(--transition-duration) ease-in-out,
-    background-color var(--transition-duration) ease;
+  transition: background-color var(--transition-duration) ease;
 
   &:hover {
-    background-color: #fff;
-    color: var(--fc-card);
+    background-color: var(--clr-gallery-100);
+    --text-color: var(--clr-urban-steel-500);
   }
 
   a {

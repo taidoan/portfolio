@@ -4,22 +4,12 @@ import Link from 'next/link';
 import { Media } from '@components/ui/Media';
 import { Alert, AlertTitle } from '@components/ui/Alert';
 import { useCardContext } from './index';
-import type { Media as MediaType, Project, Service, Post } from '@/payload-types';
-import type { CardData } from './index';
+import type { Media as MediaType } from '@/payload-types';
+import type { CardData, ProjectCard, ServiceCard, PostCard } from './types';
 
-const isProject = (
-  data: CardData,
-): data is
-  | Pick<Project, 'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url' | 'categories'>
-  | Pick<Post, 'title' | 'slug' | 'thumbnail' | 'id' | 'excerpt' | 'categories'> => {
-  return 'thumbnail' in data;
-};
-
-const isService = (
-  data: CardData,
-): data is Pick<Service, 'title' | 'slug' | 'image' | 'id' | 'description'> => {
-  return 'image' in data;
-};
+export const isProject = (data: CardData): data is ProjectCard => data.relationTo === 'projects';
+export const isService = (data: CardData): data is ServiceCard => data.relationTo === 'services';
+export const isPost = (data: CardData): data is PostCard => data.relationTo === 'posts';
 
 const isMedia = (value: string | MediaType): value is MediaType => {
   return typeof value === 'object' && value !== null && 'filename' in value;

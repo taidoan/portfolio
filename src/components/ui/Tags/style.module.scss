@@ -21,9 +21,12 @@ a.tag {
   justify-content: center;
   padding: rem(8) rem(16);
   text-decoration: none;
-  transition: color var(--transition-duration-fast) ease;
+  transition:
+    color var(--transition-duration-fast) ease,
+    background-color var(--transition-duration) ease;
 
   &:hover {
-    --text-clr: var(--clr-urban-steel-600);
+    --text-clr: var(--clr-secondary-400);
+    --background-clr: var(--clr-accent-400);
   }
 }

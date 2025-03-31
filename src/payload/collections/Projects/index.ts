@@ -54,6 +54,14 @@ export const Projects: CollectionConfig = {
   },
   fields: [
     {
+      name: 'relationTo',
+      type: 'text',
+      defaultValue: 'projects',
+      admin: {
+        hidden: true,
+      },
+    },
+    {
       name: 'title',
       type: 'text',
       required: true,

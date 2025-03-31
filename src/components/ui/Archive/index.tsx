@@ -5,7 +5,7 @@ import * as m from 'motion/react-m';
 import { LazyMotion, domAnimation } from 'motion/react';
 
 import type { Category } from '@/payload-types';
-import type { CardData } from '../Card';
+import type { CardData } from '@/components/ui/Card/types';
 
 import { Filter } from '@components/ui/Filter';
 import { Alert, AlertTitle } from '@components/ui/Alert';

@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Card, CardTitle, CardImage, CardContent, CardBody } from '.';
 import { RichText } from '@components/ui/RichText';
+import { mockProjectData, mockPostData } from './__tests__/mockData';
 
 const meta: Meta<typeof Card> = {
   title: 'UI/Card',
@@ -118,50 +119,7 @@ export const CardWithImageAlignedBottom: Story = {
 export const ProjectsCard: Story = {
   args: {
     relation: 'projects',
-    data: {
-      id: '679a37928643d526c4e122da',
-      slug: 'vibzs',
-      title: 'Vibz',
-      details: {
-        type: 'Website',
-        date: '2022-01-01',
-      },
-      thumbnail: {
-        id: '67a369aea507939cb6c21476',
-        alt: 'Vibz Thumbnail',
-        prefix: 'media',
-        filename: 'vibz-thumbnail.webp',
-        mimeType: 'image/webp',
-        filesize: 14576,
-        width: 1600,
-        height: 900,
-        focalX: 50,
-        focalY: 50,
-        createdAt: '2025-02-05T13:37:50.875Z',
-        updatedAt: '2025-02-05T13:37:50.875Z',
-        url: '/api/media/file/vibz-thumbnail.webp',
-        thumbnailURL: null,
-      },
-      categories: [
-        {
-          id: '67cece0800d7591f31a00957',
-          title: 'Print',
-          slug: 'print',
-          description:
-            'Creating visually appealing and functional designs for physical materials like brochures and posters.',
-          updatedAt: '2025-03-10T11:33:28.064Z',
-          createdAt: '2025-03-10T11:33:28.064Z',
-        },
-        {
-          id: '67cecd3c00d7591f31a008d7',
-          title: 'Graphic Design',
-          slug: 'graphic-design',
-          description: 'Crafting stunning visuals for marketing campaigns and branding.',
-          updatedAt: '2025-03-10T11:58:52.603Z',
-          createdAt: '2025-03-10T11:58:52.603Z',
-        },
-      ],
-    },
+    data: mockProjectData,
     href: '/example',
   },
   render: (args) => (
@@ -210,47 +168,7 @@ export const InsideContentAndImage: Story = {
 export const PostsCard: Story = {
   args: {
     relation: 'posts',
-    data: {
-      id: '679a37928643d526c4e122da',
-      slug: 'post1',
-      title: 'Post 1',
-      excerpt: "This is post 1's example excerpt.",
-      thumbnail: {
-        id: '67a369aea507939cb6c21476',
-        alt: 'Vibz Thumbnail',
-        prefix: 'media',
-        filename: 'vibz-thumbnail.webp',
-        mimeType: 'image/webp',
-        filesize: 14576,
-        width: 1600,
-        height: 900,
-        focalX: 50,
-        focalY: 50,
-        createdAt: '2025-02-05T13:37:50.875Z',
-        updatedAt: '2025-02-05T13:37:50.875Z',
-        url: '/api/media/file/vibz-thumbnail.webp',
-        thumbnailURL: null,
-      },
-      categories: [
-        {
-          id: '67cece0800d7591f31a00957',
-          title: 'Print',
-          slug: 'print',
-          description:
-            'Creating visually appealing and functional designs for physical materials like brochures and posters.',
-          updatedAt: '2025-03-10T11:33:28.064Z',
-          createdAt: '2025-03-10T11:33:28.064Z',
-        },
-        {
-          id: '67cecd3c00d7591f31a008d7',
-          title: 'Graphic Design',
-          slug: 'graphic-design',
-          description: 'Crafting stunning visuals for marketing campaigns and branding.',
-          updatedAt: '2025-03-10T11:58:52.603Z',
-          createdAt: '2025-03-10T11:58:52.603Z',
-        },
-      ],
-    },
+    data: mockPostData,
     href: '/posts/1',
   },
   render: (args) => (
@@ -273,11 +191,13 @@ export const PostsCard: Story = {
 export const ServicesCard: Story = {
   args: {
     relation: 'services',
-
     data: {
       id: '67cb3b0d00d7591f319f8bc2',
       slug: 'branding',
       title: 'Branding',
+      createdAt: '2025-02-05T13:37:50.875Z',
+      updatedAt: '2025-02-05T13:37:50.875Z',
+      relationTo: 'services',
       description: {
         root: {
           children: [
@@ -324,7 +244,6 @@ export const ServicesCard: Story = {
         thumbnailURL: null,
       },
     },
-
     href: '/services/1',
     textAlign: 'centered',
   },
@@ -341,6 +260,29 @@ export const ServicesCard: Story = {
               <p>No description available</p>
             )
           ) : null}
+        </CardContent>
+      </CardBody>
+    </Card>
+  ),
+};
+
+export const ProjectsArchiveCard: Story = {
+  args: {
+    relation: 'projects',
+    kind: 'archive',
+    data: mockProjectData,
+    href: '/example',
+  },
+  render: (args) => (
+    <Card {...args}>
+      <CardBody>
+        <CardImage align='top' borderRadius='top' />
+        <CardContent>
+          <CardTitle />
+          {args.relation === 'projects' &&
+            args.data &&
+            'details' in args.data &&
+            args.data.details && <p>{args.data.details.type}</p>}
         </CardContent>
       </CardBody>
     </Card>

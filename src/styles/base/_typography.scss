@@ -35,6 +35,9 @@ h6 {
   line-height: 0.8;
   text-overflow: ellipsis;
   text-transform: uppercase;
+  transition-duration: var(--transition-duration);
+  transition-property: color, text-decoration;
+  transition-timing-function: ease;
 }
 
 h1 {

@@ -4,7 +4,7 @@ import { queryRelatedProjects } from '@/lib/utilities/queries/queryRelatedProjec
 import { Card, CardBody, CardTitle, CardImage, CardContent } from '@/components/ui/Card';
 import { Carousel } from '@/components/ui/Carousel';
 import type { RelatedProjectsBlockProps } from '@/payload-types';
-import type { Project, Post } from '@/payload-types';
+import type { CardData } from '@/components/ui/Card/types';
 
 export type Props = {
   className?: string;
@@ -22,7 +22,7 @@ export const RelatedProjectsBlock = async ({
     items: numberOfRelatedItems,
   });
 
-  const projects = relatedCollection === 'projects' ? (data as Project[]) : (data as Post[]);
+  const projects = relatedCollection === 'projects' ? (data as CardData[]) : (data as CardData[]);
 
   return (
     <section className={clsx(className, style['related-projects'], 'section')}>

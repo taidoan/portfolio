@@ -18,6 +18,7 @@ export const Categories: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'description', 'parentCategory'],
   },
+  timestamps: false,
   fields: [
     {
       name: 'title',

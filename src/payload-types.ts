@@ -438,6 +438,7 @@ export interface LinksBlockProps {
  */
 export interface Project {
   id: string;
+  relationTo?: string | null;
   title: string;
   hero: {
     /**
@@ -1030,8 +1031,6 @@ export interface Category {
   slug: string;
   slugLock?: boolean | null;
   parentCategory?: (string | null) | Category;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2760,14 +2759,13 @@ export interface CategoriesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   parentCategory?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects_select".
  */
 export interface ProjectsSelect<T extends boolean = true> {
+  relationTo?: T;
   title?: T;
   hero?:
     | T

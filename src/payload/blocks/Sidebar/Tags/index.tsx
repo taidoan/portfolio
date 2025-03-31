@@ -7,6 +7,7 @@ import { queryTags } from '@utilities/queries/queryTags';
 
 import { Divider } from '@components/ui/Divider';
 import { TagsContainer, Tag } from '@components/ui/Tags';
+import { Spinner } from '@components/ui/Spinner';
 import { IconSquareRoundedPlusFilled, IconSquareRoundedMinusFilled } from '@tabler/icons-react';
 
 export type Props = {
@@ -84,7 +85,7 @@ export const SidebarTagsBlock = ({
         width='full'
       />
       {isLoading ? (
-        <div className={style['sidebar__block-loading']}>Loading tags...</div>
+        <Spinner />
       ) : (
         <TagsContainer>
           {tags.slice(0, tagsToShow).map((tag) => (

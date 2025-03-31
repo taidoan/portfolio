@@ -1,7 +1,8 @@
 import style from './style.module.scss';
 import clsx from 'clsx';
 import { useCardContext } from './index';
-import { IconCircleArrowRightFilled } from '@tabler/icons-react';
+import { Divider } from '@components/ui/Divider';
+import { IconCircleArrowRightFilled, IconClockFilled } from '@tabler/icons-react';
 import Link from 'next/link';
 
 export type CardContentProps = {
@@ -11,11 +12,15 @@ export type CardContentProps = {
 };
 
 export const CardContent = ({ children, className, insideContainer = false }: CardContentProps) => {
-  const { data, relation, link } = useCardContext();
+  const { data, relation, link, kind } = useCardContext();
   const cardContentClasses = clsx(style.card__content, className, {
     [style['card__content--inside']]: insideContainer,
-    [style['card__content--project']]: relation === 'projects',
+    [style['card__content--project']]: relation === 'projects' && kind !== 'archive',
   });
+
+  const createdDate = data && new Date(data.createdAt).toLocaleDateString();
+  const updatedDate = data && new Date(data.updatedAt).toLocaleDateString();
+  const isUpdatedMoreRecent = data && new Date(data.updatedAt) > new Date(data.createdAt);
 
   const viewProjectIcon =
     relation === 'projects' && link?.href ? (
@@ -33,7 +38,16 @@ export const CardContent = ({ children, className, insideContainer = false }: Ca
   return (
     <div className={cardContentClasses} data-testid='card-content'>
       <div className={style['card__content-wrapper']}>{children}</div>
-      {relation === 'projects' && link && viewProjectIcon}
+      {relation === 'projects' && kind !== 'archive' && link && viewProjectIcon}
+      {kind === 'archive' && (
+        <>
+          <Divider type='content' weight='minimal' width='full' color='light-grey' />
+          <div className={style['card__archive-time']}>
+            <IconClockFilled />
+            <p>{isUpdatedMoreRecent ? `Updated on ${updatedDate}` : `Created on ${createdDate}`}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 };
