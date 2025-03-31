@@ -17,6 +17,16 @@ export const Tags: CollectionConfig = {
       name: 'name',
       type: 'text',
       required: true,
+      unique: true,
+      hooks: {
+        beforeValidate: [
+          ({ value }) => {
+            return value.trim().toLowerCase();
+          },
+        ],
+      },
     },
   ],
+  timestamps: false,
+  disableDuplicate: true,
 };

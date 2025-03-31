@@ -116,9 +116,9 @@ export const Posts: CollectionConfig = {
     {
       name: 'tags',
       type: 'relationship',
-      hasMany: true,
       relationTo: 'tags',
       label: 'Tags',
+      hasMany: true,
       admin: {
         position: 'sidebar',
       },
