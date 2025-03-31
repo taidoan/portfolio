@@ -5,6 +5,21 @@ const meta: Meta<typeof Tag> = {
   title: 'UI/Tags',
   component: Tag,
   tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
+  args: {
+    href: undefined,
+  },
+  argTypes: {
+    href: {
+      description: 'Add a link to the tag',
+      default: null,
+    },
+    className: {
+      description: 'Add a custom class to the tag',
+    },
+  },
 };
 
 export default meta;

@@ -3219,6 +3219,7 @@ export interface SidebarLatestBlockProps {
  */
 export interface SidebarTagsBlockProps {
   title: string;
+  tagsToShow: number;
   id?: string | null;
   blockName?: string | null;
   blockType: 'sidebarTagsBlock';
@@ -3354,6 +3355,7 @@ export interface SidebarLatestBlockPropsSelect<T extends boolean = true> {
  */
 export interface SidebarTagsBlockPropsSelect<T extends boolean = true> {
   title?: T;
+  tagsToShow?: T;
   id?: T;
   blockName?: T;
 }

@@ -53,6 +53,12 @@ aside.sidebar {
   }
 }
 
+.sidebar__block-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
 .sidebar__block-title {
   font-size: var(--fs-heading);
 }
@@ -62,6 +68,24 @@ aside.sidebar {
   min-block-size: rem(24);
   min-inline-size: rem(24);
   transition: color var(--transition-duration) ease;
+}
+
+.sidebar__block-button {
+  --icon-color: var(--clr-light-grey-450);
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: rem(3);
+
+  &:hover {
+    --icon-color: var(--clr-accent-400);
+  }
+
+  &:focus-visible {
+    @include focused-box;
+    border-radius: var(--border-radius-circle);
+    --icon-color: var(--clr-accent-400);
+  }
 }
 
 .sidebar__block-list {

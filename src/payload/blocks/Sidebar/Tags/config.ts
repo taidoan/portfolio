@@ -15,5 +15,14 @@ export const SidebarTagsBlock: Block = {
       required: true,
       defaultValue: 'Tags',
     },
+    {
+      type: 'number',
+      name: 'tagsToShow',
+      label: 'Tags to Show',
+      required: true,
+      defaultValue: 8,
+      min: 1,
+      max: 12,
+    },
   ],
 };
