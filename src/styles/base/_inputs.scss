@@ -1,0 +1,22 @@
+@use '@abstracts/_index' as *;
+
+input,
+textarea,
+select {
+  --bg-color: #fff;
+  --txt-clr: var(--clr-urban-steel-400);
+
+  background-color: var(--bg-color);
+  border: rem(1) solid var(--card-outline-color);
+  border-radius: var(--border-radius-small);
+  box-shadow: var(--shadow-card-sm);
+  color: var(--txt-clr);
+  font-size: var(--fs-body-sm);
+  outline: none;
+  padding-block: rem(16);
+  padding-inline: size-clamp(rem(16), rem(20));
+
+  &::placeholder {
+    color: var(--clr-urban-steel-250);
+  }
+}

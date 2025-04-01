@@ -140,7 +140,7 @@ export const plugins: Plugin[] = [
     },
   }),
   searchPlugin({
-    collections: ['projects', 'posts', 'services', 'pages'],
+    collections: ['projects', 'posts', 'services', 'pages', 'tags'],
     searchOverrides: {
       fields: ({ defaultFields }) => {
         return [
@@ -183,6 +183,31 @@ export const plugins: Plugin[] = [
               position: 'sidebar',
             },
           },
+          {
+            name: 'url',
+            type: 'text',
+            label: 'URL',
+            admin: {
+              readOnly: true,
+              position: 'sidebar',
+            },
+          },
+          {
+            name: 'type',
+            type: 'text',
+            label: 'Type',
+            admin: {
+              readOnly: true,
+            },
+          },
+          {
+            name: 'tools',
+            type: 'text',
+            label: 'Tools',
+            admin: {
+              readOnly: true,
+            },
+          },
         ];
       },
     },
@@ -196,6 +221,9 @@ export const plugins: Plugin[] = [
           content: extractPlainText(originalDoc.content),
           categories: originalDoc.categories,
           tags: originalDoc.tags,
+          url: originalDoc.url,
+          type: originalDoc.details.type,
+          tools: originalDoc.details.tools,
         };
       }
 
@@ -203,6 +231,7 @@ export const plugins: Plugin[] = [
         return {
           ...searchDoc,
           description: extractPlainText(originalDoc.description),
+          url: originalDoc.url,
         };
       }
 
@@ -213,6 +242,7 @@ export const plugins: Plugin[] = [
           content: extractPlainText(originalDoc.content),
           categories: originalDoc.categories,
           tags: originalDoc.tags,
+          url: originalDoc.url,
         };
       }
 
@@ -220,6 +250,14 @@ export const plugins: Plugin[] = [
         return {
           ...searchDoc,
           description: extractPlainText(originalDoc.hero.richText),
+          url: originalDoc.url,
+        };
+      }
+
+      if (collection === 'tags') {
+        return {
+          ...searchDoc,
+          title: originalDoc.name,
         };
       }
 
