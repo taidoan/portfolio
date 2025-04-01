@@ -10,6 +10,7 @@ import {
 } from '@payloadcms/plugin-seo/types';
 import { Project, Page, Service, Post } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
+import { searchPlugin } from '@payloadcms/plugin-search';
 
 const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) => {
   const isProject = doc?.url?.includes('projects') && 'details' in doc;
@@ -136,5 +137,8 @@ export const plugins: Plugin[] = [
         });
       },
     },
+  }),
+  searchPlugin({
+    collections: ['projects', 'posts', 'tags', 'categories', 'services'],
   }),
 ];
