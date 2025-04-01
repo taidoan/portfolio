@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Card, CardTitle, CardImage, CardContent, CardBody } from '.';
 import { RichText } from '@components/ui/RichText';
-import { mockProjectData, mockPostData } from './__tests__/mockData';
+import { mockPosts } from '@/mocks/data/mockPosts';
+import { mockProjects } from '@/mocks/data/mockProjects';
 
 const meta: Meta<typeof Card> = {
   title: 'UI/Card',
@@ -119,7 +120,7 @@ export const CardWithImageAlignedBottom: Story = {
 export const ProjectsCard: Story = {
   args: {
     relation: 'projects',
-    data: mockProjectData,
+    data: mockProjects[0],
     href: '/example',
   },
   render: (args) => (
@@ -168,7 +169,7 @@ export const InsideContentAndImage: Story = {
 export const PostsCard: Story = {
   args: {
     relation: 'posts',
-    data: mockPostData,
+    data: mockPosts[0],
     href: '/posts/1',
   },
   render: (args) => (
@@ -270,7 +271,7 @@ export const ProjectsArchiveCard: Story = {
   args: {
     relation: 'projects',
     kind: 'archive',
-    data: mockProjectData,
+    data: mockProjects[0],
     href: '/example',
   },
   render: (args) => (

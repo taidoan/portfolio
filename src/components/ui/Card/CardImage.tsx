@@ -43,7 +43,11 @@ export const CardImage = ({
   const imageSrc =
     typeof src === 'string' ? encodeURI(src.trim()) : encodeURI(src?.url?.trim() || '');
 
-  const thumbnail = (isProject(data) && data.thumbnail) || (isService(data) && data.image) || null;
+  const thumbnail =
+    (isProject(data) && data.thumbnail) ||
+    (isService(data) && data.image) ||
+    (isPost(data) && data.thumbnail) ||
+    null;
 
   const thumbnailUrl =
     thumbnail && isMedia(thumbnail) && typeof thumbnail.filename === 'string'
