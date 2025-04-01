@@ -1,0 +1,6 @@
+@use '@abstracts/_index' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,261 @@
+@use '@abstracts/_index' as *;
+
+input,
+textarea,
+select {
+  --bg-color: #fff;
+  --txt-clr: var(--clr-urban-steel-400);
+  --accent-clr: var(--clr-accent-400);
+  --icon-clr: var(--clr-light-grey-400);
+  --track-clr: var(--clr-light-grey-300);
+  --thumb-clr: var(--accent-clr);
+
+  accent-color: var(--accent-clr);
+  background-color: var(--bg-color);
+  border: rem(2) solid var(--card-outline-color);
+  border-radius: var(--border-radius-small);
+  box-shadow: var(--shadow-card-sm);
+  color: var(--txt-clr);
+  font-size: var(--fs-body-sm);
+  outline: none;
+  padding-block: rem(16);
+  padding-inline: size-clamp(rem(16), rem(20));
+  transition: all var(--transition-duration) ease;
+
+  &::placeholder {
+    color: var(--clr-urban-steel-250);
+  }
+
+  &:focus {
+    color: var(--clr-secondary-400);
+  }
+
+  &:focus-visible {
+    @include focused-box(2);
+  }
+
+  & + * {
+    margin-top: size-clamp(rem(12), rem(16));
+  }
+
+  &[type='date']::-webkit-calendar-picker-indicator {
+    color: var(--icon-clr);
+  }
+
+  &[type='search']::-webkit-search-cancel-button {
+    color: var(--accent-clr);
+  }
+
+  &[type='range'] {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--track-clr);
+    border: 0;
+    border-radius: var(--border-radius-small);
+    box-shadow: none;
+    height: size-clamp(rem(10), rem(12));
+    padding: 0;
+    width: 100%;
+  }
+
+  &[type='range']::-webkit-slider-runnable-track {
+    background-color: var(--track-clr);
+    border-radius: var(--border-radius-small);
+    height: size-clamp(rem(10), rem(12));
+    width: 100%;
+  }
+
+  &[type='range']::-moz-range-track {
+    background-color: var(--track-clr);
+    border-radius: var(--border-radius-small);
+    height: size-clamp(rem(10), rem(12));
+    width: 100%;
+  }
+
+  &[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--thumb-clr);
+    border-radius: var(--border-radius-circle);
+    cursor: pointer;
+    height: size-clamp(rem(16), rem(20));
+    margin-top: size-clamp(rem(-3), rem(-4));
+    width: size-clamp(rem(16), rem(20));
+  }
+
+  &[type='range']::-moz-range-thumb {
+    background-color: var(--thumb-clr);
+    border-radius: var(--border-radius-circle);
+    cursor: pointer;
+    height: size-clamp(rem(16), rem(20));
+    margin-top: size-clamp(rem(-3), rem(-4));
+    width: size-clamp(rem(16), rem(20));
+  }
+
+  &[type='checkbox'] {
+    -webkit-appearance: none;
+    appearance: none;
+    border: rem(2) solid var(--card-outline-color);
+    border-radius: rem(6);
+    height: size-clamp(rem(16), rem(20));
+    width: size-clamp(rem(16), rem(20));
+  }
+
+  &[type='checkbox']:checked {
+    align-items: center;
+    background-color: var(--accent-clr);
+    border-color: var(--clr-accent-500);
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  &[type='checkbox']:checked::before {
+    color: #fff;
+    content: '✔';
+    font-size: size-clamp(rem(8), rem(12));
+  }
+
+  &[type='radio'] {
+    -webkit-appearance: none;
+    appearance: none;
+    border: rem(2) solid var(--card-outline-color);
+    border-radius: var(--border-radius-circle);
+    height: size-clamp(rem(16), rem(20));
+    width: size-clamp(rem(16), rem(20));
+  }
+
+  &[type='radio']:checked {
+    align-items: center;
+    background-color: var(--accent-clr);
+    border-color: var(--clr-accent-500);
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  &[type='radio']:checked::after {
+    background-color: #fff;
+    border-radius: var(--border-radius-circle);
+    content: '';
+    height: size-clamp(rem(8), rem(10));
+    position: absolute;
+    top: size-clamp(rem(2), rem(3));
+    width: size-clamp(rem(8), rem(10));
+  }
+
+  &[type='date'] {
+    color: var(--txt-clr);
+  }
+
+  svg {
+    color: var(--icon-clr);
+  }
+}
+
+.search__wrapper {
+  position: relative;
+  width: 100%;
+
+  input[type='search'] {
+    padding-left: size-clamp(rem(56), rem(68));
+    width: 100%;
+
+    &:focus {
+      & + .search__button {
+        --icon-clr: var(--clr-accent-400);
+      }
+    }
+  }
+
+  .search__button {
+    --icon-clr: var(--clr-light-grey-400);
+    background-color: transparent;
+    border: 0;
+    border-radius: var(--border-radius-circle);
+    cursor: pointer;
+    height: auto;
+    left: size-clamp(rem(16), rem(20));
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    svg {
+      color: var(--icon-clr);
+      height: size-clamp(rem(24), rem(32));
+      min-height: rem(20);
+      min-width: rem(20);
+      transition: color var(--transition-duration) ease;
+      width: size-clamp(rem(24), rem(32));
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      --icon-clr: var(--clr-secondary-400) !important;
+    }
+
+    &:focus-visible,
+    &:focus {
+      --icon-clr: var(--clr-accent-400);
+      @include focused-box(1);
+    }
+  }
+}
+
+.select__wrapper {
+  --icon-clr: var(--clr-light-grey-400);
+  display: inline-block;
+  position: relative;
+  width: 100%;
+
+  &::after {
+    color: var(--icon-clr);
+    content: ' ▼';
+    font-size: var(--fs-small);
+    pointer-events: none;
+    position: absolute;
+    right: size-clamp(rem(16), rem(20));
+    top: 50%;
+    transform: translateY(-50%);
+    transition: color var(--transition-duration) ease;
+  }
+
+  &:hover {
+    --icon-clr: var(--clr-accent-400);
+  }
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+}
+
+label {
+  color: var(--clr-urban-steel-500);
+  font-family: var(--ff-display);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  padding-inline: rem(4);
+  text-transform: uppercase;
+  transition: color var(--transition-duration) ease;
+
+  & + input,
+  & + textarea,
+  & + .select__wrapper,
+  & + .search__wrapper {
+    margin-top: size-clamp(rem(8), rem(8));
+  }
+
+  &:has(+ input:focus),
+  &:has(+ textarea:focus),
+  &:has(+ select:focus) {
+    color: var(--clr-secondary-400);
+  }
+}
