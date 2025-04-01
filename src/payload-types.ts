@@ -1042,6 +1042,7 @@ export interface ArchiveBlockProps {
   filterShowAllButton?: boolean | null;
   viewType: 'list' | 'grid';
   numberOfProjects: number;
+  page: 'main' | 'archive';
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
    */
@@ -2623,6 +2624,7 @@ export interface ArchiveBlockPropsSelect<T extends boolean = true> {
   filterShowAllButton?: T;
   viewType?: T;
   numberOfProjects?: T;
+  page?: T;
   gridAppearance?:
     | T
     | {

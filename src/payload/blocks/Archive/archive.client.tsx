@@ -31,6 +31,7 @@ export const ArchiveClientBlock = ({
   categoriesToArchive,
   filterShowAllButton,
   viewType,
+  page,
   numberOfProjects,
   initialContent = [],
   initialCategories = [],
@@ -84,6 +85,7 @@ export const ArchiveClientBlock = ({
         filterShowAll={filterShowAllButton || true}
         view={viewType}
         className={className}
+        page={page}
       />
       {isLoading && (
         <div>

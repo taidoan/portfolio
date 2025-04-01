@@ -41,7 +41,13 @@ export const CardContent = ({ children, className, insideContainer = false }: Ca
       {relation === 'projects' && kind !== 'archive' && link && viewProjectIcon}
       {kind === 'archive' && (
         <>
-          <Divider type='content' weight='minimal' width='full' color='light-grey' />
+          <Divider
+            type='content'
+            weight='minimal'
+            width='full'
+            color='light-grey'
+            className={style['card__archive-divider']}
+          />
           <div className={style['card__archive-time']}>
             <IconClockFilled />
             <p>{isUpdatedMoreRecent ? `Updated on ${updatedDate}` : `Created on ${createdDate}`}</p>

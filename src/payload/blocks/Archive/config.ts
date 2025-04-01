@@ -86,7 +86,7 @@ export const ArchiveBlock: Block = {
                   ],
                   defaultValue: 'grid',
                   admin: {
-                    width: '50%',
+                    width: '33%',
                   },
                 },
                 {
@@ -96,7 +96,21 @@ export const ArchiveBlock: Block = {
                   defaultValue: 6,
                   required: true,
                   admin: {
-                    width: '50%',
+                    width: '33%',
+                  },
+                },
+                {
+                  type: 'select',
+                  name: 'page',
+                  label: 'Page',
+                  options: [
+                    { value: 'main', label: 'Main' },
+                    { value: 'archive', label: 'Archive' },
+                  ],
+                  defaultValue: 'main',
+                  required: true,
+                  admin: {
+                    width: '33%',
                   },
                 },
               ],

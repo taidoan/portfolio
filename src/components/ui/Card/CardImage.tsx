@@ -34,7 +34,7 @@ export const CardImage = ({
   height,
   align,
 }: CardImageProps) => {
-  const { data = {} as CardData, link, relation } = useCardContext();
+  const { data = {} as CardData, link, relation, kind } = useCardContext();
 
   const imageClasses = clsx(style.card__image, className, {
     [style[`card__image-border-radius--${borderRadius}`]]: borderRadius && borderRadius !== 'none',
@@ -72,7 +72,7 @@ export const CardImage = ({
         className={imageClasses}
         sizes={relation === 'projects' ? '556px' : '100vw'}
       />
-      {relation === 'projects' && (
+      {relation === 'projects' && kind !== 'archive' && (
         <div className={style.card__image__overlay} data-testid='overlay'></div>
       )}
     </>

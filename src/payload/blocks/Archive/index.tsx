@@ -15,6 +15,7 @@ export const ArchiveBlock = async ({
   filterShowAllButton,
   viewType,
   numberOfProjects,
+  page,
 }: Props) => {
   const payload = await getPayload({ config: config });
   const queryOptions = {
@@ -81,6 +82,7 @@ export const ArchiveBlock = async ({
       showFilter={showFilter}
       filterShowAllButton={filterShowAllButton}
       viewType={viewType}
+      page={page}
       numberOfProjects={numberOfProjects}
       initialContent={contentData}
       initialCategories={categories}

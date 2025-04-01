@@ -226,13 +226,35 @@ export const ProjectsArchiveCard: Story = {
   render: (args) => (
     <Card {...args}>
       <CardBody>
-        <CardImage align='top' borderRadius='top' />
+        <CardImage align='top' borderRadius='all' />
         <CardContent>
           <CardTitle />
           {args.relation === 'projects' &&
             args.data &&
             'details' in args.data &&
             args.data.details && <p>{args.data.details.type}</p>}
+        </CardContent>
+      </CardBody>
+    </Card>
+  ),
+};
+
+export const PostsArchiveCard: Story = {
+  args: {
+    relation: 'posts',
+    kind: 'archive',
+    data: mockPosts[0],
+    href: '/posts/1',
+  },
+  render: (args) => (
+    <Card {...args}>
+      <CardBody>
+        <CardImage align='top' borderRadius='all' />
+        <CardContent insideContainer>
+          <CardTitle />
+          {args.relation === 'posts' && args.data && 'excerpt' in args.data && (
+            <p>{args.data.excerpt}</p>
+          )}
         </CardContent>
       </CardBody>
     </Card>

@@ -28,6 +28,7 @@ export type Props = {
   filterShowAll?: boolean;
   view?: 'grid' | 'list';
   relation: 'posts' | 'projects' | 'categories';
+  page?: 'main' | 'archive';
 };
 
 const isCategory = (category: string | Category | Pick<Category, 'title' | 'slug' | 'id'>) => {
@@ -56,6 +57,7 @@ export const Archive = ({
   filter = true,
   view = 'grid',
   relation = 'posts',
+  page = 'main',
 }: Props) => {
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0;
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -97,11 +99,16 @@ export const Archive = ({
         className={clsx({ [style['archive__item--list']]: isList })}
         layout
       >
-        <Card data={item} relation={relation} href={`${relation}/${item.slug}`}>
+        <Card
+          data={item}
+          relation={relation}
+          href={`${relation}/${item.slug}`}
+          kind={page === 'archive' ? 'archive' : 'default'}
+        >
           <CardBody>
             <CardImage
               align={view === 'list' ? 'left' : 'top'}
-              borderRadius={isList || relation === 'posts' ? 'all' : 'top'}
+              borderRadius={isList || relation === 'posts' || page === 'archive' ? 'all' : 'top'}
             />
             <CardContent>
               <CardTitle />
