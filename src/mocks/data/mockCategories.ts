@@ -22,14 +22,14 @@ export const mockCategories = [
   {
     title: 'Graphic Design',
     slug: 'graphic-design',
-    id: '352552352fgwegewrwqfrfqwfqwfqfwgfe',
+    id: 'VkmADmVTWg234214',
     description:
       'Great design speaks louder than words. It is the voice of the designer, and it is what makes a great design.',
   },
   {
     title: 'Web Design',
     slug: 'web-design',
-    id: '352552352fgwegewrwqfrfqwfqwfqfwgfeergee',
+    id: 'V181OQVabewdwd12',
     description:
       'Crafting visually compelling websites that are easy to navigate and responsive across all devices. ',
   },

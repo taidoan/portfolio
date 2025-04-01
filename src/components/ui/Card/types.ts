@@ -12,20 +12,20 @@ type BaseCardData = {
   url?: string;
 };
 
-export type SimpleCategory = Omit<Category, 'ctaLink' | 'parentCategory'>;
+export type SimpleCategory = Pick<Category, 'id' | 'title' | 'slug' | 'description'>;
 
 export type ProjectCard = BaseCardData & {
   relationTo: 'projects';
   thumbnail: Project['thumbnail'];
   details?: Project['details'];
-  categories: SimpleCategory[];
+  categories: string[];
 };
 
 export type PostCard = BaseCardData & {
   relationTo: 'posts';
   thumbnail: Post['thumbnail'];
   excerpt: Post['excerpt'];
-  categories: SimpleCategory[];
+  categories: string[];
 };
 
 export type ServiceCard = BaseCardData & {

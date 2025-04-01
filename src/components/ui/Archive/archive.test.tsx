@@ -1,7 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Archive } from './index';
 import { ReactNode } from 'react';
-import { mockCategories, mockPosts as mockData } from './mocks';
+import { mockPosts } from '@/mocks/data/mockPosts';
+import { mockCategories } from '@/mocks/data/mockCategories';
 
 vi.mock('motion/react', () => ({
   __esModule: true,
@@ -72,7 +73,7 @@ vi.mock('@components/ui/Alert', () => ({
 
 describe('<Archive>', () => {
   it('should render correctly', () => {
-    render(<Archive relation='posts' view='grid' data={mockData} categories={mockCategories} />);
+    render(<Archive relation='posts' view='grid' data={mockPosts} categories={mockCategories} />);
 
     expect(screen.getByTestId('archive')).toBeInTheDocument();
 
@@ -82,24 +83,24 @@ describe('<Archive>', () => {
     expect(screen.getByTestId('carousel')).toBeInTheDocument();
 
     const cards = screen.getAllByTestId('card');
-    expect(cards.length).toBe(mockData.length);
+    expect(cards.length).toBe(mockPosts.length);
 
-    mockData.forEach((item, index) => {
+    mockPosts.forEach((item, index) => {
       expect(cards[index]).toHaveAttribute('data-href', `posts/${item.slug}`);
     });
   });
 
   it('should render in list view', () => {
-    render(<Archive relation='posts' view='list' data={mockData} categories={mockCategories} />);
+    render(<Archive relation='posts' view='list' data={mockPosts} categories={mockCategories} />);
 
     expect(screen.queryByTestId('carousel')).not.toBeInTheDocument();
 
     const cards = screen.getAllByTestId('card');
-    expect(cards.length).toBe(mockData.length);
+    expect(cards.length).toBe(mockPosts.length);
   });
 
   it('should filter data when a category is selected', () => {
-    render(<Archive relation='posts' view='grid' data={mockData} categories={mockCategories} />);
+    render(<Archive relation='posts' view='grid' data={mockPosts} categories={mockCategories} />);
 
     const webDesignButton = screen.getByText('Web Design');
     fireEvent.click(webDesignButton);

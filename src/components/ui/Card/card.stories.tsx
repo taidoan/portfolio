@@ -3,6 +3,7 @@ import { Card, CardTitle, CardImage, CardContent, CardBody } from '.';
 import { RichText } from '@components/ui/RichText';
 import { mockPosts } from '@/mocks/data/mockPosts';
 import { mockProjects } from '@/mocks/data/mockProjects';
+import { mockServices } from '@/mocks/data/mockServices';
 
 const meta: Meta<typeof Card> = {
   title: 'UI/Card',
@@ -192,59 +193,7 @@ export const PostsCard: Story = {
 export const ServicesCard: Story = {
   args: {
     relation: 'services',
-    data: {
-      id: '67cb3b0d00d7591f319f8bc2',
-      slug: 'branding',
-      title: 'Branding',
-      createdAt: '2025-02-05T13:37:50.875Z',
-      updatedAt: '2025-02-05T13:37:50.875Z',
-      relationTo: 'services',
-      description: {
-        root: {
-          children: [
-            {
-              children: [
-                {
-                  detail: 0,
-                  format: 0,
-                  mode: 'normal',
-                  style: '',
-                  text: 'Branding service description',
-                  type: 'text',
-                  version: 1,
-                },
-              ],
-              direction: 'ltr',
-              format: '',
-              indent: 0,
-              type: 'paragraph',
-              version: 1,
-              textFormat: 0,
-              textStyle: '',
-            },
-          ],
-          direction: 'ltr',
-          format: '',
-          indent: 0,
-          type: 'root',
-          version: 1,
-        },
-      },
-      image: {
-        alt: 'Branding Icon',
-        prefix: 'media',
-        filename: 'branding.svg',
-        mimeType: 'image/svg+xml',
-        filesize: 3860,
-        width: 214,
-        height: 200,
-        createdAt: '2025-03-12T10:19:56.275Z',
-        updatedAt: '2025-03-12T10:19:56.275Z',
-        id: '67d15fcc40d3105ab50713e7',
-        url: '/api/media/file/branding.svg',
-        thumbnailURL: null,
-      },
-    },
+    data: mockServices[0],
     href: '/services/1',
     textAlign: 'centered',
   },

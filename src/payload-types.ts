@@ -782,7 +782,6 @@ export interface Service {
   url?: string | null;
   collectionTitle?: string | null;
   thumbnail?: (string | null) | Media;
-  categories: (string | Category)[];
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -2926,7 +2925,6 @@ export interface ServicesSelect<T extends boolean = true> {
   url?: T;
   collectionTitle?: T;
   thumbnail?: T;
-  categories?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

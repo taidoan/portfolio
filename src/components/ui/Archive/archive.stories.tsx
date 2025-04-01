@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Archive } from '.';
-import { mockProjects, mockPosts } from './mocks';
 import { mockCategories } from '@/mocks/data/mockCategories';
+import { mockProjects } from '@/mocks/data/mockProjects';
+import { mockPosts } from '@/mocks/data/mockPosts';
 
 const meta: Meta<typeof Archive> = {
   title: 'UI/Archive',

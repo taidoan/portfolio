@@ -59,8 +59,8 @@ export const ArchiveBlock = async ({
 
   contentData.forEach((item) => {
     item?.categories?.forEach((category) => {
-      if (typeof category === 'object' && category?.id) {
-        categoryIdsWithProjects.add(category.id);
+      if (typeof category === 'string') {
+        categoryIdsWithProjects.add(category);
       }
     });
   });
@@ -70,7 +70,7 @@ export const ArchiveBlock = async ({
     depth: 1,
     limit: 12,
     overrideAccess: false,
-    select: { title: true, slug: true, description: true, updatedAt: true, createdAt: true },
+    select: { title: true, slug: true, description: true },
     where: { id: { in: Array.from(categoryIdsWithProjects) }, parentCategory: { exists: false } },
   });
 
