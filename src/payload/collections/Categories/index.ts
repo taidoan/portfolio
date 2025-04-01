@@ -63,7 +63,7 @@ export const Categories: CollectionConfig = {
                     { value: 'boxed', label: 'Boxed' },
                     { value: 'outlined', label: 'Outlined' },
                   ],
-                  defaultValue: 'boxed',
+                  defaultValue: 'outlined',
                 },
                 {
                   type: 'select',
@@ -96,7 +96,7 @@ export const Categories: CollectionConfig = {
                     { value: 'slate', label: 'Slate' },
                     { value: 'light-grey', label: 'Light Grey' },
                   ],
-                  defaultValue: 'secondary',
+                  defaultValue: 'urban-steel',
                   required: true,
                   admin: {
                     width: '50%',

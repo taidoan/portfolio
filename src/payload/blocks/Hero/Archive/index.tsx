@@ -5,9 +5,10 @@ import clsx from 'clsx';
 import { RichText } from '@/components/ui/RichText';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import style from './style.module.scss';
+import { Button } from '@/components/ui/Button';
 
 export type ArchiveHeroProps = {
-  heroData: Pick<Category, 'title' | 'heroContent' | 'breadcrumb'>;
+  heroData: Pick<Category, 'title' | 'heroContent' | 'breadcrumb' | 'description'>;
   breadcrumbsData?: BreadcrumbsType;
 };
 
@@ -21,13 +22,29 @@ export const ArchiveHero = ({ heroData, breadcrumbsData }: ArchiveHeroProps) => 
       {breadcrumb && (
         <Breadcrumbs
           breadcrumbs={breadcrumbsData}
-          container={breadcrumb.breadcrumbContainer}
-          outlineColor={breadcrumb.breadcrumbOutlineColor}
+          container={breadcrumb.breadcrumbContainer || 'outlined'}
+          outlineColor={breadcrumb.breadcrumbOutlineColor || 'urban-steel'}
           className={style.hero__breadcrumbs}
         />
       )}
-
-      {heroContent && <RichText data={heroContent} />}
+      {heroContent ? (
+        <RichText data={heroContent} />
+      ) : (
+        <>
+          <p>{heroData.description}</p>
+          <Button
+            color='secondary'
+            hoverColor='accent'
+            href='/categories'
+            styleOverrides={{
+              alignSelf: 'flex-start',
+            }}
+            className='hero__cta'
+          >
+            All Categories
+          </Button>
+        </>
+      )}
     </section>
   );
 };

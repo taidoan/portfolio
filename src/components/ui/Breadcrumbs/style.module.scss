@@ -113,7 +113,9 @@
   cursor: pointer !important;
   text-decoration: none;
   text-decoration-color: var(--clr-accent-400);
-  transition: text-decoration var(--transition-duration);
+  transition:
+    text-decoration var(--transition-duration),
+    color var(--transition-duration);
 
   &:hover {
     color: var(--clr-secondary-400);

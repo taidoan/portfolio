@@ -22,11 +22,12 @@ type VariantType = 'outlined' | 'outlined-thick' | 'fill';
 
 export type CTAProps = {
   className?: string;
-  content: DefaultTypedEditorState;
-  link: LinksBlockProps['link'];
+  content?: DefaultTypedEditorState;
+  link?: LinksBlockProps['link'];
   borderRadius?: 'none' | 'small' | 'medium' | 'large' | 'circle';
   color?: ColorType;
   variant?: VariantType;
+  children?: React.ReactNode;
 };
 
 export const CTA = ({
@@ -36,6 +37,7 @@ export const CTA = ({
   color = 'primary',
   borderRadius = 'medium',
   variant = 'fill',
+  children,
 }: CTAProps) => {
   const href = link ? getHref(link) : null;
   const ctaClasses = clsx(
@@ -87,7 +89,7 @@ export const CTA = ({
     '--text-clr': textColor,
   };
 
-  const buttonProps = {
+  const buttonProps = link && {
     color: link.color || undefined,
     shadow: link.buttonShadow || undefined,
     className: link.className || undefined,
@@ -95,13 +97,21 @@ export const CTA = ({
     hoverColor: link.hoverColor || undefined,
   };
 
-  if (content && href) {
+  if (content && link && href) {
     return (
       <section className={ctaClasses} style={ctaStyles} data-bg-clr={color} data-variant={variant}>
         <RichText data={content} converters={headingConverter} />
         <Button href={href} {...buttonProps}>
-          {link.label}
+          {link?.label}
         </Button>
+      </section>
+    );
+  }
+
+  if (children && !content && !link && !href) {
+    return (
+      <section className={ctaClasses} style={ctaStyles} data-bg-clr={color} data-variant={variant}>
+        {children}
       </section>
     );
   }

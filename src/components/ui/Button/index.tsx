@@ -56,6 +56,7 @@ export type ButtonProps = {
   shadow?: 'none' | 'small' | 'medium' | 'large' | null | undefined;
   type?: 'button' | 'submit' | 'reset';
   variant?: 'outlined' | 'fill';
+  styleOverrides?: React.CSSProperties;
 };
 
 export const Button = ({
@@ -71,6 +72,7 @@ export const Button = ({
   type = 'button',
   hoverColor = 'default',
   variant = 'fill',
+  styleOverrides,
 }: ButtonProps) => {
   const buttonClasses = clsx(style.button, className, {
     [style[`button--clr-${color}`]]: !!color,
@@ -88,6 +90,7 @@ export const Button = ({
         type={type}
         disabled={disabled || undefined}
         aria-label={title || (typeof children === 'string' ? children : undefined)}
+        style={styleOverrides}
       >
         {children}
       </button>
@@ -102,6 +105,7 @@ export const Button = ({
       onClick={action}
       title={title}
       rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+      style={styleOverrides}
     >
       {children}
       {target === '_blank' ? <IconExternalLink stroke={3} /> : <IconCircleArrowRightFilled />}

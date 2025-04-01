@@ -85,10 +85,23 @@ export const Archive = ({
   const renderItems = (item: CardData) => {
     const content =
       relation === 'posts' && item && 'excerpt' in item ? (
-        <p>{item.excerpt}</p>
+        page === 'archive' && item.excerpt ? (
+          <p>{item.excerpt?.length > 160 ? item.excerpt.slice(0, 160) + '...' : item.excerpt}</p>
+        ) : (
+          <p>{item.excerpt}</p>
+        )
       ) : relation === 'projects' && item && 'details' in item && item.details?.type ? (
-        <p>{item.details.type}</p>
+        page === 'archive' ? (
+          <p>
+            {item.details.type?.length > 160
+              ? item.details.type.slice(0, 160) + '...'
+              : item.details.type}
+          </p>
+        ) : (
+          <p>{item.details.type}</p>
+        )
       ) : null;
+
     return (
       <m.div
         key={item.id}

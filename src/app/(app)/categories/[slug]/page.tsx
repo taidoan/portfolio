@@ -13,6 +13,8 @@ import { ArchiveHero } from '@/payload/blocks/Hero/Archive';
 import { Redirects } from '@/components/features/Redirects';
 import { CTA } from '@/components/layout/CTA';
 import Sidebar from '@/components/layout/Sidebar';
+import { Button } from '@/components/ui/Button';
+import { ArchiveBlock } from '@/payload/blocks/Archive';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -30,14 +32,18 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
   if (!page) return <Redirects url={url} />;
   const { breadcrumb, ctaContent, ctaAppearance, ctaLink, layout } = page;
 
-  const pageIds =
-    breadcrumb?.breadcrumbs?.map((breadcrumb) => {
-      const value = breadcrumb.relationTo.value;
-      return typeof value === 'object' && value !== null ? value.id : value;
-    }) || [];
+  const pageIds = (() => {
+    if (breadcrumb && Array.isArray(breadcrumb.breadcrumbs) && breadcrumb.breadcrumbs.length > 0) {
+      return breadcrumb.breadcrumbs.map((breadcrumbItem) => {
+        const value = breadcrumbItem.relationTo.value;
+        return typeof value === 'object' && value !== null ? value.id : value;
+      });
+    }
+
+    return ['67c1bd0b9fb50c2e22c139f5', `${page.id}`];
+  })();
 
   const breadcrumbsData = await queryBreadcrumbs(pageIds);
-
   const sidebarData = await getCachedGlobal('sidebar', 2)();
 
   return (
@@ -47,11 +53,25 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
       <ArchiveHero heroData={page} breadcrumbsData={breadcrumbsData} />
       <section className={clsx('section', 'bg--gradient-grey', 'full-width', 'categories__main')}>
         <section className={clsx('section__wrapper', 'categories__wrapper')}>
-          <div className='col-span-11'>{layout && <RenderBlocks blocks={layout} />}</div>
+          <div className={clsx('col-span-11', 'categories__content')}>
+            {layout && layout.length > 0 ? (
+              <RenderBlocks blocks={layout} />
+            ) : (
+              <ArchiveBlock
+                data='categories'
+                categoriesToArchive={[`${page?.id}`]}
+                showFilter={false}
+                numberOfProjects={6}
+                viewType={'grid'}
+                page={'archive'}
+                blockType='archiveBlock'
+              />
+            )}
+          </div>
           <Sidebar data={sidebarData} className='col-span-5' />
         </section>
       </section>
-      {ctaContent && (
+      {ctaContent ? (
         <CTA
           content={ctaContent}
           link={ctaLink}
@@ -59,6 +79,16 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
           variant={ctaAppearance?.blockVariant || 'fill'}
           borderRadius={ctaAppearance?.borderRadius || 'medium'}
         />
+      ) : (
+        <CTA color='primary'>
+          <p>
+            Impressed with my work? I&apos;d love to discuss new projects and opportunities.
+            Let&apos;s build something amazing together!
+          </p>
+          <Button color='secondary' hoverColor='accent' href='/contact' shadow='medium'>
+            Get In Touch
+          </Button>
+        </CTA>
       )}
     </>
   );
