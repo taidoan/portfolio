@@ -150,6 +150,7 @@ export const Categories: CollectionConfig = {
         position: 'sidebar',
       },
       index: true,
+      maxDepth: 0,
     },
   ],
 };
