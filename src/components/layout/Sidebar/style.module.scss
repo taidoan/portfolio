@@ -13,6 +13,15 @@ aside.sidebar {
   top: 0;
 }
 
+.sidebar__search {
+  background-color: var(--clr-gallery-250);
+  border: rem(2) solid var(--card-outline-color);
+
+  &:focus {
+    background-color: #fff;
+  }
+}
+
 .sidebar__block {
   background-color: var(--clr-gallery-250);
   border: rem(2) solid var(--card-outline-color);

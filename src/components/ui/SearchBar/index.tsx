@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useState, FormEvent } from 'react';
 import { FormField, SearchField } from '../FormFields';
 
-const SearchBar = () => {
+const SearchBar = ({ className }: { className?: string }) => {
   const [query, setQuery] = useState('');
   const router = useRouter();
 
@@ -15,8 +15,7 @@ const SearchBar = () => {
   };
   return (
     <FormField onSubmit={handleSubmit}>
-      <SearchField value={query} onChange={(e) => setQuery(e.target.value)} />
-      <button type='submit'>Search</button>
+      <SearchField value={query} onChange={(e) => setQuery(e.target.value)} className={className} />
     </FormField>
   );
 };

@@ -3249,7 +3249,12 @@ export interface Sidebar {
    * Control what blocks are shown in the sidebar.
    */
   sidebarBlocks?:
-    | (SidebarCategoriesBlockProps | SidebarLatestBlockProps | SidebarTagsBlockProps)[]
+    | (
+        | SidebarCategoriesBlockProps
+        | SidebarLatestBlockProps
+        | SidebarTagsBlockProps
+        | SidebarSearchBlockProps
+      )[]
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -3286,6 +3291,16 @@ export interface SidebarTagsBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'sidebarTagsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarSearchBlockProps".
+ */
+export interface SidebarSearchBlockProps {
+  title?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sidebarSearchBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3387,6 +3402,7 @@ export interface SidebarSelect<T extends boolean = true> {
         sidebarCategoriesBlock?: T | SidebarCategoriesBlockPropsSelect<T>;
         sidebarLatestBlock?: T | SidebarLatestBlockPropsSelect<T>;
         sidebarTagsBlock?: T | SidebarTagsBlockPropsSelect<T>;
+        sidebarSearchBlock?: T | SidebarSearchBlockPropsSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -3419,6 +3435,15 @@ export interface SidebarLatestBlockPropsSelect<T extends boolean = true> {
 export interface SidebarTagsBlockPropsSelect<T extends boolean = true> {
   title?: T;
   tagsToShow?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarSearchBlockProps_select".
+ */
+export interface SidebarSearchBlockPropsSelect<T extends boolean = true> {
+  title?: T;
   id?: T;
   blockName?: T;
 }

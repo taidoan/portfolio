@@ -163,7 +163,7 @@ select {
 
     &:focus {
       & + .search__button {
-        --icon-clr: var(--clr-accent-400);
+        --icon-clr: var(--clr-secondary-400);
       }
     }
   }
@@ -194,7 +194,7 @@ select {
     &:hover,
     &:focus,
     &:focus-visible {
-      --icon-clr: var(--clr-secondary-400) !important;
+      --icon-clr: var(--clr-accent-400) !important;
     }
 
     &:focus-visible,
@@ -202,6 +202,13 @@ select {
       --icon-clr: var(--clr-accent-400);
       @include focused-box(1);
     }
+  }
+}
+
+.search__wrapper,
+.select__wrapper {
+  & + * {
+    margin-top: size-clamp(rem(12), rem(16));
   }
 }
 
