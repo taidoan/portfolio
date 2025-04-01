@@ -79,6 +79,10 @@
     var(--clr-accent-400);
 }
 
+.bg--gradient-grey {
+  background: linear-gradient(180deg, var(--clr-concrete-400) 0%, var(--clr-ivory-400) 100%);
+}
+
 .text--light {
   color: var(--clr-light-400);
 }

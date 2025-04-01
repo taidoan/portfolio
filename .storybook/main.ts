@@ -46,12 +46,13 @@ const config: StorybookConfig = {
           '@images': path.resolve(__dirname, '../public/assets/images'),
           '@pages': path.resolve(__dirname, '../src/styles/pages'),
           '@styles': path.resolve(__dirname, '../src/styles'),
-          '@utilities': path.resolve(__dirname, '../src/utilities'), // Fixed typo
+          '@utilities': path.resolve(__dirname, '../src/utilities'),
           '@scripts': path.resolve(__dirname, '../scripts'),
           '@abstracts': path.resolve(__dirname, '../src/styles/abstracts'),
           '@mixins': path.resolve(__dirname, '../src/styles/abstracts/mixins'),
           '@functions': path.resolve(__dirname, '../src/styles/abstracts/functions'),
           '@settings': path.resolve(__dirname, '../src/styles/abstracts/settings'),
+          '@mocks': path.resolve(__dirname, '../src/mocks'),
         },
       },
       css: {

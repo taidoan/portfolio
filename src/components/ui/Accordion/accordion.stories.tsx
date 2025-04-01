@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Accordion } from '.';
+import { mockAccordionItems } from '@/mocks/data/mockAccordionItems';
 
 const meta: Meta<typeof Accordion> = {
   title: 'UI/Accordion',
@@ -13,23 +14,7 @@ const meta: Meta<typeof Accordion> = {
     },
   },
   args: {
-    items: [
-      {
-        title: 'Item 1',
-        content: 'Content 1',
-        id: 'item-1',
-      },
-      {
-        title: 'Item 2',
-        content: 'Content 2',
-        id: 'item-2',
-      },
-      {
-        title: 'Item 3',
-        content: 'Content 3',
-        id: 'item-3',
-      },
-    ],
+    items: mockAccordionItems,
   },
   argTypes: {
     container: {
@@ -63,24 +48,6 @@ export const WithCounter: Story = {
 
 export const CardWithCounter: Story = {
   args: {
-    items: [
-      {
-        title: 'Item 1',
-        content: 'Content 1',
-        id: 'item-1',
-      },
-      {
-        title: 'Item 2',
-        content: 'Content 2',
-        id: 'item-2',
-      },
-      {
-        title: 'Item 3',
-        content: 'Content 3',
-        id: 'item-3',
-      },
-    ],
-
     container: 'card',
     indexCounter: 'true',
   },

@@ -14,6 +14,7 @@ export const CardBody = ({ children, className, padding }: CardBodyProps) => {
     [style['card__body--p-md']]: padding === 'medium',
     [style['card__body--p-lg']]: padding === 'large',
   });
+
   return (
     <div className={classes} data-testid='card-body'>
       {children}

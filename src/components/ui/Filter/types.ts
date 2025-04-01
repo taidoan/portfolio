@@ -15,7 +15,7 @@ export type FilterCategory = {
 };
 
 export type FilterProps = {
-  categories: (Category | FilterCategory)[];
+  categories: (Omit<Category, 'ctaLink'> | FilterCategory)[];
   selectedCategory: string | null | undefined;
   onSelectCategoryAction: (category: string | null) => void;
   showAllButton?: boolean;

@@ -1,0 +1,12 @@
+@use '@abstracts/_index' as *;
+
+.categories__main {
+  padding-bottom: 0 !important;
+}
+
+.categories__wrapper {
+  position: relative;
+  @include mq('md') {
+    gap: rem(56);
+  }
+}

@@ -1,0 +1,16 @@
+@use '@abstracts/_index' as *;
+
+.hero {
+  @include hero-low-impact;
+  & {
+    gap: 0;
+  }
+
+  :global(.hero__cta) {
+    margin-top: size-clamp(rem(24), rem(48));
+  }
+}
+
+.hero__breadcrumbs {
+  margin-block: size-clamp(rem(16), rem(32));
+}

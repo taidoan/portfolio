@@ -1,23 +1,18 @@
 @use '@abstracts/_index' as *;
 
 .bio__item {
-  --gap: #{rem(16)};
   align-items: center;
   background-color: hsl(0, 0%, 97%);
   border-radius: var(--border-radius-small);
   color: var(--fc-card);
   display: flex;
   font-size: var(--fs-body-sm);
-  gap: var(--gap);
+  gap: size-clamp(rem(16), rem(20));
   padding-block: size-clamp(rem(12), rem(20));
   padding-inline: size-clamp(rem(16), rem(24));
 
   & + & {
     margin-top: rem(16);
-  }
-
-  @include mq('md') {
-    --gap: #{rem(20)};
   }
 }
 

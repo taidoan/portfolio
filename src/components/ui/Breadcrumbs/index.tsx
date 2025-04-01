@@ -20,8 +20,10 @@ export type Breadcrumbs = Breadcrumb[] | null | undefined;
 export type BreadcrumbsProps = {
   breadcrumbs: Breadcrumb[] | undefined | [] | null;
   isMediumScreen?: boolean;
-  container?: 'none' | 'boxed';
+  container?: 'none' | 'boxed' | 'outlined' | null;
+  outlineColor?: 'secondary' | 'accent' | 'primary' | 'slate' | 'light-grey' | 'urban-steel' | null;
   background?: 'none' | 'light' | 'dark' | 'translucent';
+  className?: string;
 };
 
 export const Breadcrumbs = ({
@@ -29,21 +31,25 @@ export const Breadcrumbs = ({
   isMediumScreen: externalIsMediumScreen,
   container = 'none',
   background = 'none',
+  outlineColor = 'secondary',
+  className,
 }: BreadcrumbsProps) => {
   const internalIsMediumScreen = useMediaQuery('(min-width: 48em)');
   if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
   const isMediumScreen = externalIsMediumScreen ?? internalIsMediumScreen;
 
-  const breadcrumbsClasses = clsx(style.breadcrumbs__container, {
-    [style['breadcrumbs__container--boxed']]: container === 'boxed',
-    [style['breadcrumbs__bg--light']]: container === 'boxed' && background === 'light',
-    [style['breadcrumbs__bg--dark']]: container === 'boxed' && background === 'dark',
-    [style['breadcrumbs__bg--translucent']]: container === 'boxed' && background === 'translucent',
+  const breadcrumbsClasses = clsx(style.breadcrumbs, {
+    [style['breadcrumbs--boxed']]: container === 'boxed',
+    [style['breadcrumbs--bg-light']]: container === 'boxed' && background === 'light',
+    [style['breadcrumbs--bg-dark']]: container === 'boxed' && background === 'dark',
+    [style['breadcrumbs--bg-translucent']]: container === 'boxed' && background === 'translucent',
+    [style['breadcrumbs--outlined']]: container === 'outlined',
+    [style[`breadcrumbs--outlined-${outlineColor}`]]: container === 'outlined' && outlineColor,
   });
 
   return (
-    <nav aria-label='breadcrumb' data-testid='breadcrumbs'>
+    <nav aria-label='breadcrumb' data-testid='breadcrumbs' className={className}>
       <ol className={breadcrumbsClasses}>
         {breadcrumbs.map((breadcrumb, index) => {
           const isLast = index === breadcrumbs.length - 1;

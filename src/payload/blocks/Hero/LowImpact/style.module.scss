@@ -1,0 +1,5 @@
+@use '@abstracts/_index' as *;
+
+.hero {
+  @include hero-low-impact;
+}

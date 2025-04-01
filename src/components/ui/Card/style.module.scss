@@ -302,3 +302,25 @@
     }
   }
 }
+
+.card__archive-divider {
+  margin-block: calc(var(--spacing-paragraph) / 1.25) !important;
+}
+
+.card__archive-time {
+  align-items: center;
+  display: flex;
+  font-size: var(--fs-small);
+  gap: rem(8);
+
+  p {
+    font-size: var(--fs-small);
+  }
+
+  svg {
+    block-size: size-clamp(rem(20), rem(24));
+    color: var(--clr-light-grey-400);
+    min-block-size: rem(20);
+    min-inline-size: rem(20);
+  }
+}

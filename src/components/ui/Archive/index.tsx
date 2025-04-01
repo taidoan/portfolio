@@ -5,7 +5,7 @@ import * as m from 'motion/react-m';
 import { LazyMotion, domAnimation } from 'motion/react';
 
 import type { Category } from '@/payload-types';
-import type { CardData } from '../Card';
+import type { CardData } from '@/components/ui/Card/types';
 
 import { Filter } from '@components/ui/Filter';
 import { Alert, AlertTitle } from '@components/ui/Alert';
@@ -22,15 +22,17 @@ import style from './style.module.scss';
 
 export type Props = {
   data: CardData[];
-  categories?: Category[];
+  categories?: Omit<Category, 'ctaLink' | 'parentCategory'>[];
   className?: string;
+  filter?: boolean;
   filterShowAll?: boolean;
   view?: 'grid' | 'list';
-  relation: 'posts' | 'projects';
+  relation: 'posts' | 'projects' | 'categories';
+  page?: 'main' | 'archive';
 };
 
 const isCategory = (category: string | Category | Pick<Category, 'title' | 'slug' | 'id'>) => {
-  return typeof category !== 'string' && 'id' in category;
+  return typeof category === 'string';
 };
 
 /**
@@ -52,8 +54,10 @@ export const Archive = ({
   categories,
   className,
   filterShowAll,
+  filter = true,
   view = 'grid',
   relation = 'posts',
+  page = 'main',
 }: Props) => {
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0;
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -71,7 +75,7 @@ export const Archive = ({
         const categories = item.categories || [];
         return categories.some((category) => {
           if (isCategory(category)) {
-            return category.id === selectedCategory;
+            return category === selectedCategory;
           }
           return false;
         });
@@ -95,11 +99,16 @@ export const Archive = ({
         className={clsx({ [style['archive__item--list']]: isList })}
         layout
       >
-        <Card data={item} relation={relation} href={`${relation}/${item.slug}`}>
+        <Card
+          data={item}
+          relation={relation}
+          href={`${relation}/${item.slug}`}
+          kind={page === 'archive' ? 'archive' : 'default'}
+        >
           <CardBody>
             <CardImage
               align={view === 'list' ? 'left' : 'top'}
-              borderRadius={isList || relation === 'posts' ? 'all' : 'top'}
+              borderRadius={isList || relation === 'posts' || page === 'archive' ? 'all' : 'top'}
             />
             <CardContent>
               <CardTitle />
@@ -159,7 +168,7 @@ export const Archive = ({
 
   return (
     <section className={clsx(className, 'section', style.archive__container)} data-testid='archive'>
-      {hasCategories ? (
+      {hasCategories && filter === true ? (
         <Filter
           categories={categories}
           iconMap={iconMap}
@@ -168,7 +177,7 @@ export const Archive = ({
           showAllButton={filterShowAll}
           onSelectCategoryAction={handleFilterChange}
         />
-      ) : (
+      ) : hasCategories && filter === false ? null : (
         <Alert severity='warning'>
           <AlertTitle>No categories found</AlertTitle>
           No categories were found

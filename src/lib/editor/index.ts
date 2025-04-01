@@ -11,8 +11,8 @@ import {
   BlocksFeature,
 } from '@payloadcms/richtext-lexical';
 import { LinksFeature } from './features/link';
-import { DividerBlock } from '@/blocks/Divider/config';
-import { MediaRichtextBlock } from '@/blocks/MediaRichtext/config';
+import { DividerBlock } from '@/payload/blocks/Divider/config';
+import { MediaRichtextBlock } from '@/payload/blocks/MediaRichtext/config';
 
 export const editor = lexicalEditor({
   features: () => {

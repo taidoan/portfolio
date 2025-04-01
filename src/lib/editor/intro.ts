@@ -1,5 +1,5 @@
 import { HeadingFeature, BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
-import { DividerBlock } from '@/blocks/Divider/config';
+import { DividerBlock } from '@/payload/blocks/Divider/config';
 
 export const IntroEditor = lexicalEditor({
   features: ({ rootFeatures }) => {

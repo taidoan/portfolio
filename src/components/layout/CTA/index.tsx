@@ -16,6 +16,7 @@ type ColorType =
   | 'gradient-secondary'
   | 'gradient-accent'
   | 'gradient-light'
+  | 'gradient-grey'
   | 'none';
 type VariantType = 'outlined' | 'outlined-thick' | 'fill';
 
@@ -56,6 +57,7 @@ export const CTA = ({
     'gradient-accent': `linear-gradient(97.51deg, rgba(0, 0, 0, 0) 3.06%, rgba(0, 0, 0, 0.21) 93.46%),
     var(--clr-accent-400)`,
     'gradient-light': `linear-gradient(149.32deg, var(--clr-concrete-400) 0%, #f1f1ef 100%), var(--clr-gallery-400)`,
+    'gradient-grey': `linear-gradient(180deg, var(--clr-concrete-400) 0%, var(--clr-ivory-400) 100%)`,
   };
 
   const getBgColor = (color: ColorType): string => {

@@ -1,39 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Filter } from './index';
-import type { Category } from '@/payload-types';
-
-const mockCategories: Category[] = [
-  {
-    description:
-      'Creating visually appealing and functional designs for physical materials, such as brochures, posters, flyers, business cards, and packaging. I ensure your printed materials leave a lasting impression.',
-    slug: 'print',
-    slugLock: true,
-    createdAt: '2025-03-10T11:33:28.064Z',
-    updatedAt: '2025-03-10T11:58:03.266Z',
-    title: 'Print',
-    id: '67cece0800d7591f31a00957',
-  },
-  {
-    description:
-      'Crafting visually compelling websites that are easy to navigate and responsive across all devices. I focus on layout, typography, and interactive elements to create websites that look great and work even better.',
-    slug: 'web-design',
-    slugLock: true,
-    parentCategory: {
-      description:
-        "Your online presence is everything, and I’m here to help you make it unforgettable. From sleek, responsive websites to engaging digital experiences, I design with purpose and creativity. Whether it's building a site from scratch or enhancing your existing one, I focus on user-friendly, beautiful designs that work seamlessly across devices. Let’s bring your digital vision to life and make sure it stands out in the crowded online world.",
-      slug: 'digital',
-      slugLock: true,
-      createdAt: '2025-03-10T11:28:22.674Z',
-      updatedAt: '2025-03-10T11:59:44.547Z',
-      title: 'Digital',
-      id: '67ceccd600d7591f31a008bc',
-    },
-    createdAt: '2025-03-10T11:32:12.746Z',
-    updatedAt: '2025-03-10T11:58:10.905Z',
-    title: 'Web Design',
-    id: '67cecdbc00d7591f31a0091b',
-  },
-];
+import { mockCategories } from '@/mocks/data/mockCategories';
 
 const mockOnSelectCategory = vi.fn();
 
@@ -79,10 +46,11 @@ describe('<Filter>', () => {
       />,
     );
 
-    const printCategory = screen.getByText('Print');
-    fireEvent.click(printCategory);
-
-    expect(mockOnSelectCategory).toHaveBeenCalledWith('67cece0800d7591f31a00957');
+    mockCategories.forEach((category) => {
+      const categoryButton = screen.getByText(category.title);
+      fireEvent.click(categoryButton);
+      expect(mockOnSelectCategory).toHaveBeenCalledWith(category.id);
+    });
   });
 
   it('should render an all button if option is passed as prop', () => {

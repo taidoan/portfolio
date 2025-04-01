@@ -3,13 +3,8 @@
 import style from './style.module.scss';
 import clsx from 'clsx';
 import { createContext, useContext } from 'react';
-import type { Project, Service, Post } from '@/payload-types';
+import type { CardData, CardProps, CardRelation } from './types';
 
-export type Relation = 'projects' | 'services' | 'posts' | string | null;
-export type CardData =
-  | Pick<Project, 'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url' | 'categories'>
-  | Pick<Service, 'title' | 'slug' | 'image' | 'id' | 'description'>
-  | Pick<Post, 'title' | 'slug' | 'thumbnail' | 'id' | 'excerpt' | 'categories'>;
 export type CardLinkProps = {
   href?: string;
   target?: string;
@@ -18,23 +13,12 @@ export type CardLinkProps = {
 
 type CardContextType = {
   data?: CardData;
-  relation?: Relation;
+  relation?: CardRelation;
   link?: CardLinkProps;
+  kind?: 'archive' | 'default';
 };
 
 export const CardContext = createContext<CardContextType | undefined>(undefined);
-
-export type CardProps = {
-  children?: React.ReactNode;
-  className?: string;
-  data?: CardData;
-  relation?: Relation;
-  textAlign?: 'centered' | 'left' | 'right' | null;
-  id?: string;
-  href?: string;
-  target?: string;
-  title?: string;
-};
 
 /**
  * Card component renders a card with a custom color, shadow, href, target, title, and action.
@@ -56,6 +40,7 @@ export const Card = ({
   href,
   target,
   title,
+  kind = 'default',
   ...props
 }: CardProps) => {
   const cardClasses = clsx(style.card, style[`text-align--${textAlign}`], className, {
@@ -64,7 +49,7 @@ export const Card = ({
   const link = href || target || title ? { href, target, title } : undefined;
 
   return (
-    <CardContext.Provider value={{ data, relation, link }}>
+    <CardContext.Provider value={{ data, relation, link, kind }}>
       <div className={cardClasses} id={id} data-testid='card' {...props}>
         {children}
       </div>

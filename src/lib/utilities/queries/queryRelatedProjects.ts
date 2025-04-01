@@ -69,6 +69,7 @@ export const queryRelatedProjects = cache(
           categories: true,
           url: true,
           thumbnail: true,
+          relationTo: true,
         },
         where: category
           ? {

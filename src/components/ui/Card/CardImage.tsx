@@ -4,22 +4,12 @@ import Link from 'next/link';
 import { Media } from '@components/ui/Media';
 import { Alert, AlertTitle } from '@components/ui/Alert';
 import { useCardContext } from './index';
-import type { Media as MediaType, Project, Service, Post } from '@/payload-types';
-import type { CardData } from './index';
+import type { Media as MediaType } from '@/payload-types';
+import type { CardData, ProjectCard, ServiceCard, PostCard } from './types';
 
-const isProject = (
-  data: CardData,
-): data is
-  | Pick<Project, 'title' | 'slug' | 'thumbnail' | 'id' | 'details' | 'url' | 'categories'>
-  | Pick<Post, 'title' | 'slug' | 'thumbnail' | 'id' | 'excerpt' | 'categories'> => {
-  return 'thumbnail' in data;
-};
-
-const isService = (
-  data: CardData,
-): data is Pick<Service, 'title' | 'slug' | 'image' | 'id' | 'description'> => {
-  return 'image' in data;
-};
+export const isProject = (data: CardData): data is ProjectCard => data.relationTo === 'projects';
+export const isService = (data: CardData): data is ServiceCard => data.relationTo === 'services';
+export const isPost = (data: CardData): data is PostCard => data.relationTo === 'posts';
 
 const isMedia = (value: string | MediaType): value is MediaType => {
   return typeof value === 'object' && value !== null && 'filename' in value;
@@ -44,7 +34,7 @@ export const CardImage = ({
   height,
   align,
 }: CardImageProps) => {
-  const { data = {} as CardData, link, relation } = useCardContext();
+  const { data = {} as CardData, link, relation, kind } = useCardContext();
 
   const imageClasses = clsx(style.card__image, className, {
     [style[`card__image-border-radius--${borderRadius}`]]: borderRadius && borderRadius !== 'none',
@@ -53,7 +43,11 @@ export const CardImage = ({
   const imageSrc =
     typeof src === 'string' ? encodeURI(src.trim()) : encodeURI(src?.url?.trim() || '');
 
-  const thumbnail = (isProject(data) && data.thumbnail) || (isService(data) && data.image) || null;
+  const thumbnail =
+    (isProject(data) && data.thumbnail) ||
+    (isService(data) && data.image) ||
+    (isPost(data) && data.thumbnail) ||
+    null;
 
   const thumbnailUrl =
     thumbnail && isMedia(thumbnail) && typeof thumbnail.filename === 'string'
@@ -78,7 +72,7 @@ export const CardImage = ({
         className={imageClasses}
         sizes={relation === 'projects' ? '556px' : '100vw'}
       />
-      {relation === 'projects' && (
+      {relation === 'projects' && kind !== 'archive' && (
         <div className={style.card__image__overlay} data-testid='overlay'></div>
       )}
     </>

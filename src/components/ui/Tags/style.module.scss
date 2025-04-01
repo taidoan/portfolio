@@ -1,0 +1,32 @@
+@use '@abstracts/_index' as *;
+
+.tags__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: size-clamp(rem(8), rem(12));
+}
+
+.tag,
+a.tag {
+  --background-clr: var(--clr-gallery-400);
+  --text-clr: var(--clr-urban-steel-450);
+
+  align-items: center;
+  background-color: var(--background-clr);
+  border-radius: var(--border-radius-small);
+  color: var(--text-clr);
+  display: inline-flex;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  justify-content: center;
+  padding: rem(8) rem(16);
+  text-decoration: none;
+  transition:
+    color var(--transition-duration-fast) ease,
+    background-color var(--transition-duration) ease;
+
+  &:hover {
+    --text-clr: var(--clr-secondary-400);
+    --background-clr: var(--clr-accent-400);
+  }
+}

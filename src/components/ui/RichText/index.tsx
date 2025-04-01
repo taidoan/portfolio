@@ -4,10 +4,10 @@ import {
   JSXConvertersFunction,
 } from '@payloadcms/richtext-lexical/react';
 import { SerializedBlockNode } from '@payloadcms/richtext-lexical';
-import { DividerBlock } from '@/blocks/Divider';
-import { LinksRichtextBlock } from '@/blocks/LinkRichtext';
-import { LinksGroupRichtextBlock } from '@/blocks/LinkRichtext/Group';
-import { MediaRichTextBlock } from '@/blocks/MediaRichtext';
+import { DividerBlock } from '@/payload/blocks/Divider';
+import { LinksRichtextBlock } from '@/payload/blocks/LinkRichtext';
+import { LinksGroupRichtextBlock } from '@/payload/blocks/LinkRichtext/Group';
+import { MediaRichTextBlock } from '@/payload/blocks/MediaRichtext';
 import { internalDocToHref } from './utils';
 import { RichTextProps, NodeTypes } from './types';
 import type {

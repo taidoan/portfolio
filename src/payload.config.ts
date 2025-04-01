@@ -4,12 +4,12 @@ import path from 'path';
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
-import { plugins } from './plugins';
+import { plugins } from './payload/plugins';
 import { editor } from './lib/editor';
 
-import { collections } from './collections';
-import { globals } from './globals';
-import { Users } from './collections/Users';
+import { collections } from './payload/collections';
+import { globals } from './payload/globals';
+import { Users } from './payload/collections/Users';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

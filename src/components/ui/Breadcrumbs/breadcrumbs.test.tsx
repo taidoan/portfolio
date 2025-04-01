@@ -112,7 +112,7 @@ describe('Breadcrumbs', () => {
     render(<Breadcrumbs breadcrumbs={mockBreadcrumbs} container='boxed' />);
 
     const container = screen.getByTestId('breadcrumbs').querySelector('ol');
-    expect(container).toHaveClass(style['breadcrumbs__container--boxed']);
+    expect(container).toHaveClass(style['breadcrumbs--boxed']);
   });
 
   it('applies background classes correctly', () => {
@@ -121,7 +121,7 @@ describe('Breadcrumbs', () => {
     render(<Breadcrumbs breadcrumbs={mockBreadcrumbs} container='boxed' background='light' />);
 
     const container = screen.getByTestId('breadcrumbs').querySelector('ol');
-    expect(container).toHaveClass(style['breadcrumbs__bg--light']);
+    expect(container).toHaveClass(style['breadcrumbs--bg-light']);
   });
 
   it('uses url when available instead of constructing from slug', () => {
