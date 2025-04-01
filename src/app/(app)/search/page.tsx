@@ -4,6 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { querySearch } from '@/lib/utilities/queries/querySearch';
 import SearchBar from '@/components/ui/SearchBar';
+import { Spinner } from '@/components/ui/Spinner';
+import { Alert, AlertTitle } from '@/components/ui/Alert';
 
 type SearchResult = {
   title: string;
@@ -46,7 +48,7 @@ const SearchPage = () => {
           <h2 className='text-xl font-bold'>Search Results for &quot;{query}&quot;</h2>
 
           {loading ? (
-            <p>Loading...</p>
+            <Spinner />
           ) : searchResults.length > 0 ? (
             <ul className='mt-4 space-y-4'>
               {searchResults.map((item, index) => (
@@ -57,7 +59,10 @@ const SearchPage = () => {
               ))}
             </ul>
           ) : (
-            <p>No results found.</p>
+            <Alert severity='warning'>
+              <AlertTitle>No results found</AlertTitle>
+              <p>No search results were found for &quot;{query}&quot;.</p>
+            </Alert>
           )}
         </div>
       )}
