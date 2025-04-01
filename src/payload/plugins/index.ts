@@ -11,6 +11,7 @@ import {
 import { Project, Page, Service, Post } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 import { searchPlugin } from '@payloadcms/plugin-search';
+import { extractPlainText } from '@/lib/utilities/extractPlainText';
 
 const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) => {
   const isProject = doc?.url?.includes('projects') && 'details' in doc;
@@ -139,6 +140,90 @@ export const plugins: Plugin[] = [
     },
   }),
   searchPlugin({
-    collections: ['projects', 'posts', 'tags', 'categories', 'services'],
+    collections: ['projects', 'posts', 'services', 'pages'],
+    searchOverrides: {
+      fields: ({ defaultFields }) => {
+        return [
+          ...defaultFields,
+          {
+            name: 'description',
+            type: 'textarea',
+            label: 'Description',
+            admin: {
+              readOnly: true,
+            },
+          },
+          {
+            name: 'content',
+            type: 'textarea',
+            label: 'Content',
+            admin: {
+              readOnly: true,
+            },
+          },
+          {
+            name: 'categories',
+            type: 'relationship',
+            relationTo: 'categories',
+            label: 'Categories',
+            hasMany: true,
+            admin: {
+              readOnly: true,
+              position: 'sidebar',
+            },
+          },
+          {
+            name: 'tags',
+            type: 'relationship',
+            relationTo: 'tags',
+            label: 'Tags',
+            hasMany: true,
+            admin: {
+              readOnly: true,
+              position: 'sidebar',
+            },
+          },
+        ];
+      },
+    },
+    beforeSync: ({ originalDoc, searchDoc }) => {
+      const collection = searchDoc.doc.relationTo;
+
+      if (collection === 'projects') {
+        return {
+          ...searchDoc,
+          description: extractPlainText(originalDoc.details.description),
+          content: extractPlainText(originalDoc.content),
+          categories: originalDoc.categories,
+          tags: originalDoc.tags,
+        };
+      }
+
+      if (collection === 'services') {
+        return {
+          ...searchDoc,
+          description: extractPlainText(originalDoc.description),
+        };
+      }
+
+      if (collection === 'posts') {
+        return {
+          ...searchDoc,
+          description: originalDoc.excerpt,
+          content: extractPlainText(originalDoc.content),
+          categories: originalDoc.categories,
+          tags: originalDoc.tags,
+        };
+      }
+
+      if (collection === 'pages') {
+        return {
+          ...searchDoc,
+          description: extractPlainText(originalDoc.hero.richText),
+        };
+      }
+
+      return searchDoc;
+    },
   }),
 ];

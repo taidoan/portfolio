@@ -95,9 +95,7 @@ export interface Config {
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents':
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -397,9 +395,7 @@ export interface LinksBlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -543,16 +539,7 @@ export interface Project {
     focus?: boolean | null;
     paginationType?: ('bullets' | 'progress') | null;
     paginationColor?:
-      | (
-          | 'primary'
-          | 'accent'
-          | 'secondary'
-          | 'urban-steel'
-          | 'slate'
-          | 'bitter-sweet'
-          | 'cherry-punch'
-          | 'fresh-leaf'
-        )
+      | ('primary' | 'accent' | 'secondary' | 'urban-steel' | 'slate' | 'bitter-sweet' | 'cherry-punch' | 'fresh-leaf')
       | null;
     /**
      * The spacing between slides in pixels.
@@ -631,9 +618,7 @@ export interface Project {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -836,9 +821,7 @@ export interface CTABlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -934,9 +917,7 @@ export interface Category {
   breadcrumb?: {
     breadcrumbContainer?: ('none' | 'boxed' | 'outlined') | null;
     breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
-    breadcrumbOutlineColor?:
-      | ('secondary' | 'accent' | 'urban-steel' | 'slate' | 'light-grey')
-      | null;
+    breadcrumbOutlineColor?: ('secondary' | 'accent' | 'urban-steel' | 'slate' | 'light-grey') | null;
     breadcrumbs?:
       | {
           relationTo:
@@ -1003,9 +984,7 @@ export interface Category {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -1119,9 +1098,7 @@ export interface LinksGroupBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1650,9 +1627,7 @@ export interface ToolsBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1854,9 +1829,7 @@ export interface TabbedContentBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1967,17 +1940,17 @@ export interface Search {
         value: string | Post;
       }
     | {
-        relationTo: 'tags';
-        value: string | Tag;
-      }
-    | {
-        relationTo: 'categories';
-        value: string | Category;
-      }
-    | {
         relationTo: 'services';
         value: string | Service;
+      }
+    | {
+        relationTo: 'pages';
+        value: string | Page;
       };
+  description?: string | null;
+  content?: string | null;
+  categories?: (string | Category)[] | null;
+  tags?: (string | Tag)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3027,6 +3000,10 @@ export interface SearchSelect<T extends boolean = true> {
   title?: T;
   priority?: T;
   doc?: T;
+  description?: T;
+  content?: T;
+  categories?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -3160,9 +3137,7 @@ export interface Footer {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?:
-        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-        | null;
+      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -3206,22 +3181,13 @@ export interface Header {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?:
-        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-        | null;
+      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
     id?: string | null;
   }[];
-  logoColor:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'light'
-    | 'slate'
-    | 'frosted-sage'
-    | 'urban-steel';
+  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3234,9 +3200,7 @@ export interface Sidebar {
   /**
    * Control what blocks are shown in the sidebar.
    */
-  sidebarBlocks?:
-    | (SidebarCategoriesBlockProps | SidebarLatestBlockProps | SidebarTagsBlockProps)[]
-    | null;
+  sidebarBlocks?: (SidebarCategoriesBlockProps | SidebarLatestBlockProps | SidebarTagsBlockProps)[] | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3463,9 +3427,7 @@ export interface LinksBlockRichtextProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?:
-      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-      | null;
+    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -3508,9 +3470,7 @@ export interface LinksGroupRichtextProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?:
-            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-            | null;
+          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -3563,6 +3523,7 @@ export interface MediaRichtextBlockProps {
 export interface Auth {
   [k: string]: unknown;
 }
+
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}
