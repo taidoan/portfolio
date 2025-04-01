@@ -31,7 +31,7 @@ export type Props = {
 };
 
 const isCategory = (category: string | Category | Pick<Category, 'title' | 'slug' | 'id'>) => {
-  return typeof category !== 'string' && 'id' in category;
+  return typeof category === 'string';
 };
 
 /**
@@ -73,7 +73,7 @@ export const Archive = ({
         const categories = item.categories || [];
         return categories.some((category) => {
           if (isCategory(category)) {
-            return category.id === selectedCategory;
+            return category === selectedCategory;
           }
           return false;
         });
