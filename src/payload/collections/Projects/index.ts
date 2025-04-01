@@ -555,6 +555,7 @@ export const Projects: CollectionConfig = {
       type: 'relationship',
       relationTo: 'categories',
       label: 'Project Categories',
+      maxDepth: 0,
       hasMany: true,
       required: true,
       admin: {

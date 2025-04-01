@@ -99,6 +99,7 @@ export const Posts: CollectionConfig = {
       label: 'Categories',
       hasMany: true,
       required: true,
+      maxDepth: 0,
       admin: {
         position: 'sidebar',
       },
