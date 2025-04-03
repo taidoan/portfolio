@@ -8,6 +8,7 @@ import heroStyle from '@blocks/Hero/Archive/style.module.scss';
 import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
 import { querySearch } from '@/lib/utilities/queries/querySearch';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+import { truncate } from '@/lib/utilities/truncate';
 
 import SearchBar from '@/components/ui/SearchBar';
 import Sidebar from '@/components/layout/Sidebar';
@@ -139,7 +140,7 @@ const SearchPage = async ({ searchParams }: PageProps) => {
                         <CardImage align='left' borderRadius='all' />
                         <CardContent>
                           <CardTitle>{item.title}</CardTitle>
-                          <p>{item.description}</p>
+                          <p>{truncate(item.description, 220)}</p>
                         </CardContent>
                       </CardBody>
                     </Card>

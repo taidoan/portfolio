@@ -19,6 +19,7 @@ import {
   IconPaletteFilled,
 } from '@tabler/icons-react';
 import style from './style.module.scss';
+import { truncate } from '@/lib/utilities/truncate';
 
 export type Props = {
   data: CardData[];
@@ -86,17 +87,13 @@ export const Archive = ({
     const content =
       relation === 'posts' && item && 'excerpt' in item ? (
         page === 'archive' && item.excerpt ? (
-          <p>{item.excerpt?.length > 160 ? item.excerpt.slice(0, 160) + '...' : item.excerpt}</p>
+          <p>{truncate(item.excerpt, 160)}</p>
         ) : (
           <p>{item.excerpt}</p>
         )
       ) : relation === 'projects' && item && 'details' in item && item.details?.type ? (
         page === 'archive' ? (
-          <p>
-            {item.details.type?.length > 160
-              ? item.details.type.slice(0, 160) + '...'
-              : item.details.type}
-          </p>
+          <p>{truncate(item.details.type, 160)}</p>
         ) : (
           <p>{item.details.type}</p>
         )
