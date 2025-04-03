@@ -2,12 +2,35 @@ import * as React from 'react';
 import clsx from 'clsx';
 import style from './style.module.scss';
 import { IconSearch } from '@tabler/icons-react';
+import { Button } from '../Button';
 
 export const TextField = ({ className, ...props }: React.ComponentProps<'input'>) => {
   return <input type='text' className={clsx(className, style.text)} {...props} />;
 };
 
-export const SearchField = ({ className, ...props }: React.ComponentProps<'input'>) => {
+export const SearchField = ({
+  className,
+  submitPosition = 'inside',
+  ...props
+}: React.ComponentProps<'input'> & { submitPosition?: 'inside' | 'outside' }) => {
+  if (submitPosition === 'outside') {
+    return (
+      <div className={clsx(style['search__wrapper--outside'])}>
+        <input type='search' className={clsx(className, style.search)} {...props} />
+        <Button
+          type='submit'
+          className={clsx(style['search__button--outside'])}
+          aria-label='Search'
+          color='secondary'
+          hoverColor='accent'
+          shadow='small'
+        >
+          Search
+          <IconSearch stroke={3} />
+        </Button>
+      </div>
+    );
+  }
   return (
     <div className={clsx('search__wrapper')}>
       <input type='search' className={clsx(className, style.search)} {...props} />

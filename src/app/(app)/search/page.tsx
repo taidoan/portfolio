@@ -1,11 +1,11 @@
-'use client';
-
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import clsx from 'clsx';
+import heroStyle from '@blocks/Hero/Archive/style.module.scss';
+import type { PageProps } from '.next/types/app/(app)/layout';
 import { querySearch } from '@/lib/utilities/queries/querySearch';
-import SearchBar from '@/components/ui/SearchBar';
-import { Spinner } from '@/components/ui/Spinner';
+import Sidebar from '@/components/layout/Sidebar';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
+import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+import SearchBar from '@/components/ui/SearchBar';
 
 type SearchResult = {
   title: string;
@@ -18,55 +18,83 @@ type SearchResult = {
   categories: string[];
 };
 
-const SearchPage = () => {
-  const searchParams = useSearchParams();
-  const query = searchParams.get('query') || '';
+const SearchPage = async ({ searchParams }: PageProps) => {
+  const params = await Promise.resolve(searchParams);
+  const query = params.query || '';
+  const searchResults: SearchResult[] = query ? await querySearch(query) : [];
+  const sidebarData = await getCachedGlobal('sidebar', 2)();
 
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (!query) return;
-
-    const fetchResults = async () => {
-      setLoading(true);
-      const results = await querySearch(query);
-      setSearchResults(results || []);
-      setLoading(false);
-    };
-
-    fetchResults();
-  }, [query]);
+  const queryTerm = <span className='highlighted-text'>{query}</span>;
 
   return (
-    <section className='section'>
-      <SearchBar />
+    <>
+      <section className={clsx(heroStyle.hero, 'section')}>
+        {query ? (
+          <>
+            <h2 className='section-heading'>
+              Search Result{searchResults.length > 1 ? 's' : ''} For
+            </h2>
+            <h1>{query}</h1>
+            {searchResults.length > 0 ? (
+              <p>
+                Great news! We&apos;ve found <strong>{searchResults.length}</strong> result
+                {searchResults.length > 1 ? 's' : ''} matching your search for {queryTerm}. Take a
+                look at the options below to find the content that best suits your needs.
+              </p>
+            ) : (
+              <p>
+                Oops, we couldn&apos;t find anything matching your search for {queryTerm}. Try
+                broadening your search or check back later for more content.
+              </p>
+            )}
+          </>
+        ) : (
+          <>
+            <h2 className='section-heading'>Let&apos;s Find Stuff</h2>
+            <h1>Search</h1>
+            <p>
+              Enter a keyword or topic in the search bar below, and we&apos;ll help you find exactly
+              what you&apos;re looking for. Whether it&apos;s articles, resources, or something
+              else, we&apos;re here to help you explore!
+            </p>
+            <SearchBar submitPosition='outside' className='search-page__search-bar' />
+          </>
+        )}
+      </section>
 
       {query && (
-        <div className='mt-6'>
-          <h2 className='text-xl font-bold'>Search Results for &quot;{query}&quot;</h2>
-
-          {loading ? (
-            <Spinner />
-          ) : searchResults.length > 0 ? (
-            <ul className='mt-4 space-y-4'>
-              {searchResults.map((item, index) => (
-                <li key={index} className='border-b pb-2'>
-                  <h3 className='font-semibold'>{item.title}</h3>
-                  <p className='text-gray-600'>{item.description}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <Alert severity='warning'>
-              <AlertTitle>No results found</AlertTitle>
-              <p>No search results were found for &quot;{query}&quot;.</p>
-            </Alert>
-          )}
-        </div>
+        <section className={clsx('section', 'bg--gradient-grey', 'full-width')}>
+          <section className={clsx('section__wrapper')}>
+            <div className={'col-span-11'}>
+              {query ? (
+                searchResults.length > 0 ? (
+                  <ul className='mt-4 space-y-4'>
+                    {searchResults.map((item, index) => (
+                      <li key={index} className='border-b pb-2'>
+                        <h3 className='font-semibold'>{item.title}</h3>
+                        <p className='text-gray-600'>{item.description}</p>
+                        <span>{item.url}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <Alert severity='warning'>
+                    <AlertTitle>No results found</AlertTitle>
+                    <p>No search results were found for &quot;{query}&quot;.</p>
+                  </Alert>
+                )
+              ) : (
+                <Alert severity='info'>
+                  <AlertTitle>No search query</AlertTitle>
+                  <p>Please enter a search query into the search bar.</p>
+                </Alert>
+              )}
+            </div>
+            <Sidebar data={sidebarData} className='col-span-5' />
+          </section>
+        </section>
       )}
-    </section>
+    </>
   );
 };
 

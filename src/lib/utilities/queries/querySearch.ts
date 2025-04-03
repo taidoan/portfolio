@@ -44,7 +44,9 @@ export const querySearch = async (query: string) => {
       },
     };
 
-    const response = await fetch(`/api/search?${qs.stringify(queryObj)}`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/search?${qs.stringify(queryObj)}`,
+    );
     if (!response.ok) {
       throw new Error('Search failed');
     }

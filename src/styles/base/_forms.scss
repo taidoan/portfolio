@@ -31,7 +31,8 @@ select {
   }
 
   &:focus-visible {
-    @include focused-box(2);
+    border-color: var(--clr-frosted-pearl-450);
+    box-shadow: var(--shadow-card);
   }
 
   & + * {
@@ -200,7 +201,9 @@ select {
     &:focus-visible,
     &:focus {
       --icon-clr: var(--clr-accent-400);
-      @include focused-box(1);
+      border: 0;
+      box-shadow: none;
+      outline: none;
     }
   }
 }

@@ -4,3 +4,21 @@
   display: flex;
   flex-direction: column;
 }
+
+.search__wrapper--outside {
+  align-items: center;
+  column-gap: size-clamp(rem(16), rem(24));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: rem(16);
+
+  input[type='search'] {
+    flex-grow: 1;
+    padding-block: size-clamp(rem(16), rem(20));
+  }
+}
+
+.search__button--outside {
+  margin-top: 0;
+}

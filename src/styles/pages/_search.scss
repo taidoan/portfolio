@@ -1,0 +1,5 @@
+@use '@abstracts/_index' as *;
+
+.search-page__search-bar {
+  width: min(100%, rem(720));
+}

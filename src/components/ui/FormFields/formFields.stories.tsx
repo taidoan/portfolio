@@ -51,6 +51,15 @@ export const Search: Story = {
   ),
 };
 
+export const SearchOutside: Story = {
+  render: () => (
+    <FormField>
+      <Label htmlFor='search-field'>Search Field</Label>
+      <SearchField id='search-field' placeholder='Enter search' submitPosition='outside' />
+    </FormField>
+  ),
+};
+
 export const Number: Story = {
   render: () => (
     <FormField>

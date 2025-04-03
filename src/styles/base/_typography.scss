@@ -134,6 +134,13 @@ figcaption {
   }
 }
 
+.highlighted-text {
+  background-color: var(--clr-slate-200);
+  font-style: italic;
+  font-weight: 500;
+  padding-inline: rem(4);
+}
+
 @include mq('md') {
   .text-align {
     &__left {
