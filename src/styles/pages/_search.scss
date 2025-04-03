@@ -3,7 +3,7 @@
 .search-page__hero {
   display: flex;
   flex-direction: column;
-  row-gap: size-clamp(rem(32), rem(48));
+  row-gap: size-clamp(rem(32), rem(80));
   text-align: center;
 
   @include mq('md') {
@@ -11,6 +11,16 @@
   }
 }
 
+.search-page__breadcrumbs {
+  display: flex;
+  justify-content: center;
+  margin-block: size-clamp(rem(16), rem(32));
+
+  @include mq('md') {
+    justify-content: flex-start;
+  }
+}
+
 .search-page__search-bar {
-  width: min(100%, rem(720));
+  width: min(100%, rem(704));
 }

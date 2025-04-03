@@ -15,8 +15,6 @@ aside.sidebar {
 
 .sidebar__search {
   background-color: var(--clr-gallery-250);
-  // border: rem(2) solid var(--card-outline-color);
-
   &:focus {
     background-color: #fff;
   }

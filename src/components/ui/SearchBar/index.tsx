@@ -6,9 +6,11 @@ import { FormField, SearchField } from '../FormFields';
 const SearchBar = ({
   className,
   submitPosition,
+  inputClassName,
 }: {
   className?: string;
   submitPosition?: 'inside' | 'outside';
+  inputClassName?: string;
 }) => {
   const [query, setQuery] = useState('');
   const router = useRouter();
@@ -26,6 +28,7 @@ const SearchBar = ({
         onChange={(e) => setQuery(e.target.value)}
         placeholder='Search something...'
         submitPosition={submitPosition}
+        className={inputClassName}
       />
     </FormField>
   );

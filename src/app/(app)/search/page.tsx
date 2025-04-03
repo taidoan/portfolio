@@ -6,11 +6,13 @@ import clsx from 'clsx';
 import heroStyle from '@blocks/Hero/Archive/style.module.scss';
 import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
 import { querySearch } from '@/lib/utilities/queries/querySearch';
+import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
+import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 
+import SearchBar from '@/components/ui/SearchBar';
 import Sidebar from '@/components/layout/Sidebar';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
-import { getCachedGlobal } from '@/lib/utilities/getGlobal';
-import SearchBar from '@/components/ui/SearchBar';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 type SearchResult = {
   title: string;
@@ -30,6 +32,24 @@ const SearchPage = async ({ searchParams }: PageProps) => {
   const sidebarData = await getCachedGlobal('sidebar', 2)();
 
   const queryTerm = <span className='highlighted-text'>{query}</span>;
+  const initialBreadcrumbs = [
+    {
+      id: '67c1bd0b9fb50c2e22c139f5',
+      title: 'Home',
+      slug: '',
+    },
+    {
+      title: 'Search',
+      slug: 'search',
+    },
+  ];
+
+  const resultBreadcrumbs = [
+    ...initialBreadcrumbs,
+    {
+      title: `Query: ${query}`,
+    },
+  ];
 
   return (
     <>
@@ -40,6 +60,12 @@ const SearchPage = async ({ searchParams }: PageProps) => {
               Search Result{searchResults.length > 1 ? 's' : ''} For
             </h2>
             <h1>{query}</h1>
+            <Breadcrumbs
+              breadcrumbs={resultBreadcrumbs}
+              container='outlined'
+              outlineColor='urban-steel'
+              className='search-page__breadcrumbs'
+            />
             {searchResults.length > 0 ? (
               <p>
                 Great news! We&apos;ve found <strong>{searchResults.length}</strong> result
@@ -58,6 +84,12 @@ const SearchPage = async ({ searchParams }: PageProps) => {
             <div>
               <h2 className='section-heading'>Let&apos;s Find Stuff</h2>
               <h1>Search</h1>
+              <Breadcrumbs
+                breadcrumbs={initialBreadcrumbs}
+                container='outlined'
+                outlineColor='urban-steel'
+                className='search-page__breadcrumbs'
+              />
               <p>
                 Enter a keyword or topic in the search bar below, and we&apos;ll help you find
                 exactly what you&apos;re looking for. Whether it&apos;s articles, resources, or

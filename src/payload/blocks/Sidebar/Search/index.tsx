@@ -23,10 +23,10 @@ export const SidebarSearchBlock = ({ className, title }: Props) => {
             />
           </>
         )}
-        <SearchBar className={className} />
+        <SearchBar inputClassName={className} />
       </section>
     );
   }
 
-  return <SearchBar className={style['sidebar__search']} />;
+  return <SearchBar inputClassName={style['sidebar__search']} />;
 };
