@@ -111,15 +111,20 @@ const SearchPage = async ({ searchParams }: PageProps) => {
 
       {query && (
         <section className={clsx('section', 'bg--gradient-grey', 'full-width')}>
-          <section className={clsx('section__wrapper')}>
-            <div className={'col-span-11'}>
+          <section className={clsx('section__wrapper', 'search-page__wrapper')}>
+            <div className={clsx('col-span-11', 'search-page__main')}>
               {hasResults ? (
                 <Carousel
                   disableAt={'(min-width: 64em)'}
                   pagination
+                  paginationType='progress'
+                  paginationColor='slate'
+                  showPaginationCounter
                   buttonNavigation
                   keyboardControls
                   autoHeight
+                  wrapperClassName='search-page__content'
+                  className='search-page__content-container'
                 >
                   {searchResults.map((item, index) => (
                     <Card
@@ -147,7 +152,7 @@ const SearchPage = async ({ searchParams }: PageProps) => {
                 </Alert>
               )}
             </div>
-            <Sidebar data={sidebarData} className='col-span-5' />
+            <Sidebar data={sidebarData} className={clsx('col-span-5', 'search-page__sidebar')} />
           </section>
         </section>
       )}

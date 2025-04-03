@@ -21,6 +21,29 @@
   }
 }
 
+.search-page__wrapper {
+  position: relative;
+  @include mq('md') {
+    align-items: start;
+    gap: rem(56);
+  }
+}
+
+.search-page__main {
+  @include mq('md') {
+    position: sticky;
+    top: calc(var(--layout-row-spacing) * 1.5);
+  }
+}
+
+.search-page__content {
+  @include mq('md') {
+    display: flex;
+    flex-direction: column;
+    gap: rem(32);
+  }
+}
+
 .search-page__search-bar {
   width: min(100%, rem(704));
 }

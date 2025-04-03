@@ -9,8 +9,11 @@ aside.sidebar {
   display: flex;
   flex-direction: column;
   gap: size-clamp(rem(24), rem(32));
-  position: sticky;
-  top: 0;
+
+  @include mq('md') {
+    position: sticky;
+    top: calc(var(--layout-row-spacing) * 1.5);
+  }
 }
 
 .sidebar__search {
