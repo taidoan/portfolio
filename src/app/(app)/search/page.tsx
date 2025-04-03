@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
+import type { PageProps } from '.next/types/app/(app)/layout';
 
 import clsx from 'clsx';
+
 import heroStyle from '@blocks/Hero/Archive/style.module.scss';
-import type { PageProps } from '.next/types/app/(app)/layout';
-import { SITE_NAME } from '@lib/constants';
+import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
 import { querySearch } from '@/lib/utilities/queries/querySearch';
+
 import Sidebar from '@/components/layout/Sidebar';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
@@ -115,5 +117,8 @@ export const generateMetadata = async ({
 
   return {
     title: query ? `Search Results for "${query}" | ${SITE_NAME}` : `Search | ${SITE_NAME}`,
+    description: query
+      ? `View search results for "${query}" on ${AUTHOR_NAME}'s portfolio. Find relevant articles, resources, and more.`
+      : `Use the search function to explore content on ${AUTHOR_NAME}'s portfolio.`,
   };
 };
