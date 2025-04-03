@@ -5,6 +5,7 @@ import { FooterNavLink } from '@/components/ui/NavLinks';
 import style from './style.module.scss';
 import { Logo } from '@/components/ui/Logo';
 import { SocialButton } from '@/components/ui/SocialButton';
+import { AUTHOR_NAME } from '@/lib/constants';
 
 export type FooterProps = {
   data: FooterType;
@@ -30,7 +31,9 @@ export const Footer = ({ data, social }: FooterProps) => {
             </nav>
           )}
           <div className={style['footer__copyright']}>
-            <span>&copy; {currentYear} Tai Doan. All rights reserved.</span>
+            <span>
+              &copy; {currentYear} {AUTHOR_NAME}. All rights reserved.
+            </span>
           </div>
         </div>
         {social && social['social-network'] && social['social-network']?.length > 0 && (

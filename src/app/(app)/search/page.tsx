@@ -1,6 +1,9 @@
+import type { Metadata } from 'next';
+
 import clsx from 'clsx';
 import heroStyle from '@blocks/Hero/Archive/style.module.scss';
 import type { PageProps } from '.next/types/app/(app)/layout';
+import { SITE_NAME } from '@lib/constants';
 import { querySearch } from '@/lib/utilities/queries/querySearch';
 import Sidebar from '@/components/layout/Sidebar';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
@@ -101,3 +104,16 @@ const SearchPage = async ({ searchParams }: PageProps) => {
 };
 
 export default SearchPage;
+
+export const generateMetadata = async ({
+  searchParams,
+}: {
+  searchParams?: Promise<{ query?: string }>;
+}): Promise<Metadata> => {
+  const params = await searchParams;
+  const query = params?.query ?? '';
+
+  return {
+    title: query ? `Search Results for "${query}" | ${SITE_NAME}` : `Search | ${SITE_NAME}`,
+  };
+};

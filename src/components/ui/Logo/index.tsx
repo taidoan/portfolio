@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import style from './style.module.scss';
 import clsx from 'clsx';
+import { AUTHOR_NAME } from '@lib/constants';
 
 type LogoProps = {
   className?: string;
@@ -12,8 +13,13 @@ export const Logo = ({ className, linkClassName, colour }: LogoProps) => {
   const logoClasses = clsx(style.logo, className, colour && style[`logo--${colour}`]);
   return (
     <Link href='/' className={clsx(style.link, linkClassName)} aria-label='Homepage'>
-      <svg aria-label='Tai Doan Logo' role='img' className={logoClasses} viewBox='0 0 265.7 265.7'>
-        <title>Tai Doan Logo</title>
+      <svg
+        aria-label={`${AUTHOR_NAME} Logo`}
+        role='img'
+        className={logoClasses}
+        viewBox='0 0 265.7 265.7'
+      >
+        <title>{AUTHOR_NAME} Logo</title>
         <path
           className='cls-1'
           d='M132.85 265.7C59.6 265.7 0 206.1 0 132.85S59.6 0 132.85 0 265.7 59.6 265.7 132.85 206.1 265.7 132.85 265.7Zm0-240.7C73.38 25 25 73.38 25 132.85S73.38 240.7 132.85 240.7 240.7 192.32 240.7 132.85 192.32 25 132.85 25Z'

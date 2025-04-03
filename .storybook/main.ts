@@ -53,6 +53,7 @@ const config: StorybookConfig = {
           '@functions': path.resolve(__dirname, '../src/styles/abstracts/functions'),
           '@settings': path.resolve(__dirname, '../src/styles/abstracts/settings'),
           '@mocks': path.resolve(__dirname, '../src/mocks'),
+          '@lib': path.resolve(__dirname, '../src/lib'),
         },
       },
       css: {
