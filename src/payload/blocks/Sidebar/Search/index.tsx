@@ -11,7 +11,7 @@ export type Props = {
 export const SidebarSearchBlock = ({ className, title }: Props) => {
   if (title) {
     return (
-      <section className={clsx(className, style.sidebar__block)}>
+      <section className={clsx(style.sidebar__block)}>
         {title && (
           <>
             <h2 className={style['sidebar__block-title']}>{title}</h2>
@@ -23,7 +23,7 @@ export const SidebarSearchBlock = ({ className, title }: Props) => {
             />
           </>
         )}
-        <SearchBar />
+        <SearchBar className={className} />
       </section>
     );
   }
