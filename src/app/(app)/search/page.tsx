@@ -49,16 +49,18 @@ const SearchPage = async ({ searchParams }: PageProps) => {
             )}
           </>
         ) : (
-          <>
-            <h2 className='section-heading'>Let&apos;s Find Stuff</h2>
-            <h1>Search</h1>
-            <p>
-              Enter a keyword or topic in the search bar below, and we&apos;ll help you find exactly
-              what you&apos;re looking for. Whether it&apos;s articles, resources, or something
-              else, we&apos;re here to help you explore!
-            </p>
+          <div className='search-page__hero'>
+            <div>
+              <h2 className='section-heading'>Let&apos;s Find Stuff</h2>
+              <h1>Search</h1>
+              <p>
+                Enter a keyword or topic in the search bar below, and we&apos;ll help you find
+                exactly what you&apos;re looking for. Whether it&apos;s articles, resources, or
+                something else, we&apos;re here to help you explore!
+              </p>
+            </div>
             <SearchBar submitPosition='outside' className='search-page__search-bar' />
-          </>
+          </div>
         )}
       </section>
 

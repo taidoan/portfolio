@@ -9,8 +9,19 @@
   --block-column-spacing: #{rem($block-spacing-base)};
 }
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 main {
   @include content-grid;
+  flex-grow: 1;
   padding-bottom: var(--layout-row-spacing);
 }
 
