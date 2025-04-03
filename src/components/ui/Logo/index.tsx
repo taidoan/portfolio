@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import style from './style.module.scss';
 import clsx from 'clsx';
-import { AUTHOR_NAME } from '@lib/constants';
+import { AUTHOR_NAME } from '@/lib/constants';
 
 type LogoProps = {
   className?: string;

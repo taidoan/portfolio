@@ -1,13 +1,17 @@
-import style from './style.module.scss';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { Media } from '@components/ui/Media';
-import { Alert, AlertTitle } from '@components/ui/Alert';
-import { useCardContext } from './index';
 import type { Media as MediaType } from '@/payload-types';
 import type { CardData, ProjectCard, ServiceCard, PostCard } from './types';
 
-export const isProject = (data: CardData): data is ProjectCard => data.relationTo === 'projects';
+import clsx from 'clsx';
+import Link from 'next/link';
+
+import style from './style.module.scss';
+import { useCardContext } from './index';
+
+import { Media } from '@components/ui/Media';
+import { Alert, AlertTitle } from '../Alert';
+
+export const isProject = (data: CardData): data is ProjectCard =>
+  data.relationTo === 'projects' || data.doc?.relationTo === 'projects';
 export const isService = (data: CardData): data is ServiceCard => data.relationTo === 'services';
 export const isPost = (data: CardData): data is PostCard => data.relationTo === 'posts';
 
@@ -62,7 +66,7 @@ export const CardImage = ({
 
   const srcToUse = imageSrc || thumbnailUrl || null;
 
-  const image = (
+  const image = srcToUse ? (
     <>
       <Media
         src={srcToUse || ''}
@@ -76,6 +80,13 @@ export const CardImage = ({
         <div className={style.card__image__overlay} data-testid='overlay'></div>
       )}
     </>
+  ) : data.title ? (
+    <div className={clsx(imageClasses, style.card__image__placeholder)}>{data.title}</div>
+  ) : (
+    <Alert severity='error'>
+      <AlertTitle>Error</AlertTitle>
+      <p>No image or placeholder found.</p>
+    </Alert>
   );
 
   const imageContainerClasses = clsx(style.card__image__container, {
@@ -88,25 +99,16 @@ export const CardImage = ({
   );
 
   if (link && link.href) {
-    if (srcToUse !== null) {
-      return (
-        <Link
-          href={link.href}
-          target={link.target}
-          title={link.title}
-          rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-          className={style.card__image__link}
-        >
-          {imageContainer}
-        </Link>
-      );
-    }
-
     return (
-      <Alert severity='warning'>
-        <AlertTitle>Missing image</AlertTitle>
-        <p>The image for this card is missing. Please check the source and try again.</p>
-      </Alert>
+      <Link
+        href={link.href}
+        target={link.target}
+        title={link.title}
+        rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
+        className={style.card__image__link}
+      >
+        {imageContainer}
+      </Link>
     );
   }
 

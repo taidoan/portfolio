@@ -1980,6 +1980,7 @@ export interface Search {
   tags?: (string | Tag)[] | null;
   url?: string | null;
   type?: string | null;
+  thumbnail?: (string | null) | Media;
   tools?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -3036,6 +3037,7 @@ export interface SearchSelect<T extends boolean = true> {
   tags?: T;
   url?: T;
   type?: T;
+  thumbnail?: T;
   tools?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { PageProps } from '.next/types/app/(app)/layout';
+import type { Media as MediaType } from '@/payload-types';
 
 import clsx from 'clsx';
 
@@ -13,9 +14,12 @@ import Sidebar from '@/components/layout/Sidebar';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Carousel } from '@/components/ui/Carousel';
-import { Card, CardBody, CardContent, CardTitle } from '@/components/ui/Card';
+import { Card, CardBody, CardContent, CardImage, CardTitle } from '@/components/ui/Card';
 
 type SearchResult = {
+  doc: {
+    relationTo: string;
+  };
   title: string;
   description: string;
   url: string;
@@ -24,6 +28,7 @@ type SearchResult = {
   tags: string[];
   content: string;
   categories: string[];
+  thumbnail?: MediaType;
 };
 
 const BASE_BREADCRUMBS = [
@@ -117,8 +122,16 @@ const SearchPage = async ({ searchParams }: PageProps) => {
                   autoHeight
                 >
                   {searchResults.map((item, index) => (
-                    <Card key={index} kind='archive' href={item.url}>
-                      <CardBody padding='base'>
+                    <Card
+                      key={index}
+                      kind='archive'
+                      href={item.url}
+                      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                      data={item as any}
+                      relation={item?.doc.relationTo}
+                    >
+                      <CardBody padding='small'>
+                        <CardImage align='left' borderRadius='all' />
                         <CardContent>
                           <CardTitle>{item.title}</CardTitle>
                           <p>{item.description}</p>
