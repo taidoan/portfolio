@@ -3,8 +3,9 @@ import { extractPlainText } from '@/lib/utilities/extractPlainText';
 
 export const Search = () => {
   return searchPlugin({
-    collections: ['projects', 'posts', 'services', 'pages', 'tags'],
+    collections: ['projects', 'posts', 'services', 'pages'],
     searchOverrides: {
+      timestamps: true,
       fields: ({ defaultFields }) => {
         return [
           ...defaultFields,
@@ -61,6 +62,8 @@ export const Search = () => {
             label: 'Type',
             admin: {
               readOnly: true,
+              position: 'sidebar',
+              condition: (_, siblingData) => siblingData.doc.relationTo === 'projects',
             },
           },
           {
@@ -69,6 +72,8 @@ export const Search = () => {
             label: 'Tools',
             admin: {
               readOnly: true,
+              position: 'sidebar',
+              condition: (_, siblingData) => siblingData.doc.relationTo === 'projects',
             },
           },
         ];
@@ -114,13 +119,6 @@ export const Search = () => {
           ...searchDoc,
           description: extractPlainText(originalDoc.hero.richText),
           url: originalDoc.url,
-        };
-      }
-
-      if (collection === 'tags') {
-        return {
-          ...searchDoc,
-          title: originalDoc.name,
         };
       }
 

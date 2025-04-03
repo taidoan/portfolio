@@ -1973,10 +1973,6 @@ export interface Search {
     | {
         relationTo: 'pages';
         value: string | Page;
-      }
-    | {
-        relationTo: 'tags';
-        value: string | Tag;
       };
   description?: string | null;
   content?: string | null;

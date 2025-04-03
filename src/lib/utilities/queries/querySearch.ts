@@ -36,7 +36,12 @@ export const querySearch = async (query: string) => {
             },
           },
           {
-            tags: {
+            'tags.name': {
+              like: query,
+            },
+          },
+          {
+            'categories.title': {
               like: query,
             },
           },
