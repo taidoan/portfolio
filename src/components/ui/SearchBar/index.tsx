@@ -19,7 +19,7 @@ const SearchBar = ({
     e.preventDefault();
     if (!query.trim()) return;
 
-    router.push(`/search?query=${encodeURIComponent(query)}`);
+    router.push(`/search?query=${encodeURIComponent(query)}&perPage=6`);
   };
   return (
     <FormField onSubmit={handleSubmit} className={className}>

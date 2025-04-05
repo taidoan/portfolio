@@ -16,6 +16,7 @@ import { Alert, AlertTitle } from '@/components/ui/Alert';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Carousel } from '@/components/ui/Carousel';
 import { Card, CardBody, CardContent, CardImage, CardTitle } from '@/components/ui/Card';
+import { PaginationSearch } from '@/components/ui/Pagination/search';
 
 type SearchResult = {
   doc: {
@@ -30,6 +31,15 @@ type SearchResult = {
   content: string;
   categories: string[];
   thumbnail?: MediaType;
+};
+
+type SearchResponse = {
+  docs: SearchResult[];
+  totalDocs: number;
+  totalPages: number;
+  page: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
 };
 
 const BASE_BREADCRUMBS = [
@@ -47,8 +57,29 @@ const BASE_BREADCRUMBS = [
 const SearchPage = async ({ searchParams }: PageProps) => {
   const params = await Promise.resolve(searchParams);
   const query = params.query || '';
+  const collection = params.collection || '';
+  const perPage = params.perPage || 6;
+  const page = params.page || 1;
 
-  const searchResults: SearchResult[] = query ? await querySearch(query) : [];
+  const searchResponse: SearchResponse = query
+    ? ((await querySearch(query, collection, page, perPage)) ?? {
+        docs: [],
+        totalDocs: 0,
+        totalPages: 0,
+        page: 1,
+        hasPrevPage: false,
+        hasNextPage: false,
+      })
+    : {
+        docs: [],
+        totalDocs: 0,
+        totalPages: 0,
+        page: 1,
+        hasPrevPage: false,
+        hasNextPage: false,
+      };
+
+  const searchResults = searchResponse.docs || [];
   const sidebarData = await getCachedGlobal('sidebar', 2)();
 
   const breadcrumbs = query
@@ -115,37 +146,46 @@ const SearchPage = async ({ searchParams }: PageProps) => {
           <section className={clsx('section__wrapper', 'search-page__wrapper')}>
             <div className={clsx('col-span-11', 'search-page__main')}>
               {hasResults ? (
-                <Carousel
-                  disableAt={'(min-width: 64em)'}
-                  pagination
-                  paginationType='progress'
-                  paginationColor='slate'
-                  showPaginationCounter
-                  buttonNavigation
-                  keyboardControls
-                  autoHeight
-                  wrapperClassName='search-page__content'
-                  className='search-page__content-container'
-                >
-                  {searchResults.map((item, index) => (
-                    <Card
-                      key={index}
-                      kind='archive'
-                      href={item.url}
-                      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                      data={item as any}
-                      relation={item?.doc.relationTo}
-                    >
-                      <CardBody padding='small'>
-                        <CardImage align='left' borderRadius='all' />
-                        <CardContent>
-                          <CardTitle>{item.title}</CardTitle>
-                          <p>{truncate(item.description, 220)}</p>
-                        </CardContent>
-                      </CardBody>
-                    </Card>
-                  ))}
-                </Carousel>
+                <>
+                  <Carousel
+                    disableAt={'(min-width: 64em)'}
+                    pagination
+                    paginationType='progress'
+                    paginationColor='slate'
+                    showPaginationCounter
+                    buttonNavigation
+                    keyboardControls
+                    autoHeight
+                    wrapperClassName='search-page__content'
+                    className='search-page__content-container'
+                  >
+                    {searchResults.map((item, index) => (
+                      <Card
+                        key={index}
+                        kind='archive'
+                        href={item.url}
+                        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                        data={item as any}
+                        relation={item?.doc.relationTo}
+                      >
+                        <CardBody padding='small'>
+                          <CardImage align='left' borderRadius='all' />
+                          <CardContent>
+                            <CardTitle>{item.title}</CardTitle>
+                            <p>{truncate(item.description, 220)}</p>
+                          </CardContent>
+                        </CardBody>
+                      </Card>
+                    ))}
+                  </Carousel>
+                  <PaginationSearch
+                    currentPage={page}
+                    totalPages={searchResponse.totalPages}
+                    query={query}
+                    collection={collection}
+                    perPage={perPage}
+                  />
+                </>
               ) : (
                 <Alert severity='warning'>
                   <AlertTitle>No results found</AlertTitle>
