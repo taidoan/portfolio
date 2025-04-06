@@ -98,6 +98,17 @@ a {
   &:focus-visible {
     @include focused;
   }
+
+  &:has(h1),
+  &:has(h2),
+  &:has(h3),
+  &:has(h4),
+  &:has(h5),
+  &:has(h6) {
+    color: inherit;
+    text-decoration: none;
+    transition: none;
+  }
 }
 
 abbr {

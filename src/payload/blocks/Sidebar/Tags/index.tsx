@@ -89,7 +89,9 @@ export const SidebarTagsBlock = ({
       ) : (
         <TagsContainer>
           {tags.slice(0, tagsToShow).map((tag) => (
-            <Tag key={tag.id}>{tag.name}</Tag>
+            <Tag key={tag.id} href={`/search?query=${encodeURI(tag.name)}&collection=tags`}>
+              {tag.name}
+            </Tag>
           ))}
         </TagsContainer>
       )}

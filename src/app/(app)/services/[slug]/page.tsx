@@ -16,6 +16,7 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { Divider } from '@/components/ui/Divider';
 import { Carousel } from '@/components/ui/Carousel';
 import { RenderBlocks } from '@/payload/blocks/RenderBlocks';
+import Link from 'next/link';
 
 export type Args = {
   params: Promise<{ slug: string }>;
@@ -101,7 +102,11 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
                           />
                         )}
                         <div className='service__item-content'>
-                          <h2 className='service__item-title'>{item.title}</h2>
+                          <Link
+                            href={`/search?query=${encodeURI(item.title)}&collection=tags&perPage=6`}
+                          >
+                            <h2 className='service__item-title'>{item.title}</h2>
+                          </Link>
                           <Divider
                             type='content'
                             color='light-grey'

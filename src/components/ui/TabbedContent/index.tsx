@@ -7,6 +7,7 @@ import type { TabbedContentProps } from './types';
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { isMedia } from '@/lib/utilities/isMedia';
 import { getHref } from '@/lib/utilities/getHref';
+import { truncate } from '@/lib/utilities/truncate';
 
 import { Filter } from '../Filter';
 import { RichText } from '../RichText';
@@ -22,6 +23,7 @@ import {
   IconCode,
   IconAdCircle,
 } from '@tabler/icons-react';
+import Link from 'next/link';
 
 const ICON_MAP: Record<string, JSX.Element> = {
   branding: <IconPalette stroke={2} />,
@@ -71,7 +73,11 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
   const renderDescription = (description: string | DefaultTypedEditorState | undefined) => {
     if (!description) return null;
 
-    return typeof description !== 'string' ? <RichText data={description} /> : <p>{description}</p>;
+    return typeof description !== 'string' ? (
+      <RichText data={description} />
+    ) : (
+      <p>{truncate(description, 160, '...')}</p>
+    );
   };
 
   return (
@@ -144,8 +150,9 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
                     />
                   )}
                   <div className={style['filter__item-content']}>
-                    <h4 className={style['filter__item-title']}>{item.title}</h4>
-
+                    <Link href={`/search?query=${encodeURI(item.title)}&collection=tags&perPage=6`}>
+                      <h4 className={style['filter__item-title']}>{item.title}</h4>
+                    </Link>
                     {renderDescription(item.description)}
                   </div>
                 </div>

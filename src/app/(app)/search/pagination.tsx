@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationPrev,
   PaginationNext,
-} from './index';
+} from '@components/ui/Pagination';
 
 export const PaginationSearch = ({
   currentPage,

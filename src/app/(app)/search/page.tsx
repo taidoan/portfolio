@@ -16,7 +16,7 @@ import { Alert, AlertTitle } from '@/components/ui/Alert';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Carousel } from '@/components/ui/Carousel';
 import { Card, CardBody, CardContent, CardImage, CardTitle } from '@/components/ui/Card';
-import { PaginationSearch } from '@/components/ui/Pagination/search';
+import { PaginationSearch } from './pagination';
 
 type SearchResult = {
   doc: {

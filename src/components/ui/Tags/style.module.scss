@@ -24,9 +24,11 @@ a.tag {
   transition:
     color var(--transition-duration-fast) ease,
     background-color var(--transition-duration) ease;
+  width: fit-content;
 
   &:hover {
     --text-clr: var(--clr-secondary-400);
     --background-clr: var(--clr-accent-400);
+    text-decoration: none;
   }
 }
