@@ -154,10 +154,24 @@
       }
     }
   }
+
+  &__placeholder {
+    align-items: center;
+    background-color: var(--clr-light-grey-200);
+    display: flex;
+    font-family: var(--ff-display-condensed);
+    font-size: var(--fs-heading-sm);
+    font-weight: 700;
+    justify-content: center;
+    text-transform: uppercase;
+  }
 }
 
 .card__image__link {
+  color: var(--clr-urban-steel-400);
   display: block;
+  text-decoration: none;
+
   &:has(.card__image__container-align--top) {
     margin-bottom: size-clamp(rem(16), rem(28));
   }

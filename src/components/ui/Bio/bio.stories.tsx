@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Bio } from '.';
-import { BioItem } from '.';
 
 const meta: Meta<typeof Bio> = {
   title: 'UI/Bio',

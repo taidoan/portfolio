@@ -10,6 +10,9 @@ type BaseCardData = {
   updatedAt: string;
   relationTo: CardRelation;
   url?: string;
+  doc?: {
+    relationTo: CardRelation;
+  };
 };
 
 export type SimpleCategory = Pick<Category, 'id' | 'title' | 'slug' | 'description'>;

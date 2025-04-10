@@ -4,10 +4,11 @@ import {
   SidebarCategoriesBlock,
   SidebarLatestBlock,
   SidebarTagsBlock,
+  SidebarSearchBlock,
 } from '@/payload/blocks/Sidebar';
 import { revalidateGlobal } from '@/payload/globals/hooks/revalidateGlobal';
 
-const blocks = [SidebarCategoriesBlock, SidebarLatestBlock, SidebarTagsBlock];
+const blocks = [SidebarCategoriesBlock, SidebarLatestBlock, SidebarTagsBlock, SidebarSearchBlock];
 
 export const Sidebar: GlobalConfig = {
   slug: 'sidebar',

@@ -35,7 +35,8 @@
       "@abstracts/*": ["./src/styles/abstracts/*"],
       "@editor/*": ["./src/lib/editor/*"],
       "@blocks/*": ["./src/payload/blocks/*"],
-      "@mocks/*": ["./src/mocks/*"]
+      "@mocks/*": ["./src/mocks/*"],
+      "@lib/*": ["./src/lib/*"]
     },
     "target": "ES2022",
     "types": ["vitest/globals"]

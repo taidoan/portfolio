@@ -1,7 +1,7 @@
 'use client';
-import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
-import { AnimatePresence } from 'motion/react';
+import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
 import type { CarouselProps } from './types';
+import { AnimatePresence } from 'motion/react';
 import useEmblaCarousel from 'embla-carousel-react';
 import AutoHeight from 'embla-carousel-auto-height';
 import Autoplay from 'embla-carousel-autoplay';

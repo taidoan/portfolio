@@ -14,7 +14,7 @@ import {
 } from './components';
 import { Carousel } from '@components/ui/Carousel';
 import { RichText } from '@components/ui/RichText';
-import { EmblaCarouselType } from 'embla-carousel';
+import type { EmblaCarouselType } from 'embla-carousel';
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 export type LightboxProps = {

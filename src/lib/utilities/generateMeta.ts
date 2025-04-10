@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { Media, Page, Project, Service, Config } from '@/payload-types';
 import { getCDNURL } from './getURLs';
 import { mergeOpenGraph } from './mergeOpenGraph';
+import { SITE_NAME } from '@lib/constants';
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const cdnURL = getCDNURL();
@@ -19,7 +20,7 @@ export const generateMeta = async (args: {
     doc?.meta?.image && typeof doc.meta.image === 'object' ? doc.meta.image : null,
   );
 
-  const title = doc?.meta?.title || 'Tai Doan | UI/UX Designer - Online Portfolio';
+  const title = doc?.meta?.title || `${SITE_NAME} - Online Portfolio`;
 
   return {
     title,

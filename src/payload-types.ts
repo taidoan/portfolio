@@ -76,6 +76,7 @@ export interface Config {
     posts: Post;
     tags: Tag;
     redirects: Redirect;
+    search: Search;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -92,6 +93,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    search: SearchSelect<false> | SearchSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents':
       | PayloadLockedDocumentsSelect<false>
@@ -1946,6 +1948,44 @@ export interface Redirect {
   createdAt: string;
 }
 /**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search".
+ */
+export interface Search {
+  id: string;
+  title?: string | null;
+  priority?: number | null;
+  doc:
+    | {
+        relationTo: 'projects';
+        value: string | Project;
+      }
+    | {
+        relationTo: 'posts';
+        value: string | Post;
+      }
+    | {
+        relationTo: 'services';
+        value: string | Service;
+      }
+    | {
+        relationTo: 'pages';
+        value: string | Page;
+      };
+  description?: string | null;
+  content?: string | null;
+  categories?: (string | Category)[] | null;
+  tags?: (string | Tag)[] | null;
+  url?: string | null;
+  type?: string | null;
+  thumbnail?: (string | null) | Media;
+  tools?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
@@ -2079,6 +2119,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'redirects';
         value: string | Redirect;
+      } | null)
+    | ({
+        relationTo: 'search';
+        value: string | Search;
       } | null)
     | ({
         relationTo: 'payload-jobs';
@@ -2981,6 +3025,25 @@ export interface RedirectsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search_select".
+ */
+export interface SearchSelect<T extends boolean = true> {
+  title?: T;
+  priority?: T;
+  doc?: T;
+  description?: T;
+  content?: T;
+  categories?: T;
+  tags?: T;
+  url?: T;
+  type?: T;
+  thumbnail?: T;
+  tools?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs_select".
  */
 export interface PayloadJobsSelect<T extends boolean = true> {
@@ -3184,7 +3247,12 @@ export interface Sidebar {
    * Control what blocks are shown in the sidebar.
    */
   sidebarBlocks?:
-    | (SidebarCategoriesBlockProps | SidebarLatestBlockProps | SidebarTagsBlockProps)[]
+    | (
+        | SidebarCategoriesBlockProps
+        | SidebarLatestBlockProps
+        | SidebarTagsBlockProps
+        | SidebarSearchBlockProps
+      )[]
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -3221,6 +3289,16 @@ export interface SidebarTagsBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'sidebarTagsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarSearchBlockProps".
+ */
+export interface SidebarSearchBlockProps {
+  title?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sidebarSearchBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3322,6 +3400,7 @@ export interface SidebarSelect<T extends boolean = true> {
         sidebarCategoriesBlock?: T | SidebarCategoriesBlockPropsSelect<T>;
         sidebarLatestBlock?: T | SidebarLatestBlockPropsSelect<T>;
         sidebarTagsBlock?: T | SidebarTagsBlockPropsSelect<T>;
+        sidebarSearchBlock?: T | SidebarSearchBlockPropsSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -3354,6 +3433,15 @@ export interface SidebarLatestBlockPropsSelect<T extends boolean = true> {
 export interface SidebarTagsBlockPropsSelect<T extends boolean = true> {
   title?: T;
   tagsToShow?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SidebarSearchBlockProps_select".
+ */
+export interface SidebarSearchBlockPropsSelect<T extends boolean = true> {
+  title?: T;
   id?: T;
   blockName?: T;
 }

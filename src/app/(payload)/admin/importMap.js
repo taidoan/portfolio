@@ -20,6 +20,8 @@ import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 }
 import { SlugComponent as SlugComponent_3f9acc0111c229ea9297da445cd25cc6 } from '@fields/Slug/SlugComponent'
 import { UrlComponent as UrlComponent_0a296c91d5051531ee1f39fb470a2445 } from '@fields/URL/UrlComponent'
 import { ClonedFieldComponent as ClonedFieldComponent_6d73d766e527f46c1e4bb93683c2b7ae } from '@fields/ClonedField/component'
+import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
+import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
 export const importMap = {
@@ -45,5 +47,7 @@ export const importMap = {
   "@fields/Slug/SlugComponent#SlugComponent": SlugComponent_3f9acc0111c229ea9297da445cd25cc6,
   "@fields/URL/UrlComponent#UrlComponent": UrlComponent_0a296c91d5051531ee1f39fb470a2445,
   "@fields/ClonedField/component#ClonedFieldComponent": ClonedFieldComponent_6d73d766e527f46c1e4bb93683c2b7ae,
+  "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
+  "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24
 }

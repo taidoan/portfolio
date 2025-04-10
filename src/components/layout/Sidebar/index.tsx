@@ -6,6 +6,7 @@ import style from './style.module.scss';
 import { SidebarCategoriesBlock } from '@/payload/blocks/Sidebar/Categories';
 import { SidebarLatestBlock } from '@/payload/blocks/Sidebar/Latest';
 import { SidebarTagsBlock } from '@/payload/blocks/Sidebar/Tags';
+import { SidebarSearchBlock } from '@/payload/blocks/Sidebar/Search';
 
 export type Props = {
   data: SidebarType;
@@ -16,6 +17,7 @@ const sidebarBlocks = {
   sidebarCategoriesBlock: SidebarCategoriesBlock,
   sidebarLatestBlock: SidebarLatestBlock,
   sidebarTagsBlock: SidebarTagsBlock,
+  sidebarSearchBlock: SidebarSearchBlock,
 };
 
 const Sidebar = ({ className, data }: Props) => {

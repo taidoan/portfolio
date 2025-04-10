@@ -1,4 +1,3 @@
-import { getServerSideURL } from '@/lib/utilities/getURLs';
 import {
   Pagination,
   PaginationContent,
@@ -8,8 +7,6 @@ import {
   PaginationNextLabel,
   PaginationArchiveItem,
 } from './components';
-
-const SERVER_SIDE_URL = getServerSideURL();
 
 export type ProjectPaginationProps = {
   className?: string;

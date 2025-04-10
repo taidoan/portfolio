@@ -10,6 +10,8 @@ import {
 } from '@payloadcms/plugin-seo/types';
 import { Project, Page, Service, Post } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
+import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
+import { Search } from './search';
 
 const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) => {
   const isProject = doc?.url?.includes('projects') && 'details' in doc;
@@ -21,21 +23,19 @@ const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) 
 
   if (isProject) {
     title = doc?.title
-      ? `${doc.title} | ${doc.details?.type || 'Project'} by Tai Doan - UI/UX Designer`
-      : `Project by Tai Doan - UI/UX Designer`;
+      ? `${doc.title} | ${doc.details?.type || 'Project'} by ${SITE_NAME}`
+      : `Project by ${SITE_NAME}`;
   } else if (isService) {
-    title = doc?.title
-      ? `${doc.title} | Service by Tai Doan - UI/UX Designer`
-      : `Service by Tai Doan - UI/UX Designer`;
+    title = doc?.title ? `${doc.title} | Service by ${SITE_NAME}` : `Service by ${SITE_NAME}`;
   } else if (isPost) {
-    title = `${doc.title} | Tai Doan - UI/UX Designer`;
+    title = `${doc.title} | ${SITE_NAME}`;
   } else if (isCategory) {
-    title = `${doc.title} Category | Tai Doan - UI/UX Designer`;
+    title = `${doc.title} Category | ${SITE_NAME}`;
   } else {
-    title = `${doc?.title || 'Untitled'} | Tai Doan - UI/UX Designer`;
+    title = `${doc?.title || 'Untitled'} | ${SITE_NAME}`;
   }
 
-  return title || 'Tai Doan Portfolio Website';
+  return title || `${AUTHOR_NAME} Portfolio Website`;
 };
 
 const generateDescription: GenerateDescription<Post | Project | Service> = ({ doc }) => {
@@ -137,4 +137,5 @@ export const plugins: Plugin[] = [
       },
     },
   }),
+  Search(),
 ];

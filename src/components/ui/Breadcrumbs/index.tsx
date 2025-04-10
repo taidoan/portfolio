@@ -56,7 +56,7 @@ export const Breadcrumbs = ({
           const isHome = breadcrumb.title === 'Home';
 
           return (
-            <li key={breadcrumb.id} className={style.breadcrumb__item}>
+            <li key={index} className={style.breadcrumb__item}>
               {isLast ? (
                 <span aria-current='page'>{breadcrumb.title}</span>
               ) : (
