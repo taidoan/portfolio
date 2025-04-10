@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import type { PageProps } from '.next/types/app/(app)/layout';
 import type { Media as MediaType } from '@/payload-types';
 
 import clsx from 'clsx';
@@ -17,6 +16,10 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Carousel } from '@/components/ui/Carousel';
 import { Card, CardBody, CardContent, CardImage, CardTitle } from '@/components/ui/Card';
 import { PaginationSearch } from './pagination';
+
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined | number | number[] }>;
+};
 
 type SearchResult = {
   doc: {
@@ -54,7 +57,7 @@ const BASE_BREADCRUMBS = [
   },
 ];
 
-const SearchPage = async ({ searchParams }: PageProps) => {
+const SearchPage = async ({ searchParams }: Props) => {
   const params = await Promise.resolve(searchParams);
   const query = params.query || '';
   const collection = params.collection || '';
@@ -62,7 +65,12 @@ const SearchPage = async ({ searchParams }: PageProps) => {
   const page = params.page || 1;
 
   const searchResponse: SearchResponse = query
-    ? ((await querySearch(query, collection, page, perPage)) ?? {
+    ? ((await querySearch(
+        query as string,
+        collection as string,
+        page as number,
+        perPage as number,
+      )) ?? {
         docs: [],
         totalDocs: 0,
         totalPages: 0,
@@ -179,11 +187,11 @@ const SearchPage = async ({ searchParams }: PageProps) => {
                     ))}
                   </Carousel>
                   <PaginationSearch
-                    currentPage={page}
+                    currentPage={page as number}
                     totalPages={searchResponse.totalPages}
-                    query={query}
-                    collection={collection}
-                    perPage={perPage}
+                    query={query as string}
+                    collection={collection as string}
+                    perPage={perPage as number}
                   />
                 </>
               ) : (
