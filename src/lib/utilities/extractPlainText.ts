@@ -1,4 +1,4 @@
-import type { SerializedEditorState } from 'lexical';
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import type { PlaintextConverters } from '@payloadcms/richtext-lexical/plaintext';
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext';
 

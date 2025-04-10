@@ -1,0 +1,41 @@
+{
+  "ignores": [
+    "@abstracts/*",
+    "@abstracts/_index",
+    "@abstracts/settings",
+    "@abstracts/functions",
+    "@fields/*",
+    "@blocks/*",
+    "@collections/*",
+    "@globals/*",
+    "@hooks/*",
+    "@styles/*",
+    "@utilities/*",
+    "@lib/*",
+    "@components/*",
+    "@editor/*",
+    "@payloadcms/*",
+    "@scripts/*",
+    "embla-carousel"
+  ],
+  "ignorePatterns": [".storybook/main.ts", "postcss.config.js", "postcss.config.json"],
+  "ignoreMatches": [
+    "@esbuild-plugins/node-globals-polyfill",
+    "@storybook/addon-a11y",
+    "@chromatic-com/storybook",
+    "@storybook/addon-essentials",
+    "@storybook/blocks",
+    "@storybook/experimental-addon-test",
+    "@vitest/coverage-v8",
+    "eslint-config-next",
+    "playwright",
+    "postcss",
+    "postcss-combine-duplicated-selectors",
+    "postcss-flexbugs-fixes",
+    "postcss-preset-env",
+    "postcss-sort-media-queries",
+    "sassdoc-theme-herman",
+    "storybook-addon-pseudo-states",
+    "storybook-dark-mode"
+  ]
+}
