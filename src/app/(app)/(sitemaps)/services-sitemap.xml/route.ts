@@ -1,12 +1,12 @@
 import { getServerSideSitemap } from 'next-sitemap';
 import { getPayload } from 'payload';
+import { SITE_URL } from '@/lib/constants';
 import config from '@payload-config';
 import { unstable_cache } from 'next/cache';
 
 const getServicesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config });
-    const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'https://taidoan.com';
 
     const results = await payload.find({
       collection: 'services',
@@ -26,6 +26,13 @@ const getServicesSitemap = unstable_cache(
       },
     });
 
+    const defaultSiteMap = [
+      {
+        loc: `${SITE_URL}/services`,
+        lastmod: new Date().toISOString(),
+      },
+    ];
+
     const dateFallback = new Date().toISOString();
 
     const siteMap = results.docs
@@ -39,7 +46,7 @@ const getServicesSitemap = unstable_cache(
           })
       : [];
 
-    return siteMap;
+    return [...defaultSiteMap, ...siteMap];
   },
   ['services-sitemap'],
   { tags: ['services-sitemap'] },

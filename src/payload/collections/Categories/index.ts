@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, anyone } from '@/payload/access';
+import { revalidateCategory, revalidateDelete } from './hooks/revalidateCategory';
 import { BlocksEditor } from '@fields/Lexical/BlocksEditor';
 import { SlugField } from '@fields/Slug';
 import { BreadCrumbs } from '@fields/Breadcrumbs';
@@ -19,6 +20,10 @@ export const Categories: CollectionConfig = {
     defaultColumns: ['title', 'description', 'parentCategory'],
   },
   timestamps: false,
+  hooks: {
+    afterChange: [revalidateCategory],
+    afterDelete: [revalidateDelete],
+  },
   fields: [
     {
       name: 'title',

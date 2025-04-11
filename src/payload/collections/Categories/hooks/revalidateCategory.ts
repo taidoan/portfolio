@@ -11,6 +11,7 @@ export const revalidateCategory: CollectionAfterChangeHook<Category> = ({
     payload.logger.info(`Revalidating category at path: ${path}`);
 
     revalidatePath(path);
+    revalidateTag('categories-sitemap');
   }
 
   return doc;
@@ -23,6 +24,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Category> = ({
   if (!context.disableRevalidate) {
     const path = `/categories/${doc.slug}`;
     revalidatePath(path);
+    revalidateTag('categories-sitemap');
   }
 
   return doc;
