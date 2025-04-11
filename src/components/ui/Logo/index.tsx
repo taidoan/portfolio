@@ -3,7 +3,7 @@ import style from './style.module.scss';
 import clsx from 'clsx';
 import { AUTHOR_NAME } from '@/lib/constants';
 
-type LogoProps = {
+export type LogoProps = {
   className?: string;
   linkClassName?: string;
   colour?: 'light' | 'accent' | 'secondary' | 'primary' | 'slate' | 'frosted-sage' | 'urban-steel';

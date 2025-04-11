@@ -35,12 +35,12 @@ const getSocialUrl = (network: SocialButtonProps['network'], username?: string) 
 
 /**
  * SocialButton component renders a button with a social icon and a link to the social network
- * @param {@link SocialButtonProps} - The props for the SocialButton component.
+ * @param props - {@link SocialButtonProps}
  * @param {string} [props.network] - The social network to render the button for.
  * @param {string} [props.color] - `primary`, `secondary`, or `accent` - The color of the button.
  * @param {string} [props.className] - Additional class names to add to the button.
- * @param {string} [props.username] - The username of the user on the social network.
- * @returns {JSX.Element} A React component that renders a button with a social icon and a link to the social network.
+ * @param {number} [props.tabIndex=0] - The tab index of the button.
+ * @returns {JSX.Element} - The rendered button component.
  * @example
  * <SocialButton network="x" color="primary" />
  * <SocialButton network="instagram" color="secondary" />

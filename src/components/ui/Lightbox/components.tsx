@@ -144,7 +144,7 @@ const LightboxFullscreenButton = ({
   );
 };
 
-type LightboxNavigationProps = {
+export type LightboxNavigationProps = {
   className?: string;
   onClick: () => void;
   direction: 'next' | 'prev';
@@ -194,7 +194,7 @@ const LightboxCounter = ({
   );
 };
 
-type LightboxTopBarProps = {
+export type LightboxTopBarProps = {
   className?: string;
   dialogRef: React.RefObject<HTMLDialogElement | null>;
   onClose?: () => void;

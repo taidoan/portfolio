@@ -4,10 +4,34 @@ import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 
 /**
- * Query a page by its slug and collection.
- * @param {string} slug - The slug of the page to query.
- * @param {T} collection - The collection of the page to query.
- * @returns {Promise<RequiredDataFromCollectionSlug<T> | null>} - The page with the given slug.
+ * Queries a document by its slug within a specified collection.
+ * This function is cached to improve performance on repeated calls with the same parameters.
+ *
+ * @template T - The collection type, restricted to 'projects', 'pages', 'categories', 'media', 'services', or 'posts'
+ * @param {Object} params - The query parameters
+ * @param {string} params.slug - The slug identifier of the document to query
+ * @param {T} params.collection - The collection name to query against
+ * @returns {Promise<RequiredDataFromCollectionSlug<T> | null>} A promise that resolves to the document if found, or null if not found
+ * @throws {Error} If there's an issue with the payload CMS connection or query
+ *
+ * @example
+ * // Query a page
+ * const page = await queryPageBySlug({
+ *   slug: 'about-us',
+ *   collection: 'pages'
+ * });
+ *
+ * @example
+ * // Query a blog post
+ * const post = await queryPageBySlug({
+ *   slug: 'welcome-to-our-blog',
+ *   collection: 'posts'
+ * });
+ *
+ * @remarks
+ * - The function respects draft mode from Next.js
+ * - Returns the first matching document or null if no matches
+ * - Override access control when in draft mode
  */
 export const queryPageBySlug = cache(
   async <T extends 'projects' | 'pages' | 'categories' | 'media' | 'services' | 'posts'>({

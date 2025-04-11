@@ -6,9 +6,7 @@ import clsx from 'clsx';
 import style from './style.module.scss';
 
 export type NavLinkProps = {
-  href?: string | Page | null | undefined;
   target?: string;
-  action?: () => void;
   type?: 'custom' | 'reference' | null;
   reference?: {
     relationTo: 'pages' | 'projects' | 'services' | 'posts' | 'categories';
@@ -23,14 +21,16 @@ export type NavLinkProps = {
 /**
  * NavLink component is a reusable component that renders a link for navigation.
  * @param props - {@link NavLinkProps}
- * @param {string} [props.children] - The content of the link.
- * @param {string} [props.href] - The URL of the link.
- * @param {string} [props.target] - The target of the link.
- * @param {Function} [props.action] - A function to be called when the link is clicked.
+ * @param {string} [props.label] - The label of the link.
+ * @param {string} [props.url] - The URL of the link.
+ * @param {string} [props.newTab] - Whether to open the link in a new tab.
+ * @param {string} [props.type] - The type of the link.
+ * @param {string} [props.reference] - The collectio n reference of the link.
+ * @param {number} [props.tabIndex=0] - The tab index of the link.
  * @returns {JSX.Element} The rendered link component.
  * @example
  * ```tsx
- * <NavLink href="/">Home</NavLink>
+ * <NavLink url="/">Home</NavLink>
  * ```
  */
 export const NavLink = ({ label, reference, newTab, url, type, tabIndex = 0 }: NavLinkProps) => {
@@ -53,13 +53,16 @@ export const NavLink = ({ label, reference, newTab, url, type, tabIndex = 0 }: N
 /**
  * FooterNavLink component is a reusable component that renders a link for navigation.
  * @param props - {@link NavLinkProps}
- * @param {string} [props.children] - The content of the link.
- * @param {string} [props.href] - The URL of the link.
- * @param {string} [props.target] - The target of the link.
+ * @param {string} [props.label] - The label of the link.
+ * @param {string} [props.url] - The URL of the link.
+ * @param {string} [props.newTab] - Whether to open the link in a new tab.
+ * @param {string} [props.type] - The type of the link.
+ * @param {string} [props.reference] - The collectio n reference of the link.
+ * @param {number} [props.tabIndex=0] - The tab index of the link.
  * @returns {JSX.Element} The rendered link component.
  * @example
  * ```tsx
- * <FooterNavLink href="/">Home</FooterNavLink>
+ * <FooterNavLink url="/">Home</FooterNavLink>
  * ```
  */
 export const FooterNavLink = ({

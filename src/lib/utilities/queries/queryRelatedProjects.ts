@@ -5,9 +5,9 @@ import { cache } from 'react';
 import type { CollectionSlug } from 'payload';
 import { DataFromCollectionSlug } from 'payload';
 
-type ValidCollection = Extract<CollectionSlug, 'projects' | 'posts'>;
+export type ValidCollection = Extract<CollectionSlug, 'projects' | 'posts'>;
 
-type QueryOptions = {
+export type QueryOptions = {
   collection: ValidCollection;
   category: string;
   items?: number;

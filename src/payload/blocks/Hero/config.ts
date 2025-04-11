@@ -3,9 +3,9 @@ import { BlocksEditor } from '@/payload/fields/Lexical/BlocksEditor';
 import { BreadCrumbs } from '@/payload/fields/Breadcrumbs';
 import type { CollectionSlug } from 'payload';
 
-interface HeroProps {
+export type HeroProps = {
   breadcrumbRelation?: CollectionSlug[];
-}
+};
 
 export const Hero = ({ breadcrumbRelation = ['pages'] }: HeroProps): Field => {
   return {

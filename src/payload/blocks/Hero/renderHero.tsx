@@ -12,7 +12,7 @@ const defaultHeroes: Record<
   large: LargeHero,
 };
 
-type RenderHeroProps = {
+export type RenderHeroProps = {
   heroData: HeroBlockProps;
   breadcrumbsData?: Breadcrumbs;
 };

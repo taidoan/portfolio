@@ -7,7 +7,7 @@ import { RichText } from '@components/ui/RichText';
 import { Button } from '../../ui/Button';
 import { Alert, AlertTitle } from '../../ui/Alert';
 
-type ColorType =
+export type ColorType =
   | 'primary'
   | 'secondary'
   | 'accent'
@@ -18,7 +18,7 @@ type ColorType =
   | 'gradient-light'
   | 'gradient-grey'
   | 'none';
-type VariantType = 'outlined' | 'outlined-thick' | 'fill';
+export type VariantType = 'outlined' | 'outlined-thick' | 'fill';
 
 export type CTAProps = {
   className?: string;

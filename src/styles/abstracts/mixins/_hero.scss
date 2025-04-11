@@ -1,10 +1,10 @@
-@use '@abstracts/functions/units' as *;
-@use '@abstracts/functions/sizeClamp' as *;
-@use '@abstracts/settings/index' as *;
+@use './../functions/units' as *;
+@use './../functions/sizeClamp' as *;
+@use './../settings/index' as *;
 @use './mq' as *;
 
 ////
-/// @group mixins-layout
+/// @group mixins-hero
 ////
 
 /// Applies hero text styles

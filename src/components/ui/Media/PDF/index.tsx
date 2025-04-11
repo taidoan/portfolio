@@ -14,17 +14,29 @@ export type PDFMediaProps = {
 };
 
 /**
- * PDFMedia component is a resuable component that embeds a PDF file into a web page.
- * @param src - The URL or path to the PDF file.
- * @param width - The width of the embedded PDF.
- * @param height - The height of the embedded PDF.
- * @param style - Additional CSS styles to apply to the embedded PDF.
- * @param className - Additional CSS classes to apply to the embedded PDF.
- * @returns A React component that renders an embedded PDF file.
+ * PDFMedia component embeds a PDF file into a web page.
+ *
+ * @param {PDFMediaProps} props - The component props
+ * @param {string|null|undefined} props.src - Source URL of the PDF file
+ * @param {string|number} [props.width=100%] - Width of the embedded PDF
+ * @param {string|number} [props.height=600px] - Height of the embedded PDF
+ * @param {React.CSSProperties} [props.style] - Additional CSS styles
+ * @param {string} [props.className] - Additional CSS classes
+ * @returns {React.ReactElement} An iframe with the embedded PDF viewer
+ * @throws Will render an error Alert if src is falsy
+ *
  * @example
- * <PDFMedia src='example.pdf' width='100%' height='600px' />
+ * // Basic usage
+ * <PDFMedia src="example.pdf" />
+ *
+ * @example
+ * // With custom dimensions
+ * <PDFMedia
+ *   src="https://example.com/document.pdf"
+ *   width="800px"
+ *   height="500px"
+ * />
  */
-
 export const PDFMedia = ({
   src,
   width = '100%',

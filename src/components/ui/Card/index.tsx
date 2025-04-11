@@ -11,7 +11,7 @@ export type CardLinkProps = {
   title?: string;
 };
 
-type CardContextType = {
+export type CardContextType = {
   data?: CardData;
   relation?: CardRelation;
   link?: CardLinkProps;

@@ -17,7 +17,7 @@ import { Carousel } from '@/components/ui/Carousel';
 import { Card, CardBody, CardContent, CardImage, CardTitle } from '@/components/ui/Card';
 import { PaginationSearch } from './pagination';
 
-type Props = {
+export type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined | number | number[] }>;
 };
 

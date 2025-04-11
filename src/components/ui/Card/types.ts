@@ -2,7 +2,7 @@ import type { Project, Service, Post, Category } from '@/payload-types';
 
 export type CardRelation = 'projects' | 'services' | 'posts' | 'categories' | string | null;
 
-type BaseCardData = {
+export type BaseCardData = {
   id: string;
   title: string;
   slug: string;

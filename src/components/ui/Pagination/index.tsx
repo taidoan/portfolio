@@ -23,7 +23,7 @@ export const PaginationItem = ({ className, ...props }: React.HTMLAttributes<HTM
   <li className={clsx(className, style.pagination__item)} {...props} />
 );
 
-type PaginationLinkProps = {
+export type PaginationLinkProps = {
   isActive?: boolean;
 } & React.ComponentProps<'button'>;
 
