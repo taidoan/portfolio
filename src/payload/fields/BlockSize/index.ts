@@ -1,4 +1,4 @@
-import type { SelectField, Field } from 'payload';
+import type { SelectField } from 'payload';
 
 export const blockSize = (
   overides: { admin?: Partial<SelectField['admin']> } = {},
@@ -10,6 +10,7 @@ export const blockSize = (
     admin: {
       ...overides.admin,
     },
+    defaultValue: 'col-span-16',
     options: [
       { label: 'Sixteenth (1/16)', value: 'col-span-1' },
       { label: 'Eighth (2/16)', value: 'col-span-2' },

@@ -12,6 +12,7 @@ import { Project, Page, Service, Post } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
 import { Search } from './search';
+import { FormBuilder } from './forms';
 
 const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) => {
   const isProject = doc?.url?.includes('projects') && 'details' in doc;
@@ -138,4 +139,5 @@ export const plugins: Plugin[] = [
     },
   }),
   Search(),
+  FormBuilder(),
 ];

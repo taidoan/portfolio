@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
+import { resendAdapter } from '@payloadcms/email-resend';
 import path from 'path';
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
@@ -11,11 +12,19 @@ import { collections } from './payload/collections';
 import { globals } from './payload/globals';
 import { Users } from './payload/collections/Users';
 
+import { AUTHOR_NAME } from './lib/constants';
+import { CONTACT_EMAIL } from './lib/constants';
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
   serverURL: process.env.SERVER_URL,
+  email: resendAdapter({
+    defaultFromAddress: CONTACT_EMAIL,
+    defaultFromName: AUTHOR_NAME,
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   admin: {
     user: Users.slug,
     importMap: {
