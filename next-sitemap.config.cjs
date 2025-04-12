@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'https://taidoan.com';
+import { SITE_URL } from '@lib/constants';
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
@@ -11,6 +11,8 @@ module.exports = {
     '/projects-sitemap.xml',
     '/services/*',
     '/services-sitemap.xml',
+    '/categories/*',
+    '/categories-sitemap.xml',
   ],
   robotsTxtOptions: {
     policies: [
@@ -23,6 +25,7 @@ module.exports = {
       `${SITE_URL}/projects-sitemap.xml`,
       `${SITE_URL}/pages-sitemap.xml`,
       `${SITE_URL}/services-sitemap.xml`,
+      `${SITE_URL}/categories-sitemap.xml`,
     ],
   },
 };
