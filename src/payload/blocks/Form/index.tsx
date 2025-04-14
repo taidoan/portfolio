@@ -6,9 +6,11 @@ import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { buildInitialFormState } from './initialFormState';
 import { fields } from './fields';
+
+import RichText from '@/components/ui/RichText';
 import { Button } from '@components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
-import RichText from '@/components/ui/RichText';
+import { Alert, AlertTitle } from '@/components/ui/Alert';
 
 export type Value = unknown;
 
@@ -25,13 +27,10 @@ export type FormBlockType = {
   blockType?: 'formBlock';
   form: FormType;
   id?: string;
+  className?: string;
 };
 
-export const FormBlock: React.FC<
-  FormBlockType & {
-    id?: string;
-  }
-> = (props) => {
+export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
   const {
     form: formFromProps,
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
@@ -121,14 +120,22 @@ export const FormBlock: React.FC<
   );
 
   return (
-    <div>
+    <div className={className}>
       {!isLoading && hasSubmitted && confirmationType === 'message' && (
-        <RichText data={confirmationMessage} />
+        <Alert severity='success'>
+          <AlertTitle>Success</AlertTitle>
+          <RichText data={confirmationMessage} />
+        </Alert>
       )}
-      {isLoading && !hasSubmitted && <Spinner />}
-      {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
+      {isLoading && !hasSubmitted && <Spinner text='Sending Message...' />}
+      {error && (
+        <Alert severity='error'>
+          <AlertTitle>${error.status || '500'}</AlertTitle>
+          {error.message || ''}
+        </Alert>
+      )}
       {!hasSubmitted && (
-        <form id={formID} onSubmit={handleSubmit(onSubmit)}>
+        <form id={formID} onSubmit={handleSubmit(onSubmit)} autoComplete=''>
           {formFromProps &&
             formFromProps.fields &&
             formFromProps.fields.map((field, index) => {
@@ -138,7 +145,6 @@ export const FormBlock: React.FC<
                 return (
                   <React.Fragment key={index}>
                     <Field
-                      form={formFromProps}
                       {...field}
                       {...formMethods}
                       control={control}

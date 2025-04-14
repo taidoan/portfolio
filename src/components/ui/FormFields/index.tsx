@@ -10,20 +10,29 @@ import {
 import { IconSearch } from '@tabler/icons-react';
 import { Button } from '../Button';
 
-export type BaseType = {
+export type BaseType<T extends FieldValues = FieldValues> = {
   name?: string;
   className?: string;
-  register?: UseFormRegister<any & FieldValues>;
+  register?: UseFormRegister<T>;
   required?: boolean;
-  errors?: Partial<FieldErrorsImpl<{ [x: string]: any }>>;
+  errors?: Partial<FieldErrorsImpl<T>>;
   label?: string;
   showLabel?: boolean;
-  [key: string]: any;
 };
 
 export type BaseInputType = BaseType & React.ComponentProps<'input'>;
 export type BaseSelectType = BaseType & React.ComponentProps<'select'>;
 export type BaseTextAreaType = BaseType & React.ComponentProps<'textarea'>;
+
+const FieldWrapper = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return <div className={clsx(style.field__wrapper, className)}>{children}</div>;
+};
 
 export const TextField = ({
   className,
@@ -31,20 +40,23 @@ export const TextField = ({
   register,
   required,
   label,
+  id,
   showLabel = true,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Text Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Text Field'}</label>}
       <input
         type='text'
-        id={name}
+        id={fieldId}
         className={clsx(className, style.text)}
+        autoComplete='on'
         {...(register && name ? register(`${name}`, { required }) : {})}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -54,16 +66,18 @@ export const SearchField = ({
   submitPosition = 'inside',
   showLabel = false,
   label,
+  id,
   ...props
 }: { submitPosition?: 'inside' | 'outside' } & BaseInputType) => {
+  const fieldId = id || name;
   if (submitPosition === 'outside') {
     return (
-      <>
-        {showLabel && <label htmlFor={name}>{label || 'Search Field'}</label>}
+      <FieldWrapper>
+        {showLabel && <label htmlFor={fieldId}>{label || 'Search Field'}</label>}
         <div className={clsx(style['search__wrapper--outside'], 'search__wrapper--outside')}>
           <input
             type='search'
-            id={name}
+            id={fieldId}
             className={clsx(className, style.search)}
             {...stripInvalidInputProps(props)}
           />
@@ -79,16 +93,16 @@ export const SearchField = ({
             <IconSearch stroke={3} />
           </Button>
         </div>
-      </>
+      </FieldWrapper>
     );
   }
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Search Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Search Field'}</label>}
       <div className={clsx('search__wrapper')}>
         <input
           type='search'
-          id={name}
+          id={fieldId}
           className={clsx(className, style.search)}
           {...stripInvalidInputProps(props)}
         />
@@ -96,7 +110,7 @@ export const SearchField = ({
           <IconSearch stroke={2} />
         </button>
       </div>
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -107,19 +121,21 @@ export const NumberField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Number Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Number Field'}</label>}
       <input
         type='number'
-        id={name}
+        id={fieldId}
         className={clsx(className, style.number)}
         {...(register && name ? register(`${name}`, { required }) : {})}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -130,19 +146,22 @@ export const PasswordField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Password Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Password Field'}</label>}
       <input
         type='password'
-        id={name}
+        id={fieldId}
         className={clsx(className, style.password)}
+        autoComplete='current-password'
         {...(register && name ? register(`${name}`, { required }) : {})}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -152,20 +171,23 @@ export const EmailField = ({
   register,
   required,
   label,
+  id,
   showLabel = true,
   ...props
 }: React.ComponentProps<'input'> & BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Email Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Email Field'}</label>}
       <input
         type='email'
-        id={name}
+        autoComplete='email'
+        id={fieldId}
         className={clsx(className, style.email)}
         {...(register && name ? register(`${name}`, { required }) : {})}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -176,19 +198,21 @@ export const RangeField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Range Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Range Field'}</label>}
       <input
         type='range'
-        id={name}
+        id={fieldId}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.range)}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -199,19 +223,21 @@ export const DateField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Date Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Date Field'}</label>}
       <input
         type='date'
-        id={name}
+        id={fieldId}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.date)}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -222,19 +248,21 @@ export const ColorField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Colour Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Colour Field'}</label>}
       <input
         type='color'
-        id={name}
+        id={fieldId}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.color)}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -245,19 +273,21 @@ export const FileField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'File Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'File Field'}</label>}
       <input
         type='file'
-        id={name}
+        id={fieldId}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.file)}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -268,19 +298,21 @@ export const CheckboxField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Checkbox Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Checkbox Field'}</label>}
       <input
         type='checkbox'
-        id={name}
+        id={fieldId}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.checkbox)}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -291,19 +323,21 @@ export const RadioField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseInputType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Radio Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Radio Field'}</label>}
       <input
         type='radio'
-        id={name}
+        id={fieldId}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.radio)}
         {...stripInvalidInputProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 
@@ -314,13 +348,15 @@ export const SelectField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseSelectType) => {
+  const fieldId = id || name;
   return (
     <div className='select__wrapper'>
-      {showLabel && <label htmlFor={name}>{label || 'Select Field'}</label>}
+      {showLabel && <label htmlFor={fieldId}>{label || 'Select Field'}</label>}
       <select
-        id={name}
+        id={fieldId}
         className={clsx(className, style.select)}
         {...(register && name ? register(`${name}`, { required }) : {})}
         {...stripInvalidSelectProps(props)}
@@ -338,18 +374,20 @@ export const TextareaField = ({
   required,
   label,
   showLabel = true,
+  id,
   ...props
 }: BaseTextAreaType) => {
+  const fieldId = id || name;
   return (
-    <>
-      {showLabel && <label htmlFor={name}>{label || 'Textarea Field'}</label>}
+    <FieldWrapper>
+      {showLabel && <label htmlFor={fieldId}>{label || 'Textarea Field'}</label>}
       <textarea
-        id={name}
+        id={fieldId}
         className={clsx(className, style.textarea)}
         {...(register && name ? register(`${name}`, { required }) : {})}
         {...stripInvalidTextareaProps(props)}
       />
-    </>
+    </FieldWrapper>
   );
 };
 

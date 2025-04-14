@@ -57,6 +57,7 @@ export type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
   variant?: 'outlined' | 'fill';
   styleOverrides?: React.CSSProperties;
+  id?: string;
 };
 
 export const Button = ({
