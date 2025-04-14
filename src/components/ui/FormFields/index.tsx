@@ -47,7 +47,12 @@ export const TextField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Text Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Text Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='text'
         id={fieldId}
@@ -73,7 +78,12 @@ export const SearchField = ({
   if (submitPosition === 'outside') {
     return (
       <FieldWrapper>
-        {showLabel && <label htmlFor={fieldId}>{label || 'Search Field'}</label>}
+        {showLabel && (
+          <label htmlFor={fieldId}>
+            {' '}
+            <span>{label || 'Search Field'}</span>
+          </label>
+        )}
         <div className={clsx(style['search__wrapper--outside'], 'search__wrapper--outside')}>
           <input
             type='search'
@@ -98,7 +108,11 @@ export const SearchField = ({
   }
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Search Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Search Field'}</span>
+        </label>
+      )}
       <div className={clsx('search__wrapper')}>
         <input
           type='search'
@@ -127,7 +141,12 @@ export const NumberField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Number Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Number Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='number'
         id={fieldId}
@@ -152,7 +171,12 @@ export const PasswordField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Password Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Password Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='password'
         id={fieldId}
@@ -178,7 +202,12 @@ export const EmailField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Email Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Email Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='email'
         autoComplete='email'
@@ -204,7 +233,12 @@ export const RangeField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Range Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Range Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='range'
         id={fieldId}
@@ -229,7 +263,12 @@ export const DateField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Date Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Date Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='date'
         id={fieldId}
@@ -254,7 +293,12 @@ export const ColorField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Colour Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Colour Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='color'
         id={fieldId}
@@ -279,7 +323,12 @@ export const FileField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'File Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'File Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='file'
         id={fieldId}
@@ -304,7 +353,12 @@ export const CheckboxField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Checkbox Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Checkbox Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='checkbox'
         id={fieldId}
@@ -329,7 +383,12 @@ export const RadioField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Radio Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Radio Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <input
         type='radio'
         id={fieldId}
@@ -354,7 +413,12 @@ export const SelectField = ({
   const fieldId = id || name;
   return (
     <div className='select__wrapper'>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Select Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Select Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <select
         id={fieldId}
         className={clsx(className, style.select)}
@@ -380,7 +444,12 @@ export const TextareaField = ({
   const fieldId = id || name;
   return (
     <FieldWrapper>
-      {showLabel && <label htmlFor={fieldId}>{label || 'Textarea Field'}</label>}
+      {showLabel && (
+        <label htmlFor={fieldId}>
+          <span>{label || 'Textarea Field'}</span>
+          {required && <span className='required'>*</span>}
+        </label>
+      )}
       <textarea
         id={fieldId}
         className={clsx(className, style.textarea)}

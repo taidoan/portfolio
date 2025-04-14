@@ -6,7 +6,7 @@ import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { buildInitialFormState } from './initialFormState';
 import { fields } from './fields';
-
+import clsx from 'clsx';
 import RichText from '@/components/ui/RichText';
 import { Button } from '@components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
@@ -25,6 +25,10 @@ export type Data = {
 export type FormBlockType = {
   blockName?: string;
   blockType?: 'formBlock';
+  container: string;
+  customClassName?: string;
+  backgroundColour?: string;
+  borderRadius: string;
   form: FormType;
   id?: string;
   className?: string;
@@ -34,6 +38,10 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
   const {
     form: formFromProps,
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
+    customClassName,
+    container,
+    backgroundColour,
+    borderRadius,
   } = props;
 
   const formMethods = useForm({
@@ -119,6 +127,12 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
     [router, formID, redirect, confirmationType],
   );
 
+  const formClasses = clsx(customClassName, {
+    [`border-radius--${borderRadius}`]: borderRadius,
+    [`container--boxed`]: container === 'boxed',
+    [`bg--${backgroundColour}`]: backgroundColour,
+  });
+
   return (
     <div className={className}>
       {!isLoading && hasSubmitted && confirmationType === 'message' && (
@@ -135,7 +149,7 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
         </Alert>
       )}
       {!hasSubmitted && (
-        <form id={formID} onSubmit={handleSubmit(onSubmit)} autoComplete=''>
+        <form id={formID} onSubmit={handleSubmit(onSubmit)} className={formClasses}>
           {formFromProps &&
             formFromProps.fields &&
             formFromProps.fields.map((field, index) => {
@@ -157,7 +171,9 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
 
               return null;
             })}
-          <Button type='submit'>{submitButtonLabel}</Button>
+          <Button type='submit' color='secondary' hoverColor='accent'>
+            {submitButtonLabel}
+          </Button>
         </form>
       )}
     </div>

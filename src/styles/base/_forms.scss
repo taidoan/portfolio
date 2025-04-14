@@ -252,6 +252,8 @@ select {
 
 label {
   color: var(--clr-urban-steel-500);
+  column-gap: rem(2);
+  display: flex;
   font-family: var(--ff-display);
   font-size: var(--fs-small);
   font-weight: 700;
@@ -271,5 +273,10 @@ label {
   &:has(+ textarea:focus),
   &:has(+ select:focus) {
     color: var(--clr-secondary-400);
+  }
+
+  span.required {
+    color: var(--clr-cherry-punch-400);
+    display: inline-block;
   }
 }

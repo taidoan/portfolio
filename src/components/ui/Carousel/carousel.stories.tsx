@@ -140,7 +140,7 @@ const meta: Meta<typeof Carousel> = {
           'urban-steel',
           'slate',
           'bitter-sweet',
-          'chery-punch',
+          'cherry-punch',
           'fresh-leaf',
         ],
       },

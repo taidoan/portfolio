@@ -1,5 +1,24 @@
 import type { SelectField } from 'payload';
 
+export const backgroundColourOptions = [
+  'none',
+  'primary',
+  'secondary',
+  'accent',
+  'light-grey',
+  'concrete',
+  'urban-steel',
+  'gallery',
+  'stormy-slate',
+  'gradient-light',
+  'gradient-primary',
+  'gradient-secondary',
+  'gradient-accent',
+  'gradient-grey',
+] as const;
+
+export type ColorType = (typeof backgroundColourOptions)[number];
+
 export const BackgroundColour = (
   overrides: {
     admin?: Partial<SelectField['admin']>;
@@ -16,17 +35,10 @@ export const BackgroundColour = (
     hooks: {
       ...overrides.hooks,
     },
-    options: [
-      { value: 'none', label: 'None' },
-      { value: 'primary', label: 'Primary' },
-      { value: 'secondary', label: 'Secondary' },
-      { value: 'accent', label: 'Accent' },
-      { value: 'gradient-light', label: 'Light Gradient' },
-      { value: 'gradient-primary', label: 'Primary Gradient' },
-      { value: 'gradient-secondary', label: 'Secondary Gradient' },
-      { value: 'gradient-accent', label: 'Accent Gradient' },
-      { value: 'gradient-grey', label: 'Light Grey Gradient' },
-    ],
+    options: backgroundColourOptions.map((value) => ({
+      value,
+      label: value.replace(/-/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase()),
+    })),
   };
 
   return backgroundColourResult;
