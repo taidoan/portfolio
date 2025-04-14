@@ -2,6 +2,11 @@ import type { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-f
 import * as React from 'react';
 import clsx from 'clsx';
 import style from './style.module.scss';
+import {
+  stripInvalidInputProps,
+  stripInvalidSelectProps,
+  stripInvalidTextareaProps,
+} from '@/lib/utilities/stripProps';
 import { IconSearch } from '@tabler/icons-react';
 import { Button } from '../Button';
 
@@ -27,6 +32,7 @@ export const TextField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -36,6 +42,7 @@ export const TextField = ({
         id={name}
         className={clsx(className, style.text)}
         {...(register && name ? register(`${name}`, { required }) : {})}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -47,13 +54,19 @@ export const SearchField = ({
   submitPosition = 'inside',
   showLabel = false,
   label,
+  ...props
 }: { submitPosition?: 'inside' | 'outside' } & BaseInputType) => {
   if (submitPosition === 'outside') {
     return (
       <>
         {showLabel && <label htmlFor={name}>{label || 'Search Field'}</label>}
         <div className={clsx(style['search__wrapper--outside'], 'search__wrapper--outside')}>
-          <input type='search' id={name} className={clsx(className, style.search)} />
+          <input
+            type='search'
+            id={name}
+            className={clsx(className, style.search)}
+            {...stripInvalidInputProps(props)}
+          />
           <Button
             type='submit'
             className={clsx(style['search__button--outside'])}
@@ -73,7 +86,12 @@ export const SearchField = ({
     <>
       {showLabel && <label htmlFor={name}>{label || 'Search Field'}</label>}
       <div className={clsx('search__wrapper')}>
-        <input type='search' id={name} className={clsx(className, style.search)} />
+        <input
+          type='search'
+          id={name}
+          className={clsx(className, style.search)}
+          {...stripInvalidInputProps(props)}
+        />
         <button type='submit' className={clsx('search__button')} aria-label='Search'>
           <IconSearch stroke={2} />
         </button>
@@ -89,6 +107,7 @@ export const NumberField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -98,6 +117,7 @@ export const NumberField = ({
         id={name}
         className={clsx(className, style.number)}
         {...(register && name ? register(`${name}`, { required }) : {})}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -110,6 +130,7 @@ export const PasswordField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -119,6 +140,7 @@ export const PasswordField = ({
         id={name}
         className={clsx(className, style.password)}
         {...(register && name ? register(`${name}`, { required }) : {})}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -131,6 +153,7 @@ export const EmailField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: React.ComponentProps<'input'> & BaseInputType) => {
   return (
     <>
@@ -140,6 +163,7 @@ export const EmailField = ({
         id={name}
         className={clsx(className, style.email)}
         {...(register && name ? register(`${name}`, { required }) : {})}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -152,6 +176,7 @@ export const RangeField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -161,6 +186,7 @@ export const RangeField = ({
         id={name}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.range)}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -173,6 +199,7 @@ export const DateField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -182,6 +209,7 @@ export const DateField = ({
         id={name}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.date)}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -194,6 +222,7 @@ export const ColorField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -203,6 +232,7 @@ export const ColorField = ({
         id={name}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.color)}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -215,6 +245,7 @@ export const FileField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -224,6 +255,7 @@ export const FileField = ({
         id={name}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.file)}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -236,6 +268,7 @@ export const CheckboxField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -245,6 +278,7 @@ export const CheckboxField = ({
         id={name}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.checkbox)}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -257,6 +291,7 @@ export const RadioField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseInputType) => {
   return (
     <>
@@ -266,6 +301,7 @@ export const RadioField = ({
         id={name}
         {...(register && name ? register(`${name}`, { required }) : {})}
         className={clsx(className, style.radio)}
+        {...stripInvalidInputProps(props)}
       />
     </>
   );
@@ -278,6 +314,7 @@ export const SelectField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseSelectType) => {
   return (
     <div className='select__wrapper'>
@@ -286,7 +323,10 @@ export const SelectField = ({
         id={name}
         className={clsx(className, style.select)}
         {...(register && name ? register(`${name}`, { required }) : {})}
-      />
+        {...stripInvalidSelectProps(props)}
+      >
+        {props.children}
+      </select>
     </div>
   );
 };
@@ -298,6 +338,7 @@ export const TextareaField = ({
   required,
   label,
   showLabel = true,
+  ...props
 }: BaseTextAreaType) => {
   return (
     <>
@@ -306,15 +347,16 @@ export const TextareaField = ({
         id={name}
         className={clsx(className, style.textarea)}
         {...(register && name ? register(`${name}`, { required }) : {})}
+        {...stripInvalidTextareaProps(props)}
       />
     </>
   );
 };
 
-export const FormField = ({ className }: React.ComponentProps<'form'>) => {
-  return <form className={clsx(className, style.form)} />;
+export const FormField = ({ className, ...props }: React.ComponentProps<'form'>) => {
+  return <form className={clsx(className, style.form)} {...props} />;
 };
 
-export const Label = ({ className }: React.ComponentProps<'label'>) => {
-  return <label className={clsx(className, style.label)} />;
+export const Label = ({ className, ...props }: React.ComponentProps<'label'>) => {
+  return <label className={clsx(className, style.label)} {...props} />;
 };
