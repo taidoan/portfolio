@@ -51,10 +51,8 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
   const {
     control,
     formState: { errors },
-    getValues,
     handleSubmit,
     register,
-    setValue,
   } = formMethods;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -141,7 +139,11 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
           <RichText data={confirmationMessage} />
         </Alert>
       )}
-      {isLoading && !hasSubmitted && <Spinner text='Sending Message...' />}
+      {isLoading && !hasSubmitted && (
+        <div className={formClasses}>
+          <Spinner text='Sending Message...' />
+        </div>
+      )}
       {error && (
         <Alert severity='error'>
           <AlertTitle>${error.status || '500'}</AlertTitle>
