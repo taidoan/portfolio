@@ -24,6 +24,7 @@ const SearchBar = ({
   return (
     <FormField onSubmit={handleSubmit} className={className}>
       <SearchField
+        label='Search'
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder='Search something...'

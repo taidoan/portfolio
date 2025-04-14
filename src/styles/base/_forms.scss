@@ -1,4 +1,7 @@
 @use '@abstracts/_index' as *;
+form {
+  text-align: left;
+}
 
 input,
 textarea,
@@ -259,7 +262,8 @@ label {
   & + input,
   & + textarea,
   & + .select__wrapper,
-  & + .search__wrapper {
+  & + .search__wrapper,
+  & + .search__wrapper--outside {
     margin-top: size-clamp(rem(8), rem(8));
   }
 
