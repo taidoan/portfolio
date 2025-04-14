@@ -1,7 +1,7 @@
 import { ContactPlatform } from './index';
 
 export type FlatContactMethodProps = {
-  [K in ContactPlatform as `${K}`]: boolean;
+  [K in ContactPlatform as `${K}`]?: boolean;
 } & {
   [K in ContactPlatform as `${K}Link`]?: string;
 } & {

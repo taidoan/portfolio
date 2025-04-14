@@ -19,7 +19,7 @@
 .contact__method {
   display: flex;
   font-size: var(--fs-body-sm);
-  gap: size-clamp(rem(8), rem(12));
+  gap: rem(8);
 
   &:hover {
     .platform__icon {
