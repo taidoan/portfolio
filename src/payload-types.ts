@@ -3903,6 +3903,23 @@ export interface LinksGroupRichtextProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactMethodsBlockProps".
+ */
+export interface ContactMethodsBlockProps {
+  contactMethods?:
+    | {
+        platform?: ('email' | 'twitter' | 'github' | 'linkedin' | 'instagram' | 'youtube') | null;
+        link?: string | null;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactMethodsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MediaRichtextBlockProps".
  */
 export interface MediaRichtextBlockProps {

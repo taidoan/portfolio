@@ -5,6 +5,7 @@ import {
 } from '@payloadcms/richtext-lexical/react';
 import { SerializedBlockNode } from '@payloadcms/richtext-lexical';
 import { DividerBlock } from '@/payload/blocks/Divider';
+import { ContactMethodsBlock } from '@/payload/blocks/ContactMethods';
 import { LinksRichtextBlock } from '@/payload/blocks/LinkRichtext';
 import { LinksGroupRichtextBlock } from '@/payload/blocks/LinkRichtext/Group';
 import { MediaRichTextBlock } from '@/payload/blocks/MediaRichtext';
@@ -14,6 +15,7 @@ import type {
   LinksBlockRichtextProps,
   LinksGroupRichtextProps,
   MediaRichtextBlockProps,
+  ContactMethodsBlockProps,
 } from '@/payload-types';
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
@@ -39,6 +41,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     mediaRichtextBlock: ({ node }: { node: SerializedBlockNode<MediaRichtextBlockProps> }) => {
       if (node.fields.blockType !== 'mediaRichtextBlock') return null;
       return <MediaRichTextBlock {...node.fields} />;
+    },
+    contactMethodsBlock: ({ node }: { node: SerializedBlockNode<ContactMethodsBlockProps> }) => {
+      if (node.fields.blockType !== 'contactMethodsBlock') return null;
+      return <ContactMethodsBlock {...node.fields} />;
     },
   },
 });

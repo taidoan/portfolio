@@ -13,6 +13,7 @@ import {
 import { LinksFeature } from './features/link';
 import { DividerBlock } from '@/payload/blocks/Divider/config';
 import { MediaRichtextBlock } from '@/payload/blocks/MediaRichtext/config';
+import { ContactMethodsBlock } from '@/payload/blocks/ContactMethods/config';
 
 export const editor = lexicalEditor({
   features: () => {
@@ -29,7 +30,7 @@ export const editor = lexicalEditor({
       }),
       LinksFeature(),
       BlocksFeature({
-        blocks: [DividerBlock, MediaRichtextBlock],
+        blocks: [DividerBlock, MediaRichtextBlock, ContactMethodsBlock],
       }),
     ];
   },

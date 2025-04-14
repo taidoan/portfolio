@@ -6,10 +6,12 @@ import { internalDocToHref } from './../utils';
 import { SerializedHeadingNode, SerializedBlockNode } from '@payloadcms/richtext-lexical';
 import { DividerBlock } from '@/payload/blocks/Divider';
 import { MediaRichTextBlock } from '@/payload/blocks/MediaRichtext';
+import { ContactMethodsBlock } from '@/payload/blocks/ContactMethods';
 import type {
   LinksBlockRichtextProps,
   LinksGroupRichtextProps,
   MediaRichtextBlockProps,
+  ContactMethodsBlockProps,
 } from '@/payload-types';
 
 export const headingConverter: JSXConvertersFunction = ({ defaultConverters }) => ({
@@ -35,6 +37,10 @@ export const headingConverter: JSXConvertersFunction = ({ defaultConverters }) =
     mediaRichtextBlock: ({ node }: { node: SerializedBlockNode<MediaRichtextBlockProps> }) => {
       if (node.fields.blockType !== 'mediaRichtextBlock') return null;
       return <MediaRichTextBlock {...node.fields} />;
+    },
+    contactMethodsBlock: ({ node }: { node: SerializedBlockNode<ContactMethodsBlockProps> }) => {
+      if (node.fields.blockType !== 'contactMethodsBlock') return null;
+      return <ContactMethodsBlock {...node.fields} />;
     },
   },
   heading: (args) => {
