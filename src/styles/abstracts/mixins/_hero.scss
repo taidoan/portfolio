@@ -136,6 +136,7 @@
   & {
     height: 75dvh;
     max-height: rem(400);
+    min-height: rem(360);
     padding: size-clamp(rem(20), rem(80));
   }
 
