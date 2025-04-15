@@ -14,6 +14,7 @@ import { BioBlock } from '../Bio';
 import { ToolsBlock } from '../Tools';
 import { TopTracksBlock } from '../TopTracks';
 import { RelatedProjectsBlock } from '../RelatedProjects';
+import { FormBlock } from '../Form';
 
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -31,6 +32,7 @@ const blockComponents = {
   toolsBlock: ToolsBlock,
   topTracksBlock: TopTracksBlock,
   relatedProjectsBlock: RelatedProjectsBlock,
+  formBlock: FormBlock,
 };
 
 export const SectionBlock = ({

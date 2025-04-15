@@ -155,6 +155,30 @@
     --btn-text-clr: var(--clr-ash-350);
     cursor: not-allowed;
   }
+
+  &-width--full {
+    width: 100%;
+  }
+
+  &-width--half {
+    width: 50%;
+  }
+
+  &-width--quarter {
+    width: 25%;
+  }
+
+  &-width--third {
+    width: 33.333333%;
+  }
+
+  &-width--two-thirds {
+    width: 66.666666%;
+  }
+
+  &-width--three-quarters {
+    width: 75%;
+  }
 }
 
 .button--shadow {

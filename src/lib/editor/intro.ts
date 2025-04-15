@@ -1,5 +1,6 @@
 import { HeadingFeature, BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import { DividerBlock } from '@/payload/blocks/Divider/config';
+import { ContactMethodsBlock } from '@/payload/blocks/ContactMethods/config';
 
 export const IntroEditor = lexicalEditor({
   features: ({ rootFeatures }) => {
@@ -9,7 +10,7 @@ export const IntroEditor = lexicalEditor({
         enabledHeadingSizes: ['h2', 'h3'],
       }),
       BlocksFeature({
-        blocks: [DividerBlock],
+        blocks: [DividerBlock, ContactMethodsBlock],
       }),
     ];
   },

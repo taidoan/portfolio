@@ -3,38 +3,6 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { IconCircleArrowRightFilled, IconExternalLink } from '@tabler/icons-react';
 
-/**
- * Button component renders a button with a custom color, shadow, href, target, title, and action.
- * @param props - {@link ButtonProps}
- * @param {string} [props.children] - The content of the button.
- * @param {string} [props.className] - The class name to be applied to the button.
- * @param {string} [props.href] - The URL of the button.
- * @param {string} [props.target] - The target of the button.
- * @param {boolean} [props.disabled] - Whether the button is disabled.
- * @param {string} [props.title] - The title of the button.
- * @param {string} [props.color] - The color of the button.
- * @param {string} [props.hoverColor] - The hover color of the button.
- * @param {string} [props.shadow] - The shadow of the button.
- * @param {string} [props.type] - The type of the button.
- * @returns {JSX.Element} The rendered button component.
- * @example
- * <Button>Button</Button>
- * <Button color="primary">Button</Button>
- * <Button color="secondary">Button</Button>
- * <Button color="accent">Button</Button>
- * <Button color="light-grey">Button</Button>
- * <Button color="sage">Button</Button>
- * <Button color="slate">Button</Button>
- * <Button color="bittersweet">Button</Button>
- * <Button shadow="small">Button</Button>
- * <Button shadow="medium">Button</Button>
- * <Button shadow="large">Button</Button>
- * <Button href="/">Button</Button>
- * <Button target="_blank" href="/">Button</Button>
- * <Button disabled>Button</Button>
- * <Button action={() => alert('Button clicked')}>Button</Button>
- * <Button title="Button">Button</Button>
- */
 export type ButtonProps = {
   action?: () => void;
   className?: string;
@@ -57,7 +25,32 @@ export type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
   variant?: 'outlined' | 'fill';
   styleOverrides?: React.CSSProperties;
+  id?: string;
+  width?: 'auto' | 'full' | 'half' | 'quarter' | 'third' | 'two-thirds' | 'three-quarters';
 };
+
+/**
+ * Button component renders a button with a custom color, shadow, href, target, title, and action.
+ * @param {ButtonProps} props
+ * @returns {JSX.Element} The rendered button component.
+ * @example
+ * <Button>Button</Button>
+ * <Button color="primary">Button</Button>
+ * <Button color="secondary">Button</Button>
+ * <Button color="accent">Button</Button>
+ * <Button color="light-grey">Button</Button>
+ * <Button color="sage">Button</Button>
+ * <Button color="slate">Button</Button>
+ * <Button color="bittersweet">Button</Button>
+ * <Button shadow="small">Button</Button>
+ * <Button shadow="medium">Button</Button>
+ * <Button shadow="large">Button</Button>
+ * <Button href="/">Button</Button>
+ * <Button target="_blank" href="/">Button</Button>
+ * <Button disabled>Button</Button>
+ * <Button action={() => alert('Button clicked')}>Button</Button>
+ * <Button title="Button">Button</Button>
+ */
 
 export const Button = ({
   action,
@@ -73,6 +66,7 @@ export const Button = ({
   hoverColor = 'default',
   variant = 'fill',
   styleOverrides,
+  width = 'auto',
 }: ButtonProps) => {
   const buttonClasses = clsx(style.button, className, {
     [style[`button--clr-${color}`]]: !!color,
@@ -80,6 +74,7 @@ export const Button = ({
     [style[`button--hover-clr-${hoverColor}`]]:
       hoverColor && hoverColor !== 'default' && variant !== 'outlined',
     [style[`button--${variant}`]]: variant,
+    [style[`button-width--${width}`]]: width !== 'auto',
   });
 
   if (!href) {

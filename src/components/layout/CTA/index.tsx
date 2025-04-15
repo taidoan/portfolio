@@ -1,5 +1,6 @@
 import type { LinksBlockProps } from '@/payload-types';
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+import type { ColorType } from '@/payload/fields/BackgroundColour';
 import { headingConverter } from '../../ui/RichText/converters/heading';
 import { getHref } from '@/lib/utilities/getHref';
 import { clsx } from 'clsx';
@@ -7,17 +8,6 @@ import { RichText } from '@components/ui/RichText';
 import { Button } from '../../ui/Button';
 import { Alert, AlertTitle } from '../../ui/Alert';
 
-export type ColorType =
-  | 'primary'
-  | 'secondary'
-  | 'accent'
-  | 'light'
-  | 'gradient-primary'
-  | 'gradient-secondary'
-  | 'gradient-accent'
-  | 'gradient-light'
-  | 'gradient-grey'
-  | 'none';
 export type VariantType = 'outlined' | 'outlined-thick' | 'fill';
 
 export type CTAProps = {

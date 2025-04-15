@@ -35,24 +35,10 @@
   background-color: var(--clr-accent-400);
 }
 
-.bg--urban-steel {
-  background-color: var(--clr-urban-steel-400);
-}
-
-.bg--slate {
-  background-color: var(--clr-slate-400);
-}
-
-.bg--bitter-sweet {
-  background-color: var(--clr-bittersweet-400);
-}
-
-.bg--chery-punch {
-  background-color: var(--clr-cherry-punch-400);
-}
-
-.bg--fresh-leaf {
-  background-color: var(--clr-fresh-leaf-400);
+@each $color-name, $color-value in $colour-palette {
+  .bg--#{$color-name} {
+    background-color: var(--clr-#{$color-name}-400);
+  }
 }
 
 .bg--gradient-light {

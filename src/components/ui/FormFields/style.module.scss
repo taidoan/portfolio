@@ -22,3 +22,16 @@
 .search__button--outside {
   margin-top: 0;
 }
+
+.field__wrapper {
+  display: flex;
+  flex-direction: column;
+
+  & + .field__wrapper {
+    margin-top: size-clamp(rem(16), rem(20));
+  }
+
+  & + button[type='submit'] {
+    margin-top: size-clamp(rem(20), rem(32));
+  }
+}

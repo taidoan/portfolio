@@ -14,7 +14,6 @@ import {
   SelectField,
   TextareaField,
   FormField,
-  Label,
 } from '.';
 
 const meta: Meta<typeof TextField> = {
@@ -23,129 +22,142 @@ const meta: Meta<typeof TextField> = {
   tags: ['autodocs'],
   args: {
     className: 'text-sm',
+    showLabel: true,
   },
   argTypes: {
     className: {
       description: 'Add a custom class to the field',
+      control: { type: 'text' },
+    },
+    label: {
+      control: { type: 'text' },
+      description: 'Add a label to the field',
+    },
+    showLabel: {
+      control: { type: 'boolean' },
+      description: 'Show or hide the label',
+    },
+    required: {
+      control: { type: 'boolean' },
+      description: 'Make the field required',
+    },
+    name: {
+      control: { type: 'text' },
+      description: 'Add a name to the field',
     },
   },
 };
 export default meta;
 type Story = StoryObj<typeof TextField>;
 
-export const Default: Story = {
-  render: () => (
+export const Text: StoryObj<typeof TextField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='text-field'>Text Field</Label>
-      <TextField id='text-field' placeholder='Enter text' />
+      <TextField name='text-field' placeholder='Enter text' {...args} />
     </FormField>
   ),
 };
 
-export const Search: Story = {
-  render: () => (
+export const Search: StoryObj<typeof SearchField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='search-field'>Search Field</Label>
-      <SearchField id='search-field' placeholder='Enter search' />
+      <SearchField name='search-field' placeholder='Enter search' showLabel={false} {...args} />
     </FormField>
   ),
 };
 
-export const SearchOutside: Story = {
-  render: () => (
+export const SearchOutside: StoryObj<typeof SearchField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='search-field'>Search Field</Label>
-      <SearchField id='search-field' placeholder='Enter search' submitPosition='outside' />
+      <SearchField
+        name='search-field'
+        placeholder='Enter search'
+        submitPosition='outside'
+        {...args}
+      />
     </FormField>
   ),
 };
 
-export const Number: Story = {
-  render: () => (
+export const Number: StoryObj<typeof NumberField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='number-field'>Number Field</Label>
-      <NumberField id='number-field' placeholder='Enter number' />
+      <NumberField name='number-field' placeholder='Enter number' {...args} />
     </FormField>
   ),
 };
 
-export const Password: Story = {
-  render: () => (
+export const Password: StoryObj<typeof PasswordField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='password-field'>Password Field</Label>
-      <PasswordField id='password-field' placeholder='Enter password' />
+      <PasswordField name='password-field' placeholder='Enter password' {...args} />
     </FormField>
   ),
 };
 
-export const Email: Story = {
-  render: () => (
+export const Email: StoryObj<typeof EmailField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='email-field'>Email Field</Label>
-      <EmailField id='email-field' placeholder='Enter email' />
+      <EmailField name='email-field' placeholder='Enter email' {...args} />
     </FormField>
   ),
 };
 
-export const Range: Story = {
-  render: () => (
+export const Range: StoryObj<typeof RangeField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='range-field'>Range Field</Label>
-      <RangeField id='range-field' placeholder='Enter range' />
+      <RangeField name='range-field' placeholder='Enter range' {...args} />
     </FormField>
   ),
 };
 
-export const Date: Story = {
-  render: () => (
+export const Date: StoryObj<typeof DateField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='date-field'>Date Field</Label>
-      <DateField id='date-field' placeholder='Enter date' />
+      <DateField name='date-field' placeholder='Enter date' {...args} />
     </FormField>
   ),
 };
 
-export const Color: Story = {
-  render: () => (
+export const Color: StoryObj<typeof ColorField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='color-field'>Color Field</Label>
-      <ColorField id='color-field' placeholder='Enter color' />
+      <ColorField name='color-field' placeholder='Enter color' {...args} />
     </FormField>
   ),
 };
 
-export const File: Story = {
-  render: () => (
+export const File: StoryObj<typeof FileField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='file-field'>File Field</Label>
-      <FileField id='file-field' placeholder='Select file' />
+      <FileField name='file-field' placeholder='Select file' {...args} />
     </FormField>
   ),
 };
 
-export const Checkbox: Story = {
-  render: () => (
+export const Checkbox: StoryObj<typeof CheckboxField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='checkbox-field'>Checkbox Field</Label>
-      <CheckboxField id='checkbox-field' placeholder='Checkbox' />
+      <CheckboxField name='checkbox-field' placeholder='Checkbox' {...args} />
     </FormField>
   ),
 };
 
-export const Radio: Story = {
-  render: () => (
+export const Radio: StoryObj<typeof RadioField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='radio-field'>Radio Field</Label>
-      <RadioField id='radio-field' placeholder='Radio' />
+      <RadioField name='radio-field' placeholder='Radio' {...args} />
     </FormField>
   ),
 };
 
-export const Select: Story = {
-  render: () => (
+export const Select: StoryObj<typeof SelectField> = {
+  args: {
+    showLabel: true,
+  },
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='select-field'>Select Field</Label>
-      <SelectField id='select-field'>
+      <SelectField name='select-field' {...args}>
         <option value='option-1'>Option 1</option>
         <option value='option-2'>Option 2</option>
         <option value='option-3'>Option 3</option>
@@ -154,11 +166,10 @@ export const Select: Story = {
   ),
 };
 
-export const Textarea: Story = {
-  render: () => (
+export const Textarea: StoryObj<typeof TextareaField> = {
+  render: ({ ...args }) => (
     <FormField>
-      <Label htmlFor='textarea-field'>Textarea Field</Label>
-      <TextareaField id='textarea-field' placeholder='Enter text' />
+      <TextareaField name='textarea-field' placeholder='Enter text' {...args} />
     </FormField>
   ),
 };
@@ -166,41 +177,18 @@ export const Textarea: Story = {
 export const AllFormFields: Story = {
   render: () => (
     <FormField>
-      <Label htmlFor='form-field'>Form Field</Label>
-      <TextField id='form-field' placeholder='Enter text' />
-
-      <Label htmlFor='search-field'>Search Field</Label>
-      <SearchField id='search-field' placeholder='Enter search' />
-
-      <Label htmlFor='number-field'>Number Field</Label>
-      <NumberField id='number-field' placeholder='Enter number' />
-
-      <Label htmlFor='password-field'>Password Field</Label>
-      <PasswordField id='password-field' placeholder='Enter password' />
-
-      <Label htmlFor='email-field'>Email Field</Label>
-      <EmailField id='email-field' placeholder='Enter email' />
-
-      <Label htmlFor='range-field'>Range Field</Label>
-      <RangeField id='range-field' placeholder='Enter range' />
-
-      <Label htmlFor='date-field'>Date Field</Label>
-      <DateField id='date-field' placeholder='Enter date' />
-
-      <Label htmlFor='color-field'>Color Field</Label>
-      <ColorField id='color-field' placeholder='Enter color' />
-
-      <Label htmlFor='file-field'>File Field</Label>
-      <FileField id='file-field' placeholder='Select file' />
-
-      <Label htmlFor='checkbox-field'>Checkbox Field</Label>
-      <CheckboxField id='checkbox-field' placeholder='Checkbox' />
-
-      <Label htmlFor='radio-field'>Radio Field</Label>
-      <RadioField id='radio-field' placeholder='Radio' />
-
-      <Label htmlFor='select-field'>Select Field</Label>
-      <SelectField id='select-field'>
+      <TextField name='form-field' placeholder='Enter text' />
+      <SearchField name='search-field' placeholder='Enter search' showLabel />
+      <NumberField name='number-field' placeholder='Enter number' />
+      <PasswordField name='password-field' placeholder='Enter password' />
+      <EmailField name='email-field' placeholder='Enter email' />
+      <RangeField name='range-field' placeholder='Enter range' />
+      <DateField name='date-field' placeholder='Enter date' />
+      <ColorField name='color-field' placeholder='Enter color' />
+      <FileField name='file-field' placeholder='Select file' />
+      <CheckboxField name='checkbox-field' placeholder='Checkbox' />
+      <RadioField name='radio-field' placeholder='Radio' />
+      <SelectField name='select-field'>
         <option value='option-1'>Option 1</option>
         <option value='option-2'>Option 2</option>
         <option value='option-3'>Option 3</option>

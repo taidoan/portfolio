@@ -1,10 +1,17 @@
 import style from './style.module.scss';
+import clsx from 'clsx';
 
-export const Spinner = () => {
+export const Spinner = ({
+  className,
+  text = 'Loading...',
+}: {
+  className?: string;
+  text?: string;
+}) => {
   return (
-    <div className={style.spinner__container}>
+    <div className={clsx(style.spinner__container, className)}>
       <div className={style.spinner}></div>
-      <p>Loading...</p>
+      <p>{text}</p>
     </div>
   );
 };

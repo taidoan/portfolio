@@ -11,6 +11,7 @@ import { BioBlock } from '../Bio/config';
 import { ToolsBlock } from '../Tools/config';
 import { TopTracksBlock } from '../TopTracks/config';
 import { RelatedProjectsBlock } from '../RelatedProjects/config';
+import { FormBlock } from '../Form/config';
 
 import { BlocksEditor } from '@/payload/fields/Lexical/BlocksEditor';
 import { BackgroundColour } from '@/payload/fields/BackgroundColour';
@@ -31,6 +32,7 @@ const Blocks = [
   ToolsBlock,
   TopTracksBlock,
   RelatedProjectsBlock,
+  FormBlock,
 ];
 
 export const SectionBlock: Block = {

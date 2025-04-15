@@ -88,5 +88,5 @@
 }
 
 .alert + * {
-  margin-top: 1.25rem;
+  margin-top: size-clamp(1.5rem, 2rem);
 }
