@@ -153,6 +153,7 @@
   & {
     height: 50dvh;
     max-height: rem(544);
+    min-height: rem(360);
     padding: size-clamp(rem(20), rem(80));
   }
 }
@@ -166,6 +167,7 @@
   & {
     height: 85dvh;
     max-height: rem(800);
+    min-height: rem(360);
     padding-block: size-clamp(rem(20), rem(48));
     padding-inline: size-clamp(rem(20), rem(80));
 
