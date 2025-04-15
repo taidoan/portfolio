@@ -2,15 +2,18 @@
 import type { Form as FormType } from '@payloadcms/plugin-form-builder/types';
 
 import { useRouter } from 'next/navigation';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { buildInitialFormState } from './initialFormState';
 import { fields } from './fields';
 import clsx from 'clsx';
+
 import RichText from '@/components/ui/RichText';
 import { Button } from '@components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
+import { Turnstile } from 'next-turnstile';
+import { TURNSTILE_SITE_KEY } from '@/lib/constants';
 
 export type Value = unknown;
 
@@ -58,14 +61,28 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState<boolean>();
   const [error, setError] = useState<{ message: string; status?: string } | undefined>();
-  const router = useRouter();
+  const [turnstileStatus, setTurnstileStatus] = useState<
+    'success' | 'error' | 'expired' | 'required'
+  >('required');
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
 
+  const formSubmitAttempted = useRef(false);
+  const router = useRouter();
   const onSubmit = useCallback(
     (data: Data) => {
       let loadingTimerID: ReturnType<typeof setTimeout>;
 
       const submitForm = async () => {
         setError(undefined);
+        formSubmitAttempted.current = true;
+
+        if (turnstileStatus !== 'success' || !turnstileToken) {
+          setError({
+            message: 'Please verify you are a not a robot.',
+          });
+          setIsLoading(false);
+          return;
+        }
 
         const dataToSend = Object.entries(data).map(([name, value]) => ({
           field: name,
@@ -77,10 +94,11 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
         }, 1000);
 
         try {
-          const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/form-submissions`, {
+          const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/forms`, {
             body: JSON.stringify({
               form: formID,
               submissionData: dataToSend,
+              token: turnstileToken,
             }),
             headers: {
               'Content-Type': 'application/json',
@@ -96,7 +114,7 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
             setIsLoading(false);
             setError({
               message: res.error?.[0]?.message || 'Internal Server Error',
-              status: res.status,
+              status: res.status.toString(),
             });
 
             return;
@@ -116,13 +134,14 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
           setIsLoading(false);
           setError({
             message: 'Something went wrong, please try again later.',
+            status: '500',
           });
         }
       };
 
       void submitForm();
     },
-    [router, formID, redirect, confirmationType],
+    [router, formID, redirect, confirmationType, turnstileStatus, turnstileToken],
   );
 
   const formClasses = clsx(customClassName, {
@@ -146,7 +165,7 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
       )}
       {error && (
         <Alert severity='error'>
-          <AlertTitle>${error.status || '500'}</AlertTitle>
+          <AlertTitle>{error.status || '500'}</AlertTitle>
           {error.message || ''}
         </Alert>
       )}
@@ -155,6 +174,7 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
           {formFromProps &&
             formFromProps.fields &&
             formFromProps.fields.map((field, index) => {
+              /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
               const Field: React.FC<any> = fields?.[field.blockType];
 
               if (Field) {
@@ -173,7 +193,40 @@ export const FormBlock: React.FC<FormBlockType> = ({ className, ...props }) => {
 
               return null;
             })}
-          <Button type='submit' color='secondary' hoverColor='accent'>
+          <Turnstile
+            siteKey={TURNSTILE_SITE_KEY}
+            theme='light'
+            className='turnstile__widget'
+            appearance='execute'
+            execution='render'
+            /* @ts-expect-error - turnstile typings are incorrect */
+            size='flexible'
+            onError={() => {
+              setTurnstileStatus('error');
+              setTurnstileToken('');
+              setError({
+                message: 'Security check failed, please try again.',
+              });
+            }}
+            onExpire={() => {
+              setTurnstileStatus('expired');
+              setTurnstileToken('');
+              setError({
+                message: 'Security check expired, please verify again.',
+              });
+            }}
+            onLoad={() => {
+              setTurnstileStatus('required');
+              setTurnstileToken('');
+              setError(undefined);
+            }}
+            onVerify={(token) => {
+              setTurnstileStatus('success');
+              setTurnstileToken(token);
+              setError(undefined);
+            }}
+          />
+          <Button type='submit' color='secondary' hoverColor='accent' width='full'>
             {submitButtonLabel}
           </Button>
         </form>

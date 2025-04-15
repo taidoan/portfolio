@@ -251,7 +251,7 @@ select {
 }
 
 label {
-  color: var(--clr-urban-steel-500);
+  color: var(--clr-urban-steel-600);
   column-gap: rem(2);
   display: flex;
   font-family: var(--ff-display);
@@ -278,5 +278,14 @@ label {
   span.required {
     color: var(--clr-cherry-punch-400);
     display: inline-block;
+  }
+}
+
+.turnstile__widget {
+  margin-block: size-clamp(rem(24), rem(32));
+
+  & > div {
+    display: flex;
+    justify-content: center;
   }
 }

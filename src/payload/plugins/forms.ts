@@ -1,5 +1,4 @@
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder';
-
 export const FormBuilder = () => {
   return formBuilderPlugin({
     fields: {
