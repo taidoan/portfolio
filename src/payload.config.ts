@@ -14,12 +14,14 @@ import { Users } from './payload/collections/Users';
 
 import { AUTHOR_NAME } from './lib/constants';
 import { CONTACT_EMAIL } from './lib/constants';
+import { getServerSideURL } from './lib/utilities/getURLs';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
   serverURL: process.env.SERVER_URL,
+  cors: [getServerSideURL()].filter(Boolean),
   email: resendAdapter({
     defaultFromAddress: CONTACT_EMAIL,
     defaultFromName: AUTHOR_NAME,
