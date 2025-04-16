@@ -62,7 +62,7 @@ jobs:
 
           if [[ -n "$(git status --porcelain)" ]]; then
             git add .
-            git commit -m "docs: update documentation [skip ci]"
+            git commit -m "Docs: Update documentation"
             git push
           else
             echo "No changes to commit"
