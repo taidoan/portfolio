@@ -38,12 +38,12 @@ export const Header = ({ data, social }: HeaderProps) => {
       const currentScrollY = window.scrollY;
       const headerHeight = initialHeaderHeight.current || 0;
 
-      if (currentScrollY > headerHeight - 10) {
+      if (currentScrollY > headerHeight) {
         setScrolled(true);
       } else if (!isDesktop) {
         setScrolled(currentScrollY === 0 ? false : true);
       } else {
-        setScrolled(currentScrollY < headerHeight / 5 ? false : true);
+        setScrolled(currentScrollY < headerHeight ? false : true);
       }
     };
 

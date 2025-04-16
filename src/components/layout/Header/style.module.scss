@@ -22,11 +22,13 @@ header.header {
     box-shadow: var(--shadow-button);
     position: fixed;
     top: 0;
-    transition: all var(--transition-duration-fast);
+    transition:
+      all var(--transition-duration-fast),
+      padding var(--transition-duration-slow);
     width: 100%;
 
     @include mq('md') {
-      animation: slide-in-from-top 0.4s ease-out forwards;
+      animation: slide-in-from-top var(--transition-duration-fast) ease-out forwards;
       padding-block: rem(12);
       .logo {
         --width: #{rem(56)};
@@ -53,7 +55,7 @@ header.header {
 
 @keyframes slide-in-from-top {
   from {
-    transform: translateY(-100%);
+    transform: translateY(-50%);
   }
 
   to {
