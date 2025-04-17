@@ -20,8 +20,9 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
-  serverURL: process.env.SERVER_URL,
-  cors: [getServerSideURL()].filter(Boolean),
+  serverURL: getServerSideURL(),
+  csrf: [getServerSideURL()],
+  cors: [getServerSideURL()],
   email: resendAdapter({
     defaultFromAddress: CONTACT_EMAIL,
     defaultFromName: AUTHOR_NAME,
