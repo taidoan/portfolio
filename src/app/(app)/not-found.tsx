@@ -3,6 +3,7 @@ import { Button } from '@components/ui/Button';
 export default function NotFound() {
   return (
     <div className='not-found__page'>
+      <title>Page Not Found</title>
       <div>
         <h2 className='section-heading'>Error</h2>
         <h1 className='not-found__title'>
