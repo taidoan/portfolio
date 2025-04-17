@@ -2,10 +2,6 @@ import { render, screen } from '@testing-library/react';
 import SpotifyRenderTracks from './render';
 import { ReactNode } from 'react';
 
-vi.mock('./utils/api', () => ({
-  getTopTracks: vi.fn(),
-}));
-
 vi.mock('next/image', () => ({
   default: ({
     src,

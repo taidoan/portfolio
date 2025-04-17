@@ -3,6 +3,7 @@ import { Archive } from './index';
 import { ReactNode } from 'react';
 import { mockPosts } from '@/mocks/data/mockPosts';
 import { mockCategories } from '@/mocks/data/mockCategories';
+import { getServerSideURL } from '@/lib/utilities/getURLs';
 
 vi.mock('motion/react', () => ({
   __esModule: true,
@@ -86,7 +87,7 @@ describe('<Archive>', () => {
     expect(cards.length).toBe(mockPosts.length);
 
     mockPosts.forEach((item, index) => {
-      expect(cards[index]).toHaveAttribute('data-href', `posts/${item.slug}`);
+      expect(cards[index]).toHaveAttribute('data-href', `${getServerSideURL()}/posts/${item.slug}`);
     });
   });
 
@@ -107,7 +108,7 @@ describe('<Archive>', () => {
 
     const cards = screen.getAllByTestId('card');
     expect(cards.length).toBe(1);
-    expect(cards[0]).toHaveAttribute('data-href', 'posts/post-4');
+    expect(cards[0]).toHaveAttribute('data-href', `${getServerSideURL()}/posts/post-4`);
   });
 
   it('should show warning when no data is found', () => {

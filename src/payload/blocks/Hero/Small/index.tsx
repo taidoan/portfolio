@@ -7,8 +7,6 @@ export type SmallHeroProps = HeroBlockProps & {
 };
 
 export const SmallHero = ({
-  image,
-  richText,
   showBreadcrumb,
   breadcrumbsData,
   breadcrumbContainer,
@@ -16,7 +14,6 @@ export const SmallHero = ({
 }: SmallHeroProps) => {
   return (
     <div>
-      Small Hero{' '}
       {showBreadcrumb && breadcrumbsData && breadcrumbsData.length > 0 && (
         <Breadcrumbs
           breadcrumbs={breadcrumbsData}

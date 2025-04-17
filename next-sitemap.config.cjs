@@ -1,8 +1,6 @@
-import { SITE_URL } from '@lib/constants';
-
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: SITE_URL,
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://taidoan.com',
   generateRobotsTxt: true,
   exclude: [
     '/pages-sitemap.xml',
@@ -22,10 +20,10 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      `${SITE_URL}/projects-sitemap.xml`,
-      `${SITE_URL}/pages-sitemap.xml`,
-      `${SITE_URL}/services-sitemap.xml`,
-      `${SITE_URL}/categories-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/projects-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/pages-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/services-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/categories-sitemap.xml`,
     ],
   },
 };

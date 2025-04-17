@@ -8,6 +8,7 @@ export type BreakpointProps = {
   value: string;
 };
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export const BreakpointSelect = (props: any) => {
   const { data, path } = props;
   const { value, setValue } = useField<string>({ path });

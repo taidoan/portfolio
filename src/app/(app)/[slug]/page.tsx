@@ -3,11 +3,13 @@ import type { RequiredDataFromCollectionSlug } from 'payload';
 
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
+
 import { draftMode } from 'next/headers';
-import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
+
+import { LivePreviewListener } from '@/components/features/LivePreview';
 import { Redirects } from '@/components/features/Redirects';
 import { RenderHero } from '@/payload/blocks/Hero/renderHero';
 import { RenderBlocks } from '@/payload/blocks/RenderBlocks';

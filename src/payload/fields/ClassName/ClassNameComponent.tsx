@@ -9,11 +9,7 @@ export type ClassNameComopnentProps = {
   checkboxFieldPath: string;
 } & TextFieldClientProps;
 
-export const ClassNameComponent = ({
-  field,
-  fieldToUse,
-  readOnly: boolean,
-}: ClassNameComopnentProps) => {
+export const ClassNameComponent = ({ field, fieldToUse }: ClassNameComopnentProps) => {
   const { label } = field;
   const { value, setValue } = useField<string>({ path: field.name || field.name });
 

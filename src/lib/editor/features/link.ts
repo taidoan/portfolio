@@ -17,6 +17,7 @@ export const LinksFeature = () => {
           type: 'text',
           label: ({ t }) => t('fields:enterURL'),
           required: true,
+          /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
           validate: (value: any, options: any) => {
             if (options?.siblingData?.linkType === 'internal') {
               return true;
