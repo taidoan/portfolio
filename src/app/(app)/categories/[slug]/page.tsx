@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import type { RequiredDataFromCollectionSlug } from 'payload';
+
 import clsx from 'clsx';
+import { getPayload } from 'payload';
+import configPromise from '@payload-config';
 
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
@@ -8,13 +11,33 @@ import { generateMeta } from '@/lib/utilities/generateMeta';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 
 import { LivePreviewListener } from '@/components/features/LivePreview';
-import { RenderBlocks } from '@/payload/blocks/RenderBlocks';
-import { ArchiveHero } from '@/payload/blocks/Hero/Archive';
 import { Redirects } from '@/components/features/Redirects';
 import { CTA } from '@/components/layout/CTA';
 import Sidebar from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/Button';
 import { ArchiveBlock } from '@/payload/blocks/Archive';
+import { RenderBlocks } from '@/payload/blocks/RenderBlocks';
+import { ArchiveHero } from '@/payload/blocks/Hero/Archive';
+
+export const generateStaticParams = async () => {
+  const payload = await getPayload({ config: configPromise });
+  const categories = await payload.find({
+    collection: 'categories',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  });
+
+  const params = categories.docs.map(({ slug }) => {
+    return { slug };
+  });
+
+  return params;
+};
 
 export type Args = {
   params: Promise<{ slug: string }>;

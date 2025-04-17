@@ -1,22 +1,46 @@
 import type { Metadata } from 'next';
 import type { RequiredDataFromCollectionSlug } from 'payload';
+
+import clsx from 'clsx';
+import Link from 'next/link';
+import { getPayload } from 'payload';
+import configPromise from '@payload-config';
+
 import { draftMode } from 'next/headers';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { generateMeta } from '@/lib/utilities/generateMeta';
-import clsx from 'clsx';
 
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { Redirects } from '@/components/features/Redirects';
 import { RichText } from '@/components/ui/RichText';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
-import { SlugPageHero } from '@/payload/blocks/Hero/SlugPage';
 import { Media } from '@components/ui/Media';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Divider } from '@/components/ui/Divider';
 import { Carousel } from '@/components/ui/Carousel';
 import { RenderBlocks } from '@/payload/blocks/RenderBlocks';
-import Link from 'next/link';
+import { SlugPageHero } from '@/payload/blocks/Hero/SlugPage';
+
+export const generateStaticParams = async () => {
+  const payload = await getPayload({ config: configPromise });
+  const services = await payload.find({
+    collection: 'services',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  });
+
+  const params = services.docs.map(({ slug }) => {
+    return { slug };
+  });
+
+  return params;
+};
 
 export type Args = {
   params: Promise<{ slug: string }>;

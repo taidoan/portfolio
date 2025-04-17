@@ -1,13 +1,18 @@
 import type { Metadata } from 'next';
 import type { RequiredDataFromCollectionSlug } from 'payload';
+
+import { getPayload } from 'payload';
+import configPromise from '@payload-config';
+
 import { draftMode } from 'next/headers';
 import { queryProjects } from '@/lib/utilities/queries/queryPagination';
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
-import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
+
 import { RichText } from '@/components/ui/RichText';
 import { SlugPageHero } from '@/payload/blocks/Hero/SlugPage';
+import { LivePreviewListener } from '@/components/features/LivePreview';
 import { headingConverter } from '@/components/ui/RichText/converters/heading';
 import { Redirects } from '@/components/features/Redirects';
 import clsx from 'clsx';
@@ -16,6 +21,26 @@ import { ProjectDetails } from '@/components/ui/Project/details';
 import { ProjectGallery } from '@/components/ui/Project/gallery';
 import { ProjectPagination } from '@/components/ui/ProjectPagination';
 import { CTA } from '@/components/layout/CTA';
+
+export const generateStaticParams = async () => {
+  const payload = await getPayload({ config: configPromise });
+  const projects = await payload.find({
+    collection: 'projects',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  });
+
+  const params = projects.docs.map(({ slug }) => {
+    return { slug };
+  });
+
+  return params;
+};
 
 export type Args = {
   params: Promise<{ slug: string }>;

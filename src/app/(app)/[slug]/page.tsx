@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import type { RequiredDataFromCollectionSlug } from 'payload';
+
+import { getPayload } from 'payload';
+import configPromise from '@payload-config';
 import { draftMode } from 'next/headers';
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { generateMeta } from '@/lib/utilities/generateMeta';
@@ -8,6 +11,30 @@ import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { Redirects } from '@/components/features/Redirects';
 import { RenderHero } from '@/payload/blocks/Hero/renderHero';
 import { RenderBlocks } from '@/payload/blocks/RenderBlocks';
+
+export const generateStaticParams = async () => {
+  const payload = await getPayload({ config: configPromise });
+  const pages = await payload.find({
+    collection: 'pages',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  });
+
+  const params = pages.docs
+    ?.filter((doc) => {
+      return doc.slug !== 'home';
+    })
+    .map(({ slug }) => {
+      return { slug };
+    });
+
+  return params;
+};
 
 export type Args = {
   params: Promise<{
