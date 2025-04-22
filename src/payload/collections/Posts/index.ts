@@ -17,6 +17,9 @@ import { ClonedField } from '@fields/ClonedField';
 import { CTAFields } from '@fields/CTAFields';
 import { urlField } from '@fields/URL';
 
+import { MediaBlock } from '@/payload/blocks/Media/config';
+import { CarouselBlock } from '@/payload/blocks/Carousel/config';
+
 export const Posts: CollectionConfig = {
   slug: 'posts',
   access: {
@@ -115,9 +118,9 @@ export const Posts: CollectionConfig = {
               },
             },
             {
-              type: 'richText',
-              name: 'content',
-              label: 'Post Content',
+              name: 'layout',
+              type: 'blocks',
+              blocks: [MediaBlock, CarouselBlock],
             },
           ],
         },

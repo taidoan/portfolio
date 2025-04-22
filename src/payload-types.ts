@@ -986,21 +986,7 @@ export interface Post {
    * A short description of the post, used for previews and listings.
    */
   excerpt?: string | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  layout?: (MediaBlockProps | CarouselBlockProps)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -1286,6 +1272,273 @@ export interface ArchiveBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlockProps".
+ */
+export interface MediaBlockProps {
+  mediaType: 'image' | 'video' | 'pdf';
+  media: string | Media;
+  showCaption?: boolean | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
+  videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
+  videoWidth?: number | null;
+  videoHeight?: number | null;
+  pdfWidth?: string | null;
+  pdfHeight?: string | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  className?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlockProps".
+ */
+export interface CarouselBlockProps {
+  carouselItems?: (CardBlockProps | MediaBlockProps)[] | null;
+  carouselConfig: {
+    autoHeight: boolean;
+    autoPlay: boolean;
+    keyboardControls: boolean;
+    buttonNavigation: boolean;
+    pagination: boolean;
+    loop: boolean;
+    direction: 'horizontal' | 'vertical';
+    focus?: boolean | null;
+    paginationType?: ('bullets' | 'progress') | null;
+    /**
+     * The spacing between slides in pixels.
+     */
+    slideSpacing: number;
+    /**
+     * The number of slides to show at a time.
+     */
+    slidesPerView: number;
+    /**
+     * The number of slides to scroll at a time.
+     */
+    slidesToScroll: 'auto' | '1' | '2' | '3' | '4';
+  };
+  /**
+   * You can change the class names for the carousel. This is especially useful if you are using a CSS framework like Tailwind or BEM naming conventions. It is also helpful if you want to easily style the carousel disabled state with CSS.
+   */
+  carouselClassNames?: {
+    container?: string | null;
+    wrapper?: string | null;
+    slide?: string | null;
+  };
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  /**
+   * Enable responsive mode to disable the carousel at  a certain breakpoint. This is useful if you want to use the carousel on smaller screens but still want to have the ability to navigate through the slides.
+   */
+  responsive?: boolean | null;
+  breakpointSelection?: string | null;
+  /**
+   * What it the size of the grid?
+   */
+  gridColumns: '1' | '2' | '3' | '4' | '6' | '8' | '12';
+  /**
+   * How many colummns should the slides span?
+   */
+  slideColumnSpan: '1' | '2' | '3' | '4' | '6' | '12';
+  /**
+   * The amount of featured items, these will appear larger compared to the rest of the items.
+   */
+  featuredItems?: ('0' | '1' | '2') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'carouselBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardBlockProps".
+ */
+export interface CardBlockProps {
+  relationTo: 'default' | 'projects' | 'services' | 'posts';
+  relatedProject?: (string | null) | Project;
+  relatedService?: (string | null) | Service;
+  relatedPost?: (string | null) | Post;
+  /**
+   * The title of the card.
+   */
+  title?: string | null;
+  /**
+   * Whether to use an inner container for the card content.
+   */
+  insideContainer?: ('yes' | 'no') | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * (Leave blank if you want to use the project type set in the project itself)
+   */
+  projectType?: string | null;
+  /**
+   * (Leave blank if you want to use the service description set in the service itself)
+   */
+  serviceContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Use this to override the default post excerpt
+   */
+  postContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cardImage?: {
+    image?: (string | null) | Media;
+    /**
+     * Position the image inside or outside the card content.
+     */
+    imagePosition?: ('inside' | 'outside') | null;
+    /**
+     * Align the image at the top or bottom of the card content.
+     */
+    imageAlign?: ('top' | 'bottom') | null;
+    /**
+     * The border radius of the image.
+     */
+    imageBorderRadius?: ('none' | 'top' | 'bottom' | 'left' | 'right' | 'all') | null;
+  };
+  className?: string | null;
+  textAlign?: ('left' | 'centered' | 'right') | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cardBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tags".
  */
 export interface Tag {
@@ -1421,188 +1674,6 @@ export interface IntroBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlockProps".
- */
-export interface MediaBlockProps {
-  mediaType: 'image' | 'video' | 'pdf';
-  media: string | Media;
-  showCaption?: boolean | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
-  borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
-  videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
-  videoWidth?: number | null;
-  videoHeight?: number | null;
-  pdfWidth?: string | null;
-  pdfHeight?: string | null;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  className?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CardBlockProps".
- */
-export interface CardBlockProps {
-  relationTo: 'default' | 'projects' | 'services' | 'posts';
-  relatedProject?: (string | null) | Project;
-  relatedService?: (string | null) | Service;
-  relatedPost?: (string | null) | Post;
-  /**
-   * The title of the card.
-   */
-  title?: string | null;
-  /**
-   * Whether to use an inner container for the card content.
-   */
-  insideContainer?: ('yes' | 'no') | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * (Leave blank if you want to use the project type set in the project itself)
-   */
-  projectType?: string | null;
-  /**
-   * (Leave blank if you want to use the service description set in the service itself)
-   */
-  serviceContent?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Use this to override the default post excerpt
-   */
-  postContent?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  cardImage?: {
-    image?: (string | null) | Media;
-    /**
-     * Position the image inside or outside the card content.
-     */
-    imagePosition?: ('inside' | 'outside') | null;
-    /**
-     * Align the image at the top or bottom of the card content.
-     */
-    imageAlign?: ('top' | 'bottom') | null;
-    /**
-     * The border radius of the image.
-     */
-    imageBorderRadius?: ('none' | 'top' | 'bottom' | 'left' | 'right' | 'all') | null;
-  };
-  className?: string | null;
-  textAlign?: ('left' | 'centered' | 'right') | null;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cardBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AccordionBlockProps".
  */
 export interface AccordionBlockProps {
@@ -1659,91 +1730,6 @@ export interface AccordionBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'accordionBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CarouselBlockProps".
- */
-export interface CarouselBlockProps {
-  carouselItems?: (CardBlockProps | MediaBlockProps)[] | null;
-  carouselConfig: {
-    autoHeight: boolean;
-    autoPlay: boolean;
-    keyboardControls: boolean;
-    buttonNavigation: boolean;
-    pagination: boolean;
-    loop: boolean;
-    direction: 'horizontal' | 'vertical';
-    focus?: boolean | null;
-    paginationType?: ('bullets' | 'progress') | null;
-    /**
-     * The spacing between slides in pixels.
-     */
-    slideSpacing: number;
-    /**
-     * The number of slides to show at a time.
-     */
-    slidesPerView: number;
-    /**
-     * The number of slides to scroll at a time.
-     */
-    slidesToScroll: 'auto' | '1' | '2' | '3' | '4';
-  };
-  /**
-   * You can change the class names for the carousel. This is especially useful if you are using a CSS framework like Tailwind or BEM naming conventions. It is also helpful if you want to easily style the carousel disabled state with CSS.
-   */
-  carouselClassNames?: {
-    container?: string | null;
-    wrapper?: string | null;
-    slide?: string | null;
-  };
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  /**
-   * Enable responsive mode to disable the carousel at  a certain breakpoint. This is useful if you want to use the carousel on smaller screens but still want to have the ability to navigate through the slides.
-   */
-  responsive?: boolean | null;
-  breakpointSelection?: string | null;
-  /**
-   * What it the size of the grid?
-   */
-  gridColumns: '1' | '2' | '3' | '4' | '6' | '8' | '12';
-  /**
-   * How many colummns should the slides span?
-   */
-  slideColumnSpan: '1' | '2' | '3' | '4' | '6' | '12';
-  /**
-   * The amount of featured items, these will appear larger compared to the rest of the items.
-   */
-  featuredItems?: ('0' | '1' | '2') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'carouselBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3392,7 +3378,12 @@ export interface PostsSelect<T extends boolean = true> {
             };
       };
   excerpt?: T;
-  content?: T;
+  layout?:
+    | T
+    | {
+        mediaBlock?: T | MediaBlockPropsSelect<T>;
+        carouselBlock?: T | CarouselBlockPropsSelect<T>;
+      };
   meta?:
     | T
     | {
