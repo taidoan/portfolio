@@ -986,7 +986,7 @@ export interface Post {
    * A short description of the post, used for previews and listings.
    */
   excerpt?: string | null;
-  layout?: (MediaBlockProps | CarouselBlockProps)[] | null;
+  layout?: (MediaBlockProps | CarouselBlockProps | ContentBlockProps)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -1536,6 +1536,59 @@ export interface CardBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cardBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlockProps".
+ */
+export interface ContentBlockProps {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  container?: ('boxed' | 'none') | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  className?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3383,6 +3436,7 @@ export interface PostsSelect<T extends boolean = true> {
     | {
         mediaBlock?: T | MediaBlockPropsSelect<T>;
         carouselBlock?: T | CarouselBlockPropsSelect<T>;
+        contentBlock?: T | ContentBlockPropsSelect<T>;
       };
   meta?:
     | T
@@ -3431,6 +3485,24 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlockProps_select".
+ */
+export interface ContentBlockPropsSelect<T extends boolean = true> {
+  content?: T;
+  container?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  className?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

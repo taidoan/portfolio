@@ -19,6 +19,7 @@ import { urlField } from '@fields/URL';
 
 import { MediaBlock } from '@/payload/blocks/Media/config';
 import { CarouselBlock } from '@/payload/blocks/Carousel/config';
+import { ContentBlock } from '@/payload/blocks/Content/config';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -120,7 +121,7 @@ export const Posts: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [MediaBlock, CarouselBlock],
+              blocks: [MediaBlock, CarouselBlock, ContentBlock],
             },
           ],
         },
