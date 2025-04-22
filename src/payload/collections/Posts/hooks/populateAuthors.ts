@@ -24,8 +24,6 @@ export const populateAuthor: CollectionAfterReadHook = async ({ doc, req: { payl
         id: authorDoc.id,
         name: authorDoc.name,
       }));
-
-      payload.logger.info(`Populated authors: ${authorDocs.map((a) => a.name).join(', ')}`);
     }
   }
 

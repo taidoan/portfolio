@@ -1,7 +1,8 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, authenticatedOrPublished } from '@/payload/access';
 import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
-import { populateAuthor } from '@/payload/collections/Posts/hooks/populateAuthors';
+import { populateAuthor } from './hooks/populateAuthors';
+import { revalidateDelete, revalidatePost } from './hooks/revalidatePost';
 
 import {
   MetaDescriptionField,
@@ -40,6 +41,8 @@ export const Posts: CollectionConfig = {
   },
   hooks: {
     afterRead: [populateAuthor],
+    afterChange: [revalidatePost],
+    afterDelete: [revalidateDelete],
   },
   versions: {
     maxPerDoc: 50,
