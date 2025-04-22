@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload';
 import { authenticated, authenticatedOrPublished } from '@/payload/access';
+import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
+import { populateAuthor } from '@/payload/collections/Posts/hooks/populateAuthors';
+
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -8,6 +11,9 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 import { SlugField } from '@fields/Slug';
+import { BreadCrumbs } from '@fields/Breadcrumbs';
+import { ClonedField } from '@fields/ClonedField';
+import { CTAFields } from '@fields/CTAFields';
 import { urlField } from '@fields/URL';
 
 export const Posts: CollectionConfig = {
@@ -20,6 +26,20 @@ export const Posts: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    livePreview: {
+      url: ({ data, req }) => {
+        const path = generatePreviewPath({
+          slug: typeof data?.slug === 'string' ? data.slug : '',
+          collection: 'posts',
+          req,
+        });
+
+        return path;
+      },
+    },
+  },
+  hooks: {
+    afterRead: [populateAuthor],
   },
   versions: {
     maxPerDoc: 50,
@@ -41,8 +61,56 @@ export const Posts: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
+          label: 'Hero',
+          name: 'hero',
+          fields: [
+            {
+              type: 'text',
+              name: 'subtitle',
+              label: 'Subtitle',
+              admin: {
+                description:
+                  'The subtitle of the post. This will appear above the title. Defaults to the first post category.',
+              },
+            },
+            ...ClonedField('title', {
+              clonedOverrides: {
+                name: 'titleOverride',
+                label: 'Title Override',
+                admin: {
+                  description:
+                    'Use this if you want to override the post title that appears in the hero.',
+                },
+              },
+            }),
+            {
+              type: 'group',
+              name: 'breadcrumbs',
+              label: 'Breadcrumbs',
+              admin: {
+                description: 'The breadcrumbs for the post. This will appear in the hero.',
+              },
+              fields: [
+                BreadCrumbs({
+                  relationTo: ['posts', 'pages', 'categories'],
+                }),
+              ],
+            },
+          ],
+        },
+        {
           label: 'Content',
           fields: [
+            {
+              name: 'excerpt',
+              type: 'textarea',
+              maxLength: 300,
+              label: 'Excerpt',
+              admin: {
+                description: 'A short description of the post, used for previews and listings.',
+                position: 'sidebar',
+              },
+            },
             {
               type: 'richText',
               name: 'content',
@@ -79,10 +147,64 @@ export const Posts: CollectionConfig = {
             disableListColumn: true,
           },
         },
+        {
+          label: 'CTA',
+          fields: [CTAFields()],
+        },
       ],
+    },
+    {
+      name: 'publishedAt',
+      type: 'date',
+      admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
+        position: 'sidebar',
+      },
+      hooks: {
+        beforeChange: [
+          ({ siblingData, value }) => {
+            if (siblingData._status === 'published' && !value) {
+              return new Date();
+            }
+            return value;
+          },
+        ],
+      },
     },
     ...SlugField(),
     urlField('slug', 'posts'),
+    {
+      name: 'author',
+      type: 'relationship',
+      admin: {
+        position: 'sidebar',
+      },
+      hasMany: true,
+      relationTo: 'users',
+    },
+    {
+      name: 'populatedAuthors',
+      type: 'array',
+      access: {
+        update: () => false,
+      },
+      admin: {
+        disabled: true,
+        readOnly: true,
+      },
+      fields: [
+        {
+          name: 'id',
+          type: 'text',
+        },
+        {
+          name: 'name',
+          type: 'text',
+        },
+      ],
+    },
     {
       name: 'thumbnail',
       type: 'upload',
@@ -105,16 +227,6 @@ export const Posts: CollectionConfig = {
       },
     },
     {
-      name: 'excerpt',
-      type: 'textarea',
-      maxLength: 300,
-      label: 'Excerpt',
-      admin: {
-        description: 'A short description of the post, used for previews and listings.',
-        position: 'sidebar',
-      },
-    },
-    {
       name: 'tags',
       type: 'relationship',
       relationTo: 'tags',
@@ -122,6 +234,14 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       admin: {
         position: 'sidebar',
+      },
+    },
+    {
+      name: 'relationTo',
+      type: 'text',
+      defaultValue: 'posts',
+      admin: {
+        hidden: true,
       },
     },
   ],
