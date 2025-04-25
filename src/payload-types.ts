@@ -1542,7 +1542,7 @@ export interface CardBlockProps {
  * via the `definition` "ContentBlockProps".
  */
 export interface ContentBlockProps {
-  content?: {
+  content: {
     root: {
       type: string;
       children: {
@@ -1556,8 +1556,9 @@ export interface ContentBlockProps {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
   container?: ('boxed' | 'none') | null;
+  boxedPadding?: ('small' | 'base' | 'medium' | 'large') | null;
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
    */
@@ -3493,6 +3494,7 @@ export interface PostsSelect<T extends boolean = true> {
 export interface ContentBlockPropsSelect<T extends boolean = true> {
   content?: T;
   container?: T;
+  boxedPadding?: T;
   gridAppearance?:
     | T
     | {

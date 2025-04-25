@@ -4,7 +4,7 @@ import clsx from 'clsx';
 export type CardBodyProps = {
   children?: React.ReactNode;
   className?: string;
-  padding?: 'small' | 'base' | 'medium' | 'large';
+  padding?: 'small' | 'base' | 'medium' | 'large' | null;
 };
 
 export const CardBody = ({ children, className, padding }: CardBodyProps) => {

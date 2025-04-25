@@ -22,6 +22,7 @@ export const ContentBlock: Block = {
               admin: {
                 width: '100%',
               },
+              required: true,
             },
           ],
         },
@@ -29,12 +30,34 @@ export const ContentBlock: Block = {
           label: 'Appearance',
           fields: [
             {
-              type: 'select',
-              name: 'container',
-              label: 'Container',
-              options: [
-                { value: 'boxed', label: 'Boxed' },
-                { value: 'none', label: 'None' },
+              type: 'row',
+              fields: [
+                {
+                  type: 'select',
+                  name: 'container',
+                  label: 'Container',
+                  options: [
+                    { value: 'boxed', label: 'Boxed' },
+                    { value: 'none', label: 'None' },
+                  ],
+                  defaultValue: 'boxed',
+                },
+                {
+                  type: 'select',
+                  name: 'boxedPadding',
+                  label: 'Boxed Padding',
+                  admin: {
+                    condition: (_, siblingData) => siblingData.container === 'boxed',
+                  },
+                  options: [
+                    { value: 'small', label: 'Small' },
+                    { value: 'base', label: 'Base' },
+                    { value: 'medium', label: 'Medium' },
+                    { value: 'large', label: 'Large' },
+                  ],
+                  defaultValue: 'base',
+                  required: true,
+                },
               ],
             },
             GridAppearance(),
