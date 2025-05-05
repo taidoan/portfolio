@@ -9,26 +9,29 @@
 /// Colour Palette - A map of the project colour palette.
 /// @type map
 $colour-palette: (
+  // PRIMARY BLUES
   'aero': hsla(191, 72%, 51%, 1),
   'ocean-deep': hsla(196, 61%, 38.92%, 1),
   'prussian-blue': hsla(207, 40%, 17%, 1),
-  'baby-powder': hsla(60, 14%, 97%, 1),
-  'ivory-mist': hsla(40, 13%, 97%, 1),
-  'ash-cloud': hsla(0, 0%, 65%, 1),
+  // NEUTRALS - DARK TO LIGHT
   'stormy-slate': hsla(215, 11%, 43%, 1),
-  'white': hsla(0, 0%, 100%, 1),
+  'urban-steel': hsla(220, 2%, 61%, 1),
+  'ash-cloud': hsla(0, 0%, 65%, 1),
+  'light-grey': hsl(0, 0%, 85%),
   'frosted-sage': hsla(60, 7%, 86%, 1),
   'frosted-pearl': hsla(60, 5%, 93%, 1),
-  'urban-steel': hsla(220, 2%, 61%, 1),
-  'bittersweet': hsl(8.05deg, 100%, 67.8%, 1),
-  'old-gold': hsla(47.1deg, 73.1%, 57.6%, 1),
-  'concrete': hsla(60, 7%, 95%, 1),
   'gallery': hsla(60, 9%, 93%, 1),
-  'light-grey': hsl(0, 0%, 85%),
-  'fresh-leaf': rgb(69, 200, 91),
+  'sea-shell': hsla(60, 10%, 94%, 1),
+  'concrete': hsla(60, 7%, 95%, 1),
+  'ivory-mist': hsla(40, 13%, 97%, 1),
+  'baby-powder': hsla(60, 14%, 97%, 1),
+  'white': hsla(0, 0%, 100%, 1),
+  // ACCENTS / STATUS COLORS
+  'bittersweet': hsl(8.05deg, 100%, 67.8%, 1),
   'cherry-punch': hsla(355, 80%, 55%, 1),
   'amber-glow': hsla(35, 100%, 50%, 1),
-  'sea-shell': hsla(60, 10%, 94%, 1),
+  'old-gold': hsla(47.1deg, 73.1%, 57.6%, 1),
+  'fresh-leaf': hsla(130, 54%, 53%, 1)
 );
 
 /// @type map
