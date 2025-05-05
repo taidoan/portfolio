@@ -1,0 +1,7 @@
+@use '@abstracts/_index' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+}

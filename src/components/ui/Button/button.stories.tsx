@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '.';
-import { IconShare } from '@tabler/icons-react';
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',

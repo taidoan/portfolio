@@ -986,7 +986,19 @@ export interface Post {
    * A short description of the post, used for previews and listings.
    */
   excerpt?: string | null;
-  layout?: (MediaBlockProps | CarouselBlockProps | ContentBlockProps)[] | null;
+  layout?:
+    | (
+        | MediaBlockProps
+        | CarouselBlockProps
+        | ContentBlockProps
+        | TaggedWithBlockProps
+        | RelatedProjectsBlockProps
+        | DividerBlockProps
+      )[]
+    | null;
+  showShareButton?: boolean | null;
+  shareButtonLabel?: string | null;
+  shareNetworks?: ('facebook' | 'twitter' | 'linkedin' | 'email')[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -1593,6 +1605,84 @@ export interface ContentBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaggedWithBlockProps".
+ */
+export interface TaggedWithBlockProps {
+  showTitle?: boolean | null;
+  title?: string | null;
+  numberOfTags?: number | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'taggedWithBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedProjectsBlockProps".
+ */
+export interface RelatedProjectsBlockProps {
+  relatedCollection: 'projects' | 'posts';
+  relatedCategory: 'branding' | 'digital' | 'marketing' | 'print' | 'graphic-design';
+  numberOfRelatedItems: number;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'relatedProjectsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tags".
  */
 export interface Tag {
@@ -1979,45 +2069,6 @@ export interface TopTracksBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'topTracksBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RelatedProjectsBlockProps".
- */
-export interface RelatedProjectsBlockProps {
-  relatedCollection: 'projects' | 'posts';
-  relatedCategory: 'branding' | 'digital' | 'marketing' | 'print' | 'graphic-design';
-  numberOfRelatedItems: number;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'relatedProjectsBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3438,7 +3489,13 @@ export interface PostsSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockPropsSelect<T>;
         carouselBlock?: T | CarouselBlockPropsSelect<T>;
         contentBlock?: T | ContentBlockPropsSelect<T>;
+        taggedWithBlock?: T | TaggedWithBlockPropsSelect<T>;
+        relatedProjectsBlock?: T | RelatedProjectsBlockPropsSelect<T>;
+        divider?: T | DividerBlockPropsSelect<T>;
       };
+  showShareButton?: T;
+  shareButtonLabel?: T;
+  shareNetworks?: T;
   meta?:
     | T
     | {
@@ -3503,6 +3560,24 @@ export interface ContentBlockPropsSelect<T extends boolean = true> {
         justifySelf?: T;
       };
   className?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaggedWithBlockProps_select".
+ */
+export interface TaggedWithBlockPropsSelect<T extends boolean = true> {
+  showTitle?: T;
+  title?: T;
+  numberOfTags?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
   id?: T;
   blockName?: T;
 }

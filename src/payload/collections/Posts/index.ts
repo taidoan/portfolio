@@ -20,6 +20,9 @@ import { urlField } from '@fields/URL';
 import { MediaBlock } from '@/payload/blocks/Media/config';
 import { CarouselBlock } from '@/payload/blocks/Carousel/config';
 import { ContentBlock } from '@/payload/blocks/Content/config';
+import { TaggedWithBlock } from '@/payload/blocks/TaggedWith/config';
+import { RelatedProjectsBlock } from '@/payload/blocks/RelatedProjects/config';
+import { DividerBlock } from '@/payload/blocks/Divider/config';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -121,7 +124,53 @@ export const Posts: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [MediaBlock, CarouselBlock, ContentBlock],
+              blocks: [
+                MediaBlock,
+                CarouselBlock,
+                ContentBlock,
+                TaggedWithBlock,
+                RelatedProjectsBlock,
+                DividerBlock,
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Share',
+          fields: [
+            {
+              type: 'checkbox',
+              name: 'showShareButton',
+              label: 'Show Share Button',
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'shareButtonLabel',
+                  label: 'Share Button Label',
+                  defaultValue: 'Share',
+                  admin: {
+                    condition: (_, siblingData) => siblingData.showShareButton,
+                  },
+                },
+                {
+                  type: 'select',
+                  name: 'shareNetworks',
+                  label: 'Share Networks',
+                  options: [
+                    { value: 'facebook', label: 'Facebook' },
+                    { value: 'twitter', label: 'Twitter' },
+                    { value: 'linkedin', label: 'LinkedIn' },
+                    { value: 'email', label: 'Email' },
+                  ],
+                  hasMany: true,
+                  admin: {
+                    condition: (_, siblingData) => siblingData.showShareButton,
+                  },
+                },
+              ],
             },
           ],
         },

@@ -61,10 +61,10 @@ a.tag {
   }
 
   &-variant--bordered {
-    border: rem(1) solid var(--border-clr);
+    border: rem(2) solid var(--border-clr);
 
     &:hover {
-      border: rem(1) solid var(--clr-accent-500);
+      border: rem(2) solid var(--clr-accent-500);
     }
   }
 }
