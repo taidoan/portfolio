@@ -11,6 +11,37 @@ const meta: Meta<typeof TaggedWith> = {
     title: 'Tagged With:',
     numberOfTags: 8,
     tags: mockTags,
+    tagVariant: 'border',
+    tagColor: 'light-grey',
+  },
+  argTypes: {
+    showTitle: {
+      control: 'boolean',
+      description: 'Show the title or not',
+      defaultValue: true,
+    },
+    title: {
+      control: 'text',
+      description: 'The title of the component',
+      defaultValue: 'Tagged With:',
+    },
+    numberOfTags: {
+      control: 'number',
+      description: 'The number of tags to display',
+      defaultValue: 8,
+    },
+    tagVariant: {
+      control: 'select',
+      description: 'The variant of the tag',
+      defaultValue: 'border',
+      options: ['border', 'default'],
+    },
+    tagColor: {
+      control: 'select',
+      description: 'The color of the tag',
+      defaultValue: 'light-grey',
+      options: ['default', 'light-grey', 'slate', 'dark-grey'],
+    },
   },
   parameters: {
     docs: {

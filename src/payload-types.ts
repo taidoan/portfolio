@@ -986,16 +986,14 @@ export interface Post {
    * A short description of the post, used for previews and listings.
    */
   excerpt?: string | null;
-  layout?:
-    | (
-        | MediaBlockProps
-        | CarouselBlockProps
-        | ContentBlockProps
-        | TaggedWithBlockProps
-        | RelatedProjectsBlockProps
-        | DividerBlockProps
-      )[]
-    | null;
+  layout: (
+    | MediaBlockProps
+    | CarouselBlockProps
+    | ContentBlockProps
+    | TaggedWithBlockProps
+    | RelatedProjectsBlockProps
+    | DividerBlockProps
+  )[];
   showShareButton?: boolean | null;
   shareButtonLabel?: string | null;
   shareNetworks?: ('facebook' | 'twitter' | 'linkedin' | 'email')[] | null;
@@ -1608,7 +1606,7 @@ export interface ContentBlockProps {
  * via the `definition` "TaggedWithBlockProps".
  */
 export interface TaggedWithBlockProps {
-  showTitle?: boolean | null;
+  showTitle: boolean;
   title?: string | null;
   numberOfTags?: number | null;
   /**

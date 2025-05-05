@@ -7,9 +7,11 @@ import { Tag, TagsContainer } from '@/components/ui/Tags';
 export type TaggedWithProps = {
   className?: string;
   showTitle: boolean;
-  title?: string;
+  title: string;
   numberOfTags: number;
   tags: TagType[];
+  tagVariant?: 'border' | 'default';
+  tagColor?: 'default' | 'light-grey' | 'slate' | 'dark-grey';
 };
 
 export const TaggedWith = ({
@@ -18,6 +20,8 @@ export const TaggedWith = ({
   title = 'Tagged With:',
   numberOfTags = 8,
   tags,
+  tagVariant = 'border',
+  tagColor = 'light-grey',
 }: TaggedWithProps) => {
   return (
     <section className={clsx(style.container, className)}>
@@ -27,8 +31,8 @@ export const TaggedWith = ({
           <Tag
             key={tag.id}
             href={`/search?query=${encodeURI(tag.name)}&collection=tags`}
-            variant='border'
-            color='light-grey'
+            variant={tagVariant}
+            color={tagColor}
           >
             {tag.name}
           </Tag>

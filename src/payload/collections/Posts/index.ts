@@ -132,6 +132,7 @@ export const Posts: CollectionConfig = {
                 RelatedProjectsBlock,
                 DividerBlock,
               ],
+              required: true,
             },
           ],
         },

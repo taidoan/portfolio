@@ -23,6 +23,7 @@ export const TaggedWithBlock: Block = {
                   name: 'showTitle',
                   label: 'Show Title',
                   defaultValue: true,
+                  required: true,
                   admin: {
                     style: {
                       justifyContent: 'center',
