@@ -28,6 +28,7 @@ $colour-palette: (
   'fresh-leaf': rgb(69, 200, 91),
   'cherry-punch': hsla(355, 80%, 55%, 1),
   'amber-glow': hsla(35, 100%, 50%, 1),
+  'sea-shell': hsla(60, 10%, 94%, 1),
 );
 
 /// @type map
@@ -52,6 +53,7 @@ $project-colours: (
   fresh-leaf: generate-shades(map.get($colour-palette, 'fresh-leaf')),
   cherry-punch: generate-shades(map.get($colour-palette, 'cherry-punch')),
   amber-glow: generate-shades(map.get($colour-palette, 'amber-glow')),
+  sea-shell: generate-shades(map.get($colour-palette, 'sea-shell')),
 );
 
 /// Success background color
