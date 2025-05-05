@@ -10,14 +10,29 @@ const meta: Meta<typeof Tag> = {
   },
   args: {
     href: undefined,
+    variant: 'default',
+    color: 'default',
   },
   argTypes: {
     href: {
+      control: 'text',
       description: 'Add a link to the tag',
       default: null,
     },
     className: {
       description: 'Add a custom class to the tag',
+    },
+    variant: {
+      control: 'select',
+      description: 'The variant of the tag',
+      default: 'default',
+      options: ['default', 'border'],
+    },
+    color: {
+      control: 'select',
+      description: 'The color of the tag',
+      default: 'default',
+      options: ['default', 'light-grey', 'slate', 'dark-grey'],
     },
   },
 };
@@ -26,15 +41,17 @@ export default meta;
 type Story = StoryObj<typeof Tag>;
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <TagsContainer>
-      <Tag>Tag</Tag>
-      <Tag>Tag2</Tag>
-      <Tag>Tag3</Tag>
-      <Tag>Tag4</Tag>
-      <Tag>Tag5</Tag>
-      <Tag>Tag6</Tag>
-      <Tag href='https://www.google.com'>Tag7</Tag>
+      <Tag {...args}>Tag1</Tag>
+      <Tag {...args}>Tag2</Tag>
+      <Tag {...args}>Tag3</Tag>
+      <Tag {...args}>Tag4</Tag>
+      <Tag {...args}>Tag5</Tag>
+      <Tag {...args}>Tag6</Tag>
+      <Tag {...args} href='https://www.google.com'>
+        Tag7
+      </Tag>
     </TagsContainer>
   ),
 };

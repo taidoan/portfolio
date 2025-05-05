@@ -12,20 +12,36 @@ const TagSpan = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>)
   <span className={clsx(className, style.tag)} {...props} />
 );
 
-const TagLink = ({ ...props }: LinkProps) => <Link {...props} className={style.tag} />;
+const TagLink = ({ className, ...props }: { className?: string } & LinkProps) => (
+  <Link {...props} className={clsx(className, style.tag)} />
+);
 
 export type TagProps = {
   className?: string;
   onClick?: React.MouseEventHandler<HTMLSpanElement | HTMLAnchorElement>;
+  variant: 'default' | 'border';
+  color: 'default' | 'light-grey' | 'slate' | 'dark-grey';
 } & (
-  | { href?: never; children: React.ReactNode }
-  | ({ href: string; children: React.ReactNode } & LinkProps)
+  | { href?: never; children: React.ReactNode | string }
+  | ({ href: string; children: React.ReactNode | string } & LinkProps)
 );
 
-export const Tag = ({ className, href, onClick, ...props }: TagProps) => {
+export const Tag = ({
+  className,
+  href,
+  onClick,
+  variant = 'default',
+  color = 'default',
+  ...props
+}: TagProps) => {
+  const classes = clsx(className, {
+    [style['tag-variant--bordered']]: variant === 'border',
+    [style[`tag-clr--${color}`]]: color !== 'default',
+  });
+
   if (href) {
-    return <TagLink href={href} onClick={onClick} {...props} />;
+    return <TagLink href={href} onClick={onClick} className={classes} {...props} />;
   }
 
-  return <TagSpan className={className} onClick={onClick} {...props} />;
+  return <TagSpan onClick={onClick} className={classes} {...props} />;
 };

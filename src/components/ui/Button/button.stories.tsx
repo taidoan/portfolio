@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '.';
+import { IconShare } from '@tabler/icons-react';
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',
@@ -147,5 +148,13 @@ export const ExternalLink: Story = {
   args: {
     href: 'https://taidoan.com',
     target: '_blank',
+  },
+};
+
+export const Share: Story = {
+  args: {
+    children: 'Share',
+    buttonType: 'share',
+    color: 'frosted-pearl',
   },
 };

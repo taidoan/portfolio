@@ -115,6 +115,14 @@
     --btn-outline-text-clr: var(--clr-light-grey-500);
   }
 
+  &--clr-frosted-pearl {
+    --btn-clr: var(--clr-frosted-pearl-400);
+    --btn-text-clr: var(--clr-urban-steel-400);
+    --btn-outline-text-clr: var(--clr-frosted-pearl-550);
+    --btn-fill-hover-clr: var(--clr-frosted-pearl-450);
+    --btn-fill-hover-text-clr: var(--clr-urban-steel-500);
+  }
+
   &--hover-clr-primary:hover {
     --btn-fill-hover-clr: var(--clr-primary-400);
     --btn-fill-hover-text-clr: var(--clr-light-400);
@@ -148,6 +156,17 @@
   &--hover-clr-light-grey:hover {
     --btn-fill-hover-clr: var(--clr-light-grey-400);
     --btn-fill-hover-text-clr: var(--clr-urban-steel-450);
+  }
+
+  &--type-share {
+    font-weight: 700;
+    gap: rem(10);
+  }
+
+  &__icon {
+    height: rem(20);
+    transition: transform var(--transition-duration-fast) ease-in-out;
+    width: rem(20);
   }
 
   &:disabled {
