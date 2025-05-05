@@ -54,7 +54,7 @@ export const SectionBlock = ({
   if (hasContent) {
     if (!appearance) return null;
 
-    const sectionClasses = clsx('section', {
+    const sectionClasses = clsx('section', blockName, {
       [`${hiddenSlug}__${blockName}`]: blockName,
       [`bg--${appearance.backgroundColour}`]:
         !isBoxedLayout && appearance.backgroundColour && appearance.backgroundColour !== 'none',

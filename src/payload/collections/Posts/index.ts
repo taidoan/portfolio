@@ -23,6 +23,7 @@ import { ContentBlock } from '@/payload/blocks/Content/config';
 import { TaggedWithBlock } from '@/payload/blocks/TaggedWith/config';
 import { RelatedProjectsBlock } from '@/payload/blocks/RelatedProjects/config';
 import { DividerBlock } from '@/payload/blocks/Divider/config';
+import { SectionBlock } from '@/payload/blocks/Section/config';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -131,6 +132,7 @@ export const Posts: CollectionConfig = {
                 TaggedWithBlock,
                 RelatedProjectsBlock,
                 DividerBlock,
+                SectionBlock,
               ],
               required: true,
             },

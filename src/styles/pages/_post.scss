@@ -1,0 +1,29 @@
+@use '@abstracts/_index' as *;
+
+.post__meta {
+  align-items: center;
+  display: flex;
+  font-size: var(--fs-body-sm);
+  gap: rem(12);
+
+  &__seperator {
+    color: var(--clr-accent-400);
+    font-size: var(--fs-small);
+  }
+}
+
+.post__section {
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--layout-row-spacing-sm) / 1.5);
+
+  .divider {
+    margin: 0 !important;
+  }
+}
+
+.post__related {
+  .section__wrapper {
+    --gap: #{size-clamp(rem(16), rem(32))};
+  }
+}

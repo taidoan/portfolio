@@ -8,10 +8,16 @@ import { draftMode } from 'next/headers';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
+import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+
+import Sidebar from '@/components/layout/Sidebar';
+
+import clsx from 'clsx';
 
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { Redirects } from '@/components/features/Redirects';
 import { RenderPostBlocks } from '@/payload/blocks/RenderBlocks';
+import { PostHero } from '@/payload/blocks/Hero/Post';
 
 export const generateStaticParams = async () => {
   const payload = await getPayload({ config: configPromise });
@@ -47,20 +53,56 @@ const Post = async ({ params: paramsPromise }: Args) => {
     collection: 'posts',
   });
 
+  const payload = await getPayload({ config: configPromise });
+  const category = await payload.findByID({
+    id: page?.categories[0] as string,
+    collection: 'categories',
+    depth: 0,
+    select: {
+      title: true,
+    },
+  });
+
   if (!page) return <Redirects url={url} />;
 
-  const { hero, layout, tags, showShareButton } = page;
+  const { hero, layout, tags, showShareButton, populatedAuthors, publishedAt, excerpt } = page;
+  const breadcrumbs = hero?.breadcrumbs;
+
+  const pageIds =
+    breadcrumbs?.breadcrumbs?.map((breadcrumb) => {
+      const value = breadcrumb.relationTo.value;
+      return typeof value === 'object' && value !== null ? value.id : value;
+    }) || [];
+
+  const breadcrumbsData = await queryBreadcrumbs(pageIds);
+
+  const heroData = {
+    category: hero.subtitle || category.title,
+    title: hero.titleOverride || page.title,
+    author: populatedAuthors?.[0].name,
+    publishedDate: publishedAt ? new Date(publishedAt).toLocaleDateString() : '',
+    excerpt: excerpt,
+    breadcrumbsData: breadcrumbsData,
+  };
+
+  const sidebarData = await getCachedGlobal('sidebar', 2)();
 
   return (
     <>
       <Redirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
-      <section>
-        <RenderPostBlocks
-          blocks={layout}
-          {...{ pageTags: tags as Tag[] }}
-          {...{ showShareButton: showShareButton as boolean }}
-        />
+      <PostHero data={heroData} />
+      <section className={clsx('section', 'bg--gradient-grey', 'full-width')}>
+        <section className={clsx('section__wrapper')}>
+          <div className={clsx('col-span-11', 'post__section')}>
+            <RenderPostBlocks
+              blocks={layout}
+              {...{ pageTags: tags as Tag[] }}
+              {...{ showShareButton: showShareButton as boolean }}
+            />
+          </div>
+          <Sidebar data={sidebarData} className='col-span-5' />
+        </section>
       </section>
     </>
   );

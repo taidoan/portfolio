@@ -993,6 +993,7 @@ export interface Post {
     | TaggedWithBlockProps
     | RelatedProjectsBlockProps
     | DividerBlockProps
+    | SectionBlockProps
   )[];
   showShareButton?: boolean | null;
   shareButtonLabel?: string | null;
@@ -3490,6 +3491,7 @@ export interface PostsSelect<T extends boolean = true> {
         taggedWithBlock?: T | TaggedWithBlockPropsSelect<T>;
         relatedProjectsBlock?: T | RelatedProjectsBlockPropsSelect<T>;
         divider?: T | DividerBlockPropsSelect<T>;
+        section?: T | SectionBlockPropsSelect<T>;
       };
   showShareButton?: T;
   shareButtonLabel?: T;
