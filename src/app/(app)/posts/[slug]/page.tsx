@@ -9,6 +9,7 @@ import { generateMeta } from '@/lib/utilities/generateMeta';
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+import { getServerSideURL, getClientSideURL } from '@/lib/utilities/getURLs';
 
 import Sidebar from '@/components/layout/Sidebar';
 
@@ -52,6 +53,7 @@ const Post = async ({ params: paramsPromise }: Args) => {
     slug,
     collection: 'posts',
   });
+  const fullUrl = getServerSideURL() + url;
 
   const payload = await getPayload({ config: configPromise });
   const category = await payload.findByID({
@@ -101,6 +103,9 @@ const Post = async ({ params: paramsPromise }: Args) => {
               {...{ socialData: socialData }}
               {...{ pageTags: tags as Tag[] }}
               {...{ showShareButton: showShareButton as boolean }}
+              url={page.url || fullUrl || getClientSideURL()}
+              title={page.title}
+              description={page.excerpt || ''}
             />
           </div>
           <Sidebar data={sidebarData} className='col-span-5' />

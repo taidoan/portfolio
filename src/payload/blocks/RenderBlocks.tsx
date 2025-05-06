@@ -1,6 +1,6 @@
 import type { Page, Post, Tag, Social } from '@/payload-types';
+import type { SocialShareProps } from '@/components/ui/SocialShare';
 
-import { Fragment } from 'react';
 import { SectionBlock } from '@/payload/blocks/Section';
 import { DividerBlock } from '@/payload/blocks/Divider';
 import { SectionGroupBlock } from '@/payload/blocks/Section/Group';
@@ -67,12 +67,16 @@ export const RenderPostBlocks = ({
   pageTags,
   showShareButton,
   socialData,
+  url,
+  title,
+  description,
+  pinterestImage,
 }: {
   blocks: Post['layout'][0][];
   pageTags: Tag[];
   showShareButton: boolean;
   socialData: Social;
-}) => {
+} & SocialShareProps) => {
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0;
 
   if (hasBlocks) {
@@ -86,7 +90,13 @@ export const RenderPostBlocks = ({
               return (
                 <section key={index} className='post__tags-container'>
                   <TaggedWithBlock tags={pageTags} {...block} />
-                  <SocialShare data={socialData} />
+                  <SocialShare
+                    data={socialData}
+                    url={url as string}
+                    title={title as string}
+                    description={description as string}
+                    pinterestImage={pinterestImage}
+                  />
                 </section>
               );
             }
