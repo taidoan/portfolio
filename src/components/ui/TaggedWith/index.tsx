@@ -24,7 +24,7 @@ export const TaggedWith = ({
   tagColor = 'light-grey',
 }: TaggedWithProps) => {
   return (
-    <section className={clsx(style.container, className)}>
+    <div className={clsx(style.container, className)}>
       {showTitle && <h2 className={clsx('section-heading', style.title)}>{title}</h2>}
       <TagsContainer>
         {tags.slice(0, numberOfTags).map((tag) => (
@@ -38,6 +38,6 @@ export const TaggedWith = ({
           </Tag>
         ))}
       </TagsContainer>
-    </section>
+    </div>
   );
 };

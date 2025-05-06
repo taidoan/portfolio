@@ -1,4 +1,6 @@
 import type { Page, Post, Tag } from '@/payload-types';
+
+import { Fragment } from 'react';
 import { SectionBlock } from '@/payload/blocks/Section';
 import { DividerBlock } from '@/payload/blocks/Divider';
 import { SectionGroupBlock } from '@/payload/blocks/Section/Group';
@@ -79,7 +81,7 @@ export const RenderPostBlocks = ({
           if (blockType === 'taggedWithBlock') {
             if (showShareButton) {
               return (
-                <section key={index}>
+                <section key={index} className='post__tags-container'>
                   <TaggedWithBlock tags={pageTags} {...block} />
                   <span>Share Button Is Enabled</span>
                 </section>

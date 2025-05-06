@@ -1,8 +1,9 @@
 @use '@abstracts/_index' as *;
 
 .hero {
-  @include hero-low-impact;
   gap: size-clamp(rem(16), rem(24));
+
+  @include hero-low-impact;
 }
 
 .meta {

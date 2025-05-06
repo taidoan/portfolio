@@ -27,3 +27,15 @@
     --gap: #{size-clamp(rem(16), rem(32))};
   }
 }
+
+.post__tags-container {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--layout-row-spacing-sm) / 1.5);
+
+  @include mq('md') {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

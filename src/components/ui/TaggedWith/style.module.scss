@@ -1,7 +1,13 @@
 @use '@abstracts/_index' as *;
 
 .container {
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: rem(16);
+
+  @include mq('md') {
+    align-items: flex-start;
+    text-align: left;
+  }
 }

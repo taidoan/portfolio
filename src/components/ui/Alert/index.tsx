@@ -12,6 +12,7 @@ export type AlertProps = {
   severity: 'success' | 'warning' | 'error' | 'info';
   children: React.ReactNode;
   variant?: 'filled' | 'outlined';
+  className?: string;
 };
 
 /**
@@ -25,7 +26,7 @@ export type AlertProps = {
  * <Alert severity='info'>Info Message</Alert>
  */
 
-export const Alert = ({ severity, children, variant = 'filled' }: AlertProps) => {
+export const Alert = ({ severity, children, variant = 'filled', className }: AlertProps) => {
   const labelText = `${capitaliseFirstLetter(severity)} Alert`;
   const iconClasses = clsx(style.alert__icon, style[`alert__icon--${severity}`]);
   const iconMap = {
@@ -36,7 +37,12 @@ export const Alert = ({ severity, children, variant = 'filled' }: AlertProps) =>
   };
   const icon = iconMap[severity];
 
-  const alertClasses = clsx(style.alert, style[`alert--${variant}`], style[`alert--${severity}`]);
+  const alertClasses = clsx(
+    style.alert,
+    style[`alert--${variant}`],
+    style[`alert--${severity}`],
+    className,
+  );
 
   return (
     <div className={alertClasses} role='alert'>

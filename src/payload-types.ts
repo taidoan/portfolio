@@ -1646,9 +1646,61 @@ export interface TaggedWithBlockProps {
  * via the `definition` "RelatedProjectsBlockProps".
  */
 export interface RelatedProjectsBlockProps {
+  showIntro: boolean;
+  showLink?: boolean | null;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  link: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
   relatedCollection: 'projects' | 'posts';
   relatedCategory: 'branding' | 'digital' | 'marketing' | 'print' | 'graphic-design';
   numberOfRelatedItems: number;
+  className?: string | null;
   /**
    * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
    */
@@ -3105,9 +3157,27 @@ export interface TopTracksBlockPropsSelect<T extends boolean = true> {
  * via the `definition` "RelatedProjectsBlockProps_select".
  */
 export interface RelatedProjectsBlockPropsSelect<T extends boolean = true> {
+  showIntro?: T;
+  showLink?: T;
+  introContent?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        variant?: T;
+        color?: T;
+        hoverColor?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
   relatedCollection?: T;
   relatedCategory?: T;
   numberOfRelatedItems?: T;
+  className?: T;
   gridAppearance?:
     | T
     | {
