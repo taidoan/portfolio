@@ -20,7 +20,6 @@ import {
 } from '@tabler/icons-react';
 import style from './style.module.scss';
 import { truncate } from '@/lib/utilities/truncate';
-import { getServerSideURL } from '@/lib/utilities/getURLs';
 
 export type Props = {
   data: CardData[];
@@ -85,6 +84,7 @@ export const Archive = ({
     : data;
 
   const renderItems = (item: CardData) => {
+    console.log(item);
     const content =
       relation === 'posts' && item && 'excerpt' in item ? (
         page === 'archive' && item.excerpt ? (
@@ -113,7 +113,7 @@ export const Archive = ({
         <Card
           data={item}
           relation={relation}
-          href={`${getServerSideURL()}/${relation}/${item.slug}`}
+          href={item.url}
           kind={page === 'archive' ? 'archive' : 'default'}
         >
           <CardBody>
