@@ -4,6 +4,7 @@ import path from 'path';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
   addons: [
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
@@ -12,6 +13,7 @@ const config: StorybookConfig = {
     '@storybook/addon-a11y',
     'storybook-dark-mode',
   ],
+
   framework: {
     name: '@storybook/experimental-nextjs-vite',
     options: {},
@@ -70,6 +72,14 @@ const config: StorybookConfig = {
         },
       },
     });
+  },
+
+  docs: {
+    autodocs: true,
+  },
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
   },
 };
 

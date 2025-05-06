@@ -3907,6 +3907,18 @@ export interface Social {
         id?: string | null;
       }[]
     | null;
+  shareNetworks?:
+    | (
+        | 'facebook'
+        | 'x-twitter'
+        | 'whatsapp'
+        | 'linkedin'
+        | 'reddit'
+        | 'bluesky'
+        | 'email'
+        | 'threads'
+      )[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -4101,6 +4113,7 @@ export interface SocialSelect<T extends boolean = true> {
         network?: T;
         id?: T;
       };
+  shareNetworks?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

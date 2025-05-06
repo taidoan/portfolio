@@ -12,6 +12,7 @@ import { ContentBlock } from './Content';
 import { TaggedWithBlock } from './TaggedWith';
 import { CarouselBlock } from './Carousel';
 import { RelatedProjectsBlock } from './RelatedProjects';
+import SocialShare from '@/components/ui/SocialShare';
 
 export type RenderBlocksProps = {
   blocks: Page['layout'][0][];
@@ -83,7 +84,7 @@ export const RenderPostBlocks = ({
               return (
                 <section key={index} className='post__tags-container'>
                   <TaggedWithBlock tags={pageTags} {...block} />
-                  <span>Share Button Is Enabled</span>
+                  <SocialShare />
                 </section>
               );
             }

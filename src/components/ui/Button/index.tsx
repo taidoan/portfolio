@@ -36,6 +36,7 @@ export type ButtonProps = {
   styleOverrides?: React.CSSProperties;
   id?: string;
   width?: 'auto' | 'full' | 'half' | 'quarter' | 'third' | 'two-thirds' | 'three-quarters';
+  showIcon?: boolean;
 };
 
 /**
@@ -77,6 +78,7 @@ export const Button = ({
   styleOverrides,
   width = 'auto',
   buttonType,
+  showIcon = true,
 }: ButtonProps) => {
   const buttonClasses = clsx(style.button, className, {
     [style[`button--clr-${color}`]]: !!color,
@@ -99,7 +101,7 @@ export const Button = ({
         style={styleOverrides}
       >
         {children}
-        {buttonType === 'share' && <IconShare className={style.button__icon} />}
+        {buttonType === 'share' && showIcon && <IconShare className={style.button__icon} />}
       </button>
     );
   }
@@ -115,7 +117,11 @@ export const Button = ({
       style={styleOverrides}
     >
       {children}
-      {target === '_blank' ? <IconExternalLink stroke={3} /> : <IconCircleArrowRightFilled />}
+      {showIcon && target === '_blank' ? (
+        <IconExternalLink stroke={3} />
+      ) : (
+        <IconCircleArrowRightFilled />
+      )}
     </Link>
   );
 };
