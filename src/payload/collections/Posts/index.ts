@@ -136,39 +136,24 @@ export const Posts: CollectionConfig = {
               ],
               required: true,
             },
-          ],
-        },
-        {
-          label: 'Share',
-          fields: [
-            {
-              type: 'checkbox',
-              name: 'showShareButton',
-              label: 'Show Share Button',
-            },
             {
               type: 'row',
               fields: [
+                {
+                  type: 'checkbox',
+                  name: 'showShareButton',
+                  label: 'Allow Sharing',
+                  admin: {
+                    style: {
+                      justifyContent: 'center',
+                    },
+                  },
+                },
                 {
                   type: 'text',
                   name: 'shareButtonLabel',
                   label: 'Share Button Label',
                   defaultValue: 'Share',
-                  admin: {
-                    condition: (_, siblingData) => siblingData.showShareButton,
-                  },
-                },
-                {
-                  type: 'select',
-                  name: 'shareNetworks',
-                  label: 'Share Networks',
-                  options: [
-                    { value: 'facebook', label: 'Facebook' },
-                    { value: 'twitter', label: 'Twitter' },
-                    { value: 'linkedin', label: 'LinkedIn' },
-                    { value: 'email', label: 'Email' },
-                  ],
-                  hasMany: true,
                   admin: {
                     condition: (_, siblingData) => siblingData.showShareButton,
                   },

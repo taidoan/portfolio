@@ -997,7 +997,6 @@ export interface Post {
   )[];
   showShareButton?: boolean | null;
   shareButtonLabel?: string | null;
-  shareNetworks?: ('facebook' | 'twitter' | 'linkedin' | 'email')[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -3565,7 +3564,6 @@ export interface PostsSelect<T extends boolean = true> {
       };
   showShareButton?: T;
   shareButtonLabel?: T;
-  shareNetworks?: T;
   meta?:
     | T
     | {

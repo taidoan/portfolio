@@ -106,6 +106,7 @@ const Post = async ({ params: paramsPromise }: Args) => {
               url={page.url || fullUrl || getClientSideURL()}
               title={page.title}
               description={page.excerpt || ''}
+              buttonLabel={page.shareButtonLabel || 'Share'}
             />
           </div>
           <Sidebar data={sidebarData} className='col-span-5' />

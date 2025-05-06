@@ -33,6 +33,7 @@ export type SocialShareProps = {
   pinterestImage?: string;
   summary?: string;
   data?: Social;
+  buttonLabel?: string;
 };
 
 export const SocialShare = ({
@@ -42,6 +43,7 @@ export const SocialShare = ({
   description = 'Check out this amazing project',
   pinterestImage,
   data,
+  buttonLabel = 'Share',
 }: SocialShareProps) => {
   const enabledNetworks = data?.shareNetworks;
   const [openShareMenu, setOpenShareMenu] = useState(false);
@@ -50,7 +52,7 @@ export const SocialShare = ({
     <div className={clsx(className, { [style['social-share__container']]: openShareMenu })}>
       {!openShareMenu && (
         <Button buttonType='share' color='frosted-pearl' action={() => setOpenShareMenu(true)}>
-          Share
+          {buttonLabel}
         </Button>
       )}
       {openShareMenu && (

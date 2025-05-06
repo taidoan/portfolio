@@ -71,6 +71,7 @@ export const RenderPostBlocks = ({
   title,
   description,
   pinterestImage,
+  buttonLabel,
 }: {
   blocks: Post['layout'][0][];
   pageTags: Tag[];
@@ -96,6 +97,7 @@ export const RenderPostBlocks = ({
                     title={title as string}
                     description={description as string}
                     pinterestImage={pinterestImage}
+                    buttonLabel={buttonLabel}
                   />
                 </section>
               );
