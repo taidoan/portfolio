@@ -3910,10 +3910,17 @@ export interface Social {
   shareNetworks?:
     | (
         | 'facebook'
-        | 'x-twitter'
+        | 'twitter'
+        | 'telegram'
         | 'whatsapp'
         | 'linkedin'
+        | 'pinterest'
+        | 'vk'
         | 'reddit'
+        | 'tumblr'
+        | 'line'
+        | 'weibo'
+        | 'pocket'
         | 'bluesky'
         | 'email'
         | 'threads'

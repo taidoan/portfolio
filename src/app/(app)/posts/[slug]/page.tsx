@@ -86,6 +86,7 @@ const Post = async ({ params: paramsPromise }: Args) => {
   };
 
   const sidebarData = await getCachedGlobal('sidebar', 2)();
+  const socialData = await getCachedGlobal('social', 2)();
 
   return (
     <>
@@ -97,6 +98,7 @@ const Post = async ({ params: paramsPromise }: Args) => {
           <div className={clsx('col-span-11', 'post__section')}>
             <RenderPostBlocks
               blocks={layout}
+              {...{ socialData: socialData }}
               {...{ pageTags: tags as Tag[] }}
               {...{ showShareButton: showShareButton as boolean }}
             />

@@ -1,4 +1,5 @@
 'use client';
+import type { Social } from '@/payload-types';
 import { useState } from 'react';
 import {
   FacebookShareButton,
@@ -45,22 +46,8 @@ export type SocialShareProps = {
   url?: string;
   title?: string;
   description?: string;
-  facebook?: boolean;
-  twitter?: boolean;
-  linkedin?: boolean;
-  whatsapp?: boolean;
-  telegram?: boolean;
-  pinterest?: boolean;
-  reddit?: boolean;
-  tumblr?: boolean;
-  vk?: boolean;
-  line?: boolean;
-  weibo?: boolean;
-  pocket?: boolean;
-  bluesky?: boolean;
-  threads?: boolean;
-  email?: boolean;
   pinterestImage?: string;
+  data: Social;
 };
 
 export const SocialShare = ({
@@ -68,23 +55,10 @@ export const SocialShare = ({
   url = 'https://example.com',
   title = 'Check out this project',
   description = 'Check out this amazing project',
-  facebook = true,
-  twitter = true,
-  linkedin = true,
-  whatsapp = true,
-  telegram = true,
-  pinterest = true,
-  reddit = true,
-  tumblr = true,
-  vk = true,
-  line = true,
-  weibo = true,
-  pocket = true,
-  bluesky = true,
-  threads = true,
-  email = true,
   pinterestImage,
+  data,
 }: SocialShareProps) => {
+  const enabledNetworks = data.shareNetworks;
   const [openShareMenu, setOpenShareMenu] = useState(false);
 
   return (
@@ -103,77 +77,77 @@ export const SocialShare = ({
             aria-label='Close Share Menu'
           />
           <div className={style.social__list}>
-            {facebook && (
+            {enabledNetworks?.includes('facebook') && (
               <FacebookShareButton url={url} title={title}>
                 <FacebookButton />
               </FacebookShareButton>
             )}
-            {twitter && (
+            {enabledNetworks?.includes('twitter') && (
               <TwitterShareButton url={url} title={title}>
                 <TwitterButton />
               </TwitterShareButton>
             )}
-            {linkedin && (
+            {enabledNetworks?.includes('linkedin') && (
               <LinkedinShareButton url={url} title={title} summary={description}>
                 <LinkedinButton />
               </LinkedinShareButton>
             )}
-            {whatsapp && (
+            {enabledNetworks?.includes('whatsapp') && (
               <WhatsappShareButton url={url} title={title}>
                 <WhatsappButton />
               </WhatsappShareButton>
             )}
-            {telegram && (
+            {enabledNetworks?.includes('telegram') && (
               <TelegramShareButton url={url} title={title}>
                 <TelegramButton />
               </TelegramShareButton>
             )}
-            {pinterest && (
+            {enabledNetworks?.includes('pinterest') && (
               <PinterestShareButton url={url} title={title} media={pinterestImage as string}>
                 <PinterestButton />
               </PinterestShareButton>
             )}
-            {tumblr && (
+            {enabledNetworks?.includes('tumblr') && (
               <TumblrShareButton url={url} title={title}>
                 <TumblrButton />
               </TumblrShareButton>
             )}
-            {vk && (
+            {enabledNetworks?.includes('vk') && (
               <VKShareButton url={url} title={title}>
                 <VkButton />
               </VKShareButton>
             )}
-            {line && (
+            {enabledNetworks?.includes('line') && (
               <LineShareButton url={url} title={title}>
                 <LineButton />
               </LineShareButton>
             )}
-            {weibo && (
+            {enabledNetworks?.includes('weibo') && (
               <WeiboShareButton url={url} title={title}>
                 <WeiboButton />
               </WeiboShareButton>
             )}
-            {pocket && (
+            {enabledNetworks?.includes('pocket') && (
               <PocketShareButton url={url} title={title}>
                 <PocketButton />
               </PocketShareButton>
             )}
-            {reddit && (
+            {enabledNetworks?.includes('reddit') && (
               <RedditShareButton url={url} title={title}>
                 <RedditButton />
               </RedditShareButton>
             )}
-            {bluesky && (
+            {enabledNetworks?.includes('bluesky') && (
               <BlueskyShareButton url={url} title={title}>
                 <BlueskyButton />
               </BlueskyShareButton>
             )}
-            {threads && (
+            {enabledNetworks?.includes('threads') && (
               <ThreadsShareButton url={url} title={title}>
                 <ThreadsButton />
               </ThreadsShareButton>
             )}
-            {email && (
+            {enabledNetworks?.includes('email') && (
               <EmailShareButton url={url} subject={title} body={description}>
                 <EmailButton />
               </EmailShareButton>

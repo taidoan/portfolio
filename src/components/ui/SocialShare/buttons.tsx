@@ -22,117 +22,108 @@ import style from './style.module.scss';
 import clsx from 'clsx';
 
 const FacebookButton = () => (
-  <button className={clsx(style.button, style['button--facebook'])} aria-label='Share onFacebook'>
+  <div className={clsx(style.button, style['button--facebook'])} aria-label='Share onFacebook'>
     <IconBrandFacebook />
-  </button>
+  </div>
 );
 
 const InstagramButton = () => (
-  <button
-    className={clsx(style.button, style['button--instagram'])}
-    aria-label='Share on Instagram'
-  >
+  <div className={clsx(style.button, style['button--instagram'])} aria-label='Share on Instagram'>
     <IconBrandInstagram />
-  </button>
+  </div>
 );
 
 const MessengerButton = () => (
-  <button
-    className={clsx(style.button, style['button--messenger'])}
-    aria-label='Share on Messenger'
-  >
+  <div className={clsx(style.button, style['button--messenger'])} aria-label='Share on Messenger'>
     <IconBrandMessenger />
-  </button>
+  </div>
 );
 
 const LinkedinButton = () => (
-  <button className={clsx(style.button, style['button--linkedin'])} aria-label='Share on Linkedin'>
+  <div className={clsx(style.button, style['button--linkedin'])} aria-label='Share on Linkedin'>
     <IconBrandLinkedin />
-  </button>
+  </div>
 );
 
 const TwitterButton = () => (
-  <button
+  <div
     className={clsx(style.button, style['button--twitter'])}
     aria-label='Share on X (Formerly Twitter)'
   >
     <IconBrandX />
-  </button>
+  </div>
 );
 
 const WhatsappButton = () => (
-  <button className={clsx(style.button, style['button--whatsapp'])} aria-label='Share on Whatsapp'>
+  <div className={clsx(style.button, style['button--whatsapp'])} aria-label='Share on Whatsapp'>
     <IconBrandWhatsapp />
-  </button>
+  </div>
 );
 
 const TelegramButton = () => (
-  <button className={clsx(style.button, style['button--telegram'])} aria-label='Share on Telegram'>
+  <div className={clsx(style.button, style['button--telegram'])} aria-label='Share on Telegram'>
     <IconBrandTelegram />
-  </button>
+  </div>
 );
 
 const PinterestButton = () => (
-  <button
-    className={clsx(style.button, style['button--pinterest'])}
-    aria-label='Share on Pinterest'
-  >
+  <div className={clsx(style.button, style['button--pinterest'])} aria-label='Share on Pinterest'>
     <IconBrandPinterest />
-  </button>
+  </div>
 );
 
 const RedditButton = () => (
-  <button className={clsx(style.button, style['button--reddit'])} aria-label='Share on Reddit'>
+  <div className={clsx(style.button, style['button--reddit'])} aria-label='Share on Reddit'>
     <IconBrandReddit />
-  </button>
+  </div>
 );
 
 const TumblrButton = () => (
-  <button className={clsx(style.button, style['button--tumblr'])} aria-label='Share on Tumblr'>
+  <div className={clsx(style.button, style['button--tumblr'])} aria-label='Share on Tumblr'>
     <IconBrandTumblr />
-  </button>
+  </div>
 );
 
 const VkButton = () => (
-  <button className={clsx(style.button, style['button--vk'])} aria-label='Share on VK'>
+  <div className={clsx(style.button, style['button--vk'])} aria-label='Share on VK'>
     <IconBrandVk />
-  </button>
+  </div>
 );
 
 const LineButton = () => (
-  <button className={clsx(style.button, style['button--line'])} aria-label='Share on Line'>
+  <div className={clsx(style.button, style['button--line'])} aria-label='Share on Line'>
     <IconBrandLine />
-  </button>
+  </div>
 );
 
 const WeiboButton = () => (
-  <button className={clsx(style.button, style['button--weibo'])} aria-label='Share on Weibo'>
+  <div className={clsx(style.button, style['button--weibo'])} aria-label='Share on Weibo'>
     <IconBrandWeibo />
-  </button>
+  </div>
 );
 
 const PocketButton = () => (
-  <button className={clsx(style.button, style['button--pocket'])} aria-label='Share on Pocket'>
+  <div className={clsx(style.button, style['button--pocket'])} aria-label='Share on Pocket'>
     <IconBrandPocket />
-  </button>
+  </div>
 );
 
 const BlueskyButton = () => (
-  <button className={clsx(style.button, style['button--bluesky'])} aria-label='Share on Bluesky'>
+  <div className={clsx(style.button, style['button--bluesky'])} aria-label='Share on Bluesky'>
     <IconBrandBluesky />
-  </button>
+  </div>
 );
 
 const ThreadsButton = () => (
-  <button className={clsx(style.button, style['button--threads'])} aria-label='Share on Threads'>
+  <div className={clsx(style.button, style['button--threads'])} aria-label='Share on Threads'>
     <IconBrandThreads />
-  </button>
+  </div>
 );
 
 const EmailButton = () => (
-  <button className={style.button} aria-label='Share via Email'>
+  <div className={style.button} aria-label='Share via Email'>
     <IconMail />
-  </button>
+  </div>
 );
 
 export {

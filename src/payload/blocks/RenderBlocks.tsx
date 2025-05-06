@@ -1,4 +1,4 @@
-import type { Page, Post, Tag } from '@/payload-types';
+import type { Page, Post, Tag, Social } from '@/payload-types';
 
 import { Fragment } from 'react';
 import { SectionBlock } from '@/payload/blocks/Section';
@@ -66,10 +66,12 @@ export const RenderPostBlocks = ({
   blocks,
   pageTags,
   showShareButton,
+  socialData,
 }: {
   blocks: Post['layout'][0][];
   pageTags: Tag[];
   showShareButton: boolean;
+  socialData: Social;
 }) => {
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0;
 
@@ -84,7 +86,7 @@ export const RenderPostBlocks = ({
               return (
                 <section key={index} className='post__tags-container'>
                   <TaggedWithBlock tags={pageTags} {...block} />
-                  <SocialShare />
+                  <SocialShare data={socialData} />
                 </section>
               );
             }
