@@ -276,25 +276,29 @@
       
       
       <pre class="hljs-pre"><code class="lang-scss">$colour-palette: (
+  // PRIMARY BLUES
   &#39;aero&#39;: hsla(191, 72%, 51%, 1),
   &#39;ocean-deep&#39;: hsla(196, 61%, 38.92%, 1),
   &#39;prussian-blue&#39;: hsla(207, 40%, 17%, 1),
-  &#39;baby-powder&#39;: hsla(60, 14%, 97%, 1),
-  &#39;ivory-mist&#39;: hsla(40, 13%, 97%, 1),
-  &#39;ash-cloud&#39;: hsla(0, 0%, 65%, 1),
+  // NEUTRALS - DARK TO LIGHT
   &#39;stormy-slate&#39;: hsla(215, 11%, 43%, 1),
-  &#39;white&#39;: hsla(0, 0%, 100%, 1),
+  &#39;urban-steel&#39;: hsla(220, 2%, 61%, 1),
+  &#39;ash-cloud&#39;: hsla(0, 0%, 65%, 1),
+  &#39;light-grey&#39;: hsl(0, 0%, 85%),
   &#39;frosted-sage&#39;: hsla(60, 7%, 86%, 1),
   &#39;frosted-pearl&#39;: hsla(60, 5%, 93%, 1),
-  &#39;urban-steel&#39;: hsla(220, 2%, 61%, 1),
-  &#39;bittersweet&#39;: hsl(8.05deg, 100%, 67.8%, 1),
-  &#39;old-gold&#39;: hsla(47.1deg, 73.1%, 57.6%, 1),
-  &#39;concrete&#39;: hsla(60, 7%, 95%, 1),
   &#39;gallery&#39;: hsla(60, 9%, 93%, 1),
-  &#39;light-grey&#39;: hsl(0, 0%, 85%),
-  &#39;fresh-leaf&#39;: rgb(69, 200, 91),
+  &#39;sea-shell&#39;: hsla(60, 10%, 94%, 1),
+  &#39;concrete&#39;: hsla(60, 7%, 95%, 1),
+  &#39;ivory-mist&#39;: hsla(40, 13%, 97%, 1),
+  &#39;baby-powder&#39;: hsla(60, 14%, 97%, 1),
+  &#39;white&#39;: hsla(0, 0%, 100%, 1),
+  // ACCENTS / STATUS COLORS
+  &#39;bittersweet&#39;: hsl(8.05deg, 100%, 67.8%, 1),
   &#39;cherry-punch&#39;: hsla(355, 80%, 55%, 1),
   &#39;amber-glow&#39;: hsla(35, 100%, 50%, 1),
+  &#39;old-gold&#39;: hsla(47.1deg, 73.1%, 57.6%, 1),
+  &#39;fresh-leaf&#39;: hsla(130, 54%, 53%, 1)
 );</code></pre>
     </div>
   
@@ -444,6 +448,7 @@
   fresh-leaf: generate-shades(map.get($colour-palette, &#39;fresh-leaf&#39;)),
   cherry-punch: generate-shades(map.get($colour-palette, &#39;cherry-punch&#39;)),
   amber-glow: generate-shades(map.get($colour-palette, &#39;amber-glow&#39;)),
+  sea-shell: generate-shades(map.get($colour-palette, &#39;sea-shell&#39;)),
 );</code></pre>
     </div>
   
