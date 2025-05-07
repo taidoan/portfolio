@@ -1085,6 +1085,7 @@ export interface Post {
       | null;
     borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   };
+  pageLayout: 'full-width' | 'sidebar';
   publishedAt?: string | null;
   slug: string;
   slugLock?: boolean | null;
@@ -3593,6 +3594,7 @@ export interface PostsSelect<T extends boolean = true> {
         backgroundColour?: T;
         borderRadius?: T;
       };
+  pageLayout?: T;
   publishedAt?: T;
   slug?: T;
   slugLock?: T;

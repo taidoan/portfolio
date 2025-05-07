@@ -198,6 +198,20 @@ export const Posts: CollectionConfig = {
       ],
     },
     {
+      name: 'pageLayout',
+      type: 'select',
+      label: 'Page Layout',
+      defaultValue: 'full-width',
+      options: [
+        { value: 'full-width', label: 'Full Width' },
+        { value: 'sidebar', label: 'Sidebar' },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+      required: true,
+    },
+    {
       name: 'publishedAt',
       type: 'date',
       admin: {

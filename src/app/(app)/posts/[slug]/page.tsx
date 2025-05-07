@@ -68,7 +68,16 @@ const Post = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
-  const { hero, layout, tags, showShareButton, populatedAuthors, publishedAt, excerpt } = page;
+  const {
+    hero,
+    layout,
+    tags,
+    showShareButton,
+    populatedAuthors,
+    publishedAt,
+    excerpt,
+    pageLayout,
+  } = page;
   const breadcrumbs = hero?.breadcrumbs;
 
   const pageIds =
@@ -120,7 +129,12 @@ const Post = async ({ params: paramsPromise }: Args) => {
       <PostHero data={heroData} />
       <section className={clsx('section', 'bg--gradient-grey', 'full-width')}>
         <section className={clsx('section__wrapper', 'post__wrapper')}>
-          <div className={clsx('col-span-11', 'post__section')}>
+          <div
+            className={clsx('post__section', {
+              'col-span-11': pageLayout === 'sidebar',
+              'col-span-16': pageLayout === 'full-width',
+            })}
+          >
             <RenderPostBlocks
               blocks={layout}
               {...{ socialData: socialData }}
@@ -132,7 +146,9 @@ const Post = async ({ params: paramsPromise }: Args) => {
               buttonLabel={page.shareButtonLabel || 'Share'}
             />
           </div>
-          <Sidebar data={sidebarData} className='col-span-5' type='post' postMeta={postMeta} />
+          {pageLayout === 'sidebar' && (
+            <Sidebar data={sidebarData} className='col-span-5' type='post' postMeta={postMeta} />
+          )}
         </section>
       </section>
     </>
