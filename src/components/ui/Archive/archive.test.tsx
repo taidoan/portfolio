@@ -87,7 +87,7 @@ describe('<Archive>', () => {
     expect(cards.length).toBe(mockPosts.length);
 
     mockPosts.forEach((item, index) => {
-      expect(cards[index]).toHaveAttribute('data-href', `${getServerSideURL()}/posts/${item.slug}`);
+      expect(cards[index]).toHaveAttribute('data-href', `${item.url}`);
     });
   });
 

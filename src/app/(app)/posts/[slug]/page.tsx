@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { RequiredDataFromCollectionSlug } from 'payload';
 import type { Tag } from '@/payload-types';
+import type { PostMeta } from '@/components/layout/Sidebar';
 
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
@@ -89,6 +90,28 @@ const Post = async ({ params: paramsPromise }: Args) => {
 
   const sidebarData = await getCachedGlobal('sidebar', 2)();
   const socialData = await getCachedGlobal('social', 2)();
+  const categories = await payload.find({
+    collection: 'categories',
+    depth: 0,
+    select: {
+      title: true,
+      slug: true,
+    },
+    where: {
+      id: {
+        in: page.categories,
+      },
+    },
+  });
+
+  const postMeta = {
+    publishedDate: publishedAt,
+    author: populatedAuthors?.[0].name,
+    categories: categories.docs.map((category) => ({
+      title: category.title,
+      url: `${getServerSideURL()}/categories/${category.slug}`,
+    })),
+  } as PostMeta;
 
   return (
     <>
@@ -109,7 +132,7 @@ const Post = async ({ params: paramsPromise }: Args) => {
               buttonLabel={page.shareButtonLabel || 'Share'}
             />
           </div>
-          <Sidebar data={sidebarData} className='col-span-5' />
+          <Sidebar data={sidebarData} className='col-span-5' type='post' postMeta={postMeta} />
         </section>
       </section>
     </>
