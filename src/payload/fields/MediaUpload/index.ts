@@ -1,4 +1,5 @@
-import type { UploadField, SelectField, TextField } from 'payload';
+import type { UploadField, SelectField, TextField, ArrayField, Field, GroupField } from 'payload';
+import { Caption, ShowCaption } from '@/payload/fields/Caption';
 
 export const MediaType = (
   overrides: {
@@ -117,4 +118,109 @@ export const MediaEmbedSource = (
   };
 
   return mediaEmbedSourceResult;
+};
+
+export const Media = (): GroupField => {
+  const mediaFields: GroupField = {
+    type: 'group',
+    name: 'media',
+    label: false,
+    fields: [
+      MediaType(),
+      MediaUpload({
+        admin: {
+          condition: (_, siblingData) => siblingData.mediaType !== 'embed',
+        },
+      }),
+
+      {
+        type: 'row',
+        fields: [
+          MediaEmbedUrl({
+            admin: {
+              width: '50%',
+            },
+          }),
+          MediaEmbedSource({
+            admin: {
+              width: '50%',
+            },
+          }),
+        ],
+        admin: {
+          condition: (_, siblingData) => siblingData.mediaType === 'embed',
+        },
+      },
+      {
+        type: 'row',
+        fields: [
+          ShowCaption({
+            admin: {
+              width: '25%',
+            },
+          }),
+          Caption({
+            admin: {
+              width: '75%',
+            },
+          }),
+        ],
+      },
+    ],
+  };
+
+  return mediaFields;
+};
+
+export const MediaGroup = (): ArrayField => {
+  const mediaGroup: Field = {
+    name: 'mediaGroup',
+    type: 'array',
+    admin: {
+      initCollapsed: true,
+    },
+    fields: [
+      MediaType(),
+      MediaUpload({
+        admin: {
+          condition: (_, siblingData) => siblingData.mediaType !== 'embed',
+        },
+      }),
+      {
+        type: 'row',
+        fields: [
+          MediaEmbedUrl({
+            admin: {
+              width: '50%',
+            },
+          }),
+          MediaEmbedSource({
+            admin: {
+              width: '50%',
+            },
+          }),
+        ],
+        admin: {
+          condition: (_, siblingData) => siblingData.mediaType === 'embed',
+        },
+      },
+      {
+        type: 'row',
+        fields: [
+          ShowCaption({
+            admin: {
+              width: '25%',
+            },
+          }),
+          Caption({
+            admin: {
+              width: '75%',
+            },
+          }),
+        ],
+      },
+    ],
+  };
+
+  return mediaGroup;
 };

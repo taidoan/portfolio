@@ -1286,26 +1286,28 @@ export interface ArchiveBlockProps {
  * via the `definition` "MediaBlockProps".
  */
 export interface MediaBlockProps {
-  mediaType: 'image' | 'video' | 'pdf' | 'embed';
-  mediaEmbedUrl?: string | null;
-  mediaEmbedSource?: 'youtube' | null;
-  media?: (string | null) | Media;
-  showCaption?: boolean | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
+  media: {
+    mediaType: 'image' | 'video' | 'pdf' | 'embed';
+    media?: (string | null) | Media;
+    mediaEmbedUrl: string;
+    mediaEmbedSource: 'youtube';
+    showCaption?: boolean | null;
+    caption?: {
+      root: {
         type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
   borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
   videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
@@ -2935,12 +2937,16 @@ export interface IntroBlockPropsSelect<T extends boolean = true> {
  * via the `definition` "MediaBlockProps_select".
  */
 export interface MediaBlockPropsSelect<T extends boolean = true> {
-  mediaType?: T;
-  mediaEmbedUrl?: T;
-  mediaEmbedSource?: T;
-  media?: T;
-  showCaption?: T;
-  caption?: T;
+  media?:
+    | T
+    | {
+        mediaType?: T;
+        media?: T;
+        mediaEmbedUrl?: T;
+        mediaEmbedSource?: T;
+        showCaption?: T;
+        caption?: T;
+      };
   borderRadius?: T;
   borderRadiusSides?: T;
   videoPlayerWidth?: T;
@@ -4377,26 +4383,28 @@ export interface ContactMethodsBlockProps {
  * via the `definition` "MediaRichtextBlockProps".
  */
 export interface MediaRichtextBlockProps {
-  mediaType: 'image' | 'video' | 'pdf' | 'embed';
-  media?: (string | null) | Media;
-  mediaEmbedUrl?: string | null;
-  mediaEmbedSource?: 'youtube' | null;
-  showCaption?: boolean | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
+  media: {
+    mediaType: 'image' | 'video' | 'pdf' | 'embed';
+    media?: (string | null) | Media;
+    mediaEmbedUrl: string;
+    mediaEmbedSource: 'youtube';
+    showCaption?: boolean | null;
+    caption?: {
+      root: {
         type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
   borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
   videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;

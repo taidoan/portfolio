@@ -2,13 +2,7 @@ import { Block } from 'payload';
 import { GridAppearance } from '@/payload/fields/GridAppearance';
 import { BorderRadius, BorderRadiusSides } from '@/payload/fields/BorderRadius';
 import { VideoHeight, VideoPlayerWidth, VideoWidth } from '@/payload/fields/VideoAppearance';
-import { Caption, ShowCaption } from '@/payload/fields/Caption';
-import {
-  MediaType,
-  MediaUpload,
-  MediaEmbedUrl,
-  MediaEmbedSource,
-} from '@/payload/fields/MediaUpload';
+import { Media } from '@/payload/fields/MediaUpload';
 
 export const MediaBlock: Block = {
   slug: 'mediaBlock',
@@ -23,34 +17,7 @@ export const MediaBlock: Block = {
       tabs: [
         {
           label: 'Media',
-          fields: [
-            {
-              type: 'row',
-              fields: [
-                MediaType(),
-                MediaEmbedUrl({
-                  admin: {
-                    condition: (_, siblingData) => siblingData.mediaType === 'embed',
-                    width: '33.3%',
-                  },
-                }),
-                MediaEmbedSource({
-                  admin: {
-                    condition: (_, siblingData) => siblingData.mediaType === 'embed',
-                    width: '33.3%',
-                  },
-                }),
-              ],
-            },
-            MediaUpload({
-              admin: {
-                width: '100%',
-                condition: (_, siblingData) => siblingData.mediaType !== 'embed',
-              },
-            }),
-            ShowCaption(),
-            Caption(),
-          ],
+          fields: [Media()],
         },
         {
           label: 'Options',

@@ -1,13 +1,7 @@
 import { Block } from 'payload';
 import { BorderRadius, BorderRadiusSides } from '@/payload/fields/BorderRadius';
 import { VideoHeight, VideoPlayerWidth, VideoWidth } from '@/payload/fields/VideoAppearance';
-import { Caption, ShowCaption } from '@/payload/fields/Caption';
-import {
-  MediaType,
-  MediaUpload,
-  MediaEmbedSource,
-  MediaEmbedUrl,
-} from '@/payload/fields/MediaUpload';
+import { Media } from '@/payload/fields/MediaUpload';
 
 export const MediaRichtextBlock: Block = {
   slug: 'mediaRichtextBlock',
@@ -22,33 +16,7 @@ export const MediaRichtextBlock: Block = {
       tabs: [
         {
           label: 'Media',
-          fields: [
-            MediaType(),
-            MediaUpload({
-              admin: {
-                condition: (_, siblingData) => siblingData.mediaType !== 'embed',
-              },
-            }),
-            {
-              type: 'row',
-              fields: [
-                MediaEmbedUrl({
-                  admin: {
-                    condition: (_, siblingData) => siblingData.mediaType === 'embed',
-                    width: '50%',
-                  },
-                }),
-                MediaEmbedSource({
-                  admin: {
-                    condition: (_, siblingData) => siblingData.mediaType === 'embed',
-                    width: '50%',
-                  },
-                }),
-              ],
-            },
-            ShowCaption(),
-            Caption(),
-          ],
+          fields: [Media()],
         },
         {
           label: 'Appearance',
