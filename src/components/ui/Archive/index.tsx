@@ -85,7 +85,7 @@ export const Archive = ({
 
   const renderItems = (item: CardData) => {
     const content =
-      relation === 'posts' && item && 'excerpt' in item ? (
+      item && 'excerpt' in item ? (
         page === 'archive' && item.excerpt ? (
           <p>{truncate(item.excerpt, 160)}</p>
         ) : (
