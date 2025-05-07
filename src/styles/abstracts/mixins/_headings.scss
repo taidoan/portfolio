@@ -14,6 +14,11 @@
   line-height: 0.8;
   text-overflow: ellipsis;
   text-transform: uppercase;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 /// Applies sub heading styles to a container.
@@ -32,5 +37,10 @@
     &::selection {
       color: var(--selection-text-contrast-clr);
     }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }

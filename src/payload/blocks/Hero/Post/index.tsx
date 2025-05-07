@@ -1,12 +1,16 @@
 import type { Breadcrumbs as BreadcrumbsType } from '@/components/ui/Breadcrumbs';
-import clsx from 'clsx';
 
+import clsx from 'clsx';
 import style from './style.module.scss';
+import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export type PostHeroProps = {
   data: {
-    category: string;
+    category: {
+      title: string;
+      url?: string;
+    };
     title: string;
     author: string | null | undefined;
     publishedDate: string;
@@ -19,7 +23,13 @@ export const PostHero = ({ data }: PostHeroProps) => {
   return (
     <section className={clsx(style.hero, 'section')}>
       <div className='hero__text'>
-        <h2 className='section-heading'>{data.category}</h2>
+        <h2 className='section-heading'>
+          {data.category.url ? (
+            <Link href={data.category.url}>{data.category.title}</Link>
+          ) : (
+            data.category.title
+          )}
+        </h2>
         <h1>{data.title}</h1>
       </div>
       <div className={style.meta}>

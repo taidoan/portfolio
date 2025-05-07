@@ -63,6 +63,7 @@ const Post = async ({ params: paramsPromise }: Args) => {
     depth: 0,
     select: {
       title: true,
+      slug: true,
     },
   });
 
@@ -89,7 +90,10 @@ const Post = async ({ params: paramsPromise }: Args) => {
   const breadcrumbsData = await queryBreadcrumbs(pageIds);
 
   const heroData = {
-    category: hero.subtitle || category.title,
+    category: {
+      title: hero.subtitle || category.title,
+      ...(hero.subtitle ? {} : { url: `${getServerSideURL()}/categories/${category.slug}` }),
+    },
     title: hero.titleOverride || page.title,
     author: populatedAuthors?.[0].name,
     publishedDate: publishedAt ? new Date(publishedAt).toLocaleDateString() : '',
