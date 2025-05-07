@@ -11,6 +11,9 @@ export type Props = {
 
 export const MediaRichTextBlock = ({
   media,
+  mediaType,
+  mediaEmbedUrl,
+  mediaEmbedSource,
   videoPlayerWidth,
   videoWidth,
   videoHeight,
@@ -22,7 +25,7 @@ export const MediaRichTextBlock = ({
   pdfHeight,
   pdfWidth,
 }: Props) => {
-  if (!media || typeof media !== 'object' || !media.mimeType) {
+  if (mediaType !== 'embed' && (!media || typeof media !== 'object' || !media.mimeType)) {
     return (
       <Alert severity='error'>
         <AlertTitle>No Media</AlertTitle>
@@ -31,9 +34,12 @@ export const MediaRichTextBlock = ({
     );
   }
 
-  const isVideo = media.mimeType.startsWith('video/');
-  const isImage = media.mimeType.startsWith('image/');
-  const isPDF = media.mimeType.startsWith('application/pdf');
+  const isUploadedMedia = media && typeof media === 'object';
+
+  const isVideo = isUploadedMedia && media.mimeType?.startsWith('video/');
+  const isImage = isUploadedMedia && media.mimeType?.startsWith('image/');
+  const isPDF = isUploadedMedia && media.mimeType?.startsWith('application/pdf');
+  const isEmbed = mediaType === 'embed';
 
   const figureClasses = clsx(style.container, {
     [`${className}`]: className,
@@ -69,7 +75,8 @@ export const MediaRichTextBlock = ({
     }, {});
   }
 
-  const encodedFilename = media.filename ? encodeURI(media.filename.trim()) : '';
+  const encodedFilename =
+    isUploadedMedia && media?.filename ? encodeURI(media?.filename.trim()) : '';
 
   return (
     <figure className={figureClasses}>
@@ -99,6 +106,13 @@ export const MediaRichTextBlock = ({
           style={appearanceStyles}
           pdfHeight={pdfHeight || '600px'}
           pdfWidth={pdfWidth || '100%'}
+        />
+      ) : isEmbed ? (
+        <Media
+          type='embed'
+          src={mediaEmbedUrl!}
+          source={mediaEmbedSource!}
+          style={appearanceStyles}
         />
       ) : (
         <Alert severity='error'>

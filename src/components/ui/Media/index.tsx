@@ -107,7 +107,7 @@ export const Media = ({
         className={className}
       />
     ),
-    embed: <EmbedMedia src={src} source={source} />,
+    embed: <EmbedMedia src={src} source={source} style={style} />,
   };
 
   return mediaComponents[mediaType] || null;

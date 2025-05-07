@@ -1,12 +1,13 @@
 import clsx from 'clsx';
-import style from './../style.module.scss';
+import embedStyle from './../style.module.scss';
 
 export type EmbeddedMediaProps = {
   src: string;
   source: 'youtube' | undefined;
+  style?: React.CSSProperties;
 };
 
-export const EmbedMedia = ({ src, source }: EmbeddedMediaProps) => {
+export const EmbedMedia = ({ src, source, style }: EmbeddedMediaProps) => {
   const isYoutube = source === 'youtube';
   let urlToUse = src;
 
@@ -33,7 +34,7 @@ export const EmbedMedia = ({ src, source }: EmbeddedMediaProps) => {
   }
 
   return (
-    <div className={clsx(style.embedContainer)}>
+    <div className={clsx(embedStyle.embedContainer)} style={style}>
       <iframe
         width='560'
         height='315'

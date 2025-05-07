@@ -1286,8 +1286,10 @@ export interface ArchiveBlockProps {
  * via the `definition` "MediaBlockProps".
  */
 export interface MediaBlockProps {
-  mediaType: 'image' | 'video' | 'pdf';
-  media: string | Media;
+  mediaType: 'image' | 'video' | 'pdf' | 'embed';
+  mediaEmbedUrl?: string | null;
+  mediaEmbedSource?: 'youtube' | null;
+  media?: (string | null) | Media;
   showCaption?: boolean | null;
   caption?: {
     root: {
@@ -2934,6 +2936,8 @@ export interface IntroBlockPropsSelect<T extends boolean = true> {
  */
 export interface MediaBlockPropsSelect<T extends boolean = true> {
   mediaType?: T;
+  mediaEmbedUrl?: T;
+  mediaEmbedSource?: T;
   media?: T;
   showCaption?: T;
   caption?: T;
@@ -4373,8 +4377,10 @@ export interface ContactMethodsBlockProps {
  * via the `definition` "MediaRichtextBlockProps".
  */
 export interface MediaRichtextBlockProps {
-  mediaType: 'image' | 'video' | 'pdf';
-  media: string | Media;
+  mediaType: 'image' | 'video' | 'pdf' | 'embed';
+  media?: (string | null) | Media;
+  mediaEmbedUrl?: string | null;
+  mediaEmbedSource?: 'youtube' | null;
   showCaption?: boolean | null;
   caption?: {
     root: {
