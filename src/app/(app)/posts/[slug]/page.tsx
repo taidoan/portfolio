@@ -119,7 +119,7 @@ const Post = async ({ params: paramsPromise }: Args) => {
       {draft && <LivePreviewListener />}
       <PostHero data={heroData} />
       <section className={clsx('section', 'bg--gradient-grey', 'full-width')}>
-        <section className={clsx('section__wrapper')}>
+        <section className={clsx('section__wrapper', 'post__wrapper')}>
           <div className={clsx('col-span-11', 'post__section')}>
             <RenderPostBlocks
               blocks={layout}

@@ -15,7 +15,14 @@
 .post__section {
   display: flex;
   flex-direction: column;
+
   row-gap: calc(var(--layout-row-spacing-sm) / 1.5);
+
+  @include mq('md') {
+    align-self: flex-start;
+    position: sticky;
+    top: calc(var(--layout-row-spacing) * 1.5);
+  }
 
   .divider {
     margin: 0 !important;
@@ -29,13 +36,22 @@
 }
 
 .post__tags-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: calc(var(--layout-row-spacing-sm) / 1.5);
+  justify-content: center;
 
   @include mq('md') {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
+  }
+}
+
+.post__wrapper {
+  position: relative;
+  @include mq('md') {
+    gap: rem(56);
   }
 }
