@@ -3,6 +3,7 @@ import type { Sidebar as SidebarType } from '@/payload-types';
 import clsx from 'clsx';
 import style from './style.module.scss';
 
+import Link from 'next/link';
 import { IconCalendar, IconLink, IconUserCircle } from '@tabler/icons-react';
 import { SidebarCategoriesBlock } from '@/payload/blocks/Sidebar/Categories';
 import { SidebarLatestBlock } from '@/payload/blocks/Sidebar/Latest';
@@ -85,9 +86,9 @@ const Sidebar = ({ className, data, type, postMeta }: Props) => {
                   <div>
                     {postMeta.categories.map((category, index) => (
                       <span key={category.url}>
-                        <a href={category.url} className={style['sidebar__post-meta-link']}>
+                        <Link href={category.url} className={style['sidebar__post-meta-link']}>
                           {category.title}
-                        </a>
+                        </Link>
                         {index < postMeta.categories.length - 1 && ', '}
                       </span>
                     ))}
