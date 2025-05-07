@@ -90,6 +90,14 @@ p + p {
   margin-top: var(--spacing-paragraph);
 }
 
+.col-span-16,
+.col-span-15,
+.col-span-14 {
+  p {
+    max-width: initial;
+  }
+}
+
 a {
   color: var(--clr-primary-400);
   font-weight: 700;

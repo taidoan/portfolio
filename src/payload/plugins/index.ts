@@ -29,7 +29,7 @@ const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) 
   } else if (isService) {
     title = doc?.title ? `${doc.title} | Service by ${SITE_NAME}` : `Service by ${SITE_NAME}`;
   } else if (isPost) {
-    title = `${doc.title} | ${SITE_NAME}`;
+    title = `${doc.title} written by ${AUTHOR_NAME}`;
   } else if (isCategory) {
     title = `${doc.title} Category | ${SITE_NAME}`;
   } else {

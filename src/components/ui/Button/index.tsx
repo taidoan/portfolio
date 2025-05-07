@@ -1,7 +1,7 @@
 import style from './style.module.scss';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { IconCircleArrowRightFilled, IconExternalLink } from '@tabler/icons-react';
+import { IconCircleArrowRightFilled, IconExternalLink, IconShare } from '@tabler/icons-react';
 
 export type ButtonProps = {
   action?: () => void;
@@ -11,7 +11,15 @@ export type ButtonProps = {
   disabled?: boolean;
   title?: string;
   children: React.ReactNode;
-  color?: 'primary' | 'secondary' | 'accent' | 'light-grey' | 'sage' | 'slate' | 'bittersweet';
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'light-grey'
+    | 'sage'
+    | 'slate'
+    | 'bittersweet'
+    | 'frosted-pearl';
   hoverColor?:
     | 'default'
     | 'primary'
@@ -23,10 +31,12 @@ export type ButtonProps = {
     | 'bittersweet';
   shadow?: 'none' | 'small' | 'medium' | 'large' | null | undefined;
   type?: 'button' | 'submit' | 'reset';
+  buttonType?: 'share';
   variant?: 'outlined' | 'fill';
   styleOverrides?: React.CSSProperties;
   id?: string;
   width?: 'auto' | 'full' | 'half' | 'quarter' | 'third' | 'two-thirds' | 'three-quarters';
+  showIcon?: boolean;
 };
 
 /**
@@ -67,6 +77,8 @@ export const Button = ({
   variant = 'fill',
   styleOverrides,
   width = 'auto',
+  buttonType,
+  showIcon = true,
 }: ButtonProps) => {
   const buttonClasses = clsx(style.button, className, {
     [style[`button--clr-${color}`]]: !!color,
@@ -75,6 +87,7 @@ export const Button = ({
       hoverColor && hoverColor !== 'default' && variant !== 'outlined',
     [style[`button--${variant}`]]: variant,
     [style[`button-width--${width}`]]: width !== 'auto',
+    [style[`button--type-share`]]: buttonType === 'share',
   });
 
   if (!href) {
@@ -88,6 +101,7 @@ export const Button = ({
         style={styleOverrides}
       >
         {children}
+        {buttonType === 'share' && showIcon && <IconShare className={style.button__icon} />}
       </button>
     );
   }
@@ -103,7 +117,11 @@ export const Button = ({
       style={styleOverrides}
     >
       {children}
-      {target === '_blank' ? <IconExternalLink stroke={3} /> : <IconCircleArrowRightFilled />}
+      {showIcon && target === '_blank' ? (
+        <IconExternalLink stroke={3} />
+      ) : (
+        <IconCircleArrowRightFilled />
+      )}
     </Link>
   );
 };

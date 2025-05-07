@@ -2,13 +2,14 @@
 import { ImageMedia, type ImageMediaProps } from './Image';
 import { VideoMedia, type VideoMediaProps } from './Video';
 import { PDFMedia, type PDFMediaProps } from './PDF';
+import { EmbedMedia, type EmbeddedMediaProps } from './Embed';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
 
 export type MediaProps = {
-  type?: 'image' | 'video' | 'pdf' | 'auto';
+  type?: 'image' | 'video' | 'pdf' | 'auto' | 'embed';
   pdfWidth?: string | number;
   pdfHeight?: string | number;
-} & Partial<ImageMediaProps & VideoMediaProps & PDFMediaProps>;
+} & Partial<ImageMediaProps & VideoMediaProps & PDFMediaProps & EmbeddedMediaProps>;
 
 /**
  * Media component that renders the appropriate media component based on the file type
@@ -39,6 +40,7 @@ export const Media = ({
   playerWidth,
   pdfWidth,
   pdfHeight,
+  source,
 }: MediaProps) => {
   if (!src) {
     console.error('No source was provided for the Media component.');
@@ -105,6 +107,7 @@ export const Media = ({
         className={className}
       />
     ),
+    embed: <EmbedMedia src={src} source={source} style={style} />,
   };
 
   return mediaComponents[mediaType] || null;

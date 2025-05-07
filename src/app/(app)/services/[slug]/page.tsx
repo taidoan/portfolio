@@ -92,7 +92,7 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
               )}
             >
               <Media
-                src={image.filename}
+                src={image.filename || ''}
                 alt={image.alt || ''}
                 width={200}
                 height={200}
@@ -118,7 +118,7 @@ const ServicePage = async ({ params: paramsPromise }: Args) => {
                       <div className='service__item' key={index}>
                         {itemImage && typeof itemImage === 'object' && (
                           <Media
-                            src={itemImage.filename}
+                            src={itemImage.filename || ''}
                             alt={itemImage.alt || ''}
                             width={itemImage.width ? itemImage.width : undefined}
                             height={itemImage.height ? itemImage.height : undefined}

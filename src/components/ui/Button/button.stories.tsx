@@ -149,3 +149,11 @@ export const ExternalLink: Story = {
     target: '_blank',
   },
 };
+
+export const Share: Story = {
+  args: {
+    children: 'Share',
+    buttonType: 'share',
+    color: 'frosted-pearl',
+  },
+};

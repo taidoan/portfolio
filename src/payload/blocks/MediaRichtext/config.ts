@@ -1,8 +1,7 @@
 import { Block } from 'payload';
 import { BorderRadius, BorderRadiusSides } from '@/payload/fields/BorderRadius';
 import { VideoHeight, VideoPlayerWidth, VideoWidth } from '@/payload/fields/VideoAppearance';
-import { Caption, ShowCaption } from '@/payload/fields/Caption';
-import { MediaType, MediaUpload } from '@/payload/fields/MediaUpload';
+import { Media } from '@/payload/fields/MediaUpload';
 
 export const MediaRichtextBlock: Block = {
   slug: 'mediaRichtextBlock',
@@ -17,7 +16,7 @@ export const MediaRichtextBlock: Block = {
       tabs: [
         {
           label: 'Media',
-          fields: [MediaType(), MediaUpload(), ShowCaption(), Caption()],
+          fields: [Media()],
         },
         {
           label: 'Appearance',

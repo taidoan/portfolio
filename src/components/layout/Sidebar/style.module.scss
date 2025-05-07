@@ -11,6 +11,7 @@ aside.sidebar {
   gap: size-clamp(rem(24), rem(32));
 
   @include mq('md') {
+    align-self: flex-start;
     position: sticky;
     top: calc(var(--layout-row-spacing) * 1.5);
   }
@@ -57,6 +58,15 @@ aside.sidebar {
       text-decoration: underline;
       text-decoration-color: var(--clr-accent-400);
       text-decoration-thickness: rem(3);
+    }
+  }
+
+  &--meta {
+    padding: rem(20);
+    --icon-color: var(--clr-urban-steel-300);
+
+    &:hover {
+      --text-color: var(--clr-urban-steel-400);
     }
   }
 }
@@ -168,5 +178,56 @@ aside.sidebar {
       border-top: rem(2) solid var(--clr-gallery-400);
       padding-top: var(--child-padding);
     }
+  }
+}
+
+.sidebar__post-meta {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-body-sm);
+  gap: rem(16);
+  list-style: none;
+  padding: 0;
+
+  &-item {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: var(--border-radius-medium);
+    display: flex;
+    flex-direction: column;
+    gap: rem(4);
+    padding-block: rem(16);
+    padding-inline: rem(20);
+    transition: color var(--transition-duration) ease;
+
+    &:hover {
+      color: var(--clr-urban-steel-500);
+
+      .sidebar__block-icon {
+        --icon-color: var(--clr-accent-400);
+      }
+    }
+
+    @include mq('md') {
+      align-items: center;
+      column-gap: rem(16);
+      flex-direction: row;
+      flex-wrap: wrap;
+      row-gap: rem(2);
+    }
+  }
+
+  &-label {
+    align-items: center;
+    display: flex;
+    font-family: var(--ff-display-condensed);
+    font-size: size-clamp(rem(20), rem(24));
+    font-weight: 700;
+    gap: rem(8);
+    text-transform: uppercase;
+  }
+
+  &-link {
+    display: inline !important;
+    font-weight: 400 !important;
   }
 }

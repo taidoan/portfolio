@@ -37,7 +37,7 @@ export const ArchiveBlock = async ({
     });
   } else if (data === 'categories') {
     if (categoriesToArchive && categoriesToArchive.length > 0) {
-      content = await payload.find({
+      const projectsContent = await payload.find({
         collection: 'projects',
         where: {
           categories: {
@@ -48,6 +48,23 @@ export const ArchiveBlock = async ({
         },
         ...queryOptions,
       });
+
+      const postsContent = await payload.find({
+        collection: 'posts',
+        where: {
+          categories: {
+            in: categoriesToArchive.map((category) =>
+              typeof category === 'string' ? category : category.id,
+            ),
+          },
+        },
+        ...queryOptions,
+      });
+
+      content = {
+        docs: [...projectsContent.docs, ...postsContent.docs],
+        totalDocs: projectsContent.totalDocs + postsContent.totalDocs,
+      };
     } else {
       content = { docs: [] };
     }

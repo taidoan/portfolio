@@ -10,9 +10,11 @@
 a.tag {
   --background-clr: var(--clr-gallery-400);
   --text-clr: var(--clr-urban-steel-450);
+  --border-clr: transparent;
 
   align-items: center;
   background-color: var(--background-clr);
+  border: rem(1) solid transparent;
   border-radius: var(--border-radius-small);
   color: var(--text-clr);
   display: inline-flex;
@@ -23,12 +25,46 @@ a.tag {
   text-decoration: none;
   transition:
     color var(--transition-duration-fast) ease,
-    background-color var(--transition-duration) ease;
+    background-color var(--transition-duration) ease,
+    border var(--transition-duration) ease;
   width: fit-content;
 
   &:hover {
     --text-clr: var(--clr-secondary-400);
     --background-clr: var(--clr-accent-400);
     text-decoration: none;
+  }
+
+  &-clr--default {
+    --background-clr: var(--clr-gallery-400);
+    --border-clr: var(--clr-gallery-500);
+  }
+
+  &-clr--light-grey {
+    --background-clr: var(--clr-sea-shell-400);
+    --border-clr: var(--card-outline-color);
+  }
+
+  &-clr--slate {
+    --background-clr: var(--clr-stormy-slate-400);
+    --border-clr: var(--clr-stormy-slate-500);
+  }
+
+  &-clr--dark-grey {
+    --background-clr: var(--clr-ash-cloud-400);
+    --border-clr: var(--clr-ash-cloud-500);
+  }
+
+  &-clr--slate,
+  &-clr--dark-grey {
+    --text-clr: var(--clr-light-400);
+  }
+
+  &-variant--bordered {
+    border: rem(2) solid var(--border-clr);
+
+    &:hover {
+      border: rem(2) solid var(--clr-accent-500);
+    }
   }
 }

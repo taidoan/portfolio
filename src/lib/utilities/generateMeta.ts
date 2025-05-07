@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { Media, Page, Project, Service, Config } from '@/payload-types';
+import type { Media, Page, Project, Service, Config, Post } from '@/payload-types';
 import { getCDNURL } from './getURLs';
 import { mergeOpenGraph } from './mergeOpenGraph';
 import { SITE_NAME } from '@lib/constants';
@@ -12,7 +12,7 @@ const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
 };
 
 export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Project> | Partial<Service> | null;
+  doc: Partial<Page> | Partial<Project> | Partial<Service> | Partial<Post> | null;
 }): Promise<Metadata> => {
   const { doc } = args;
 

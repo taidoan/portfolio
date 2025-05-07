@@ -99,7 +99,9 @@ export interface Config {
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -464,7 +466,9 @@ export interface LinksBlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -608,7 +612,16 @@ export interface Project {
     focus?: boolean | null;
     paginationType?: ('bullets' | 'progress') | null;
     paginationColor?:
-      | ('primary' | 'accent' | 'secondary' | 'urban-steel' | 'slate' | 'bitter-sweet' | 'cherry-punch' | 'fresh-leaf')
+      | (
+          | 'primary'
+          | 'accent'
+          | 'secondary'
+          | 'urban-steel'
+          | 'slate'
+          | 'bitter-sweet'
+          | 'cherry-punch'
+          | 'fresh-leaf'
+        )
       | null;
     /**
      * The spacing between slides in pixels.
@@ -687,7 +700,9 @@ export interface Project {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -895,7 +910,9 @@ export interface CTABlockProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -930,7 +947,68 @@ export interface CTABlockProps {
 export interface Post {
   id: string;
   title: string;
-  content?: {
+  hero: {
+    /**
+     * The subtitle of the post. This will appear above the title. Defaults to the first post category.
+     */
+    subtitle?: string | null;
+    /**
+     * Use this if you want to override the post title that appears in the hero.
+     */
+    titleOverride: string;
+    'clonedLock-110371416'?: boolean | null;
+    /**
+     * The breadcrumbs for the post. This will appear in the hero.
+     */
+    breadcrumbs?: {
+      breadcrumbs?:
+        | {
+            relationTo:
+              | {
+                  relationTo: 'posts';
+                  value: string | Post;
+                }
+              | {
+                  relationTo: 'pages';
+                  value: string | Page;
+                }
+              | {
+                  relationTo: 'categories';
+                  value: string | Category;
+                };
+            label: string;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
+  /**
+   * A short description of the post, used for previews and listings.
+   */
+  excerpt?: string | null;
+  layout: (
+    | MediaBlockProps
+    | CarouselBlockProps
+    | ContentBlockProps
+    | TaggedWithBlockProps
+    | RelatedProjectsBlockProps
+    | DividerBlockProps
+    | SectionBlockProps
+  )[];
+  showShareButton?: boolean | null;
+  shareButtonLabel?: string | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  /**
+   * The content to display in the CTA.
+   */
+  ctaContent?: {
     root: {
       type: string;
       children: {
@@ -945,24 +1023,84 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
+  /**
+   * The link to display in the CTA.
+   */
+  ctaLink: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
   };
+  /**
+   * Customize the appearance of the CTA.
+   */
+  ctaAppearance?: {
+    blockVariant?: ('fill' | 'outlined' | 'outlined-thick') | null;
+    backgroundColour?:
+      | (
+          | 'none'
+          | 'primary'
+          | 'secondary'
+          | 'accent'
+          | 'light-grey'
+          | 'concrete'
+          | 'urban-steel'
+          | 'gallery'
+          | 'stormy-slate'
+          | 'gradient-light'
+          | 'gradient-primary'
+          | 'gradient-secondary'
+          | 'gradient-accent'
+          | 'gradient-grey'
+        )
+      | null;
+    borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  };
+  pageLayout: 'full-width' | 'sidebar';
+  publishedAt?: string | null;
   slug: string;
   slugLock?: boolean | null;
   url?: string | null;
+  author?: (string | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
   thumbnail?: (string | null) | Media;
   categories: (string | Category)[];
-  /**
-   * A short description of the post, used for previews and listings.
-   */
-  excerpt?: string | null;
   tags?: (string | Tag)[] | null;
+  relationTo?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -996,7 +1134,9 @@ export interface Category {
   breadcrumb?: {
     breadcrumbContainer?: ('none' | 'boxed' | 'outlined') | null;
     breadcrumbBackground?: ('none' | 'light' | 'dark' | 'translucent') | null;
-    breadcrumbOutlineColor?: ('secondary' | 'accent' | 'urban-steel' | 'slate' | 'light-grey') | null;
+    breadcrumbOutlineColor?:
+      | ('secondary' | 'accent' | 'urban-steel' | 'slate' | 'light-grey')
+      | null;
     breadcrumbs?:
       | {
           relationTo:
@@ -1063,7 +1203,9 @@ export interface Category {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -1141,160 +1283,31 @@ export interface ArchiveBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: string;
-  name: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinksGroupBlockProps".
- */
-export interface LinksGroupBlockProps {
-  linksGroup?:
-    | {
-        link: {
-          type: 'reference' | 'custom';
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'projects';
-                value: string | Project;
-              } | null)
-            | ({
-                relationTo: 'services';
-                value: string | Service;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null)
-            | ({
-                relationTo: 'categories';
-                value: string | Category;
-              } | null);
-          url?: string | null;
-          label: string;
-          variant?: ('fill' | 'outlined') | null;
-          color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
-          className?: string | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'links-group';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "IntroBlockProps".
- */
-export interface IntroBlockProps {
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  textAlign?: ('left' | 'center' | 'right') | null;
-  blockName?: string | null;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  id?: string | null;
-  blockType: 'introBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MediaBlockProps".
  */
 export interface MediaBlockProps {
-  mediaType: 'image' | 'video' | 'pdf';
-  media: string | Media;
-  showCaption?: boolean | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
+  media: {
+    mediaType: 'image' | 'video' | 'pdf' | 'embed';
+    media?: (string | null) | Media;
+    mediaEmbedUrl: string;
+    mediaEmbedSource: 'youtube';
+    showCaption?: boolean | null;
+    caption?: {
+      root: {
         type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
   borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
   videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
@@ -1333,6 +1346,91 @@ export interface MediaBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlockProps".
+ */
+export interface CarouselBlockProps {
+  carouselItems?: (CardBlockProps | MediaBlockProps)[] | null;
+  carouselConfig: {
+    autoHeight: boolean;
+    autoPlay: boolean;
+    keyboardControls: boolean;
+    buttonNavigation: boolean;
+    pagination: boolean;
+    loop: boolean;
+    direction: 'horizontal' | 'vertical';
+    focus?: boolean | null;
+    paginationType?: ('bullets' | 'progress') | null;
+    /**
+     * The spacing between slides in pixels.
+     */
+    slideSpacing: number;
+    /**
+     * The number of slides to show at a time.
+     */
+    slidesPerView: number;
+    /**
+     * The number of slides to scroll at a time.
+     */
+    slidesToScroll: 'auto' | '1' | '2' | '3' | '4';
+  };
+  /**
+   * You can change the class names for the carousel. This is especially useful if you are using a CSS framework like Tailwind or BEM naming conventions. It is also helpful if you want to easily style the carousel disabled state with CSS.
+   */
+  carouselClassNames?: {
+    container?: string | null;
+    wrapper?: string | null;
+    slide?: string | null;
+  };
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  /**
+   * Enable responsive mode to disable the carousel at  a certain breakpoint. This is useful if you want to use the carousel on smaller screens but still want to have the ability to navigate through the slides.
+   */
+  responsive?: boolean | null;
+  breakpointSelection?: string | null;
+  /**
+   * What it the size of the grid?
+   */
+  gridColumns: '1' | '2' | '3' | '4' | '6' | '8' | '12';
+  /**
+   * How many colummns should the slides span?
+   */
+  slideColumnSpan: '1' | '2' | '3' | '4' | '6' | '12';
+  /**
+   * The amount of featured items, these will appear larger compared to the rest of the items.
+   */
+  featuredItems?: ('0' | '1' | '2') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'carouselBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1456,6 +1554,325 @@ export interface CardBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlockProps".
+ */
+export interface ContentBlockProps {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  container?: ('boxed' | 'none') | null;
+  boxedPadding?: ('small' | 'base' | 'medium' | 'large') | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  className?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaggedWithBlockProps".
+ */
+export interface TaggedWithBlockProps {
+  showTitle: boolean;
+  title?: string | null;
+  numberOfTags?: number | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'taggedWithBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedProjectsBlockProps".
+ */
+export interface RelatedProjectsBlockProps {
+  showIntro: boolean;
+  showLink?: boolean | null;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  link: {
+    type: 'reference' | 'custom';
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: string | Service;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'categories';
+          value: string | Category;
+        } | null);
+    url?: string | null;
+    label: string;
+    variant?: ('fill' | 'outlined') | null;
+    color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
+    buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+    className?: string | null;
+  };
+  relatedCollection: 'projects' | 'posts';
+  relatedCategory: 'branding' | 'digital' | 'marketing' | 'print' | 'graphic-design';
+  numberOfRelatedItems: number;
+  className?: string | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'relatedProjectsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksGroupBlockProps".
+ */
+export interface LinksGroupBlockProps {
+  linksGroup?:
+    | {
+        link: {
+          type: 'reference' | 'custom';
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: string | Service;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: string | Category;
+              } | null);
+          url?: string | null;
+          label: string;
+          variant?: ('fill' | 'outlined') | null;
+          color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
+          buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+          className?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'links-group';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroBlockProps".
+ */
+export interface IntroBlockProps {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  textAlign?: ('left' | 'center' | 'right') | null;
+  blockName?: string | null;
+  /**
+   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
+   */
+  gridAppearance?: {
+    blockSize?:
+      | (
+          | 'col-span-1'
+          | 'col-span-2'
+          | 'col-span-3'
+          | 'col-span-4'
+          | 'col-span-5'
+          | 'col-span-6'
+          | 'col-span-7'
+          | 'col-span-8'
+          | 'col-span-9'
+          | 'col-span-10'
+          | 'col-span-11'
+          | 'col-span-12'
+          | 'col-span-13'
+          | 'col-span-14'
+          | 'col-span-15'
+          | 'col-span-16'
+        )
+      | null;
+    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
+    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
+  };
+  id?: string | null;
+  blockType: 'introBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AccordionBlockProps".
  */
 export interface AccordionBlockProps {
@@ -1512,91 +1929,6 @@ export interface AccordionBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'accordionBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CarouselBlockProps".
- */
-export interface CarouselBlockProps {
-  carouselItems?: (CardBlockProps | MediaBlockProps)[] | null;
-  carouselConfig: {
-    autoHeight: boolean;
-    autoPlay: boolean;
-    keyboardControls: boolean;
-    buttonNavigation: boolean;
-    pagination: boolean;
-    loop: boolean;
-    direction: 'horizontal' | 'vertical';
-    focus?: boolean | null;
-    paginationType?: ('bullets' | 'progress') | null;
-    /**
-     * The spacing between slides in pixels.
-     */
-    slideSpacing: number;
-    /**
-     * The number of slides to show at a time.
-     */
-    slidesPerView: number;
-    /**
-     * The number of slides to scroll at a time.
-     */
-    slidesToScroll: 'auto' | '1' | '2' | '3' | '4';
-  };
-  /**
-   * You can change the class names for the carousel. This is especially useful if you are using a CSS framework like Tailwind or BEM naming conventions. It is also helpful if you want to easily style the carousel disabled state with CSS.
-   */
-  carouselClassNames?: {
-    container?: string | null;
-    wrapper?: string | null;
-    slide?: string | null;
-  };
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  /**
-   * Enable responsive mode to disable the carousel at  a certain breakpoint. This is useful if you want to use the carousel on smaller screens but still want to have the ability to navigate through the slides.
-   */
-  responsive?: boolean | null;
-  breakpointSelection?: string | null;
-  /**
-   * What it the size of the grid?
-   */
-  gridColumns: '1' | '2' | '3' | '4' | '6' | '8' | '12';
-  /**
-   * How many colummns should the slides span?
-   */
-  slideColumnSpan: '1' | '2' | '3' | '4' | '6' | '12';
-  /**
-   * The amount of featured items, these will appear larger compared to the rest of the items.
-   */
-  featuredItems?: ('0' | '1' | '2') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'carouselBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1711,7 +2043,9 @@ export interface ToolsBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -1790,45 +2124,6 @@ export interface TopTracksBlockProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'topTracksBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RelatedProjectsBlockProps".
- */
-export interface RelatedProjectsBlockProps {
-  relatedCollection: 'projects' | 'posts';
-  relatedCategory: 'branding' | 'digital' | 'marketing' | 'print' | 'graphic-design';
-  numberOfRelatedItems: number;
-  /**
-   * Grid appearance options for the block, this will only affect desktop screens as mobile is a standard flex one column layout.
-   */
-  gridAppearance?: {
-    blockSize?:
-      | (
-          | 'col-span-1'
-          | 'col-span-2'
-          | 'col-span-3'
-          | 'col-span-4'
-          | 'col-span-5'
-          | 'col-span-6'
-          | 'col-span-7'
-          | 'col-span-8'
-          | 'col-span-9'
-          | 'col-span-10'
-          | 'col-span-11'
-          | 'col-span-12'
-          | 'col-span-13'
-          | 'col-span-14'
-          | 'col-span-15'
-          | 'col-span-16'
-        )
-      | null;
-    alignSelf?: ('stretch' | 'start' | 'center' | 'end') | null;
-    justifySelf?: ('start' | 'center' | 'end' | 'stretch') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'relatedProjectsBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2054,7 +2349,9 @@ export interface TabbedContentBlockProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -2640,10 +2937,16 @@ export interface IntroBlockPropsSelect<T extends boolean = true> {
  * via the `definition` "MediaBlockProps_select".
  */
 export interface MediaBlockPropsSelect<T extends boolean = true> {
-  mediaType?: T;
-  media?: T;
-  showCaption?: T;
-  caption?: T;
+  media?:
+    | T
+    | {
+        mediaType?: T;
+        media?: T;
+        mediaEmbedUrl?: T;
+        mediaEmbedSource?: T;
+        showCaption?: T;
+        caption?: T;
+      };
   borderRadius?: T;
   borderRadiusSides?: T;
   videoPlayerWidth?: T;
@@ -2864,9 +3167,27 @@ export interface TopTracksBlockPropsSelect<T extends boolean = true> {
  * via the `definition` "RelatedProjectsBlockProps_select".
  */
 export interface RelatedProjectsBlockPropsSelect<T extends boolean = true> {
+  showIntro?: T;
+  showLink?: T;
+  introContent?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        variant?: T;
+        color?: T;
+        hoverColor?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
   relatedCollection?: T;
   relatedCategory?: T;
   numberOfRelatedItems?: T;
+  className?: T;
   gridAppearance?:
     | T
     | {
@@ -3222,7 +3543,38 @@ export interface ServicesSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
-  content?: T;
+  hero?:
+    | T
+    | {
+        subtitle?: T;
+        titleOverride?: T;
+        'clonedLock-110371416'?: T;
+        breadcrumbs?:
+          | T
+          | {
+              breadcrumbs?:
+                | T
+                | {
+                    relationTo?: T;
+                    label?: T;
+                    id?: T;
+                  };
+            };
+      };
+  excerpt?: T;
+  layout?:
+    | T
+    | {
+        mediaBlock?: T | MediaBlockPropsSelect<T>;
+        carouselBlock?: T | CarouselBlockPropsSelect<T>;
+        contentBlock?: T | ContentBlockPropsSelect<T>;
+        taggedWithBlock?: T | TaggedWithBlockPropsSelect<T>;
+        relatedProjectsBlock?: T | RelatedProjectsBlockPropsSelect<T>;
+        divider?: T | DividerBlockPropsSelect<T>;
+        section?: T | SectionBlockPropsSelect<T>;
+      };
+  showShareButton?: T;
+  shareButtonLabel?: T;
   meta?:
     | T
     | {
@@ -3230,16 +3582,84 @@ export interface PostsSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  ctaContent?: T;
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        variant?: T;
+        color?: T;
+        hoverColor?: T;
+        buttonShadow?: T;
+        className?: T;
+      };
+  ctaAppearance?:
+    | T
+    | {
+        blockVariant?: T;
+        backgroundColour?: T;
+        borderRadius?: T;
+      };
+  pageLayout?: T;
+  publishedAt?: T;
   slug?: T;
   slugLock?: T;
   url?: T;
+  author?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+      };
   thumbnail?: T;
   categories?: T;
-  excerpt?: T;
   tags?: T;
+  relationTo?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlockProps_select".
+ */
+export interface ContentBlockPropsSelect<T extends boolean = true> {
+  content?: T;
+  container?: T;
+  boxedPadding?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  className?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaggedWithBlockProps_select".
+ */
+export interface TaggedWithBlockPropsSelect<T extends boolean = true> {
+  showTitle?: T;
+  title?: T;
+  numberOfTags?: T;
+  gridAppearance?:
+    | T
+    | {
+        blockSize?: T;
+        alignSelf?: T;
+        justifySelf?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3497,6 +3917,25 @@ export interface Social {
         id?: string | null;
       }[]
     | null;
+  shareNetworks?:
+    | (
+        | 'facebook'
+        | 'twitter'
+        | 'telegram'
+        | 'whatsapp'
+        | 'linkedin'
+        | 'pinterest'
+        | 'vk'
+        | 'reddit'
+        | 'tumblr'
+        | 'line'
+        | 'weibo'
+        | 'pocket'
+        | 'bluesky'
+        | 'email'
+        | 'threads'
+      )[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3535,7 +3974,9 @@ export interface Footer {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
@@ -3579,13 +4020,22 @@ export interface Header {
       label: string;
       variant?: ('fill' | 'outlined') | null;
       color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
       buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
       className?: string | null;
     };
     id?: string | null;
   }[];
-  logoColor: 'primary' | 'secondary' | 'accent' | 'light' | 'slate' | 'frosted-sage' | 'urban-steel';
+  logoColor:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'light'
+    | 'slate'
+    | 'frosted-sage'
+    | 'urban-steel';
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3599,7 +4049,12 @@ export interface Sidebar {
    * Control what blocks are shown in the sidebar.
    */
   sidebarBlocks?:
-    | (SidebarCategoriesBlockProps | SidebarLatestBlockProps | SidebarTagsBlockProps | SidebarSearchBlockProps)[]
+    | (
+        | SidebarCategoriesBlockProps
+        | SidebarLatestBlockProps
+        | SidebarTagsBlockProps
+        | SidebarSearchBlockProps
+      )[]
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -3675,6 +4130,7 @@ export interface SocialSelect<T extends boolean = true> {
         network?: T;
         id?: T;
       };
+  shareNetworks?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3847,7 +4303,9 @@ export interface LinksBlockRichtextProps {
     label: string;
     variant?: ('fill' | 'outlined') | null;
     color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-    hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+    hoverColor?:
+      | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+      | null;
     buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
     className?: string | null;
   };
@@ -3890,7 +4348,9 @@ export interface LinksGroupRichtextProps {
           label: string;
           variant?: ('fill' | 'outlined') | null;
           color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-          hoverColor?: ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+          hoverColor?:
+            | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+            | null;
           buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
           className?: string | null;
         };
@@ -3923,24 +4383,28 @@ export interface ContactMethodsBlockProps {
  * via the `definition` "MediaRichtextBlockProps".
  */
 export interface MediaRichtextBlockProps {
-  mediaType: 'image' | 'video' | 'pdf';
-  media: string | Media;
-  showCaption?: boolean | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
+  media: {
+    mediaType: 'image' | 'video' | 'pdf' | 'embed';
+    media?: (string | null) | Media;
+    mediaEmbedUrl: string;
+    mediaEmbedSource: 'youtube';
+    showCaption?: boolean | null;
+    caption?: {
+      root: {
         type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
   borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
   borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
   videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
@@ -3960,7 +4424,6 @@ export interface MediaRichtextBlockProps {
 export interface Auth {
   [k: string]: unknown;
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

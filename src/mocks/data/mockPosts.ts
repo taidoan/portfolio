@@ -1,4 +1,5 @@
 import { CardData } from '@/components/ui/Card/types';
+import { getServerSideURL } from '@/lib/utilities/getURLs';
 
 export const mockPosts = [
   {
@@ -26,6 +27,7 @@ export const mockPosts = [
       thumbnailURL: null,
     },
     categories: ['67cecdbc00d7591f31a0091b', 'VkmADmVTWg234214'],
+    url: `${getServerSideURL()}/posts/post-1`,
   },
   {
     title: 'Post 2',
@@ -52,6 +54,7 @@ export const mockPosts = [
       thumbnailURL: null,
     },
     categories: ['352552352fgwegewgfe'],
+    url: `${getServerSideURL()}/posts/post-2`,
   },
   {
     title: 'Post 3',
@@ -78,6 +81,7 @@ export const mockPosts = [
       thumbnailURL: null,
     },
     categories: ['VkmADmVTWg234214'],
+    url: `${getServerSideURL()}/posts/post-3`,
   },
   {
     title: 'Post 4',
@@ -104,5 +108,6 @@ export const mockPosts = [
       thumbnailURL: null,
     },
     categories: ['V181OQVabewdwd12', '67cece0800d7591f31a00957'],
+    url: `${getServerSideURL()}/posts/post-4`,
   },
 ] satisfies CardData[];
