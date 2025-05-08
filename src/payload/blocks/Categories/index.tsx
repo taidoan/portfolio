@@ -89,7 +89,8 @@ export const CategoryLinksBlock = async ({
           autoHeight
           pagination
           paginationType='bullets'
-          showPaginationCounter={false}
+          showPaginationCounter={true}
+          buttonNavigation={true}
           disableAt='(min-width: 64em)'
           wrapperClassName={gridClass}
           slideClassName={style['category__links__grid-item']}
