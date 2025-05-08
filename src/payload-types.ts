@@ -1111,7 +1111,17 @@ export interface Post {
  */
 export interface Category {
   id: string;
+  /**
+   * Enter a name for the category. This must be unique.
+   */
   title: string;
+  /**
+   * Enter a short one sentence description for the category. This will appear on the categories list page.
+   */
+  tagline?: string | null;
+  /**
+   * Enter a longer description for the category. This will appear on the actual category page.
+   */
   description?: string | null;
   heroContent?: {
     root: {
@@ -3320,6 +3330,7 @@ export interface CTABlockPropsSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  tagline?: T;
   description?: T;
   heroContent?: T;
   breadcrumb?:
