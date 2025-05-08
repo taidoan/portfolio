@@ -14,14 +14,12 @@ const nextConfig: NextConfig = {
         },
       }
     : undefined,
-  experimental: {
-    turbo: {
-      resolveAlias: {
-        '@abstracts': path.join(__dirname, 'styles/abstracts'),
-        '@mixins': path.join(__dirname, 'styles/abstracts/mixins'),
-        '@functions': path.join(__dirname, 'styles/abstracts/functions'),
-        '@settings': path.join(__dirname, 'styles/abstracts/settings'),
-      },
+  turbopack: {
+    resolveAlias: {
+      '@abstracts': path.join(__dirname, 'styles/abstracts'),
+      '@mixins': path.join(__dirname, 'styles/abstracts/mixins'),
+      '@functions': path.join(__dirname, 'styles/abstracts/functions'),
+      '@settings': path.join(__dirname, 'styles/abstracts/settings'),
     },
   },
   images: {
