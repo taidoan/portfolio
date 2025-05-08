@@ -53,7 +53,11 @@ export const CategoryLink = ({ type, size, category, className }: CategoryLinkPr
       : null;
 
   return (
-    <Link href={`${getServerSideURL()}/categories/${slug}`} className={classes}>
+    <Link
+      href={`${getServerSideURL()}/categories/${slug}`}
+      className={classes}
+      aria-label='Category Link'
+    >
       {icon}
       <div className={clsx(style.category__text)}>
         <h2 className={clsx(style.category__title)}>{title}</h2>

@@ -43,9 +43,35 @@ export const CategoryLinksBlock = async ({
   const categoriesToDisplay = rawCategories?.filter(isValidCategory) ?? [];
   const categoriesCount = categoriesToDisplay.length;
 
+  const getParentSlug = (cat: Category): string | undefined => {
+    if (!cat.parentCategory) return undefined;
+    return typeof cat.parentCategory === 'object' ? cat.parentCategory?.slug : cat.parentCategory;
+  };
+
+  const topLevel = categoriesToDisplay.filter((cat) => !getParentSlug(cat));
+  const subcategories = categoriesToDisplay.filter((cat) => !!getParentSlug(cat));
+
+  const groupedSubcategories = subcategories.reduce(
+    (acc, sub) => {
+      const parentSlug = getParentSlug(sub)!;
+      acc[parentSlug] = acc[parentSlug] || [];
+      acc[parentSlug].push(sub);
+      return acc;
+    },
+    {} as Record<string, Category[]>,
+  );
+
+  const sortedCategories = [
+    ...topLevel,
+    ...Object.entries(groupedSubcategories).flatMap(([parentSlug, subs]) => {
+      const parent = topLevel.find((cat) => cat.slug === parentSlug);
+      return parent ? [parent, ...subs] : subs;
+    }),
+  ];
+
   const gridClass = style.category__links__grid;
 
-  const categoryItems = categoriesToDisplay.map((cat, index) => (
+  const categoryItems = sortedCategories.map((cat, index) => (
     <CategoryLink
       key={cat.id}
       category={cat}

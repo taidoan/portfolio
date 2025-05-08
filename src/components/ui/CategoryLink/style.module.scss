@@ -27,6 +27,7 @@
   transition:
     color var(--transition-duration) ease,
     background-color var(--transition-duration) ease,
+    border var(--transition-duration) ease,
     text-decoration-color var(--transition-duration) ease,
     text-underline-offset 300ms;
   width: 100%;
@@ -36,6 +37,7 @@
     --heading-color: var(--clr-light-400);
     --icon-color: var(--clr-accent-400);
     background-color: var(--clr-secondary-400);
+    border-color: rgba(0, 0, 0, 0);
     color: var(--body-color);
 
     &:not(.category__link--small) .category__title {
