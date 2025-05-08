@@ -208,6 +208,7 @@ export interface Page {
     | ArchiveBlockProps
     | TabbedContentBlockProps
     | CTABlockProps
+    | CategoryLinksProps
   )[];
   meta?: {
     title?: string | null;
@@ -2424,6 +2425,31 @@ export interface TabbedContentBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categoryLinksProps".
+ */
+export interface CategoryLinksProps {
+  /**
+   * Choose wether you want to display all categories or a custom selection.
+   */
+  category: 'all' | 'custom';
+  /**
+   * Select the categories you want to display.
+   */
+  categorySelect?: (string | Category)[] | null;
+  /**
+   * Select the method for displaying the categories. Please note this is for mobile only, desktop will be displayed in a grid.
+   */
+  mobileView: 'carousel' | 'grid';
+  /**
+   * Enter a custom class name for the category links block.
+   */
+  customClassName?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'categoryLinks';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -2751,6 +2777,7 @@ export interface PagesSelect<T extends boolean = true> {
         archiveBlock?: T | ArchiveBlockPropsSelect<T>;
         tabbedContentBlock?: T | TabbedContentBlockPropsSelect<T>;
         ctaBlock?: T | CTABlockPropsSelect<T>;
+        categoryLinks?: T | CategoryLinksPropsSelect<T>;
       };
   meta?:
     | T
@@ -3321,6 +3348,18 @@ export interface CTABlockPropsSelect<T extends boolean = true> {
   blockVariant?: T;
   backgroundColour?: T;
   borderRadius?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categoryLinksProps_select".
+ */
+export interface CategoryLinksPropsSelect<T extends boolean = true> {
+  category?: T;
+  categorySelect?: T;
+  mobileView?: T;
+  customClassName?: T;
   id?: T;
   blockName?: T;
 }
