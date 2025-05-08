@@ -8,41 +8,28 @@ import { Carousel } from '@/components/ui/Carousel';
 import { CategoryLink } from '@/components/ui/CategoryLink';
 
 function isValidCategory(cat: unknown): cat is Category {
-  if (typeof cat !== 'object' || cat === null) return false;
+  if (!cat || typeof cat !== 'object') return false;
 
-  const c = cat as Record<string, unknown>;
-  return typeof c.id === 'string' && typeof c.title === 'string';
+  const c = cat as Partial<Category>;
+  return (
+    typeof c.id === 'string' &&
+    typeof c.title === 'string' &&
+    c.id.trim() !== '' &&
+    c.title.trim() !== ''
+  );
 }
 
-const getSizeForCategory = (count: number, index: number): 'small' | 'medium' | 'large' => {
+function getCategorySize(count: number, index: number): 'small' | 'medium' | 'large' {
   if (count === 4 && index >= 3) return 'large';
   if (count === 5 && index >= 3) return 'large';
-  if (count === 7 && index >= 5) return 'large';
+  if (count === 7 && (index === 4 || index === 6)) return 'large';
   if (count === 8 && index >= 6) return 'large';
-  if (count === 10 && index === 10) return 'large';
-  if (count === 11 && index >= 10) return 'large';
+  if (count === 10 && index === 9) return 'large';
+  if (count === 11 && index >= 9) return 'large';
+  if (count === 12) return index < 3 ? 'large' : 'small';
 
   return 'medium';
-};
-
-const getCategoryGridClass = (categoriesCount: number): string | undefined => {
-  switch (categoriesCount) {
-    case 4:
-      return style['category__links__grid-four-items'];
-    case 5:
-      return style['category__links__grid-five-items'];
-    case 7:
-      return style['category__links__grid-seven-items'];
-    case 8:
-      return style['category__links__grid-eight-items'];
-    case 10:
-      return style['category__links__grid-ten-items'];
-    case 11:
-      return style['category__links__grid-eleven-items'];
-    default:
-      return undefined;
-  }
-};
+}
 
 export const CategoryLinksBlock = async ({
   category,
@@ -56,17 +43,18 @@ export const CategoryLinksBlock = async ({
   const categoriesToDisplay = rawCategories?.filter(isValidCategory) ?? [];
   const categoriesCount = categoriesToDisplay.length;
 
+  const gridClass = style.category__links__grid;
+
   const categoryItems = categoriesToDisplay.map((cat, index) => (
     <CategoryLink
       key={cat.id}
       category={cat}
       type={cat.parentCategory ? 'sub-category' : 'category'}
-      size={getSizeForCategory(categoriesCount, index)}
+      size={getCategorySize(categoriesCount, index)}
       className={clsx({ [style['category__links__grid-item']]: mobileView === 'grid' })}
+      data-item-index={index}
     />
   ));
-
-  const gridClass = clsx(style.category__links__grid, getCategoryGridClass(categoriesCount));
 
   return (
     <section className={clsx('section', customClassName)}>
@@ -79,11 +67,14 @@ export const CategoryLinksBlock = async ({
           disableAt='(min-width: 64em)'
           wrapperClassName={gridClass}
           slideClassName={style['category__links__grid-item']}
+          data-category-count={categoriesCount.toString()}
         >
           {categoryItems}
         </Carousel>
       ) : (
-        <div className={gridClass}>{categoryItems}</div>
+        <div className={gridClass} data-category-count={categoriesCount.toString()}>
+          {categoryItems}
+        </div>
       )}
     </section>
   );
