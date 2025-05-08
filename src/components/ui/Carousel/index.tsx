@@ -90,6 +90,13 @@ export const Carousel = ({
   const carouselRef = useRef<HTMLDivElement>(null);
   const childrenRefs = useRef<Array<HTMLDivElement | null>>([]);
   const numSlides = focus ? 3 : (slidesPerView ?? 1);
+  const dataAttributes: Record<string, string | number | boolean> = {};
+
+  Object.entries(props).forEach(([key, value]) => {
+    if (key.startsWith('data-')) {
+      dataAttributes[key] = value;
+    }
+  });
 
   useCarouselHeight(direction, numSlides, slidesPerView, childrenRefs, carouselRef);
 
@@ -227,7 +234,9 @@ export const Carousel = ({
       {...props}
     >
       <div className={style.viewport} ref={emblaRef}>
-        <div className={wrapperClasses}>{renderSlides()}</div>
+        <div className={wrapperClasses} {...dataAttributes}>
+          {renderSlides()}
+        </div>
       </div>
       {isActive && childrenCount > 1 && (
         <div className={clsx(style.controls, controlsClassName)}>

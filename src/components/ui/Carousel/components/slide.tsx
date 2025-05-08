@@ -7,6 +7,7 @@ export type CarouselSlideProps = {
   isActive: boolean;
   slideClasses: string;
   isCarouselActive: boolean;
+  'data-category-count'?: number;
   ref?: (el: HTMLDivElement | null) => void;
 } & React.HTMLAttributes<HTMLDivElement>;
 

@@ -32,11 +32,28 @@ export const Categories: CollectionConfig = {
       label: 'Category Name',
       required: true,
       unique: true,
+      admin: {
+        description: 'Enter a name for the category. This must be unique.',
+      },
+    },
+    {
+      name: 'tagline',
+      type: 'text',
+      label: 'Tagline',
+      index: true,
+      admin: {
+        description:
+          'Enter a short one sentence description for the category. This will appear on the categories list page.',
+      },
     },
     {
       name: 'description',
       type: 'textarea',
       label: 'Description',
+      admin: {
+        description:
+          'Enter a longer description for the category. This will appear on the actual category page.',
+      },
     },
     {
       type: 'tabs',

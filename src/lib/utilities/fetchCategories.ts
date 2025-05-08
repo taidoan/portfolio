@@ -68,6 +68,8 @@ export const fetchCategories = cache(async () => {
       select: {
         id: true,
         title: true,
+        tagline: true,
+        description: true,
         slug: true,
         parentCategory: true,
       },

@@ -29,5 +29,6 @@ export type CarouselProps = {
   buttonNavigation?: boolean;
   startIndex?: number;
   controlsClassName?: string;
+  [key: `data-${string}`]: string | number | boolean;
   onInit?: (api: EmblaCarouselType) => void;
 };
