@@ -44,10 +44,12 @@ export const DetailsItem = ({
 
   return (
     <li className={clsx(className, style['details__list-item'])} {...props}>
-      <div className={style['details__label']}>
-        {type && iconMap[type] && <span className={style['details__icon']}>{iconMap[type]}</span>}
-        <span>{capitaliseFirstLetter(type ? type : '')}:</span>
-      </div>
+      {type && (
+        <div className={style['details__label']}>
+          {type && iconMap[type] && <span className={style['details__icon']}>{iconMap[type]}</span>}
+          <span>{capitaliseFirstLetter(type)}:</span>
+        </div>
+      )}
       <div className={style['details__content']}>{type === 'tools' ? toolsLink : children}</div>
     </li>
   );
