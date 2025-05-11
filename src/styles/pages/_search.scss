@@ -22,18 +22,11 @@
 }
 
 .search-page__wrapper {
-  position: relative;
-  @include mq('md') {
-    align-items: start;
-    gap: rem(56);
-  }
+  @include sticky-wrapper();
 }
 
 .search-page__main {
-  @include mq('md') {
-    position: sticky;
-    top: calc(var(--layout-row-spacing) * 1.5);
-  }
+  @include sticky-content();
 }
 
 .search-page__content {

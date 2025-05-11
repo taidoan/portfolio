@@ -5,19 +5,9 @@
 }
 
 .categories__wrapper {
-  position: relative;
-  @include mq('md') {
-    gap: rem(56);
-  }
+  @include sticky-wrapper();
 }
 
 .categories__content {
-  position: relative;
-
-  @include mq('md') {
-    > *:first-child {
-      position: sticky;
-      top: calc(var(--layout-row-spacing) * 1.5);
-    }
-  }
+  @include sticky-content();
 }
