@@ -7,6 +7,7 @@ import heroStyle from '@blocks/Hero/Archive/style.module.scss';
 import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
 import { querySearch } from '@/lib/utilities/queries/querySearch';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+import { getCachedPageID } from '@/lib/utilities/getPageID';
 import { truncate } from '@/lib/utilities/truncate';
 
 import SearchBar from '@/components/ui/SearchBar';
@@ -45,24 +46,24 @@ type SearchResponse = {
   hasNextPage: boolean;
 };
 
-const BASE_BREADCRUMBS = [
-  {
-    id: '67c1bd0b9fb50c2e22c139f5',
-    title: 'Home',
-    slug: '',
-  },
-  {
-    title: 'Search',
-    slug: 'search',
-  },
-];
-
 const SearchPage = async ({ searchParams }: Props) => {
   const params = await Promise.resolve(searchParams);
   const query = params.query || '';
   const collection = params.collection || '';
   const perPage = params.perPage || 6;
   const page = params.page || 1;
+
+  const BASE_BREADCRUMBS = [
+    {
+      id: await getCachedPageID('home'),
+      title: 'Home',
+      slug: '',
+    },
+    {
+      title: 'Search',
+      slug: 'search',
+    },
+  ];
 
   const searchResponse: SearchResponse = query
     ? ((await querySearch(

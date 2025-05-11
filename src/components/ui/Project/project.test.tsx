@@ -37,7 +37,7 @@ describe('<ProjectDetails />', () => {
   it('renders project details correctly', () => {
     render(<ProjectDetails data={mockDetails} className='project__info' />);
 
-    expect(screen.getByText('Figma, NextJS, SCSS')).toBeInTheDocument();
+    expect(screen.getByText('Figma')).toBeInTheDocument();
     expect(screen.getByText('Urban Bites')).toBeInTheDocument();
     expect(screen.getByText('Live Preview')).toBeInTheDocument();
   });
@@ -71,5 +71,11 @@ describe('<ProjectDetails />', () => {
 
     expect(screen.getByText('Urban Bites')).toBeInTheDocument();
     expect(screen.getByText('Live Preview')).toBeInTheDocument();
+  });
+
+  it('renders a link when tools are provided', () => {
+    render(<ProjectDetails data={mockDetails} className='project__info' />);
+    const toolsLink = screen.getByRole('link', { name: 'Figma' });
+    expect(toolsLink).toContainHTML('Figma');
   });
 });

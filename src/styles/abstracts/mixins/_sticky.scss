@@ -1,0 +1,58 @@
+@use './../functions/index' as *;
+@use './index' as *;
+
+////
+/// @group mixins-layout
+////
+
+/// Creates a sticky wrapper.
+/// @example
+///   .foo {
+///     @include sticky-wrapper();
+///   }
+///   // Output:
+///   // .foo {
+///   //   position: relative;
+///   // }
+///   @media screen and (min-width: 64em) {
+///     .foo {
+///       align-items: start;
+///     }
+///   }
+@mixin sticky-wrapper() {
+  position: relative;
+
+  @include mq('md') {
+    align-items: start;
+  }
+}
+
+/// Creates a sticky content with a default top gap and optional custom gap.
+/// @param {Length} $top [calc(var(--layout-row-spacing) * 1.5)] - The top gap of the sticky content.
+/// @example
+///   .bar {
+///     @include sticky-content();
+///   }
+///   // Output:
+///   .bar {
+///     position: sticky;
+///   top: calc(var(--layout-row-spacing) * 1.5);
+///   }
+///
+///   .bar {
+///     @include sticky-content(200px);
+///   }
+///
+///   // Output:
+///   @media screen and (min-width: 64em) {
+///     .bar {
+///       position: sticky;
+///       top: 200px;
+///     }
+///   }
+@mixin sticky-content($top: calc(var(--layout-row-spacing) * 1.5)) {
+  @include mq('md') {
+    position: sticky;
+    top: $top;
+  }
+}
