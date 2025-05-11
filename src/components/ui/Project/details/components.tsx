@@ -25,21 +25,22 @@ export const DetailsItem = ({
     link: <IconLink data-testid='link-icon' stroke={2} />,
   };
 
-  const tools = type === 'tools' && children;
+  const tools = type === 'tools' ? children : null;
   const toolsArray = Array.isArray(tools)
     ? tools
     : typeof tools === 'string'
       ? tools.split(',').map((tool) => tool.trim())
       : [];
 
-  const toolsLink = toolsArray.map((tool, index) => (
-    <React.Fragment key={index}>
-      <Link key={index} href={`/search?query=${encodeURI(tool)}`}>
-        {tool}
-      </Link>
-      {index < toolsArray.length - 1 && ', '}
-    </React.Fragment>
-  ));
+  const toolsLink =
+    type === 'tools'
+      ? toolsArray.map((tool, index) => (
+          <React.Fragment key={index}>
+            <Link href={`/search?query=${encodeURIComponent(tool)}`}>{tool}</Link>
+            {index < toolsArray.length - 1 && ', '}
+          </React.Fragment>
+        ))
+      : null;
 
   return (
     <li className={clsx(className, style['details__list-item'])} {...props}>
