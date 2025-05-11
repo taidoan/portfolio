@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 import { IconCalendarWeekFilled, IconLink, IconTools, IconUserCircle } from '@tabler/icons-react';
 import { capitaliseFirstLetter } from '@/lib/utilities/capitaliseFirstLetter';
+import Link from 'next/link';
 import style from './style.module.scss';
 
 export const DetailsList = ({ className, ...props }: React.ComponentProps<'ul'>) => (
@@ -24,13 +25,29 @@ export const DetailsItem = ({
     link: <IconLink data-testid='link-icon' stroke={2} />,
   };
 
+  const tools = type === 'tools' && children;
+  const toolsArray = Array.isArray(tools)
+    ? tools
+    : typeof tools === 'string'
+      ? tools.split(',').map((tool) => tool.trim())
+      : [];
+
+  const toolsLink = toolsArray.map((tool, index) => (
+    <React.Fragment key={index}>
+      <Link key={index} href={`/search?query=${encodeURI(tool)}`}>
+        {tool}
+      </Link>
+      {index < toolsArray.length - 1 && ', '}
+    </React.Fragment>
+  ));
+
   return (
     <li className={clsx(className, style['details__list-item'])} {...props}>
       <div className={style['details__label']}>
         {type && iconMap[type] && <span className={style['details__icon']}>{iconMap[type]}</span>}
         <span>{capitaliseFirstLetter(type ? type : '')}:</span>
       </div>
-      <div className={style['details__content']}>{children}</div>
+      <div className={style['details__content']}>{type === 'tools' ? toolsLink : children}</div>
     </li>
   );
 };
