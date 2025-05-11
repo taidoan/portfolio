@@ -75,12 +75,20 @@
   }
 }
 
-.project__pagination {
+.project__tags-share {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--layout-row-spacing-sm) / 1.5);
   order: 4;
 }
 
-.project__cta {
+.project__pagination {
   order: 5;
+}
+
+.project__cta {
+  order: 6;
 }
 
 @include mq('md') {
@@ -88,7 +96,14 @@
   .project__content,
   .project__pagination,
   .project__cta,
-  .project__gallery {
+  .project__gallery,
+  .project__tags-share {
     order: initial;
+  }
+
+  .project__tags-share {
+    flex-direction: row;
+    gap: rem(40);
+    justify-content: space-between;
   }
 }

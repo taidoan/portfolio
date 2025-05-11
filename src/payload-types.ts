@@ -745,6 +745,8 @@ export interface Project {
   url?: string | null;
   thumbnail?: (string | null) | Media;
   categories: (string | Category)[];
+  tags?: (string | Tag)[] | null;
+  showShareButton?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -3520,6 +3522,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   url?: T;
   thumbnail?: T;
   categories?: T;
+  tags?: T;
+  showShareButton?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

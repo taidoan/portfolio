@@ -562,5 +562,24 @@ export const Projects: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'tags',
+      type: 'relationship',
+      relationTo: 'tags',
+      label: 'Project Tags',
+      hasMany: true,
+      maxDepth: 1,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      type: 'checkbox',
+      name: 'showShareButton',
+      label: 'Allow Sharing',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 };

@@ -290,6 +290,7 @@ export const Posts: CollectionConfig = {
       relationTo: 'tags',
       label: 'Tags',
       hasMany: true,
+      maxDepth: 1,
       admin: {
         position: 'sidebar',
       },

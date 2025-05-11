@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { RequiredDataFromCollectionSlug } from 'payload';
+import type { Tag } from '@/payload-types';
 
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
@@ -9,6 +10,8 @@ import { queryProjects } from '@/lib/utilities/queries/queryPagination';
 import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { generateMeta } from '@/lib/utilities/generateMeta';
+import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+import { extractPlainText } from '@/lib/utilities/extractPlainText';
 
 import { RichText } from '@/components/ui/RichText';
 import { SlugPageHero } from '@/payload/blocks/Hero/SlugPage';
@@ -21,6 +24,8 @@ import { ProjectDetails } from '@/components/ui/Project/details';
 import { ProjectGallery } from '@/components/ui/Project/gallery';
 import { ProjectPagination } from '@/components/ui/ProjectPagination';
 import { CTA } from '@/components/layout/CTA';
+import { TaggedWith } from '@/components/ui/TaggedWith';
+import { SocialShare } from '@/components/ui/SocialShare';
 
 export const generateStaticParams = async () => {
   const payload = await getPayload({ config: configPromise });
@@ -60,8 +65,10 @@ const Page = async ({ params: paramsPromise }: Args) => {
 
   if (!page) return <Redirects url={url} />;
 
-  const { hero } = page;
+  const { hero, tags, showShareButton, content, ctaContent, details, thumbnail } = page;
   const breadcrumbs = hero?.breadcrumbs;
+  const socialData = await getCachedGlobal('social', 2)();
+  const plainTextDescription = details && extractPlainText(details.description!);
 
   const pageIds =
     breadcrumbs?.breadcrumbs?.map((breadcrumb) => {
@@ -70,7 +77,6 @@ const Page = async ({ params: paramsPromise }: Args) => {
     }) || [];
 
   const breadcrumbsData = await queryBreadcrumbs(pageIds);
-
   return (
     <>
       <Redirects disableNotFound url={url} />
@@ -79,12 +85,12 @@ const Page = async ({ params: paramsPromise }: Args) => {
       <section className={clsx('section', 'project__details')}>
         <Card className='project__description'>
           <CardBody padding='large'>
-            {page.details?.description && (
-              <RichText converters={headingConverter} data={page.details.description} />
+            {details?.description && (
+              <RichText converters={headingConverter} data={details.description} />
             )}
           </CardBody>
         </Card>
-        <ProjectDetails data={{ details: page.details }} className='project__info' />
+        <ProjectDetails data={{ details: details }} className='project__info' />
       </section>
       <section className={clsx('project__section', 'project__gallery')}>
         <ProjectGallery
@@ -92,24 +98,50 @@ const Page = async ({ params: paramsPromise }: Args) => {
           options={{ galleryOptions: page.galleryOptions }}
         />
       </section>
-      {page.content && (
+      {content && (
         <section className={clsx('project__section', 'project__content')}>
           <Card>
             <CardBody padding='large'>
-              {<RichText converters={headingConverter} data={page.content} />}
+              {<RichText converters={headingConverter} data={content} />}
             </CardBody>
           </Card>
+        </section>
+      )}
+      {(tags || showShareButton) && (
+        <section className={clsx('project__section', 'project__tags-share')}>
+          {tags && (
+            <TaggedWith
+              tags={tags as Tag[]}
+              className='project__section project__tags'
+              numberOfTags={8}
+              showTitle={true}
+              title='Project Tags:'
+            />
+          )}
+          {showShareButton && (
+            <SocialShare
+              data={socialData}
+              title={page.title}
+              url={page.url!}
+              description={plainTextDescription}
+              pinterestImage={
+                thumbnail && typeof thumbnail === 'object' && thumbnail?.filename
+                  ? thumbnail.filename
+                  : ''
+              }
+            />
+          )}
         </section>
       )}
       <ProjectPagination
         className={clsx('project__section', 'project__pagination')}
         data={pagination}
       />
-      {page.ctaContent && (
+      {ctaContent && (
         <CTA
           className='project__section project__cta'
           link={page.ctaLink}
-          content={page.ctaContent}
+          content={ctaContent}
           variant={page.ctaAppearance?.blockVariant || 'fill'}
           color={page.ctaAppearance?.backgroundColour || 'primary'}
           borderRadius={page.ctaAppearance?.borderRadius || 'medium'}
