@@ -1,0 +1,9 @@
+@use '@abstracts/_index' as *;
+
+.tags__wrapper {
+  @include sticky-wrapper();
+}
+
+.tags__content {
+  @include sticky-content();
+}

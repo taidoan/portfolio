@@ -84,7 +84,12 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    tags: {
+      relatedProjects: 'projects';
+      relatedPosts: 'posts';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -1756,6 +1761,22 @@ export interface RelatedProjectsBlockProps {
 export interface Tag {
   id: string;
   name: string;
+  /**
+   * Projects that are tagged with this tag.
+   */
+  relatedProjects?: {
+    docs?: (string | Project)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  /**
+   * Posts that are tagged with this tag.
+   */
+  relatedPosts?: {
+    docs?: (string | Post)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3721,6 +3742,8 @@ export interface TaggedWithBlockPropsSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
+  relatedProjects?: T;
+  relatedPosts?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

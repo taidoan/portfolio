@@ -15,12 +15,14 @@ const TagsPage = async () => {
   const payload = await getPayload({ config: configPromise });
   const tags = await payload.find({
     collection: 'tags',
-    depth: 1,
+    depth: 2,
     limit: 50,
     overrideAccess: false,
     pagination: false,
     select: {
       name: true,
+      relatedProjects: true,
+      relatedPosts: true,
     },
   });
 
@@ -55,13 +57,22 @@ const TagsPage = async () => {
         </p>
       </section>
       <section className={clsx('section', 'bg--gradient-grey', 'full-width')}>
-        <section className={clsx('section__wrapper', 'search-page__wrapper')}>
-          <div className={clsx('col-span-11', 'search-page__main')}>
-            {tags.docs.map((tag) => (
-              <div key={tag.id} className={clsx('tags__item')}>
-                <h3 className='sub-heading'>{tag.name}</h3>
-              </div>
-            ))}
+        <section className={clsx('section__wrapper', 'tags__wrapper')}>
+          <div className={clsx('col-span-11', 'tags__content')}>
+            {tags.docs.map((tag) => {
+              const relatedProjects = tag.relatedProjects?.docs || [];
+              const relatedPosts = tag.relatedPosts?.docs || [];
+              const totalRelated = relatedProjects.length + relatedPosts.length;
+
+              console.log('Tag related projects', totalRelated);
+
+              return (
+                <div key={tag.id} className={clsx('tags__item')}>
+                  <h3 className='sub-heading'>{tag.name}</h3>
+                  {totalRelated > 0 && <span>{totalRelated}</span>}
+                </div>
+              );
+            })}
           </div>
           <Sidebar data={sidebarData} className='col-span-5' />
         </section>
