@@ -9,6 +9,7 @@ import { queryBreadcrumbs } from '@/lib/utilities/queries/queryBreadcrumbs';
 import { queryPageBySlug } from '@/lib/utilities/queries/queryPage';
 import { generateMeta } from '@/lib/utilities/generateMeta';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+import { getCachedPageID } from '@/lib/utilities/getPageID';
 
 import { LivePreviewListener } from '@/components/features/LivePreview';
 import { Redirects } from '@/components/features/Redirects';
@@ -55,6 +56,11 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
   if (!page) return <Redirects url={url} />;
   const { breadcrumb, ctaContent, ctaAppearance, ctaLink, layout } = page;
 
+  const resolvedPageIds = await Promise.all([
+    getCachedPageID('home'),
+    getCachedPageID('categories'),
+  ]);
+
   const pageIds = (() => {
     if (breadcrumb && Array.isArray(breadcrumb.breadcrumbs) && breadcrumb.breadcrumbs.length > 0) {
       return breadcrumb.breadcrumbs.map((breadcrumbItem) => {
@@ -63,7 +69,7 @@ const CategoryPage = async ({ params: paramsPromise }: Args) => {
       });
     }
 
-    return ['67c1bd0b9fb50c2e22c139f5', `${page.id}`];
+    return [...resolvedPageIds, `${page.id}`];
   })();
 
   const breadcrumbsData = await queryBreadcrumbs(pageIds);
