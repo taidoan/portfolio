@@ -25,14 +25,17 @@ const meta: Meta<typeof Switcher> = {
 
 export default meta;
 type Story = StoryObj<typeof Switcher>;
-const parentSwitcher = true;
 
 export const SwitcherComponent: Story = {
   args: {
     children: (
       <>
-        <SwitcherButton active={true}>Active</SwitcherButton>
-        <SwitcherButton>Inactive</SwitcherButton>
+        <SwitcherButton active={true} data-text='Active' value='active'>
+          Active
+        </SwitcherButton>
+        <SwitcherButton data-text='Inactive' value='inactive'>
+          Inactive
+        </SwitcherButton>
       </>
     ),
   },
