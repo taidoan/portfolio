@@ -98,7 +98,6 @@ export const Bordered: Story = {
 
 export const WithCount: Story = {
   args: {
-    showCount: true,
     count: 3,
   },
   render: (args) => {
@@ -108,6 +107,6 @@ export const WithCount: Story = {
       </Tag>
     ));
 
-    return <TagsContainer>{tags}</TagsContainer>;
+    return <TagsContainer showCount={true}>{tags}</TagsContainer>;
   },
 };

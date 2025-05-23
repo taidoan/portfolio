@@ -4,6 +4,15 @@ export const mockTags = [
   {
     name: 'digital',
     id: '67ea8287a573c9541b45e571',
+    relatedProjects: {
+      docs: ['67e089f503bbd7fc5468ee2e', '67e0861b833394f03a2dd5fb'],
+      hasNextPage: false,
+    },
+
+    relatedPosts: {
+      docs: ['68210cd3b5f914e34fbce451', '68210bb8b5f914e34fbce12d', '67d1571540d3105ab50710d5'],
+      hasNextPage: false,
+    },
   },
   {
     name: 'posts',
@@ -16,6 +25,15 @@ export const mockTags = [
   {
     name: 'ux',
     id: '67eb0025a573c9541b45e701',
+    relatedProjects: {
+      docs: ['67e089f503bbd7fc5468ee2e', '67e0861b833394f03a2dd5fb'],
+      hasNextPage: false,
+    },
+
+    relatedPosts: {
+      docs: ['68210cd3b5f914e34fbce451'],
+      hasNextPage: false,
+    },
   },
   {
     name: 'accessibility',
@@ -40,6 +58,15 @@ export const mockTags = [
   {
     name: 'figma',
     id: '67eb008ba573c9541b45e707',
+    relatedProjects: {
+      docs: ['67e089f503bbd7fc5468ee2e'],
+      hasNextPage: false,
+    },
+
+    relatedPosts: {
+      docs: ['68210cd3b5f914e34fbce451'],
+      hasNextPage: false,
+    },
   },
   {
     name: 'portfolio',

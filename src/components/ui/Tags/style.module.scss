@@ -4,6 +4,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: size-clamp(rem(8), rem(12));
+  justify-content: center;
+
+  @include mq('md') {
+    justify-content: flex-start;
+  }
 }
 
 .tag,

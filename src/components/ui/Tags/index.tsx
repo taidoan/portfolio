@@ -4,12 +4,20 @@ import clsx from 'clsx';
 import style from './style.module.scss';
 import * as React from 'react';
 
-export const TagContainer = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={clsx(className, style.tags__container)} {...props} />
-);
-
-export const TagsContainer = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={clsx(className, style.tags__container)} {...props} />
+export const TagsContainer = ({
+  className,
+  children,
+  showCount = false,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { showCount?: boolean; children: React.ReactNode }) => (
+  <div className={clsx(className, style.tags__container)} {...props}>
+    {React.Children.map(children, (child) => {
+      if (React.isValidElement<TagProps>(child)) {
+        return React.cloneElement(child, { showCount });
+      }
+      return child;
+    })}
+  </div>
 );
 
 const TagSpan = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
@@ -63,7 +71,7 @@ export const Tag = ({
   variant = 'default',
   color = 'default',
   size = 'default',
-  showCount = false,
+  showCount,
   count,
   ...props
 }: TagProps) => {
