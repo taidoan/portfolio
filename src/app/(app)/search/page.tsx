@@ -17,6 +17,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Carousel } from '@/components/ui/Carousel';
 import { Card, CardBody, CardContent, CardImage, CardTitle } from '@/components/ui/Card';
 import { PaginationSearch } from './pagination';
+import { Button } from '@/components/ui/Button';
 
 export type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined | number | number[] }>;
@@ -127,6 +128,16 @@ const SearchPage = async ({ searchParams }: Props) => {
               className='search-page__breadcrumbs'
             />
             {resultsText}
+            {collection === 'tags' && (
+              <Button
+                href='/tags'
+                color='secondary'
+                hoverColor='accent'
+                className={clsx('hero__cta', heroStyle.cta)}
+              >
+                View All Tags
+              </Button>
+            )}
           </>
         ) : (
           <div className='search-page__hero'>

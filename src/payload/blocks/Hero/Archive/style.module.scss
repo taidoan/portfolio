@@ -2,6 +2,7 @@
 
 .hero {
   @include hero-low-impact;
+
   & {
     gap: 0;
   }
@@ -13,4 +14,8 @@
 
 .hero__breadcrumbs {
   margin-block: size-clamp(rem(16), rem(32));
+}
+
+.cta {
+  align-self: flex-start !important;
 }
