@@ -22,6 +22,7 @@ a.tag {
   font-weight: 500;
   justify-content: center;
   padding: rem(8) rem(16);
+  position: relative;
   text-decoration: none;
   transition:
     color var(--transition-duration-fast) ease,
@@ -37,7 +38,7 @@ a.tag {
 
   &-clr--default {
     --background-clr: var(--clr-gallery-400);
-    --border-clr: var(--clr-gallery-500);
+    --border-clr: #eaeae9;
   }
 
   &-clr--light-grey {
@@ -66,5 +67,55 @@ a.tag {
     &:hover {
       border: rem(2) solid var(--clr-accent-500);
     }
+  }
+
+  &-size--large {
+    font-size: var(--fs-body-sm);
+    line-height: 1;
+    padding: rem(16);
+  }
+}
+
+.tag-count {
+  --size: #{rem(20)};
+  --offset: #{rem(-7.5)};
+  align-items: center;
+  background-color: var(--clr-accent-400);
+  border-radius: rem(6);
+  color: var(--clr-light-400);
+  display: flex;
+  font-family: var(--ff-display-condensed);
+  font-size: rem(13);
+  font-weight: 800;
+  height: var(--size);
+  justify-content: center;
+  line-height: 1;
+  position: absolute;
+  right: var(--offset);
+  top: var(--offset);
+  width: var(--size);
+
+  &--clr-primary {
+    background-color: var(--clr-primary-400);
+  }
+
+  &--clr-secondary {
+    background-color: var(--clr-secondary-400);
+  }
+
+  &--clr-accent {
+    background-color: var(--clr-accent-400);
+  }
+
+  &--clr-green {
+    background-color: var(--clr-fresh-leaf-400);
+  }
+
+  &--clr-red {
+    background-color: var(--clr-cherry-punch-400);
+  }
+
+  &--clr-orange {
+    background-color: var(--clr-amber-glow-400);
   }
 }
