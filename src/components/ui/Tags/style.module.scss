@@ -34,6 +34,11 @@ a.tag {
     --text-clr: var(--clr-secondary-400);
     --background-clr: var(--clr-accent-400);
     text-decoration: none;
+
+    .tag-count {
+      --count-bg-clr: var(--clr-secondary-400);
+      --count-border-clr: var(--clr-secondary-400);
+    }
   }
 
   &-clr--default {
@@ -80,7 +85,8 @@ a.tag {
   --size: #{rem(20)};
   --offset: #{rem(-7.5)};
   align-items: center;
-  background-color: var(--clr-accent-400);
+  background-color: var(--count-bg-clr);
+  border: rem(1) solid var(--count-border-clr);
   border-radius: rem(6);
   color: var(--clr-light-400);
   display: flex;
@@ -93,29 +99,33 @@ a.tag {
   position: absolute;
   right: var(--offset);
   top: var(--offset);
+  transition:
+    background-color var(--transition-duration) ease,
+    border-color var(--transition-duration) ease;
   width: var(--size);
 
   &--clr-primary {
-    background-color: var(--clr-primary-400);
+    --count-bg-clr: var(--clr-primary-400);
   }
 
   &--clr-secondary {
-    background-color: var(--clr-secondary-400);
+    --count-bg-clr: var(--clr-secondary-400);
   }
 
   &--clr-accent {
-    background-color: var(--clr-accent-400);
+    --count-bg-clr: var(--clr-accent-400);
+    --count-border-clr: var(--clr-accent-450);
   }
 
   &--clr-green {
-    background-color: var(--clr-fresh-leaf-400);
+    --count-bg-clr: var(--clr-fresh-leaf-400);
   }
 
   &--clr-red {
-    background-color: var(--clr-cherry-punch-400);
+    --count-bg-clr: var(--clr-cherry-punch-400);
   }
 
   &--clr-orange {
-    background-color: var(--clr-amber-glow-400);
+    --count-bg-clr: var(--clr-amber-glow-400);
   }
 }
