@@ -33,6 +33,10 @@
 
 .bg--accent {
   background-color: var(--clr-accent-400);
+
+  span.accent-dot {
+    color: var(--clr-primary-450);
+  }
 }
 
 @each $color-name, $color-value in $colour-palette {
@@ -67,6 +71,17 @@
 
 .bg--gradient-grey {
   background: linear-gradient(180deg, var(--clr-concrete-400) 0%, var(--clr-ivory-400) 100%);
+}
+
+.bg--primary,
+.bg--gradient-primary {
+  h3.sub-heading {
+    text-shadow: var(--shadow-small-title);
+  }
+
+  p {
+    text-shadow: var(--shadow-small-body);
+  }
 }
 
 .text--light {

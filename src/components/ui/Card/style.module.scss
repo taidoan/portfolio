@@ -6,7 +6,12 @@
   border-radius: var(--border-radius-medium);
   box-shadow: var(--shadow-card-sm);
   color: var(--fc-card);
+  transition: box-shadow var(--transition-duration) ease;
   width: 100%;
+
+  &:hover {
+    box-shadow: var(--shadow-card);
+  }
 
   &:has(.card__image__container + .card__body) {
     .card__image__container {
