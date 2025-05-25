@@ -15,6 +15,7 @@ $type-scale: (
     x-small: size-clamp(rem($font-smallest-size), rem($font-root-size)),
     small: size-clamp(rem($font-root-size), rem($font-desktop-size-sm)),
     base: size-clamp(rem($font-root-size), rem($font-desktop-size)),
+    large: size-clamp(rem($font-desktop-size), rem($font-desktop-size-lg)),
   ),
   heading: (
     small: rem($heading-font-size-sm),

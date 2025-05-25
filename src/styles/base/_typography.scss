@@ -6,6 +6,7 @@
   --fs-small: #{map.get($type-scale, 'body', 'x-small')};
   --fs-body-sm: #{map.get($type-scale, 'body', 'small')};
   --fs-body: #{map.get($type-scale, 'body', 'base')};
+  --fs-body-lg: #{map.get($type-scale, 'body', 'large')};
   --fs-heading-sm: #{map.get($type-scale, 'heading', 'small')};
   --fs-heading: #{map.get($type-scale, 'heading', 'base')};
   --fs-heading-lg: #{map.get($type-scale, 'heading', 'large')};
@@ -22,6 +23,12 @@ body {
   font-family: var(--ff-body);
   font-size: var(--fs-body);
   line-height: 1.35;
+}
+
+html {
+  @include mq('lg-xxl') {
+    font-size: var(--fs-body-lg);
+  }
 }
 
 h1,
