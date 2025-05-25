@@ -1,6 +1,7 @@
 'use client';
 import type { SidebarTagsBlockProps, Tag as TagType } from '@/payload-types';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import clsx from 'clsx';
 import style from '@/components/layout/Sidebar/style.module.scss';
 import { queryTags } from '@utilities/queries/queryTags';
@@ -55,7 +56,10 @@ export const SidebarTagsBlock = ({
   return (
     <section className={clsx(className, style.sidebar__block)}>
       <div className={style['sidebar__block-header']}>
-        <h2 className={style['sidebar__block-title']}>{title || 'Tags'}</h2>
+        <Link href='/tags' className={style['sidebar__block-title-link']}>
+          <h2 className={clsx(style['sidebar__block-title'])}>{title || 'Tags'}</h2>
+        </Link>
+
         {showExpandButton && (
           <button
             className={style['sidebar__block-button']}

@@ -33,7 +33,10 @@ export const SidebarCategoriesBlock = async ({ className, showSubCategories, tit
 
   return (
     <section className={clsx(className, style.sidebar__block)}>
-      <h2 className={style['sidebar__block-title']}>{title || 'Categories'}</h2>
+      <Link href='/categories' className={style['sidebar__block-title-link']}>
+        <h2 className={style['sidebar__block-title']}>{title || 'Categories'}</h2>
+      </Link>
+
       <Divider
         type='content'
         color='light-grey'
@@ -45,7 +48,10 @@ export const SidebarCategoriesBlock = async ({ className, showSubCategories, tit
           .filter((category) => !category.parentCategory)
           .map((topLevelCategory) => (
             <li key={topLevelCategory.slug}>
-              <Link href={`/categories/${topLevelCategory.slug}`}>
+              <Link
+                href={`/categories/${topLevelCategory.slug}`}
+                className={style['sidebar__block-link']}
+              >
                 {topLevelCategory.title}
                 {getIcon(topLevelCategory.slug)}
               </Link>
@@ -65,7 +71,10 @@ export const SidebarCategoriesBlock = async ({ className, showSubCategories, tit
                       )
                       .map((childCategory) => (
                         <li key={childCategory.slug}>
-                          <Link href={`/categories/${childCategory.slug}`}>
+                          <Link
+                            href={`/categories/${childCategory.slug}`}
+                            className={style['sidebar__block-link']}
+                          >
                             {
                               <IconArrowNarrowRight
                                 stroke={3}

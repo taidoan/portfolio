@@ -26,7 +26,7 @@ export const SidebarLatestBlock = async ({ className, numberOfPosts, title }: Pr
       <ul className={style['sidebar__block-list']}>
         {filteredPosts.map((post) => (
           <li key={post.slug}>
-            <Link href={post.url || '/'}>
+            <Link href={post.url || '/'} className={style['sidebar__block-link']}>
               {post.title}
               {post?.url?.includes('projects') ? (
                 <IconBook2 stroke={2} className={style['sidebar__block-icon']} />
