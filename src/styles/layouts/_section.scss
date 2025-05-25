@@ -50,6 +50,25 @@
     h2.section-heading {
       color: var(--clr-secondary-400);
     }
+
+    &[data-bg-clr='primary'],
+    &[data-bg-clr='gradient-primary'] {
+      &[data-variant='fill'] {
+        h3.sub-heading {
+          text-shadow: var(--shadow-small-title);
+        }
+
+        p {
+          text-shadow: var(--shadow-small-body);
+        }
+      }
+    }
+
+    &[data-bg-clr='accent'] {
+      span.accent-dot {
+        color: var(--clr-primary-450);
+      }
+    }
   }
 
   &__wrapper {
