@@ -4,6 +4,7 @@ import { CheckboxField } from '@/components/ui/FormFields/index';
 import { EmailField } from '@/components/ui/FormFields/index';
 import { NumberField } from '@/components/ui/FormFields/index';
 import { TextareaField } from '@/components/ui/FormFields/index';
+import { DateField } from '@/components/ui/FormFields/index';
 
 export const fields = {
   text: TextField,
@@ -17,4 +18,5 @@ export const fields = {
   state: TextField,
   radio: RadioField,
   message: TextField,
+  date: DateField,
 };
