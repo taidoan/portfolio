@@ -1,5 +1,6 @@
 'use client';
-import type { Header, Social } from '@/payload-types';
+import type { Header } from '@/payload-types';
+import type { SocialAccount } from '@/components/layout/types';
 import { NavLink } from '@/components/ui/NavLinks';
 import { SocialButton } from '@/components/ui/SocialButton';
 import { NavButton } from './NavButton';
@@ -11,7 +12,7 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 export type NavBarProps = {
   data: Header;
-  social: Social;
+  social: SocialAccount[];
   className?: string;
 };
 
@@ -66,23 +67,20 @@ export const NavBar = ({ data, social, className, ...props }: NavBarProps) => {
               );
             })}
           </menu>
-          {!isDesktop &&
-            social &&
-            social['social-network'] &&
-            social['social-network']?.length > 0 && (
-              <menu className={style.nav__social}>
-                {social['social-network']?.map((item, index) => (
-                  <li key={index}>
-                    <SocialButton
-                      network={item.network}
-                      className={style.socialButton}
-                      username={item.username}
-                      tabIndex={isDesktop || menuOpen ? 0 : -1}
-                    />
-                  </li>
-                ))}
-              </menu>
-            )}
+          {!isDesktop && social?.length > 0 && (
+            <menu className={style.nav__social}>
+              {social.map((item, index) => (
+                <li key={index}>
+                  <SocialButton
+                    network={item.network}
+                    className={style.socialButton}
+                    username={item.username}
+                    tabIndex={isDesktop || menuOpen ? 0 : -1}
+                  />
+                </li>
+              ))}
+            </menu>
+          )}
         </div>
       </nav>
     </div>

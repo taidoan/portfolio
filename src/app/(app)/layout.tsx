@@ -5,11 +5,7 @@ import { draftMode } from 'next/headers';
 import { getServerSideURL } from '@/lib/utilities/getURLs';
 import { mergeOpenGraph } from '@/lib/utilities/mergeOpenGraph';
 import Header from '@components/layout/Header';
-import type {
-  Header as HeaderType,
-  Social as SocialType,
-  Footer as FooterType,
-} from '@/payload-types';
+import type { Header as HeaderType, Footer as FooterType, SiteSetting } from '@/payload-types';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 import Footer from '@components/layout/Footer';
 
@@ -20,11 +16,13 @@ export default async function RootLayout({
 }>) {
   const { isEnabled } = await draftMode();
 
-  const [headerData, socialData, footerData] = (await Promise.all([
+  const [headerData, footerData, siteSettings] = (await Promise.all([
     getCachedGlobal('header', 3)(),
-    getCachedGlobal('social', 1)(),
     getCachedGlobal('footer', 3)(),
-  ])) as [HeaderType, SocialType, FooterType];
+    getCachedGlobal('site-settings')(),
+  ])) as [HeaderType, FooterType, SiteSetting];
+
+  console.log('site Settings', siteSettings);
 
   return (
     <html
@@ -33,9 +31,9 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <Header data={headerData} social={socialData} />
+        <Header data={headerData} social={siteSettings?.socialAccounts?.socialNetwork ?? []} />
         <main>{children}</main>
-        <Footer data={footerData} social={socialData} />
+        <Footer data={footerData} social={siteSettings?.socialAccounts?.socialNetwork ?? []} />
       </body>
     </html>
   );

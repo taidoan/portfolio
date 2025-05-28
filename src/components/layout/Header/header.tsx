@@ -1,5 +1,6 @@
 'use client';
-import type { Header as HeaderType, Social } from '@/payload-types';
+import type { Header as HeaderType } from '@/payload-types';
+import type { SocialAccount } from '@/components/layout/types';
 import { NavBar } from '@components/layout/NavBar/navBar';
 import { Logo } from '@components/ui/Logo';
 import style from './style.module.scss';
@@ -9,7 +10,7 @@ import clsx from 'clsx';
 
 export type HeaderProps = {
   data: HeaderType;
-  social: Social;
+  social: SocialAccount[];
 };
 
 export const Header = ({ data, social }: HeaderProps) => {

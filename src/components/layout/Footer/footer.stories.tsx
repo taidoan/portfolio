@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Footer } from './footer';
+import { mockSocialAccounts } from '@/mocks/data/mockSocial';
+import { mockNavItems } from '@/mocks/data/mockNavItems';
 
 const meta: Meta<typeof Footer> = {
   title: 'Layout/Footer',
@@ -22,74 +24,9 @@ const meta: Meta<typeof Footer> = {
   args: {
     data: {
       id: 'footer',
-      navItems: [
-        {
-          link: {
-            type: 'custom',
-            label: 'Home',
-            url: '/',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            label: 'About',
-            url: '/about',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            label: 'Projects',
-            url: '/projects',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            label: 'Services',
-            url: '/services',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            label: 'Contact',
-            url: '/contact',
-          },
-        },
-      ],
+      navItems: mockNavItems,
     },
-    social: {
-      id: 'social',
-      'social-network': [
-        {
-          username: 'taidoan',
-          network: 'github',
-          id: 'github',
-        },
-        {
-          username: 'taidoan',
-          network: 'linkedin',
-          id: 'linkedin',
-        },
-        {
-          username: 'taidoan',
-          network: 'instagram',
-          id: 'instagram',
-        },
-        {
-          username: 'taidoan',
-          network: 'youtube',
-          id: 'youtube',
-        },
-        {
-          username: 'taidoan',
-          network: 'x',
-          id: 'x',
-        },
-      ],
-    },
+    social: mockSocialAccounts,
   },
 };
 
