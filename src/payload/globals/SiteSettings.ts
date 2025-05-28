@@ -1,7 +1,8 @@
 import { GlobalConfig } from 'payload';
-import { SocialFields } from './Social';
+import { SocialFields } from './fields/Social';
 import { anyone, authenticated } from '@/payload/access';
 import { SITE_NAME, AUTHOR_NAME, CONTACT_EMAIL } from '@lib/constants';
+import { revalidateGlobal } from './hooks/revalidateGlobal';
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -79,4 +80,7 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [revalidateGlobal('site-settings')],
+  },
 };

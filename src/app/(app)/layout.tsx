@@ -1,28 +1,23 @@
 import type { Metadata } from 'next';
+import type { Header as HeaderType, Footer as FooterType, SiteSetting } from '@/payload-types';
+
 import { inter, barlow, barlow_condensed } from '@/lib/fonts';
 import '@styles/index.scss';
-import { draftMode } from 'next/headers';
 import { getServerSideURL } from '@/lib/utilities/getURLs';
-import { mergeOpenGraph } from '@/lib/utilities/mergeOpenGraph';
-import Header from '@components/layout/Header';
-import type { Header as HeaderType, Footer as FooterType, SiteSetting } from '@/payload-types';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+import { getMaintenanceMode } from '@/lib/utilities/getMaintenanceMode';
+import { mergeOpenGraph } from '@/lib/utilities/mergeOpenGraph';
+
+import Header from '@components/layout/Header';
 import Footer from '@components/layout/Footer';
+import { MaintenanceBlock } from '@/components/layout/Maintenance';
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isEnabled } = await draftMode();
-
-  const [headerData, footerData, siteSettings] = (await Promise.all([
-    getCachedGlobal('header', 3)(),
-    getCachedGlobal('footer', 3)(),
-    getCachedGlobal('site-settings')(),
-  ])) as [HeaderType, FooterType, SiteSetting];
-
-  console.log('site Settings', siteSettings);
+  const isMaintenanceMode = await getMaintenanceMode();
 
   return (
     <html
@@ -30,14 +25,38 @@ export default async function RootLayout({
       lang='en'
       suppressHydrationWarning
     >
-      <body>
-        <Header data={headerData} social={siteSettings?.socialAccounts?.socialNetwork ?? []} />
-        <main>{children}</main>
-        <Footer data={footerData} social={siteSettings?.socialAccounts?.socialNetwork ?? []} />
-      </body>
+      <body>{isMaintenanceMode ? <MaintenanceBlock /> : <MainApp>{children}</MainApp>}</body>
     </html>
   );
 }
+
+const MainApp = async ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  const [headerData, footerData, siteSettings] = await Promise.allSettled([
+    getCachedGlobal('header', 3)(),
+    getCachedGlobal('footer', 3)(),
+    getCachedGlobal('site-settings')(),
+  ]);
+
+  const header = headerData.status === 'fulfilled' ? (headerData.value as HeaderType) : null;
+  const footer = footerData.status === 'fulfilled' ? (footerData.value as FooterType) : null;
+  const settings = siteSettings.status === 'fulfilled' ? (siteSettings.value as SiteSetting) : null;
+
+  const socialNetworks = settings?.socialAccounts?.socialNetwork ?? [];
+
+  return (
+    <>
+      {header && <Header data={header} social={socialNetworks} />}
+      <main id='main-content' role='main'>
+        {children}
+      </main>
+      {footer && <Footer data={footer} social={socialNetworks} />}
+    </>
+  );
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),

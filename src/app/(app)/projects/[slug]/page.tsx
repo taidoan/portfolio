@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { RequiredDataFromCollectionSlug } from 'payload';
-import type { Tag } from '@/payload-types';
+import type { Tag, SiteSetting } from '@/payload-types';
 
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
@@ -60,14 +60,16 @@ const Page = async ({ params: paramsPromise }: Args) => {
     slug,
     collection: 'projects',
   });
-
   const pagination = await queryProjects({ slug });
 
   if (!page) return <Redirects url={url} />;
 
   const { hero, tags, showShareButton, content, ctaContent, details, thumbnail } = page;
   const breadcrumbs = hero?.breadcrumbs;
-  const socialData = await getCachedGlobal('social', 2)();
+
+  const siteSettings = (await getCachedGlobal('site-settings')()) as SiteSetting;
+  const socialData = siteSettings?.socialSharing?.shareNetworks ?? [];
+
   const plainTextDescription = details && extractPlainText(details.description!);
 
   const pageIds =
