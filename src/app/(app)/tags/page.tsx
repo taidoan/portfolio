@@ -7,6 +7,7 @@ import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import { getCachedPageID } from '@/lib/utilities/getPageID';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
+import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
 
 import Sidebar from '@/components/layout/Sidebar';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -73,7 +74,7 @@ export default TagsPage;
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return {
-    title: 'Tags',
-    description: 'Browse all tags',
+    title: 'Browse All Tags | ' + SITE_NAME,
+    description: 'Browse all tags on ' + AUTHOR_NAME + "'s portfolio.",
   };
 };

@@ -20,4 +20,7 @@ export const Media: CollectionConfig = {
     disableLocalStorage: true,
     mimeTypes: ['image/*', 'video/*', 'application/pdf'],
   },
+  admin: {
+    folders: true,
+  },
 };
