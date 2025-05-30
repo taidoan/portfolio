@@ -5,7 +5,7 @@ import { inter, barlow, barlow_condensed } from '@/lib/fonts';
 import '@styles/index.scss';
 import { getServerSideURL } from '@/lib/utilities/getURLs';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
-import { getMaintenanceMode } from '@/lib/utilities/getMaintenanceMode';
+import { getMaintenanceStatus } from '@/lib/utilities/getMaintenanceStatus';
 import { mergeOpenGraph } from '@/lib/utilities/mergeOpenGraph';
 
 import Header from '@components/layout/Header';
@@ -17,7 +17,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isMaintenanceMode = await getMaintenanceMode();
+  const maintenance = await getMaintenanceStatus();
 
   return (
     <html
@@ -25,7 +25,13 @@ export default async function RootLayout({
       lang='en'
       suppressHydrationWarning
     >
-      <body>{isMaintenanceMode ? <MaintenanceBlock /> : <MainApp>{children}</MainApp>}</body>
+      <body>
+        {maintenance.maintenanceMode ? (
+          <MaintenanceBlock message={maintenance?.maintenanceMessage ?? undefined} />
+        ) : (
+          <MainApp>{children}</MainApp>
+        )}
+      </body>
     </html>
   );
 }
