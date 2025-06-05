@@ -1,3 +1,4 @@
+import type { SiteSetting } from '@/payload-types';
 import { Plugin } from 'payload';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { seoPlugin } from '@payloadcms/plugin-seo';
@@ -11,10 +12,12 @@ import {
 import { Project, Page, Service, Post } from '@/payload-types';
 import { getServerSideURL, getCDNURL } from '@/lib/utilities/getURLs';
 import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
+import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 import { Search } from './search';
 import { FormBuilder } from './forms';
 
-const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) => {
+const generateTitle: GenerateTitle<Project | Page | Service | Post> = async ({ doc }) => {
+  const settings = (await getCachedGlobal('site-settings')()) as SiteSetting;
   const isProject = doc?.url?.includes('projects') && 'details' in doc;
   const isService = doc?.url?.includes('services');
   const isPost = doc?.url?.includes('posts');
@@ -24,19 +27,21 @@ const generateTitle: GenerateTitle<Project | Page | Service | Post> = ({ doc }) 
 
   if (isProject) {
     title = doc?.title
-      ? `${doc.title} | ${doc.details?.type || 'Project'} by ${SITE_NAME}`
-      : `Project by ${SITE_NAME}`;
+      ? `${doc.title} | ${doc.details?.type || 'Project'} by ${settings.authorName || SITE_NAME}`
+      : `Project by ${settings.authorName || SITE_NAME}`;
   } else if (isService) {
-    title = doc?.title ? `${doc.title} | Service by ${SITE_NAME}` : `Service by ${SITE_NAME}`;
+    title = doc?.title
+      ? `${doc.title} | Service by ${settings.siteName || SITE_NAME}`
+      : `Service by ${settings.siteName || SITE_NAME}`;
   } else if (isPost) {
-    title = `${doc.title} written by ${AUTHOR_NAME}`;
+    title = `${doc.title} written by ${settings.authorName || AUTHOR_NAME}`;
   } else if (isCategory) {
-    title = `${doc.title} Category | ${SITE_NAME}`;
+    title = `${doc.title} Category | ${settings.siteName || SITE_NAME}`;
   } else {
-    title = `${doc?.title || 'Untitled'} | ${SITE_NAME}`;
+    title = `${doc?.title || 'Untitled'} | ${settings.siteName || SITE_NAME}`;
   }
 
-  return title || `${AUTHOR_NAME} Portfolio Website`;
+  return title || `${settings.siteName || SITE_NAME}`;
 };
 
 const generateDescription: GenerateDescription<Post | Project | Service> = ({ doc }) => {

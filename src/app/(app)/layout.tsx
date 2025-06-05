@@ -19,14 +19,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [maintenanceMode, userSignedIn] = await Promise.allSettled([
+  const [maintenanceCheck, userSignedIn] = await Promise.allSettled([
     getMaintenanceStatus(),
     getUserSignedIn(),
   ]);
 
-  const maintenance = maintenanceMode.status === 'fulfilled' ? maintenanceMode.value : null;
-  const auth = userSignedIn.status === 'fulfilled' ? userSignedIn.value : null;
-
+  const maintenance = maintenanceCheck.status === 'fulfilled' ? maintenanceCheck.value : null;
+  const user = userSignedIn.status === 'fulfilled' ? userSignedIn.value : null;
   return (
     <html
       className={clsx(inter.variable, barlow.variable, barlow_condensed.variable)}
@@ -34,7 +33,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        {maintenance && !auth ? (
+        {maintenance?.maintenanceMode === true && !user ? (
           <MaintenanceBlock message={maintenance?.maintenanceMessage ?? undefined} />
         ) : (
           <MainApp>{children}</MainApp>
