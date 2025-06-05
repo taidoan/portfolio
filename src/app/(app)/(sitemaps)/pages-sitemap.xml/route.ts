@@ -28,17 +28,6 @@ const getPagesSitemap = unstable_cache(
 
     const dateFallback = new Date().toISOString();
 
-    const defaultSiteMap = [
-      {
-        loc: `${SITE_URL}/search`,
-        lastmod: dateFallback,
-      },
-      {
-        loc: `${SITE_URL}/tags`,
-        lastmod: dateFallback,
-      },
-    ];
-
     const siteMap = results.docs
       ? results.docs
           .filter((page) => Boolean(page.slug))
@@ -50,7 +39,7 @@ const getPagesSitemap = unstable_cache(
           })
       : [];
 
-    return [...defaultSiteMap, ...siteMap];
+    return [...siteMap];
   },
   ['pages-sitemap'],
   { tags: ['pages-sitemap'] },

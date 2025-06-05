@@ -4,19 +4,21 @@ module.exports = {
   generateRobotsTxt: true,
   exclude: [
     '/pages-sitemap.xml',
-    '/*',
+    '/admin/*',
+    '/api/*',
     '/projects/*',
     '/projects-sitemap.xml',
     '/services/*',
     '/services-sitemap.xml',
     '/categories/*',
     '/categories-sitemap.xml',
+    '/static-sitemap.xml',
   ],
   robotsTxtOptions: {
     policies: [
       {
         userAgent: '*',
-        disallow: ['/admin/*', '/api/spotify'],
+        disallow: ['/admin/*', '/api/*'],
       },
     ],
     additionalSitemaps: [
@@ -24,6 +26,7 @@ module.exports = {
       `${process.env.NEXT_PUBLIC_SITE_URL}/pages-sitemap.xml`,
       `${process.env.NEXT_PUBLIC_SITE_URL}/services-sitemap.xml`,
       `${process.env.NEXT_PUBLIC_SITE_URL}/categories-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/static-sitemap.xml`,
     ],
   },
 };
