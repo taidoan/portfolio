@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { RequiredDataFromCollectionSlug } from 'payload';
-import type { Tag } from '@/payload-types';
+import type { Tag, SiteSetting } from '@/payload-types';
 import type { PostMeta } from '@/components/layout/Sidebar';
 
 import { getPayload } from 'payload';
@@ -101,26 +101,35 @@ const Post = async ({ params: paramsPromise }: Args) => {
     breadcrumbsData: breadcrumbsData,
   };
 
-  const sidebarData = await getCachedGlobal('sidebar', 2)();
-  const socialData = await getCachedGlobal('social', 2)();
-  const categories = await payload.find({
-    collection: 'categories',
-    depth: 0,
-    select: {
-      title: true,
-      slug: true,
-    },
-    where: {
-      id: {
-        in: page.categories,
+  const [sidebarData, siteSettingsData, categoriesData] = await Promise.allSettled([
+    getCachedGlobal('sidebar', 2)(),
+    getCachedGlobal('site-settings')(),
+    payload.find({
+      collection: 'categories',
+      depth: 0,
+      select: {
+        title: true,
+        slug: true,
       },
-    },
-  });
+      where: {
+        id: {
+          in: page.categories,
+        },
+      },
+    }),
+  ]);
+
+  const sidebar = sidebarData.status === 'fulfilled' ? sidebarData.value : null;
+  const siteSettings =
+    siteSettingsData.status === 'fulfilled' ? (siteSettingsData.value as SiteSetting) : null;
+  const categories = categoriesData.status === 'fulfilled' ? categoriesData.value : null;
+
+  const socialData = siteSettings?.socialSharing?.shareNetworks ?? [];
 
   const postMeta = {
     publishedDate: publishedAt,
     author: populatedAuthors?.[0].name,
-    categories: categories.docs.map((category) => ({
+    categories: categories?.docs.map((category) => ({
       title: category.title,
       url: `${getServerSideURL()}/categories/${category.slug}`,
     })),
@@ -150,8 +159,8 @@ const Post = async ({ params: paramsPromise }: Args) => {
               buttonLabel={page.shareButtonLabel || 'Share'}
             />
           </div>
-          {pageLayout === 'sidebar' && (
-            <Sidebar data={sidebarData} className='col-span-5' type='post' postMeta={postMeta} />
+          {pageLayout === 'sidebar' && sidebar && (
+            <Sidebar data={sidebar} className='col-span-5' type='post' postMeta={postMeta} />
           )}
         </section>
       </section>

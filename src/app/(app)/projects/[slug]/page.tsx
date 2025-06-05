@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import type { RequiredDataFromCollectionSlug } from 'payload';
-import type { Tag } from '@/payload-types';
+import type { Tag, SiteSetting } from '@/payload-types';
 
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
@@ -29,26 +28,43 @@ import { SocialShare } from '@/components/ui/SocialShare';
 
 export const generateStaticParams = async () => {
   const payload = await getPayload({ config: configPromise });
-  const projects = await payload.find({
-    collection: 'projects',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  });
 
-  const params = projects.docs.map(({ slug }) => {
-    return { slug };
-  });
+  try {
+    const projects = await payload.find({
+      collection: 'projects',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        slug: true,
+      },
+    });
 
-  return params;
+    return projects.docs.map(({ slug }) => ({ slug }));
+  } catch (error) {
+    console.error('Error generating static params for projects:', error);
+    return [];
+  }
 };
 
 export type Args = {
   params: Promise<{ slug: string }>;
+};
+
+const getProjectData = async ({ slug }: { slug: string }) => {
+  const [pageResult, paginationResult, siteSettingsResult] = await Promise.allSettled([
+    queryPageBySlug({ slug, collection: 'projects' }),
+    queryProjects({ slug }),
+    getCachedGlobal('site-settings')(),
+  ]);
+
+  const page = pageResult.status === 'fulfilled' ? pageResult.value : null;
+  const pagination = paginationResult.status === 'fulfilled' ? paginationResult.value : null;
+  const siteSettings =
+    siteSettingsResult.status === 'fulfilled' ? (siteSettingsResult.value as SiteSetting) : null;
+
+  return { page, pagination, siteSettings };
 };
 
 const Page = async ({ params: paramsPromise }: Args) => {
@@ -56,27 +72,42 @@ const Page = async ({ params: paramsPromise }: Args) => {
   const { slug = '' } = await paramsPromise;
 
   const url = '/projects/' + slug;
-  const page: RequiredDataFromCollectionSlug<'projects'> | null = await queryPageBySlug({
-    slug,
-    collection: 'projects',
-  });
-
-  const pagination = await queryProjects({ slug });
+  const { page, pagination, siteSettings } = await getProjectData({ slug });
 
   if (!page) return <Redirects url={url} />;
 
-  const { hero, tags, showShareButton, content, ctaContent, details, thumbnail } = page;
-  const breadcrumbs = hero?.breadcrumbs;
-  const socialData = await getCachedGlobal('social', 2)();
-  const plainTextDescription = details && extractPlainText(details.description!);
+  const {
+    hero,
+    tags,
+    showShareButton,
+    content,
+    ctaContent,
+    details,
+    thumbnail,
+    gallery,
+    galleryOptions,
+    title,
+    ctaLink,
+    ctaAppearance,
+  } = page;
 
+  const breadcrumbs = hero?.breadcrumbs;
   const pageIds =
     breadcrumbs?.breadcrumbs?.map((breadcrumb) => {
       const value = breadcrumb.relationTo.value;
       return typeof value === 'object' && value !== null ? value.id : value;
     }) || [];
-
   const breadcrumbsData = await queryBreadcrumbs(pageIds);
+
+  const socialData = siteSettings?.socialSharing?.shareNetworks ?? [];
+  const plainTextDescription = details && extractPlainText(details.description!);
+  const pinterestImage =
+    thumbnail && typeof thumbnail === 'object' && thumbnail?.filename ? thumbnail.filename : '';
+
+  const ctaVariant = ctaAppearance?.blockVariant || 'fill';
+  const ctaColor = ctaAppearance?.backgroundColour || 'primary';
+  const ctaBorderRadius = ctaAppearance?.borderRadius || 'medium';
+
   return (
     <>
       <Redirects disableNotFound url={url} />
@@ -90,13 +121,10 @@ const Page = async ({ params: paramsPromise }: Args) => {
             )}
           </CardBody>
         </Card>
-        <ProjectDetails data={{ details: details }} className='project__info' />
+        <ProjectDetails data={{ details }} className='project__info' />
       </section>
       <section className={clsx('project__section', 'project__gallery')}>
-        <ProjectGallery
-          media={{ gallery: page.gallery }}
-          options={{ galleryOptions: page.galleryOptions }}
-        />
+        <ProjectGallery media={{ gallery }} options={{ galleryOptions }} />
       </section>
       {content && (
         <section className={clsx('project__section', 'project__content')}>
@@ -121,30 +149,28 @@ const Page = async ({ params: paramsPromise }: Args) => {
           {showShareButton && (
             <SocialShare
               data={socialData}
-              title={page.title}
+              title={title}
               url={page.url!}
               description={plainTextDescription}
-              pinterestImage={
-                thumbnail && typeof thumbnail === 'object' && thumbnail?.filename
-                  ? thumbnail.filename
-                  : ''
-              }
+              pinterestImage={pinterestImage}
             />
           )}
         </section>
       )}
-      <ProjectPagination
-        className={clsx('project__section', 'project__pagination')}
-        data={pagination}
-      />
+      {pagination && (
+        <ProjectPagination
+          className={clsx('project__section', 'project__pagination')}
+          data={pagination}
+        />
+      )}
       {ctaContent && (
         <CTA
           className='project__section project__cta'
-          link={page.ctaLink}
+          link={ctaLink}
           content={ctaContent}
-          variant={page.ctaAppearance?.blockVariant || 'fill'}
-          color={page.ctaAppearance?.backgroundColour || 'primary'}
-          borderRadius={page.ctaAppearance?.borderRadius || 'medium'}
+          variant={ctaVariant}
+          color={ctaColor}
+          borderRadius={ctaBorderRadius}
         />
       )}
     </>
@@ -155,7 +181,14 @@ export default Page;
 
 export const generateMetadata = async ({ params: paramsPromise }: Args): Promise<Metadata> => {
   const { slug = '' } = await paramsPromise;
-  const page = await queryPageBySlug({ slug, collection: 'projects' });
+  const { page } = await getProjectData({ slug });
+
+  if (!page) {
+    return {
+      title: 'Project Not Found',
+      description: 'The requested project could not be found.',
+    };
+  }
 
   return generateMeta({ doc: page });
 };

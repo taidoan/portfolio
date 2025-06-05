@@ -119,18 +119,18 @@ export interface Config {
     defaultIDType: string;
   };
   globals: {
+    'site-settings': SiteSetting;
     breakpoints: Breakpoint;
-    social: Social;
-    footer: Footer;
     header: Header;
     sidebar: Sidebar;
+    footer: Footer;
   };
   globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     breakpoints: BreakpointsSelect<false> | BreakpointsSelect<true>;
-    social: SocialSelect<false> | SocialSelect<true>;
-    footer: FooterSelect<false> | FooterSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     sidebar: SidebarSelect<false> | SidebarSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
   user: User & {
@@ -4014,6 +4014,85 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  /**
+   * Enter the name of your site.
+   */
+  siteName: string;
+  /**
+   * Enter the name of the author of your site.
+   */
+  authorName: string;
+  /**
+   * Enter the email address of the author of your site.
+   */
+  contactEmail: string;
+  /**
+   * If enabled, the site will be in maintenance mode and will not be accessible to visitors.
+   */
+  maintenanceMode?: boolean | null;
+  /**
+   * Optional message to display when the site is in maintenance mode.
+   */
+  maintenanceMessage?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Add the networks you want to share your posts and projects with. These will be displayed on posts and project pages.
+   */
+  socialSharing?: {
+    shareNetworks?:
+      | (
+          | 'facebook'
+          | 'twitter'
+          | 'telegram'
+          | 'whatsapp'
+          | 'linkedin'
+          | 'pinterest'
+          | 'vk'
+          | 'reddit'
+          | 'tumblr'
+          | 'line'
+          | 'weibo'
+          | 'pocket'
+          | 'bluesky'
+          | 'email'
+          | 'threads'
+        )[]
+      | null;
+  };
+  /**
+   * Add your social media accounts here. These will be throughout your site.
+   */
+  socialAccounts?: {
+    socialNetwork?:
+      | {
+          username: string;
+          network: 'x' | 'instagram' | 'github' | 'linkedin' | 'youtube';
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "breakpoints".
  */
 export interface Breakpoint {
@@ -4025,87 +4104,6 @@ export interface Breakpoint {
         id?: string | null;
       }[]
     | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "social".
- */
-export interface Social {
-  id: string;
-  'social-network'?:
-    | {
-        username: string;
-        network: 'x' | 'instagram' | 'github' | 'linkedin' | 'youtube';
-        id?: string | null;
-      }[]
-    | null;
-  shareNetworks?:
-    | (
-        | 'facebook'
-        | 'twitter'
-        | 'telegram'
-        | 'whatsapp'
-        | 'linkedin'
-        | 'pinterest'
-        | 'vk'
-        | 'reddit'
-        | 'tumblr'
-        | 'line'
-        | 'weibo'
-        | 'pocket'
-        | 'bluesky'
-        | 'email'
-        | 'threads'
-      )[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "footer".
- */
-export interface Footer {
-  id: string;
-  navItems: {
-    link: {
-      type: 'reference' | 'custom';
-      newTab?: boolean | null;
-      reference?:
-        | ({
-            relationTo: 'pages';
-            value: string | Page;
-          } | null)
-        | ({
-            relationTo: 'projects';
-            value: string | Project;
-          } | null)
-        | ({
-            relationTo: 'services';
-            value: string | Service;
-          } | null)
-        | ({
-            relationTo: 'posts';
-            value: string | Post;
-          } | null)
-        | ({
-            relationTo: 'categories';
-            value: string | Category;
-          } | null);
-      url?: string | null;
-      label: string;
-      variant?: ('fill' | 'outlined') | null;
-      color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
-      hoverColor?:
-        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
-        | null;
-      buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
-      className?: string | null;
-    };
-    id?: string | null;
-  }[];
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -4228,6 +4226,82 @@ export interface SidebarSearchBlockProps {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  navItems: {
+    link: {
+      type: 'reference' | 'custom';
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'projects';
+            value: string | Project;
+          } | null)
+        | ({
+            relationTo: 'services';
+            value: string | Service;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'categories';
+            value: string | Category;
+          } | null);
+      url?: string | null;
+      label: string;
+      variant?: ('fill' | 'outlined') | null;
+      color?: ('primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet') | null;
+      hoverColor?:
+        | ('default' | 'primary' | 'secondary' | 'accent' | 'sage' | 'slate' | 'bittersweet')
+        | null;
+      buttonShadow?: ('none' | 'small' | 'medium' | 'large') | null;
+      className?: string | null;
+    };
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  authorName?: T;
+  contactEmail?: T;
+  maintenanceMode?: T;
+  maintenanceMessage?: T;
+  socialSharing?:
+    | T
+    | {
+        shareNetworks?: T;
+      };
+  socialAccounts?:
+    | T
+    | {
+        socialNetwork?:
+          | T
+          | {
+              username?: T;
+              network?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "breakpoints_select".
  */
 export interface BreakpointsSelect<T extends boolean = true> {
@@ -4236,51 +4310,6 @@ export interface BreakpointsSelect<T extends boolean = true> {
     | {
         name?: T;
         breakpoint?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "social_select".
- */
-export interface SocialSelect<T extends boolean = true> {
-  'social-network'?:
-    | T
-    | {
-        username?: T;
-        network?: T;
-        id?: T;
-      };
-  shareNetworks?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "footer_select".
- */
-export interface FooterSelect<T extends boolean = true> {
-  navItems?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              variant?: T;
-              color?: T;
-              hoverColor?: T;
-              buttonShadow?: T;
-              className?: T;
-            };
         id?: T;
       };
   updatedAt?: T;
@@ -4374,6 +4403,34 @@ export interface SidebarSearchBlockPropsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              variant?: T;
+              color?: T;
+              hoverColor?: T;
+              buttonShadow?: T;
+              className?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskSchedulePublish".
  */
 export interface TaskSchedulePublish {
@@ -4393,6 +4450,62 @@ export interface TaskSchedulePublish {
     user?: (string | null) | User;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaRichtextBlockProps".
+ */
+export interface MediaRichtextBlockProps {
+  media: {
+    mediaType: 'image' | 'video' | 'pdf' | 'embed';
+    media?: (string | null) | Media;
+    mediaEmbedUrl: string;
+    mediaEmbedSource: 'youtube';
+    showCaption?: boolean | null;
+    caption?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
+  borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
+  videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
+  videoWidth?: number | null;
+  videoHeight?: number | null;
+  pdfWidth?: string | null;
+  pdfHeight?: string | null;
+  className?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaRichtextBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactMethodsBlockProps".
+ */
+export interface ContactMethodsBlockProps {
+  contactMethods?:
+    | {
+        platform?: ('email' | 'twitter' | 'github' | 'linkedin' | 'instagram' | 'youtube') | null;
+        link?: string | null;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactMethodsBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4484,62 +4597,6 @@ export interface LinksGroupRichtextProps {
   id?: string | null;
   blockName?: string | null;
   blockType: 'links-group-richtext';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContactMethodsBlockProps".
- */
-export interface ContactMethodsBlockProps {
-  contactMethods?:
-    | {
-        platform?: ('email' | 'twitter' | 'github' | 'linkedin' | 'instagram' | 'youtube') | null;
-        link?: string | null;
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'contactMethodsBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaRichtextBlockProps".
- */
-export interface MediaRichtextBlockProps {
-  media: {
-    mediaType: 'image' | 'video' | 'pdf' | 'embed';
-    media?: (string | null) | Media;
-    mediaEmbedUrl: string;
-    mediaEmbedSource: 'youtube';
-    showCaption?: boolean | null;
-    caption?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-  };
-  borderRadius?: ('none' | 'small' | 'medium' | 'large' | 'circle') | null;
-  borderRadiusSides?: ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'all')[] | null;
-  videoPlayerWidth?: ('100%' | '50%' | '33%' | '25%') | null;
-  videoWidth?: number | null;
-  videoHeight?: number | null;
-  pdfWidth?: string | null;
-  pdfHeight?: string | null;
-  className?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaRichtextBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

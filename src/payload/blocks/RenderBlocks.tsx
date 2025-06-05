@@ -1,5 +1,6 @@
-import type { Page, Post, Tag, Social } from '@/payload-types';
+import type { Page, Post, Tag } from '@/payload-types';
 import type { SocialShareProps } from '@/components/ui/SocialShare';
+import type { SocialShare as SocialNetworkShareType } from '@/components/layout/types';
 
 import { SectionBlock } from '@/payload/blocks/Section';
 import { DividerBlock } from '@/payload/blocks/Divider';
@@ -78,7 +79,7 @@ export const RenderPostBlocks = ({
   blocks: Post['layout'][0][];
   pageTags: Tag[];
   showShareButton: boolean;
-  socialData: Social;
+  socialData: SocialNetworkShareType[];
 } & SocialShareProps) => {
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0;
 

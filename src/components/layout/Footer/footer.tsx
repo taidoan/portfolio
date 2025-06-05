@@ -1,6 +1,7 @@
 'use client';
 
-import type { Footer as FooterType, Social } from '@/payload-types';
+import type { Footer as FooterType } from '@/payload-types';
+import type { SocialAccount } from '@/components/layout/types';
 import { FooterNavLink } from '@/components/ui/NavLinks';
 import style from './style.module.scss';
 import { Logo } from '@/components/ui/Logo';
@@ -9,7 +10,7 @@ import { AUTHOR_NAME } from '@/lib/constants';
 
 export type FooterProps = {
   data: FooterType;
-  social: Social;
+  social: SocialAccount[];
 };
 
 export const Footer = ({ data, social }: FooterProps) => {
@@ -36,9 +37,9 @@ export const Footer = ({ data, social }: FooterProps) => {
             </span>
           </div>
         </div>
-        {social && social['social-network'] && social['social-network']?.length > 0 && (
+        {social?.length > 0 && (
           <nav className={style['footer__social-nav']} aria-label='Footer Social Navigation'>
-            {social['social-network']?.map((item, index) => (
+            {social.map((item, index) => (
               <SocialButton
                 network={item.network}
                 className={style.socialButton}

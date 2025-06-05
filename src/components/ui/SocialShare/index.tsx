@@ -1,5 +1,5 @@
 'use client';
-import type { Social } from '@/payload-types';
+import type { SocialShare as Social } from '@/components/layout/types';
 import { useState } from 'react';
 import { Button } from '@components/ui/Button';
 import { IconX } from '@tabler/icons-react';
@@ -32,7 +32,7 @@ export type SocialShareProps = {
   description?: string;
   pinterestImage?: string;
   summary?: string;
-  data?: Social;
+  data?: Social[];
   buttonLabel?: string;
 };
 
@@ -45,7 +45,7 @@ export const SocialShare = ({
   data,
   buttonLabel = 'Share',
 }: SocialShareProps) => {
-  const enabledNetworks = data?.shareNetworks;
+  const enabledNetworks = data;
   const [openShareMenu, setOpenShareMenu] = useState(false);
 
   return (
