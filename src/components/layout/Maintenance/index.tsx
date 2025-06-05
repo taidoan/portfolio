@@ -9,7 +9,7 @@ export type MaintenanceBlockProps = {
   message?: TypedEditorState;
 };
 
-export const MaintenanceBlock = ({ className, message }: MaintenanceBlockProps) => {
+export const MaintenanceBlock = async ({ className, message }: MaintenanceBlockProps) => {
   const hasValidMessage =
     Array.isArray(message?.root?.children) &&
     message.root.children.some((child) => {

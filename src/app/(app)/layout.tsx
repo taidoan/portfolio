@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import type { Header as HeaderType, Footer as FooterType, SiteSetting } from '@/payload-types';
 
+import clsx from 'clsx';
 import { inter, barlow, barlow_condensed } from '@/lib/fonts';
 import '@styles/index.scss';
 import { getServerSideURL } from '@/lib/utilities/getURLs';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 import { getMaintenanceStatus } from '@/lib/utilities/getMaintenanceStatus';
 import { mergeOpenGraph } from '@/lib/utilities/mergeOpenGraph';
+import { getUserSignedIn } from '@/lib/utilities/getUserSignedIn';
 
 import Header from '@components/layout/Header';
 import Footer from '@components/layout/Footer';
@@ -17,16 +19,22 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const maintenance = await getMaintenanceStatus();
+  const [maintenanceMode, userSignedIn] = await Promise.allSettled([
+    getMaintenanceStatus(),
+    getUserSignedIn(),
+  ]);
+
+  const maintenance = maintenanceMode.status === 'fulfilled' ? maintenanceMode.value : null;
+  const auth = userSignedIn.status === 'fulfilled' ? userSignedIn.value : null;
 
   return (
     <html
-      className={`${inter.variable} ${barlow.variable} ${barlow_condensed.variable}`}
+      className={clsx(inter.variable, barlow.variable, barlow_condensed.variable)}
       lang='en'
       suppressHydrationWarning
     >
       <body>
-        {maintenance.maintenanceMode ? (
+        {maintenance && !auth ? (
           <MaintenanceBlock message={maintenance?.maintenanceMessage ?? undefined} />
         ) : (
           <MainApp>{children}</MainApp>
