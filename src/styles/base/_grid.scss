@@ -38,3 +38,17 @@ main {
     }
   }
 }
+
+@for $column from 1 through 6 {
+  [data-columns='#{$column}'] {
+    display: flex;
+    flex-direction: column;
+    gap: size-clamp(rem(16), rem(24));
+
+    @include mq('md') {
+      display: grid;
+      gap: size-clamp(rem(20), rem(32));
+      grid-template-columns: repeat($column, 1fr);
+    }
+  }
+}

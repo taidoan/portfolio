@@ -11,12 +11,9 @@ import {
   BlocksFeature,
 } from '@payloadcms/richtext-lexical';
 import { LinksFeature } from './features/link';
-import { DividerBlock } from '@/payload/blocks/Divider/config';
 import { MediaRichtextBlock } from '@/payload/blocks/MediaRichtext/config';
-import { ContactMethodsBlock } from '@/payload/blocks/ContactMethods/config';
-import { ColumnsBlock } from '@/payload/blocks/Columns/config';
 
-export const editor = lexicalEditor({
+export const ContentEditor = lexicalEditor({
   features: () => {
     return [
       FixedToolbarFeature(),
@@ -31,7 +28,7 @@ export const editor = lexicalEditor({
       }),
       LinksFeature(),
       BlocksFeature({
-        blocks: [DividerBlock, MediaRichtextBlock, ContactMethodsBlock, ColumnsBlock],
+        blocks: [MediaRichtextBlock],
       }),
     ];
   },

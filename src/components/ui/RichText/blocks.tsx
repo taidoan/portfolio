@@ -3,6 +3,7 @@ import type {
   LinksGroupRichtextProps,
   MediaRichtextBlockProps,
   ContactMethodsBlockProps,
+  ColumnsBlockProps,
 } from '@/payload-types';
 
 import { SerializedBlockNode } from '@payloadcms/richtext-lexical';
@@ -11,6 +12,7 @@ import { ContactMethodsBlock } from '@/payload/blocks/ContactMethods';
 import { LinksRichtextBlock } from '@/payload/blocks/LinkRichtext';
 import { LinksGroupRichtextBlock } from '@/payload/blocks/LinkRichtext/Group';
 import { MediaRichTextBlock } from '@/payload/blocks/MediaRichtext';
+import { ColumnsBlock } from '@/payload/blocks/Columns';
 
 export const blocks = {
   divider: ({ node }: { node: SerializedBlockNode<{ blockType: 'divider' }> }) => {
@@ -32,5 +34,9 @@ export const blocks = {
   contactMethodsBlock: ({ node }: { node: SerializedBlockNode<ContactMethodsBlockProps> }) => {
     if (node.fields.blockType !== 'contactMethodsBlock') return null;
     return <ContactMethodsBlock {...node.fields} />;
+  },
+  columnsBlock: ({ node }: { node: SerializedBlockNode<ColumnsBlockProps> }) => {
+    if (node.fields.blockType !== 'columnsBlock') return null;
+    return <ColumnsBlock {...node.fields} />;
   },
 };

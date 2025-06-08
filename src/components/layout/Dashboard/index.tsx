@@ -15,7 +15,7 @@ const Dashboard = async () => {
           <h1>Hi {user?.knownAs}! Welcome to the dashboard.</h1>
         </li>
         <li>
-          <div className='card'>
+          <div className={clsx('card', 'dashboard__site-info')}>
             <div className='dashboard__welcome-item'>
               <span className='dashboard__custom-label'>Site Link: </span>
               <Link href='/' target='_blank'>

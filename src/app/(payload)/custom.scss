@@ -9,6 +9,13 @@
   width: 100%;
 }
 
+.dashboard__site-info {
+  border-radius: 1rem;
+  gap: 2rem;
+  min-height: auto;
+  padding-inline: 2rem;
+}
+
 .dashboard__welcome-item {
   align-items: center;
   display: flex;
