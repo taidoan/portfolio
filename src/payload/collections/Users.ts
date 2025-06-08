@@ -18,7 +18,12 @@ export const Users: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
-      label: 'Name',
+      label: 'Full Name',
+    },
+    {
+      name: 'knownAs',
+      type: 'text',
+      label: 'Known As',
     },
   ],
 };

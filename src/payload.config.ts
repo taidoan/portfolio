@@ -33,6 +33,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      beforeDashboard: ['@/components/layout/Dashboard'],
+    },
     livePreview: {
       breakpoints: [
         {

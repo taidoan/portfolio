@@ -1,0 +1,36 @@
+.dashboard__welcome {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.dashboard__welcome-item {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.dashboard__custom-label {
+  font-weight: bold;
+}
+
+.dashboard-status {
+  align-items: center;
+  display: flex;
+  gap: 0.33rem;
+
+  &::after {
+    color: rgb(76, 227, 76);
+    content: '⬤';
+    font-size: 0.75rem;
+  }
+
+  &--maintenance::after {
+    color: rgb(207, 57, 57);
+  }
+}
