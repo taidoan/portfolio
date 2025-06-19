@@ -275,6 +275,8 @@ export const calculateUsage = (
     metadataSize: formatBytes(currentUsage.metadataSize),
     uploadCount: currentUsage.uploadCount,
     operations: operationTotals,
+    usedStorageSizeNoFormat: totalStorageBytes,
+    totalStorageBytesNoFormat: totalStorageCapacity,
   };
 };
 

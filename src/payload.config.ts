@@ -35,6 +35,19 @@ export default buildConfig({
     },
     components: {
       beforeDashboard: ['@/components/layout/Dashboard'],
+      afterNavLinks: ['@/components/layout/Admin/Views/Analytics/link#Analytics'],
+      views: {
+        analytics: {
+          Component: {
+            path: '@/components/layout/Admin/Views/Analytics/cloudflare',
+            exportName: 'R2AnalyticsView',
+          },
+          path: '/analytics/cloudflare',
+          meta: {
+            title: 'Cloudflare Analytics',
+          },
+        },
+      },
     },
     livePreview: {
       breakpoints: [

@@ -41,3 +41,27 @@
     color: rgb(207, 57, 57);
   }
 }
+
+.divider {
+  background-color: var(--theme-border-color);
+  display: block;
+  height: 0.0625rem;
+  margin-block: 1rem;
+  width: 100%;
+}
+
+.analytics__container {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.analytics__card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: auto;
+  text-align: center;
+}

@@ -65,6 +65,8 @@ export type CurrentUsage = {
   metadataSize: string;
   uploadCount: number;
   operations: OperationsTotals;
+  usedStorageSizeNoFormat: number;
+  totalStorageBytesNoFormat: number;
 };
 
 export type AnalyticsResponse = {

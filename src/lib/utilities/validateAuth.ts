@@ -12,8 +12,19 @@ import configPromise from '@payload-config';
  */
 export const validateAuth = async (req: Request) => {
   const payload = await getPayload({ config: configPromise });
-  const cookieStore = await cookies();
-  const token = cookieStore.get('payload-token')?.value;
+
+  let token: string | undefined;
+
+  try {
+    const cookieStore = await cookies();
+    token = cookieStore.get('payload-token')?.value;
+  } catch (__error) {
+    const cookieHeader = req.headers.get('cookie');
+    token = cookieHeader
+      ?.split(';')
+      .find((c) => c.trim().startsWith('payload-token='))
+      ?.split('=')[1];
+  }
 
   if (!token) {
     return { error: NextResponse.json({ error: 'Authentication required' }, { status: 401 }) };
