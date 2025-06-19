@@ -36,6 +36,7 @@ export default buildConfig({
     components: {
       beforeDashboard: ['@/components/layout/Dashboard'],
       afterNavLinks: ['@/components/layout/Admin/Views/Analytics/link#Analytics'],
+      header: ['@/components/layout/Admin/Header#AdminHeader'],
       views: {
         analytics: {
           Component: {

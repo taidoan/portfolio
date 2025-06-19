@@ -12,6 +12,7 @@ export const Users: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
+    group: 'Settings',
   },
   auth: true,
   fields: [

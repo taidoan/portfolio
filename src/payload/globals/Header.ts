@@ -9,6 +9,9 @@ export const Header: GlobalConfig = {
     read: anyone,
     update: authenticated,
   },
+  admin: {
+    group: 'Layout',
+  },
   hooks: {
     afterChange: [revalidateGlobal('header')],
   },

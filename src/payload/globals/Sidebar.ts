@@ -16,6 +16,9 @@ export const Sidebar: GlobalConfig = {
     read: anyone,
     update: authenticated,
   },
+  admin: {
+    group: 'Layout',
+  },
   hooks: {
     afterChange: [revalidateGlobal('sidebar')],
   },

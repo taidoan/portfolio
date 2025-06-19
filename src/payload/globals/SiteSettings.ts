@@ -10,6 +10,9 @@ export const SiteSettings: GlobalConfig = {
     read: anyone,
     update: authenticated,
   },
+  admin: {
+    group: 'Settings',
+  },
   fields: [
     {
       type: 'tabs',
