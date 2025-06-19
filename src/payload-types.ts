@@ -173,6 +173,7 @@ export interface User {
   id: string;
   name?: string | null;
   knownAs?: string | null;
+  role?: ('admin' | 'user') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -2792,6 +2793,7 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
   knownAs?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

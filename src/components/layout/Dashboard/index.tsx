@@ -7,7 +7,7 @@ import clsx from 'clsx';
 const Dashboard = async () => {
   const user = await getUserSignedIn();
   const maintenance = await getMaintenanceStatus();
-  console.log(maintenance);
+
   return (
     <div className='dashboard-group'>
       <ul className='dashboard__welcome'>

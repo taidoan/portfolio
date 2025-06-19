@@ -25,5 +25,13 @@ export const Users: CollectionConfig = {
       type: 'text',
       label: 'Known As',
     },
+    {
+      name: 'role',
+      type: 'select',
+      options: [
+        { label: 'Admin', value: 'admin' },
+        { label: 'User', value: 'user' },
+      ],
+    },
   ],
 };
