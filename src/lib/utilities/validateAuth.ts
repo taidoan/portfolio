@@ -1,9 +1,15 @@
 import type { PayloadRequest } from 'payload';
+import type { User } from '@/payload-types';
 
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
+
+export type AuthResult = {
+  error?: NextResponse;
+  user?: User;
+};
 
 /**
  * Validates the authentication token and returns the payload instance and the user object.

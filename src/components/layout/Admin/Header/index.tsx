@@ -9,16 +9,12 @@ import { IconLogout, IconUser } from '@tabler/icons-react';
 export const AdminHeader = async () => {
   const user = await getUserSignedIn();
   const maintenance = await getMaintenanceStatus();
-  console.log(user);
 
   return (
     <div className={clsx(style['admin-header'])}>
       <div className={style['admin-header__user']}>
         <IconUser className={clsx(style['admin-header__icon'])} />
-        <Link
-          href={`/admin/collections/users/${user?.id}`}
-          className={clsx(style['admin-header__link'])}
-        >
+        <Link href={`/admin/account`} className={clsx(style['admin-header__link'])}>
           {user?.name}
         </Link>
       </div>

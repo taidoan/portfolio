@@ -1,4 +1,5 @@
-import type { AnalyticsResponse, ErrorResponse, AuthResult } from './types';
+import type { AnalyticsResponse, ErrorResponse } from './types';
+import type { AuthResult } from '@/lib/utilities/validateAuth';
 
 import { getPayload } from 'payload';
 import { NextResponse, NextRequest } from 'next/server';
@@ -12,10 +13,10 @@ import {
   getClientIp,
   generateDateRange,
   calculateUsage,
-  createErrorResponse,
   createSuccessResponse,
   RATE_LIMIT_MAP,
 } from './utils';
+import { createErrorResponse } from '@/lib/utilities/createResponse';
 
 import configPromise from '@payload-config';
 

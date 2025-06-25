@@ -1,6 +1,3 @@
-import type { User } from '@/payload-types';
-import { NextResponse } from 'next/server';
-
 export type RateLimitEntry = {
   count: number;
   resetTime: number;
@@ -89,11 +86,6 @@ export type ErrorResponse = {
 export type EnvironmentConfig = {
   accountId: string;
   apiToken: string;
-};
-
-export type AuthResult = {
-  error?: NextResponse;
-  user?: User;
 };
 
 export const ACTIONS = [
