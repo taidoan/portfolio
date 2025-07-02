@@ -61,7 +61,18 @@ export const Nav: FC<ServerProps> = async (props) => {
     i18n,
   );
 
-  const navPreferences = await getNavPrefs({ payload, user });
+  const normalizedUser = user
+    ? {
+        ...user,
+        sessions: user.sessions
+          ? user.sessions.map((session) => ({
+              ...session,
+              createdAt: session.createdAt ?? '',
+            }))
+          : undefined,
+      }
+    : undefined;
+  const navPreferences = await getNavPrefs({ payload, user: normalizedUser });
 
   const LogoutComponent = RenderServerComponent({
     clientProps: {
