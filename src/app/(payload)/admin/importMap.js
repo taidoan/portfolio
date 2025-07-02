@@ -25,11 +25,12 @@ import { UrlComponent as UrlComponent_0a296c91d5051531ee1f39fb470a2445 } from '@
 import { ClonedFieldComponent as ClonedFieldComponent_6d73d766e527f46c1e4bb93683c2b7ae } from '@fields/ClonedField/component'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
+import { Nav as Nav_3f45459f1216f4d547011a6b0fb96765 } from '@/components/layout/Admin/Nav'
 import { AdminHeader as AdminHeader_c12234f347c08abef07f5b14e692ce05 } from '@/components/layout/Admin/Header'
-import { Analytics as Analytics_1d4a172ed974fe24e0dbe4c19896375a } from '@/components/layout/Admin/Views/Analytics/link'
+import { Metrics as Metrics_aa10153e5fbc8b2af3dd0ebbf2e7345d } from '@/components/layout/Admin/Views/Metrics/link'
 import { default as default_43faef577ef3b1b26845a3a15d1e4c6d } from '@/components/layout/Dashboard'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
-import { R2AnalyticsView as R2AnalyticsView_8a3f0fc1eff1e14b9da32244dfa1773a } from '@/components/layout/Admin/Views/Analytics/cloudflare'
+import { CloudflareMetricsView as CloudflareMetricsView_64dd2847d01916a688c515b33993a5de } from '@/components/layout/Admin/Views/Metrics/cloudflare'
 
 export const importMap = {
   "@payloadcms/ui/rsc#FolderTableCell": FolderTableCell_ab83ff7e88da8d3530831f296ec4756a,
@@ -59,9 +60,10 @@ export const importMap = {
   "@fields/ClonedField/component#ClonedFieldComponent": ClonedFieldComponent_6d73d766e527f46c1e4bb93683c2b7ae,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
+  "@/components/layout/Admin/Nav#Nav": Nav_3f45459f1216f4d547011a6b0fb96765,
   "@/components/layout/Admin/Header#AdminHeader": AdminHeader_c12234f347c08abef07f5b14e692ce05,
-  "@/components/layout/Admin/Views/Analytics/link#Analytics": Analytics_1d4a172ed974fe24e0dbe4c19896375a,
+  "@/components/layout/Admin/Views/Metrics/link#Metrics": Metrics_aa10153e5fbc8b2af3dd0ebbf2e7345d,
   "@/components/layout/Dashboard#default": default_43faef577ef3b1b26845a3a15d1e4c6d,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
-  "@/components/layout/Admin/Views/Analytics/cloudflare#R2AnalyticsView": R2AnalyticsView_8a3f0fc1eff1e14b9da32244dfa1773a
+  "@/components/layout/Admin/Views/Metrics/cloudflare#CloudflareMetricsView": CloudflareMetricsView_64dd2847d01916a688c515b33993a5de
 }

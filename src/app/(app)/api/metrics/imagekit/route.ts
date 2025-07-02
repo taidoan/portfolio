@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
       {
         error: errorMessage,
         stack: errorStack,
-        endpoint: '/api/ik',
+        endpoint: '/api/metrics/imagekit',
       },
       'ImageKit Metrics API error',
     );

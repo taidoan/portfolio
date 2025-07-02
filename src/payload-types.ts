@@ -118,17 +118,17 @@ export interface Config {
   };
   globals: {
     'site-settings': SiteSetting;
-    breakpoints: Breakpoint;
     header: Header;
     sidebar: Sidebar;
     footer: Footer;
+    breakpoints: Breakpoint;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
-    breakpoints: BreakpointsSelect<false> | BreakpointsSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     sidebar: SidebarSelect<false> | SidebarSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    breakpoints: BreakpointsSelect<false> | BreakpointsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -4066,22 +4066,6 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "breakpoints".
- */
-export interface Breakpoint {
-  id: string;
-  breakpoints?:
-    | {
-        name: string;
-        breakpoint: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
  */
 export interface Header {
@@ -4229,6 +4213,22 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "breakpoints".
+ */
+export interface Breakpoint {
+  id: string;
+  breakpoints?:
+    | {
+        name: string;
+        breakpoint: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
@@ -4252,22 +4252,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               network?: T;
               id?: T;
             };
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "breakpoints_select".
- */
-export interface BreakpointsSelect<T extends boolean = true> {
-  breakpoints?:
-    | T
-    | {
-        name?: T;
-        breakpoint?: T;
-        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -4380,6 +4364,22 @@ export interface FooterSelect<T extends boolean = true> {
               buttonShadow?: T;
               className?: T;
             };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "breakpoints_select".
+ */
+export interface BreakpointsSelect<T extends boolean = true> {
+  breakpoints?:
+    | T
+    | {
+        name?: T;
+        breakpoint?: T;
         id?: T;
       };
   updatedAt?: T;

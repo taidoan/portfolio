@@ -35,17 +35,15 @@ export default buildConfig({
     },
     components: {
       beforeDashboard: ['@/components/layout/Dashboard'],
-      afterNavLinks: ['@/components/layout/Admin/Views/Analytics/link#Analytics'],
+      Nav: '@/components/layout/Admin/Nav#Nav',
+      afterNavLinks: ['@/components/layout/Admin/Views/Metrics/link#Metrics'],
       header: ['@/components/layout/Admin/Header#AdminHeader'],
       views: {
-        analytics: {
-          Component: {
-            path: '@/components/layout/Admin/Views/Analytics/cloudflare',
-            exportName: 'R2AnalyticsView',
-          },
-          path: '/analytics/cloudflare',
+        Metrics: {
+          Component: '@/components/layout/Admin/Views/Metrics/cloudflare#CloudflareMetricsView',
+          path: '/metrics/cloudflare',
           meta: {
-            title: 'Cloudflare Analytics',
+            title: 'Cloudflare Metrics',
           },
         },
       },

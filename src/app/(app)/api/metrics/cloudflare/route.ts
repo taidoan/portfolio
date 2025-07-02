@@ -83,7 +83,7 @@ export async function GET(
       {
         error: errorMessage,
         stack: errorStack,
-        endpoint: '/api/r2',
+        endpoint: '/api/metrics/cloudflare',
       },
       'Analytics API error',
     );

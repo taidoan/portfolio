@@ -6,12 +6,12 @@ import clsx from 'clsx';
 
 import { DefaultTemplate } from '@payloadcms/next/templates';
 import { Gutter } from '@payloadcms/ui';
-import { getR2Analytics } from '@/lib/utilities/getAnalytics';
+import { getMetrics } from '@/lib/utilities/getAnalytics';
 import { formatDate } from '@/lib/utilities/formatDate';
 import { R2StorageGauge } from '@/components/ui/Usage';
 import { IconCalendar } from '@tabler/icons-react';
 
-export const R2AnalyticsView = async (props: AdminViewServerProps) => {
+export const CloudflareMetricsView = async (props: AdminViewServerProps) => {
   const { initPageResult, params, searchParams } = props;
   const {
     req: { user },
@@ -24,7 +24,7 @@ export const R2AnalyticsView = async (props: AdminViewServerProps) => {
   if (user.role !== 'admin') {
     return <div>Admin access required to view this page.</div>;
   }
-  const r2Analytics = await getR2Analytics(initPageResult.req.headers);
+  const r2Analytics = await getMetrics('cloudflare', initPageResult.req.headers);
   const usage = r2Analytics.currentUsage;
   const date = r2Analytics.dateRange;
 
@@ -36,12 +36,12 @@ export const R2AnalyticsView = async (props: AdminViewServerProps) => {
       payload={initPageResult.req.payload}
       permissions={initPageResult.permissions}
       searchParams={searchParams}
-      user={user}
+      user={initPageResult.req.user || undefined}
       visibleEntities={initPageResult.visibleEntities}
     >
       <Gutter>
         <div className={clsx('view__header')}>
-          <h1>Cloudflare Analytics</h1>
+          <h1>Cloudflare Metrics</h1>
         </div>
         <div className={clsx('view__container', 'view__container--space-between')}>
           <div>

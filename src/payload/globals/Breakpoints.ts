@@ -11,6 +11,9 @@ export const Breakpoints: GlobalConfig = {
   hooks: {
     afterChange: [revalidateGlobal('breakpoints')],
   },
+  admin: {
+    group: 'Layout',
+  },
   fields: [
     {
       name: 'breakpoints',
