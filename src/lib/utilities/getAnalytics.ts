@@ -9,12 +9,29 @@
  * // Output:
  * // {
  * //   success: true,
- * //   bandwidthBytes: 123456789,
- * //   mediaLibraryStorageBytes: 987654321,
- * //   videoProcessingUnitsCount: 123,
- * //   originalCacheStorageBytes: 456789,
- * //   startDate: '2023-03-01',
- * //   endDate: '2023-03-31'
+ * //   bucketName: 'my-bucket',
+ * //   currentUsage: {
+ * //     objectCount: 1000,
+ * //     totalStorage: '1 GB',
+ * //     storageCapacity: '10 GB',
+ * //     storageUsage: '10%',
+ * //     storageUsagePercentage: '10%',
+ * //     totalStorageBytes: 1073741824,
+ * //     payloadSize: '500 MB',
+ * //     metadataSize: '100 MB',
+ * //     uploadCount: 200,
+ * //     operations: {
+ * //       classA: 150,
+ * //       classB: 50
+ * //     },
+ * //     usedStorageSizeNoFormat: 1073741824,
+ * //     totalStorageBytesNoFormat: 10737418240
+ * //   },
+ * //   dateRange: {
+ * //     startDate: '2023-01-01',
+ * //     endDate: '2023-01-31'
+ * //   },
+ * //   message: 'Metrics fetched successfully',
  * // }
  */
 export const getCloudflareMetrics = async (headers?: HeadersInit) => {

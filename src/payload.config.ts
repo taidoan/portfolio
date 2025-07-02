@@ -36,7 +36,7 @@ export default buildConfig({
     components: {
       beforeDashboard: ['@/components/layout/Dashboard'],
       Nav: '@/components/layout/Admin/Nav#Nav',
-      afterNavLinks: ['@/components/layout/Admin/Views/Metrics/link#Metrics'],
+      afterNavLinks: ['@/components/layout/Admin/Nav/afterNavLinks#Links'],
       header: ['@/components/layout/Admin/Header#AdminHeader'],
       views: {
         Metrics: {
@@ -44,6 +44,7 @@ export default buildConfig({
           path: '/metrics/cloudflare',
           meta: {
             title: 'Cloudflare Metrics',
+            description: 'Cloudflare R2 Storage Analytics',
           },
         },
       },

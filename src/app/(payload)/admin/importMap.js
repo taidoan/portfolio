@@ -27,7 +27,7 @@ import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloa
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { Nav as Nav_3f45459f1216f4d547011a6b0fb96765 } from '@/components/layout/Admin/Nav'
 import { AdminHeader as AdminHeader_c12234f347c08abef07f5b14e692ce05 } from '@/components/layout/Admin/Header'
-import { Metrics as Metrics_aa10153e5fbc8b2af3dd0ebbf2e7345d } from '@/components/layout/Admin/Views/Metrics/link'
+import { Links as Links_ecede93e271161ae0d8041e3acc00625 } from '@/components/layout/Admin/Nav/afterNavLinks'
 import { default as default_43faef577ef3b1b26845a3a15d1e4c6d } from '@/components/layout/Dashboard'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { CloudflareMetricsView as CloudflareMetricsView_64dd2847d01916a688c515b33993a5de } from '@/components/layout/Admin/Views/Metrics/cloudflare'
@@ -62,7 +62,7 @@ export const importMap = {
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@/components/layout/Admin/Nav#Nav": Nav_3f45459f1216f4d547011a6b0fb96765,
   "@/components/layout/Admin/Header#AdminHeader": AdminHeader_c12234f347c08abef07f5b14e692ce05,
-  "@/components/layout/Admin/Views/Metrics/link#Metrics": Metrics_aa10153e5fbc8b2af3dd0ebbf2e7345d,
+  "@/components/layout/Admin/Nav/afterNavLinks#Links": Links_ecede93e271161ae0d8041e3acc00625,
   "@/components/layout/Dashboard#default": default_43faef577ef3b1b26845a3a15d1e4c6d,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@/components/layout/Admin/Views/Metrics/cloudflare#CloudflareMetricsView": CloudflareMetricsView_64dd2847d01916a688c515b33993a5de
