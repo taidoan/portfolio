@@ -30,7 +30,8 @@ import { AdminHeader as AdminHeader_c12234f347c08abef07f5b14e692ce05 } from '@/c
 import { Links as Links_ecede93e271161ae0d8041e3acc00625 } from '@/components/layout/Admin/Nav/afterNavLinks'
 import { default as default_43faef577ef3b1b26845a3a15d1e4c6d } from '@/components/layout/Dashboard'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
-import { CloudflareMetricsView as CloudflareMetricsView_64dd2847d01916a688c515b33993a5de } from '@/components/layout/Admin/Views/Metrics/cloudflare'
+import { CloudflareMetricsView as CloudflareMetricsView_fa540faca98375b5db0fd9a370ba8b5e } from '@/components/layout/Admin/Views/Metrics/cloudflare/index'
+import { ImagekitMetricsView as ImagekitMetricsView_2d0fc75b3e7938a949ed045327263d40 } from '@/components/layout/Admin/Views/Metrics/imagekit/index'
 
 export const importMap = {
   "@payloadcms/ui/rsc#FolderTableCell": FolderTableCell_ab83ff7e88da8d3530831f296ec4756a,
@@ -65,5 +66,6 @@ export const importMap = {
   "@/components/layout/Admin/Nav/afterNavLinks#Links": Links_ecede93e271161ae0d8041e3acc00625,
   "@/components/layout/Dashboard#default": default_43faef577ef3b1b26845a3a15d1e4c6d,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
-  "@/components/layout/Admin/Views/Metrics/cloudflare#CloudflareMetricsView": CloudflareMetricsView_64dd2847d01916a688c515b33993a5de
+  "@/components/layout/Admin/Views/Metrics/cloudflare/index#CloudflareMetricsView": CloudflareMetricsView_fa540faca98375b5db0fd9a370ba8b5e,
+  "@/components/layout/Admin/Views/Metrics/imagekit/index#ImagekitMetricsView": ImagekitMetricsView_2d0fc75b3e7938a949ed045327263d40
 }

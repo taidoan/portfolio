@@ -40,11 +40,20 @@ export default buildConfig({
       header: ['@/components/layout/Admin/Header#AdminHeader'],
       views: {
         Metrics: {
-          Component: '@/components/layout/Admin/Views/Metrics/cloudflare#CloudflareMetricsView',
+          Component:
+            '@/components/layout/Admin/Views/Metrics/cloudflare/index#CloudflareMetricsView',
           path: '/metrics/cloudflare',
           meta: {
             title: 'Cloudflare Metrics',
             description: 'Cloudflare R2 Storage Analytics',
+          },
+        },
+        imagekit: {
+          Component: '@/components/layout/Admin/Views/Metrics/imagekit/index#ImagekitMetricsView',
+          path: '/metrics/imagekit',
+          meta: {
+            title: 'ImageKit Metrics',
+            description: 'ImageKit Media Analytics',
           },
         },
       },

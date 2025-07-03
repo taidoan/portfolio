@@ -2,9 +2,9 @@ import type { AdminViewServerProps } from 'payload';
 
 import { DefaultTemplate } from '@payloadcms/next/templates';
 import { getMetrics } from '@/lib/utilities/getAnalytics';
-import { CloudflareMetricsClient } from './cloudflare.client';
+import { ImagekitMetricsClient } from './index.client';
 
-export const CloudflareMetricsView = async (props: AdminViewServerProps) => {
+export const ImagekitMetricsView = async (props: AdminViewServerProps) => {
   const { initPageResult, params, searchParams } = props;
   const {
     req: { user },
@@ -17,9 +17,11 @@ export const CloudflareMetricsView = async (props: AdminViewServerProps) => {
   if (user.role !== 'admin') {
     return <div>Admin access required to view this page.</div>;
   }
-  const r2Analytics = await getMetrics('cloudflare', initPageResult.req.headers);
-  const usage = r2Analytics.currentUsage;
-  const date = r2Analytics.dateRange;
+
+  const startDate = searchParams?.startDate as string | undefined;
+  const endDate = searchParams?.endDate as string | undefined;
+
+  const ikAnalytics = await getMetrics('imagekit', initPageResult.req.headers, startDate, endDate);
 
   return (
     <DefaultTemplate
@@ -32,9 +34,11 @@ export const CloudflareMetricsView = async (props: AdminViewServerProps) => {
       user={initPageResult.req.user || undefined}
       visibleEntities={initPageResult.visibleEntities}
     >
-      <CloudflareMetricsClient r2Analytics={r2Analytics} usage={usage} date={date} />
+      <ImagekitMetricsClient
+        data={ikAnalytics}
+        startDate={ikAnalytics.startDate}
+        endDate={ikAnalytics.endDate}
+      />
     </DefaultTemplate>
   );
 };
-
-export default CloudflareMetricsView;

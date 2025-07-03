@@ -71,9 +71,17 @@ export const getCloudflareMetrics = async (headers?: HeadersInit) => {
  * //   endDate: '2023-03-31'
  * // }
  */
-export const getImageKitMetrics = async (headers?: HeadersInit) => {
+export const getImageKitMetrics = async (
+  headers?: HeadersInit,
+  startDate?: string,
+  endDate?: string,
+) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/metrics/imagekit`, {
+    const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/metrics/imagekit`);
+    if (startDate) url.searchParams.append('startDate', startDate);
+    if (endDate) url.searchParams.append('endDate', endDate);
+
+    const response = await fetch(url.toString(), {
       headers: headers || {},
     });
 
@@ -97,12 +105,17 @@ type Provider = 'cloudflare' | 'imagekit';
  * @param headers Optional headers to include in the request.
  * @returns The metrics data.
  */
-export const getMetrics = async (provider: Provider, headers?: HeadersInit) => {
+export const getMetrics = async (
+  provider: Provider,
+  headers?: HeadersInit,
+  startDate?: string,
+  endDate?: string,
+) => {
   if (provider === 'cloudflare') {
     return getCloudflareMetrics(headers);
   }
 
   if (provider === 'imagekit') {
-    return getImageKitMetrics(headers);
+    return getImageKitMetrics(headers, startDate, endDate);
   }
 };

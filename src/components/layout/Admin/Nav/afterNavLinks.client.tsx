@@ -12,6 +12,7 @@ export const AfterNavLinksClient = ({ navPreferences }: Props) => {
   return (
     <NavGroup label='Metrics' isOpen={navPreferences?.groups?.Metrics?.open ?? false}>
       <NavLinkWithIcon href='/admin/metrics/cloudflare' label='Cloudflare' className='nav__link' />
+      <NavLinkWithIcon href='/admin/metrics/imagekit' label='ImageKit' className='nav__link' />
     </NavGroup>
   );
 };
