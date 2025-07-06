@@ -1,5 +1,7 @@
 import { getNavIcon } from './navIconMap';
 import Link from 'next/link';
+import clsx from 'clsx';
+import style from './style.module.scss';
 
 type NavLinkWithIconProps = {
   href: string;
@@ -19,7 +21,7 @@ type NavLinkWithIconProps = {
 export const NavLinkWithIcon = ({ href, label, className }: NavLinkWithIconProps) => {
   const Icon = getNavIcon(label.toLowerCase());
   return (
-    <Link href={href} className={className}>
+    <Link href={href} className={clsx(style.nav__link, className)}>
       {Icon && <Icon />}
       {label}
     </Link>

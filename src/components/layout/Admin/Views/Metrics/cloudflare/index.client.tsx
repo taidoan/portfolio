@@ -41,7 +41,11 @@ export const CloudflareMetricsClient: React.FC<CloudflareMetricsClientProps> = (
           <h2>R2 Object Storage</h2>
           <p>Here you can view some basic information about your R2 storage.</p>
         </div>
-        <Link href='https://developers.cloudflare.com/r2/' target='_blank'>
+        <Link
+          href='https://developers.cloudflare.com/r2/'
+          target='_blank'
+          className={clsx('btn', 'btn--size-large', 'btn--style-primary', style.link)}
+        >
           Documentation
         </Link>
       </div>
@@ -60,7 +64,7 @@ export const CloudflareMetricsClient: React.FC<CloudflareMetricsClientProps> = (
         </div>
       </div>
 
-      <div className={clsx(style.container)}>
+      <div className={clsx(style.container, style['container--grid'])}>
         <div className={clsx('card', style['metric-card'])} data-metric='object-count'>
           <h3 className={clsx(style['metric-card__title'])}>Object Count</h3>
           <p className={clsx(style['metric-card__value'])}>{usage.objectCount}</p>

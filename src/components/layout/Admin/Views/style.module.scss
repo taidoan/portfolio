@@ -1,5 +1,9 @@
 @use '@abstracts/_index' as *;
 
+.link {
+  margin: 0;
+}
+
 .divider {
   background-color: var(--theme-border-color);
   display: block;
@@ -43,9 +47,13 @@
   margin-top: rem(32);
 
   @include mq('md') {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    flex-direction: row;
     margin-top: rem(16);
+
+    &--grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+    }
 
     &--wrap {
       flex-wrap: wrap;

@@ -73,7 +73,11 @@ export const ImagekitMetricsClient = ({ data, startDate, endDate }: ImagekitMetr
             days.
           </p>
         </div>
-        <Link href='https://imagekit.io/docs' target='_blank'>
+        <Link
+          href='https://imagekit.io/docs'
+          target='_blank'
+          className={clsx('btn', 'btn--size-large', 'btn--style-primary', style.link)}
+        >
           Documentation
         </Link>
       </div>

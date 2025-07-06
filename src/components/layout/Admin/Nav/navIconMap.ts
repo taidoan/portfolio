@@ -17,10 +17,11 @@ import {
   IconLayoutNavbar,
   IconLayoutBottombar,
   IconLayoutColumns,
+  IconPhotoCog,
 } from '@tabler/icons-react';
 import { ExoticComponent } from 'react';
 
-type CustomNavSlug = 'cloudflare' | 'metrics';
+type CustomNavSlug = 'cloudflare' | 'metrics' | 'imagekit';
 type NavSlug = CollectionSlug | GlobalSlug | CustomNavSlug;
 
 export const navIconMap: Partial<Record<NavSlug, ExoticComponent>> = {
@@ -42,6 +43,7 @@ export const navIconMap: Partial<Record<NavSlug, ExoticComponent>> = {
   footer: IconLayoutBottombar,
   breakpoints: IconLayoutColumns,
   cloudflare: IconBrandCloudflare,
+  imagekit: IconPhotoCog,
 };
 
 export const getNavIcon = (slug: string) =>

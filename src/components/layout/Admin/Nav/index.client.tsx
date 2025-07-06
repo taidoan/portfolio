@@ -9,6 +9,7 @@ import LinkWithDefault from 'next/link';
 import { NavPreferences } from 'payload';
 import { FC, Fragment } from 'react';
 import { getNavIcon } from './navIconMap';
+import style from './style.module.scss';
 
 type Props = {
   groups: NavGroupType[];
@@ -53,7 +54,7 @@ export const NavClient: FC<Props> = ({ groups, navPreferences }) => {
 
               return (
                 <LinkElement
-                  className={[`${baseClass}__link`, activeCollection && `active`]
+                  className={[style.nav__link, `${baseClass}__link`, activeCollection && `active`]
                     .filter(Boolean)
                     .join(' ')}
                   href={href}
