@@ -45,7 +45,7 @@ export default buildConfig({
           path: '/metrics/cloudflare',
           meta: {
             title: 'Cloudflare Metrics',
-            description: 'Cloudflare R2 Storage Analytics',
+            description: 'Cloudflare R2 Storage usage data and analytics',
           },
         },
         imagekit: {
@@ -53,7 +53,7 @@ export default buildConfig({
           path: '/metrics/imagekit',
           meta: {
             title: 'ImageKit Metrics',
-            description: 'ImageKit Media Analytics',
+            description: 'ImageKit usage data and analytics',
           },
         },
       },
