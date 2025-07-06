@@ -1,9 +1,14 @@
+'use client';
+
 import type { MediaBlockProps, MediaRichtextBlockProps } from '@/payload-types';
+
+import { useState } from 'react';
 import { Media } from '@/components/ui/Media';
 import RichText from '@/components/ui/RichText';
 import style from './style.module.scss';
 import clsx from 'clsx';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
+import { Lightbox } from '@/components/ui/Lightbox';
 
 export type MediaComponentProps = MediaBlockProps | MediaRichtextBlockProps;
 
@@ -21,6 +26,8 @@ export const BaseMediaBlock = ({
   const uploadedMedia = media.media;
   const caption = media.caption;
   const showCaption = media.showCaption;
+
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   if (
     media.mediaType !== 'embed' &&
@@ -78,54 +85,77 @@ export const BaseMediaBlock = ({
   const encodedFilename =
     isUploadedMedia && uploadedMedia.filename ? encodeURI(uploadedMedia.filename.trim()) : '';
 
+  const openLightbox = () => {
+    setLightboxOpen(true);
+  };
+
   return (
-    <figure className={figureClasses}>
-      {isVideo ? (
-        <Media
-          src={encodedFilename}
-          playerWidth={videoPlayerWidth ?? '100%'}
-          videoHeight={videoHeight || 432}
-          videoWidth={videoWidth || 768}
-          style={appearanceStyles}
-        />
-      ) : isImage ? (
-        <picture>
+    <>
+      <figure className={figureClasses}>
+        {isVideo ? (
           <Media
-            src={encodedFilename ?? ''}
-            width={uploadedMedia.width!}
-            height={uploadedMedia.height!}
-            alt='Description'
-            sizes='100vw'
-            className={style.image}
+            src={encodedFilename}
+            playerWidth={videoPlayerWidth ?? '100%'}
+            videoHeight={videoHeight || 432}
+            videoWidth={videoWidth || 768}
             style={appearanceStyles}
           />
-        </picture>
-      ) : isPDF ? (
-        <Media
-          src={encodedFilename}
-          style={appearanceStyles}
-          pdfHeight={pdfHeight || '600px'}
-          pdfWidth={pdfWidth || '100%'}
-        />
-      ) : isEmbed ? (
-        <Media
-          type='embed'
-          src={media.mediaEmbedUrl!}
-          source={media.mediaEmbedSource!}
-          style={appearanceStyles}
-        />
-      ) : (
-        <Alert severity='error'>
-          <AlertTitle>Unsupported Media</AlertTitle>
-          Unsupported media type, the media must be either a video or an image.
-        </Alert>
-      )}
+        ) : isImage ? (
+          <picture onClick={openLightbox}>
+            <Media
+              src={encodedFilename ?? ''}
+              width={uploadedMedia.width!}
+              height={uploadedMedia.height!}
+              alt='Description'
+              sizes='100vw'
+              className={style.image}
+              style={appearanceStyles}
+            />
+          </picture>
+        ) : isPDF ? (
+          <Media
+            src={encodedFilename}
+            style={appearanceStyles}
+            pdfHeight={pdfHeight || '600px'}
+            pdfWidth={pdfWidth || '100%'}
+          />
+        ) : isEmbed ? (
+          <Media
+            type='embed'
+            src={media.mediaEmbedUrl!}
+            source={media.mediaEmbedSource!}
+            style={appearanceStyles}
+          />
+        ) : (
+          <Alert severity='error'>
+            <AlertTitle>Unsupported Media</AlertTitle>
+            Unsupported media type, the media must be either a video or an image.
+          </Alert>
+        )}
 
-      {showCaption && caption && (
-        <figcaption className={style.caption}>
-          <RichText data={caption} />
-        </figcaption>
+        {showCaption && caption && (
+          <figcaption className={style.caption}>
+            <RichText data={caption} />
+          </figcaption>
+        )}
+      </figure>
+      {lightboxOpen && isImage && (
+        <Lightbox
+          open={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+          captions={showCaption && caption ? [caption] : []}
+        >
+          <picture onClick={openLightbox}>
+            <Media
+              src={encodedFilename ?? ''}
+              width={uploadedMedia.width!}
+              height={uploadedMedia.height!}
+              alt='Description'
+              sizes='100vw'
+            />
+          </picture>
+        </Lightbox>
       )}
-    </figure>
+    </>
   );
 };
