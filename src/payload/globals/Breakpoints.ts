@@ -1,12 +1,12 @@
 import { GlobalConfig } from 'payload';
-import { authenticated, anyone } from '@/payload/access';
+import { admin, anyone } from '@/payload/access';
 import { revalidateGlobal } from '@/payload/globals/hooks/revalidateGlobal';
 
 export const Breakpoints: GlobalConfig = {
   slug: 'breakpoints',
   access: {
     read: anyone,
-    update: authenticated,
+    update: admin,
   },
   hooks: {
     afterChange: [revalidateGlobal('breakpoints')],

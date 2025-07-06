@@ -1,13 +1,13 @@
 import { GlobalConfig } from 'payload';
 import { Link } from '@/payload/fields/Link';
-import { anyone, authenticated } from '@/payload/access';
+import { anyone, admin } from '@/payload/access';
 import { revalidateGlobal } from '@/payload/globals/hooks/revalidateGlobal';
 
 export const Header: GlobalConfig = {
   slug: 'header',
   access: {
     read: anyone,
-    update: authenticated,
+    update: admin,
   },
   admin: {
     group: 'Layout',

@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'payload';
-import { anyone, authenticated } from '@/payload/access';
+import { anyone, admin } from '@/payload/access';
 import {
   SidebarCategoriesBlock,
   SidebarLatestBlock,
@@ -14,7 +14,7 @@ export const Sidebar: GlobalConfig = {
   slug: 'sidebar',
   access: {
     read: anyone,
-    update: authenticated,
+    update: admin,
   },
   admin: {
     group: 'Layout',

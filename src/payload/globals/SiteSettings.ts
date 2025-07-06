@@ -1,6 +1,6 @@
 import { GlobalConfig } from 'payload';
 import { SocialFields } from './fields/Social';
-import { anyone, authenticated } from '@/payload/access';
+import { anyone, admin } from '@/payload/access';
 import { SITE_NAME, AUTHOR_NAME, CONTACT_EMAIL } from '@lib/constants';
 import { revalidateGlobal } from './hooks/revalidateGlobal';
 
@@ -8,7 +8,7 @@ export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
   access: {
     read: anyone,
-    update: authenticated,
+    update: admin,
   },
   admin: {
     group: 'Settings',

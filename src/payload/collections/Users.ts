@@ -1,13 +1,13 @@
 import type { CollectionConfig } from 'payload';
-import { authenticated } from '@/payload/access';
+import { authenticated, authenticatedSelfOrAdmin, admin } from '@/payload/access';
 
 export const Users: CollectionConfig = {
   slug: 'users',
   access: {
     read: authenticated,
-    create: authenticated,
-    update: authenticated,
-    delete: authenticated,
+    create: admin,
+    update: authenticatedSelfOrAdmin,
+    delete: admin,
     admin: authenticated,
   },
   admin: {
@@ -33,6 +33,10 @@ export const Users: CollectionConfig = {
         { label: 'Admin', value: 'admin' },
         { label: 'User', value: 'user' },
       ],
+      access: {
+        create: ({ req }) => req.user?.role === 'admin',
+        update: ({ req }) => req.user?.role === 'admin',
+      },
     },
   ],
 };
