@@ -13,6 +13,7 @@ import { getUserSignedIn } from '@/lib/utilities/getUserSignedIn';
 import Header from '@components/layout/Header';
 import Footer from '@components/layout/Footer';
 import { MaintenanceBlock } from '@/components/layout/Maintenance';
+import { Favicons } from '@/components/layout/Favicon';
 
 export default async function RootLayout({
   children,
@@ -32,6 +33,9 @@ export default async function RootLayout({
       lang='en'
       suppressHydrationWarning
     >
+      <head>
+        <Favicons />
+      </head>
       <body>
         {maintenance?.maintenanceMode === true && !user ? (
           <MaintenanceBlock message={maintenance?.maintenanceMessage ?? undefined} />

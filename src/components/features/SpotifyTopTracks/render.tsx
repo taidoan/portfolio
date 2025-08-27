@@ -27,7 +27,7 @@ export default function SpotifyRenderTracks({
         rel='noopener noreferrer'
         className={style['track__spotify-link']}
       >
-        <Image
+        <img
           src={track.albumCover.url}
           width={100}
           height={100}
