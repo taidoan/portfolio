@@ -25,7 +25,8 @@
   transition:
     color var(--transition-duration) ease-in-out,
     background var(--transition-duration) ease-in-out,
-    box-shadow var(--transition-duration) ease-in-out;
+    box-shadow var(--transition-duration) ease-in-out,
+    transform 150ms ease-in-out;
 
   &::selection {
     color: var(--clr-secondary-400);
@@ -42,6 +43,10 @@
   &:hover {
     background-color: var(--clr-ash-600);
     color: var(--clr-light-400);
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 
   &--fill {

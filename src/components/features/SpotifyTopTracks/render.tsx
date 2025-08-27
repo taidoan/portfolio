@@ -33,6 +33,7 @@ export default function SpotifyRenderTracks({
           height={100}
           alt={track.title}
           className={style['track__album-cover']}
+          data-testid='album-cover'
         />
       </Link>
       <div className={style['track__content']}>
