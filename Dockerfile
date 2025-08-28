@@ -42,6 +42,9 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
+ARG NEXT_PUBLIC_BASE_URL
+ARG NEXT_PUBLIC_SERVER_URL
+ARG DATABASE_URI
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
