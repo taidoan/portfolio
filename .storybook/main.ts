@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/experimental-nextjs-vite';
+import type { StorybookConfig } from '@storybook/nextjs-vite';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import path from 'path';
 
@@ -6,16 +6,16 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
   addons: [
-    '@storybook/addon-essentials',
     '@chromatic-com/storybook',
-    '@storybook/experimental-addon-test',
+    '@storybook/addon-vitest',
     'storybook-addon-pseudo-states',
     '@storybook/addon-a11y',
     'storybook-dark-mode',
+    '@storybook/addon-docs',
   ],
 
   framework: {
-    name: '@storybook/experimental-nextjs-vite',
+    name: '@storybook/nextjs-vite',
     options: {},
   },
 
@@ -72,10 +72,6 @@ const config: StorybookConfig = {
         },
       },
     });
-  },
-
-  docs: {
-    autodocs: true,
   },
 
   typescript: {
