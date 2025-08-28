@@ -9,6 +9,7 @@ import { Dialog } from '@/components/ui/Dialog';
 import { Alert, AlertTitle } from '@/components/ui/Alert';
 import { Button } from '@/components/ui/Button';
 import { getHref } from '@/lib/utilities/getHref';
+import { Divider } from '@/components/ui/Divider';
 import style from './style.module.scss';
 import clsx from 'clsx';
 
@@ -78,6 +79,7 @@ export const ToolsBlock = ({ tools, className }: Props) => {
                   <ToolImage icon={icon} className={style['tools__modal-image']} />
                   <div className={style['tools__modal-content']}>
                     <h2 className={style['tools__modal-title']}>{name}</h2>
+                    <Divider type='content' className={style['tools__modal-divider']} />
                     {description && <RichText data={description} />}
                   </div>
                   <Button

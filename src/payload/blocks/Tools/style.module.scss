@@ -24,6 +24,10 @@
   &:hover {
     background-color: transparent;
   }
+
+  @include mq('md') {
+    padding: rem(12);
+  }
 }
 
 .tools__image {
@@ -98,6 +102,11 @@
 .tools__modal-title {
   font-size: var(--fs-heading);
   margin-bottom: rem(8);
+}
+
+.tools__modal-divider {
+  background-color: var(--clr-gallery-500);
+  margin-block: 0.88rem !important;
 }
 
 .tools__modal-button {

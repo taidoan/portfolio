@@ -100,7 +100,7 @@ export const Button = ({
         onClick={action}
         type={type}
         disabled={disabled || undefined}
-        aria-label={title || (typeof children === 'string' ? children : undefined)}
+        aria-label={title || (typeof children === 'string' ? children : undefined) || 'Button'}
         style={styleOverrides}
       >
         {children}
