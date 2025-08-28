@@ -92,7 +92,7 @@ export async function GET(
   }
 }
 
-export const cleanup = (): void => {
+const cleanup = (): void => {
   clearInterval(cleanupInterval);
   RATE_LIMIT_MAP.clear();
 };

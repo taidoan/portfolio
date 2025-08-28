@@ -19,6 +19,14 @@ export const Media: CollectionConfig = {
   upload: {
     disableLocalStorage: true,
     mimeTypes: ['image/*', 'video/*', 'application/pdf'],
+    imageSizes: [
+      {
+        name: 'og',
+        width: 1200,
+        height: 630,
+        crop: 'center',
+      },
+    ],
   },
   folders: true,
 };

@@ -16,7 +16,13 @@ const getSettings = async (): Promise<SiteSetting> => {
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const cdnURL = getCDNURL();
-  const url = cdnURL + '/og_image.png';
+  let url = cdnURL + '/og_image.png';
+
+  if (image && typeof image === 'object' && 'url' in image) {
+    const ogUrl = image.sizes?.og?.url;
+
+    url = ogUrl ? cdnURL + ogUrl : cdnURL + image.url;
+  }
 
   return url;
 };
