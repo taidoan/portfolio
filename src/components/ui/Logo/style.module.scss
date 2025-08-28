@@ -1,0 +1,49 @@
+@use '@abstracts/_index' as *;
+
+.logo {
+  --width: #{rem(48)};
+  fill: var(--clr-secondary-400);
+  height: auto;
+  max-width: var(--width);
+  transition: all var(--transition-duration-fast) ease;
+  width: 100%;
+
+  @include mq('md') {
+    --width: #{rem(80)};
+  }
+
+  &--light {
+    fill: var(--clr-light-400);
+  }
+
+  &--accent {
+    fill: var(--clr-accent-400);
+  }
+
+  &--secondary {
+    fill: var(--clr-secondary-400);
+  }
+
+  &--primary {
+    fill: var(--clr-primary-400);
+  }
+}
+
+.link {
+  display: block;
+  width: fit-content;
+
+  &:hover {
+    .logo {
+      fill: var(--clr-accent-500);
+    }
+  }
+
+  &:focus-visible {
+    border-radius: var(--border-radius-circle);
+    box-shadow: 0 0 0 rem(6) $focus-background-color;
+    .logo {
+      fill: var(--clr-secondary-400);
+    }
+  }
+}

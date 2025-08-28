@@ -1,0 +1,11 @@
+@use '@abstracts/_index' as *;
+
+.hero {
+  color: var(--clr-light-400);
+  @include hero-base;
+  @include hero-medium;
+
+  &--blurred {
+    @include hero-blurred;
+  }
+}

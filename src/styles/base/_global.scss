@@ -1,0 +1,39 @@
+@use '@abstracts/_index' as *;
+
+body {
+  background-color: var(--clr-ivory-400);
+  position: relative;
+
+  *::selection {
+    background-color: var(--selection-bg-clr);
+    color: var(--focus-text-clr);
+    text-shadow: none;
+  }
+
+  &[data-locked] {
+    overflow: hidden;
+    position: relative;
+    @include z-index('backdrop');
+
+    &::before {
+      animation: blur-in var(--transition-duration) forwards;
+      content: '';
+      height: 100%;
+      left: 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      @include z-index('backdrop');
+    }
+
+    @include mq(41.6875em, 'min', 'width', 'landscape') {
+      overflow: auto;
+    }
+
+    .site-logo {
+      svg {
+        --width: #{rem(36)};
+      }
+    }
+  }
+}

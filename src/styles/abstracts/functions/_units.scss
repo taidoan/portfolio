@@ -1,0 +1,74 @@
+@use 'sass:meta';
+@use 'sass:math';
+@use './../settings/typography' as t;
+
+////
+/// @group functions-units
+////
+
+/// Remove the unit of a length
+/// @param {Number} $number - The number to remove the unit from
+/// @return {Number} - The unitless number
+@function strip-unit($number) {
+  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
+    @return math.div($number, $number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+/// Converts a given px value to rem units
+/// @param {Number|String} $value - The value to convert, can be unitless or with units
+/// @return {String} - The value converted to rem.
+@function rem($value) {
+  $result: calc((strip-unit($value) / strip-unit(t.$font-root-size)) * 1rem);
+  $roundedResult: math.div(math.floor($result * 100 + 0.5), 100);
+
+  @return $roundedResult;
+  @error "Invalid value: #{$value}. Expected a unitless value or a value with units.";
+}
+
+/// Converts a given px value to em units
+/// @param {Number|String} $value - Value in px
+/// @param {Number} $context-font-size - Font size of the element, defaulted to root font size
+/// @return {Number} - Value in ems
+@function em($value, $context-font-size: t.$font-root-size) {
+  $result: calc((strip-unit($value) / strip-unit($context-font-size)) * 1em);
+  $roundedResult: math.div(math.floor($result * 100 + 0.5), 100);
+
+  @return $roundedResult;
+  @error "Invalid value: #{$value}. Expected a unitless value or a value with units.";
+}
+
+/// Checks if a given value is in 'em' units.
+/// @param {Number} $value - The value to be checked.
+/// @return {Number|Boolean} - Returns the value if it is in 'em' units, otherwise returns false.
+@function is-em($value) {
+  @if is-number($value) and math.unit($value) == 'em' {
+    @return $value;
+  } @else {
+    @return false;
+  }
+}
+
+/// Checks if a given value is in 'rem' units.
+/// @param {Number} $value - The value to be checked.
+/// @return {Number|Boolean} - Returns the value if it is in 'rem' units, otherwise returns false.
+@function is-rem($value) {
+  @if is-number($value) and math.unit($value) == 'rem' {
+    @return $value;
+  } @else {
+    @return false;
+  }
+}
+
+/// Checks if a given value is in 'px' units.
+/// @param {Number} $value - The value to be checked.
+/// @return {Number|Boolean} - Returns the value if it is in 'px' units, otherwise returns false.
+@function is-px($value) {
+  @if is-number($value) and math.unit($value) == 'px' {
+    @return $value;
+  } @else {
+    @return false;
+  }
+}

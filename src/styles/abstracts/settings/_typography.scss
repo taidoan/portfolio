@@ -1,0 +1,88 @@
+@use './colours' as c;
+@use 'sass:map';
+
+////
+/// @group settings-typography
+/// These units can be stripped whenever needed
+////
+
+/// Root font size
+/// This is used to calculate rem and em sizes across the project.
+/// @type number
+$font-root-size: 16px !default;
+
+/// Smallest font size
+/// This is the smallest font size used across the project.
+/// @type number
+$font-smallest-size: 14px !default;
+
+/// Small desktop font size
+/// This is the smaller body font size featured on desktop screens.
+/// @type number
+$font-desktop-size-sm: 20px !default;
+
+/// Desktop font size
+/// This is the body font size used for desktop screens.
+/// @type number
+$font-desktop-size: 24px !default;
+
+/// Large desktop font size
+/// This is the body font size used for large desktop screens.
+/// @type number
+$font-desktop-size-lg: 28px !default;
+
+/// Heading font size small
+/// The smaller heading font size
+/// @type number
+$heading-font-size-sm: 32px !default;
+
+/// Heading font size
+/// The base font size for headings.
+/// @type number
+$heading-font-size: 48px !default;
+
+// Heading font size medium
+// The medium heading font size
+// @type number
+$heading-font-size-md: 56px !default;
+
+/// Heading font size large
+/// The large heading font size, used for heroes and page titles
+/// @type number
+$heading-font-size-lg: 100px !default;
+
+/// Sub-heading font size
+/// The font size for sub headings or taglines
+/// @type number
+$sub-heading-font-size: $heading-font-size-md !default;
+
+/// Section heading font size
+/// The font size for section headings
+/// @type number
+$section-heading-font-size: $heading-font-size-sm !default;
+
+/// Card title font size
+/// The font size for card titles
+/// @type number
+$card-title-font-size: $heading-font-size !default;
+
+/// Card body font size
+/// The font size for card bodies
+/// @type number
+$card-body-font-size: $font-desktop-size-sm !default;
+
+/// Hero font size
+/// The font size for hero text
+/// @type number
+$hero-title-font-size: $heading-font-size-lg !default;
+
+/// Button font size
+/// The font size for buttons
+/// @type number
+$button-font-size: $font-desktop-size-sm !default;
+
+/// Paragraph Max Width
+///
+/// This is the max width for paragraphs to maintain legibility
+/// @type number
+$max-paragraph-width: 60ch !default;

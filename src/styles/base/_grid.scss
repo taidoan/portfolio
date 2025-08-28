@@ -1,0 +1,54 @@
+@use '@abstracts/_index' as *;
+
+:root {
+  --layout-row-spacing: #{size-clamp(rem($section-spacing-base), rem($section-spacing-desktop))};
+  --layout-row-spacing-sm: #{size-clamp(rem($section-spacing-base), rem($section-spacing-md))};
+  --block-row-spacing: #{size-clamp(rem($block-spacing-base), rem($block-spacing-desktop))};
+  --padding-inline: #{size-clamp(rem($padding-inline-base), rem($padding-inline-large))};
+  --content-max-width: #{rem($project-max-width)};
+  --block-column-spacing: #{rem($block-spacing-base)};
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  @include content-grid;
+  flex-grow: 1;
+  padding-bottom: var(--layout-row-spacing);
+}
+
+@include mq('md') {
+  @each $alignment in start, center, end, stretch {
+    .align-self__#{$alignment} {
+      align-self: #{$alignment};
+    }
+  }
+
+  @each $alignment in start, center, end, stretch {
+    .justify-self__#{$alignment} {
+      justify-self: #{$alignment};
+    }
+  }
+}
+
+@for $column from 1 through 6 {
+  [data-columns='#{$column}'] {
+    display: flex;
+    flex-direction: column;
+    gap: size-clamp(rem(16), rem(24));
+
+    @include mq('md') {
+      display: grid;
+      gap: size-clamp(rem(20), rem(32));
+      grid-template-columns: repeat($column, 1fr);
+    }
+  }
+}

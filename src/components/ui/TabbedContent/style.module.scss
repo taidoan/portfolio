@@ -1,0 +1,201 @@
+@use '@abstracts/_index' as *;
+
+.filter__block {
+  display: flex;
+  flex-direction: column;
+  padding: size-clamp(rem(16), rem(32)) !important;
+}
+
+.filter__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(8);
+  list-style: none;
+  padding: 0;
+
+  > li {
+    flex-grow: 1;
+
+    @include mq('md') {
+      flex-grow: 0;
+    }
+  }
+}
+
+.filter__button {
+  align-items: center;
+  background-color: var(--clr-light-grey-200);
+  border: 0;
+  border-radius: var(--border-radius-small);
+  color: var(--clr-light-grey-650);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--ff-display-condensed);
+  font-size: size-clamp(rem(20), rem(28));
+  font-weight: 700;
+  gap: size-clamp(rem(8), rem(12));
+  justify-content: center;
+  line-height: 1;
+  padding-block: size-clamp(rem(12), rem(20));
+  padding-inline: size-clamp(rem(16), rem(24));
+  text-transform: uppercase;
+  transition:
+    color var(--transition-duration-fast) ease,
+    background var(--transition-duration-fast) ease;
+  width: 100%;
+
+  svg {
+    color: var(--clr-light-grey-600);
+    transition: color var(--transition-duration) ease;
+  }
+
+  @include mq('md') {
+    background: none;
+    border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
+    color: var(--clr-slate-250);
+    transition:
+      color var(--transition-duration) ease,
+      background var(--transition-duration) ease;
+
+    &:hover {
+      color: var(--clr-slate-400);
+
+      svg {
+        color: var(--clr-accent-400);
+      }
+    }
+
+    svg {
+      color: var(--clr-light-grey-400);
+    }
+  }
+
+  &:focus-visible {
+    @include focused-box;
+    z-index: 20 !important;
+  }
+
+  &--active {
+    background-color: var(--clr-accent-500);
+    color: white;
+
+    svg {
+      color: var(--clr-accent-300);
+    }
+
+    @include mq('md') {
+      background-color: var(--clr-light-grey-150);
+      color: var(--clr-slate-400);
+
+      svg {
+        color: var(--clr-accent-400);
+      }
+    }
+  }
+}
+
+.filter__content {
+  background-color: var(--clr-light-grey-150);
+  border-radius: var(--border-radius-small);
+  margin-top: size-clamp(rem(16), rem(32));
+  padding: size-clamp(rem(20), rem(32));
+  transition: border-radius var(--transition-duration-fast) ease;
+
+  &:has(+ *) {
+    margin-bottom: size-clamp(rem(16), rem(32));
+  }
+
+  @include mq('md') {
+    margin-top: 0;
+  }
+
+  &--first-cat-active {
+    @include mq('md') {
+      border-radius: 0 var(--border-radius-small) var(--border-radius-small)
+        var(--border-radius-small);
+    }
+  }
+
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: rem(24);
+    text-align: center;
+
+    @include mq('md') {
+      align-items: center;
+      flex-direction: row;
+      gap: rem(32);
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+}
+
+.filter__content-text {
+  display: flex;
+  flex-direction: column;
+  gap: size-clamp(rem(4), rem(12));
+}
+
+.filter__item {
+  align-items: center;
+  background-color: var(--clr-light-grey-150);
+  border-radius: var(--border-radius-small);
+  color: var(--clr-slate-350);
+  display: flex;
+  flex-direction: column;
+  gap: size-clamp(rem(24), rem(32));
+  padding: size-clamp(rem(20), rem(32));
+  text-align: center;
+  transition:
+    color var(--transition-duration-fast) ease,
+    transform var(--transition-duration-fast) ease,
+    box-shadow var(--transition-duration-fast) ease,
+    background-color var(--transition-duration-fast) ease;
+
+  &:hover {
+    color: inherit;
+  }
+
+  p {
+    font-size: var(--fs-body-sm);
+  }
+
+  @include mq('md') {
+    &:hover {
+      transform: scale(1.025) translateY(-3%);
+    }
+  }
+}
+
+.filter__item-content {
+  display: flex;
+  flex-direction: column;
+  gap: rem(8);
+}
+
+.filter__item-title {
+  font-size: var(--fs-heading);
+}
+
+.filter__item-image {
+  block-size: size-clamp(rem(120), rem(160));
+  inline-size: size-clamp(rem(120), rem(160));
+
+  &[src$='.svg'] {
+    width: auto;
+  }
+}
+
+@include mq('md') {
+  .filter__items__wrapper {
+    display: grid;
+    gap: rem(32);
+    grid-template-columns: repeat(12, 1fr);
+
+    > * {
+      grid-column: span 4;
+    }
+  }
+}

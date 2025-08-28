@@ -1,0 +1,20 @@
+@use '@abstracts/_index' as *;
+
+.slug-field-component {
+  .label-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: rem(8);
+  }
+
+  .lock-button {
+    margin: 0;
+    padding-bottom: 0;
+
+    svg {
+      height: rem(20);
+      width: rem(20);
+    }
+  }
+}

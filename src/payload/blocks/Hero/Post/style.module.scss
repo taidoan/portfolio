@@ -1,0 +1,28 @@
+@use '@abstracts/_index' as *;
+
+.hero {
+  gap: size-clamp(rem(16), rem(24));
+
+  @include hero-low-impact;
+}
+
+.meta {
+  align-items: center;
+  color: var(--clr-urban-steel-400);
+  display: flex;
+  font-size: var(--fs-body-sm);
+  gap: rem(12);
+
+  &__seperator {
+    color: var(--clr-accent-400);
+    font-size: var(--fs-small);
+  }
+}
+
+.excerpt {
+  color: var(--clr-urban-steel-500);
+}
+
+.breadcrumbs {
+  margin-block-start: size-clamp(rem(16), rem(24));
+}

@@ -4,6 +4,8 @@ groups:
     mixins-layout: Layout
     mixins-zindex: Z-Index
     mixins-accessibility: Accessibility
+    mixins-hero: Hero
+    mixins-headings: Headings
   Functions:
     functions-units: Units
     functions-colours: Colours

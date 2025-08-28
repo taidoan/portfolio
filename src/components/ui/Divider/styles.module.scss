@@ -1,0 +1,60 @@
+@use '@abstracts/_index' as *;
+
+.base {
+  background-color: var(--clr-frosted-sage-400);
+  display: block;
+  max-width: rem(240);
+
+  &.minimal {
+    height: rem(1);
+  }
+
+  &.thin {
+    height: rem(3);
+  }
+
+  &.thick {
+    height: rem(6);
+  }
+
+  &.half {
+    width: 50%;
+  }
+
+  &.full {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  &.default {
+    width: 100%;
+  }
+
+  &.centered {
+    margin-inline: auto;
+  }
+
+  &.clr-primary {
+    background-color: var(--clr-primary-400);
+  }
+
+  &.clr-secondary {
+    background-color: var(--clr-secondary-400);
+  }
+
+  &.clr-accent {
+    background-color: var(--clr-accent-400);
+  }
+
+  &.clr-light-grey {
+    background-color: var(--clr-light-grey-400);
+  }
+
+  &.content {
+    margin-block: var(--spacing-paragraph);
+  }
+
+  &.section {
+    margin-block: var(--layout-row-spacing);
+  }
+}

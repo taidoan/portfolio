@@ -1,0 +1,11 @@
+ul {
+  li::marker {
+    color: var(--clr-accent-400);
+  }
+}
+
+ol {
+  li::marker {
+    color: var(--clr-frosted-sage-600);
+  }
+}

@@ -1,0 +1,23 @@
+.spinner {
+  animation: spin-animation 1s infinite linear;
+  background: conic-gradient(#0000 30%, var(--clr-light-grey-500));
+  border-radius: 50%;
+  height: 2rem;
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 6.4px), #000 0);
+  width: 2rem;
+}
+
+@keyframes spin-animation {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.spinner__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-body-sm);
+  justify-content: center;
+  margin-block: calc(var(--layout-row-spacing) / 2);
+}

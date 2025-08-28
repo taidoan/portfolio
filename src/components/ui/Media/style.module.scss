@@ -1,0 +1,43 @@
+@use '@abstracts/_index' as *;
+
+.image {
+  height: auto;
+  user-select: none;
+  width: 100%;
+}
+
+.iframePDF {
+  border: rem(2) solid var(--card-outline-color);
+  object-fit: contain;
+  overflow: scroll;
+
+  @include mq(600, 'max', 'width') {
+    height: 300px;
+  }
+}
+
+.embedWrapper {
+  display: block;
+  max-width: rem(800);
+  padding-bottom: 200px;
+  width: 100%;
+}
+
+.embedContainer {
+  height: 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+
+  iframe,
+  object,
+  embed {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}

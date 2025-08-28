@@ -1,0 +1,36 @@
+@use './../functions/units' as *;
+@use './../settings/index' as *;
+
+////
+/// @group mixins-accessibility
+////
+
+/// Applies focused styles to a link by adding an underline to the text.
+/// @example
+///   .element:focus-visible {
+///     @include focused;
+///   }
+@mixin focused {
+  background-color: var(--focus-bg-clr);
+  box-decoration-break: clone;
+  box-shadow:
+    0 rem(-2) var(--focus-bg-clr),
+    0 rem(4) var(--focus-text-clr);
+  color: var(--focus-text-clr);
+  outline: rem($focus-width) solid transparent;
+  text-decoration: none;
+  text-shadow: none;
+  transition: box-shadow var(--transition-duration-fast) linear;
+}
+
+/// Applies focused styles to an boxed element by adding an outline and box-shadow.
+/// @example
+///   .element:focus-visible {
+///     @include focused-box;
+///   }
+@mixin focused-box($weight: 3) {
+  box-shadow:
+    0 0 0 rem($weight) $focus-text-color,
+    0 0 0 rem($weight * 2) $focus-background-color;
+  outline: rem($focus-width) solid transparent;
+}

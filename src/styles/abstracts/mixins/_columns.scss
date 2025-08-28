@@ -1,0 +1,20 @@
+////
+/// @group mixins-layout
+////
+
+/// Generates a grid column span mixin
+/// @param {Number} $max - The maximum number of columns to span
+/// @example
+///   @include generate-col-span(4);
+/// @example
+///   .block {
+///     @include generate-col-span(3);
+///   }
+///
+@mixin generate-col-span($max) {
+  @for $i from 1 through $max {
+    .col-span-#{$i} {
+      grid-column: span #{$i};
+    }
+  }
+}

@@ -1,0 +1,5 @@
+@use '@abstracts/_index' as *;
+
+.container--boxed {
+  padding: size-clamp(rem(16), rem(24));
+}

@@ -1,0 +1,13 @@
+@use '@abstracts/_index' as *;
+
+.categories__main {
+  padding-bottom: 0 !important;
+}
+
+.categories__wrapper {
+  @include sticky-wrapper();
+}
+
+.categories__content {
+  @include sticky-content();
+}

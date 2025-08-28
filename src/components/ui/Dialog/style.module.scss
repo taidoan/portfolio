@@ -1,0 +1,36 @@
+@use '@abstracts/_index' as *;
+
+.modal__close-button {
+  --size: #{size-clamp(rem(48), rem(56))};
+  align-items: center;
+  background-color: var(--clr-slate-400);
+  border: 0;
+  border-radius: var(--border-radius-circle);
+  color: var(--clr-light-400);
+  cursor: pointer;
+  display: flex;
+  height: var(--size);
+  justify-content: center;
+  outline: 0;
+  position: absolute;
+  right: size-clamp(rem(-8), rem(-16));
+  top: rem(-16);
+  transition:
+    background-color var(--transition-duration-fast) ease-in-out,
+    box-shadow var(--transition-duration-fast) ease-in-out,
+    outline var(--transition-duration-fast) ease-in-out;
+  width: var(--size);
+
+  &:hover {
+    background-color: var(--clr-accent-400);
+  }
+
+  &:focus-visible {
+    @include focused-box;
+  }
+
+  svg {
+    min-height: calc(var(--size) / 2.5);
+    min-width: calc(var(--size) / 2.5);
+  }
+}

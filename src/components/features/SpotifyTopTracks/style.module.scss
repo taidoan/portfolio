@@ -1,0 +1,70 @@
+@use '@abstracts/_index' as *;
+
+.container {
+  display: flex;
+  gap: rem(16);
+}
+
+.track + .track {
+  margin-top: size-clamp(rem(20), rem(32));
+}
+
+.track__spotify-link {
+  align-self: center;
+  aspect-ratio: 1 / 1;
+}
+
+.track__album-cover {
+  aspect-ratio: 1 / 1;
+  border-radius: size-clamp(rem(2), rem(4));
+  height: auto;
+  max-width: rem(80);
+}
+
+.track__content {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: rem(6);
+  text-align: left;
+}
+
+.spotify-logo {
+  --min-size: #{rem(21)};
+  align-self: flex-start;
+  height: size-clamp(rem(21), rem(24));
+  min-block-size: var(--min-size);
+  min-inline-size: var(--min-size);
+  width: size-clamp(rem(21), rem(24));
+}
+
+.track__title {
+  font-size: size-clamp(rem(24), rem(28));
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+    transition-duration: var(--transition-duration);
+    transition-property: color;
+
+    &:hover {
+      color: var(--clr-primary-400);
+    }
+  }
+}
+
+.track__artist {
+  font-size: var(--fs-body-sm);
+  line-height: 1;
+
+  a {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 {
-  "entryPoints": ["./src"],
+  "entryPoints": ["src"],
   "out": "./docs/ts",
+  "tsconfig": "./tsconfig.json",
   "entryPointStrategy": "expand",
   "exclude": [
     "**/node_modules/**",

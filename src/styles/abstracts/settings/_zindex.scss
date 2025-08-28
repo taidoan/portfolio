@@ -1,0 +1,20 @@
+////
+/// @group settings-zindex
+////
+
+/// Z-index map - A map of z-index values for different elements.
+/// @type map
+$z-index-map: (
+  'background': -1,
+  'base': 1,
+  'backdrop': 10,
+  'tooltip': 100,
+  'header': 200,
+  'menu': 300,
+  'menu-content': 350,
+  'modal': 400,
+  'alert': 500,
+  'loading': 600,
+  'toast': 700,
+  'scroll-up': 800,
+);

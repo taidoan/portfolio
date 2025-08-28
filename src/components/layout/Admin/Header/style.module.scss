@@ -1,0 +1,63 @@
+@use '@abstracts/_index' as *;
+
+.admin-header {
+  align-items: center;
+  background-color: var(--theme-elevation-50);
+  border-bottom: 1px solid var(--theme-border-color);
+  display: flex;
+  gap: rem(16);
+  justify-content: space-between;
+  padding: rem(16);
+}
+
+.admin-header__items {
+  align-items: center;
+  display: flex;
+  gap: rem(32);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    align-items: center;
+    display: flex;
+    gap: rem(8);
+  }
+}
+
+.admin-header__link {
+  color: var(--theme-text-color);
+  font-size: rem(20);
+  font-weight: 700;
+  text-decoration: none;
+
+  &--sm {
+    font-size: rem(16);
+  }
+
+  &:hover {
+    color: var(--theme-accent-color);
+    text-decoration: underline;
+
+    & + .admin-header__icon {
+      color: var(--theme-elevation-1000);
+    }
+  }
+}
+
+.admin-header__icon {
+  --size: #{rem(20)};
+  color: var(--theme-elevation-350);
+  height: var(--size);
+  width: var(--size);
+
+  &:hover {
+    color: var(--theme-elevation-1000);
+  }
+}
+
+.admin-header__user {
+  align-items: center;
+  display: flex;
+  gap: rem(8);
+}

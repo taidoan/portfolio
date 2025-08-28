@@ -1,0 +1,74 @@
+@use '@abstracts/_index' as *;
+
+header.header {
+  padding-block: size-clamp(rem($padding-block-base), rem(48));
+  position: relative;
+  top: 0;
+  transition:
+    transform var(--transition-duration-fast) ease,
+    top var(--transition-duration) ease,
+    background-color var(--transition-duration-fast) linear,
+    box-shadow var(--transition-duration-fast) ease;
+  @include z-index('header');
+  @include content-grid;
+
+  @include mq('md') {
+    transition: all var(--transition-duration-fast);
+  }
+
+  &--sticky {
+    backdrop-filter: blur(6px);
+    background: hsla(60, 14%, 97%, 0.9);
+    box-shadow: var(--shadow-button);
+    position: fixed;
+    top: 0;
+    transition:
+      all var(--transition-duration-fast),
+      padding var(--transition-duration-slow);
+    width: 100%;
+
+    @include mq('md') {
+      animation: slide-in-from-top var(--transition-duration-fast) ease-out forwards;
+      padding-block: rem(12);
+      .logo {
+        --width: #{rem(56)};
+      }
+    }
+  }
+
+  &:not(.header--sticky) {
+    backdrop-filter: none;
+    background-color: transparent;
+    box-shadow: none;
+    transition:
+      all var(--transition-duration-slow) ease,
+      box-shadow var(--transition-duration) ease;
+  }
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+@keyframes slide-in-from-top {
+  from {
+    transform: translateY(-50%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out-from-top {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-0.1px);
+  }
+}

@@ -1,0 +1,17 @@
+@use '@abstracts/_index' as *;
+
+.nav__link {
+  align-items: center;
+  display: flex;
+  gap: rem(8);
+
+  svg {
+    color: var(--theme-border-color);
+    height: rem(28);
+    width: rem(28);
+  }
+
+  &:hover svg {
+    color: var(--theme-elevation-500);
+  }
+}

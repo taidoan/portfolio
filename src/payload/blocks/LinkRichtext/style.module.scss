@@ -1,0 +1,17 @@
+@use '@abstracts/_index' as *;
+
+.link,
+.link__group {
+  margin-top: var(--spacing-paragraph);
+}
+
+.link__group {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+
+  @include mq('md') {
+    flex-direction: row;
+    justify-content: center;
+  }
+}

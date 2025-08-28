@@ -1,0 +1,23 @@
+@use '@abstracts/settings/borderRadius' as *;
+
+:root {
+  @each $radius, $value in $borderRadius {
+    --border-radius-#{$radius}: #{$value};
+  }
+}
+
+.border-radius--small {
+  border-radius: var(--border-radius-small);
+}
+
+.border-radius--medium {
+  border-radius: var(--border-radius-medium);
+}
+
+.border-radius--large {
+  border-radius: var(--border-radius-large);
+}
+
+.border-radius--circle {
+  border-radius: var(--border-radius-circle);
+}

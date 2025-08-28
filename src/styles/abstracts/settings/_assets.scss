@@ -1,0 +1,12 @@
+////
+/// @group settings-assets
+////
+
+/// Path to the assets public directory with trailing slash.
+/// This is where static assets such as images and font subdirectories live.
+/// @type string
+$assets-path: '/assets/' !default;
+
+/// Path to public images folder with a trailing slash.
+/// @type string
+$image-path: '#{$assets-path}images/' !default;

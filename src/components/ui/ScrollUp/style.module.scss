@@ -1,0 +1,22 @@
+@use '@abstracts/__index' as *;
+
+.button {
+  position: fixed;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  z-index: var(--z-index-scroll-up);
+  transition: all var(--transition-duration-fast) ease-in-out;
+  pointer-events: auto;
+  opacity: 1;
+
+  @include mq('md') {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1rem);
+}

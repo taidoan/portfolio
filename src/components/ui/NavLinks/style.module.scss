@@ -1,0 +1,196 @@
+@use '@abstracts/_index' as *;
+
+a.navLink {
+  color: var(--clr-secondary-200);
+  font-family: var(--ff-display);
+  font-size: var(--fs-heading);
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    text-shadow var(--transition-duration) ease,
+    color var(--transition-duration) ease,
+    padding var(--transition-duration) ease;
+
+  &:focus,
+  &:hover {
+    color: var(--clr-accent-400);
+  }
+
+  &:focus-visible {
+    @include focused;
+    padding: rem(8);
+  }
+
+  &.active {
+    color: var(--clr-light-400);
+
+    &:focus-visible {
+      color: var(--focus-text-clr);
+    }
+  }
+
+  @include mq('md') {
+    color: var(--fc-body);
+    display: inline-flex;
+    font-size: var(--fs-body-sm);
+    line-height: initial;
+    position: relative;
+    transition:
+      color var(--transition-duration-fast) ease-in-out,
+      background var(--transition-duration-fast) ease-in-out;
+
+    &::after {
+      color: var(--clr-slate-250);
+      content: '.';
+      transition: color var(--transition-duration) ease-in-out;
+    }
+
+    &::before {
+      background-color: var(--clr-accent-400);
+      bottom: rem(-6.5);
+      content: '';
+      display: block;
+      height: rem($focus-width);
+      left: 0;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      transition:
+        width var(--transition-duration-fast) ease-in-out,
+        opacity var(--transition-duration) ease-in-out;
+      width: 0;
+    }
+
+    &:hover,
+    &:active {
+      color: initial;
+
+      &::before {
+        opacity: 1;
+        width: 66%;
+      }
+
+      &::after {
+        color: var(--clr-accent-400);
+      }
+    }
+
+    &:focus-visible {
+      background-color: var(--clr-accent-400);
+      outline: none;
+      padding: 0;
+
+      &::before {
+        width: 100%;
+      }
+
+      &::after {
+        color: var(--clr-accent-600);
+      }
+    }
+
+    &.active {
+      color: var(--fc-body);
+
+      &::after {
+        color: var(--clr-accent-400);
+      }
+
+      &::before {
+        background-color: var(--clr-accent-400);
+        opacity: 1;
+        width: 66%;
+      }
+
+      &:focus-visible::before {
+        width: 0;
+      }
+    }
+  }
+}
+
+a.footerNavLink {
+  background-color: var(--clr-frosted-sage-300);
+  border-radius: rem(16);
+
+  color: var(--fc-body);
+  display: inline-flex;
+  font-family: var(--ff-display);
+  font-size: var(--fs-body-sm);
+  font-weight: 800;
+  padding: rem(8) rem(12);
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    color var(--transition-duration-fast) ease-in-out,
+    background var(--transition-duration-fast) ease-in-out;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    @include focused-box;
+  }
+
+  @include mq('base-lg') {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
+
+    &::before {
+      background-color: var(--clr-accent-400);
+      bottom: rem(-4);
+      content: '';
+      display: block;
+      height: rem(3);
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      transition:
+        width var(--transition-duration-fast) ease-in-out,
+        opacity var(--transition-duration) ease-in-out;
+      width: 0;
+    }
+
+    &:hover {
+      &::before {
+        opacity: 1;
+        width: 100%;
+      }
+    }
+
+    &:focus-visible {
+      @include focused();
+    }
+
+    &:focus-visible::before {
+      display: none;
+      width: 0;
+    }
+
+    &.active:focus-visible::before {
+      width: 0;
+    }
+
+    &.active::before {
+      background-color: var(--clr-frosted-sage-400);
+      opacity: 1;
+      width: 100%;
+    }
+  }
+
+  @include mq('md') {
+    &:hover::before,
+    &:focus-visible::before {
+      width: 66%;
+    }
+
+    &.active::before {
+      width: 66%;
+    }
+  }
+}

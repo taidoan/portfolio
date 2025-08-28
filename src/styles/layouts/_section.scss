@@ -1,0 +1,92 @@
+@use '@abstracts/_index' as *;
+
+.section {
+  --gap: #{rem($block-spacing-base)};
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap);
+  text-align: center;
+  width: 100%;
+
+  & + .section {
+    margin-top: var(--layout-row-spacing);
+  }
+
+  & + .project__section,
+  & + .service__section {
+    margin-top: var(--layout-row-spacing-sm);
+  }
+
+  &__group {
+    row-gap: 0;
+  }
+
+  &__intro {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__boxed-layout {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-block: size-clamp(rem(32), rem(72));
+    padding-inline: size-clamp(rem(32), rem(56));
+    text-align: center;
+
+    @include mq('md') {
+      &--left,
+      &--right {
+        flex-direction: row;
+        gap: rem(40);
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    h2.section-heading {
+      color: var(--clr-secondary-400);
+    }
+
+    &[data-bg-clr='primary'],
+    &[data-bg-clr='gradient-primary'] {
+      &[data-variant='fill'] {
+        h3.sub-heading {
+          text-shadow: var(--shadow-small-title);
+        }
+
+        p {
+          text-shadow: var(--shadow-small-body);
+        }
+      }
+    }
+
+    &[data-bg-clr='accent'] {
+      span.accent-dot {
+        color: var(--clr-primary-450);
+      }
+    }
+  }
+
+  &__wrapper {
+    --gap: #{rem($block-spacing-base)};
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    row-gap: var(--gap);
+
+    @include mq('md') {
+      @include generate-col-span(16);
+      column-gap: rem(24);
+      display: grid;
+      grid-template-columns: repeat(16, 1fr);
+    }
+
+    @include mq('md-lg') {
+      --gap: #{rem($block-spacing-desktop)};
+    }
+  }
+}

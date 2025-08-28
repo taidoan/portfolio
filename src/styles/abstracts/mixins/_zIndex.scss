@@ -1,0 +1,26 @@
+@use './../functions/zIndex' as z;
+////
+/// @group mixins-zindex
+////
+
+/// Mixin to set the z-index of an element.
+/// @param {string} $key - The key of the z-index value to set.
+/// @example - Set the z-index of an element to the value of the "base" key.
+///   .foo {
+///     @include z-index();
+///   }
+/// @example - Set the z-index of an element to the value of the "header" key.
+///   .foo {
+///     @include z-index("header");
+///   }
+/// @example - Set the z-index of an element to the value of the "modal" key.
+///   .bar {
+///     @include z-index("modal");
+///   }
+/// @example - Set the z-index of an element to the value of the "alert" key.
+///   .bar {
+///     @include z-index("alert");
+///   }
+@mixin z-index($key: 'base') {
+  z-index: z.zIndex($key);
+}

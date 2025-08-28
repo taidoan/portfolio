@@ -1,0 +1,121 @@
+@use '@abstracts/_index' as *;
+
+.social-share__container {
+  align-items: center;
+  border: rem(2) solid var(--clr-frosted-pearl-400);
+  border-radius: var(--border-radius-small);
+  color: var(--clr-urban-steel-400);
+  column-gap: rem(20);
+  display: flex;
+  padding-block: size-clamp(rem(12), rem(16));
+  padding-inline: size-clamp(rem(16), rem(20));
+  width: fit-content;
+}
+
+.social__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: size-clamp(rem(8), rem(12));
+}
+
+.close__button {
+  color: var(--clr-frosted-pearl-500);
+  cursor: pointer;
+  min-height: rem(32);
+  min-width: rem(32);
+  transition: color var(--transition-duration-fast) ease;
+
+  &:hover {
+    color: var(--clr-accent-400);
+  }
+}
+
+.button {
+  align-items: center;
+  background-color: var(--clr-frosted-pearl-400);
+  border: none;
+  border-radius: 50%;
+  color: var(--clr-urban-steel-400);
+  cursor: pointer;
+  display: flex;
+  height: size-clamp(rem(32), rem(40));
+  justify-content: center;
+  transition:
+    color var(--transition-duration) ease-in-out,
+    background var(--transition-duration) ease-in-out;
+  width: size-clamp(rem(32), rem(40));
+
+  svg {
+    height: rem(22);
+    width: rem(22);
+  }
+
+  &:hover {
+    background-color: var(--clr-accent-400);
+    color: var(--clr-light-400);
+  }
+
+  &--facebook:hover {
+    background-color: #1877f2;
+  }
+
+  &--twitter:hover {
+    background-color: #14171a;
+  }
+
+  &--instagram:hover {
+    background-color: #c13584;
+  }
+
+  &--messenger:hover {
+    background-color: #0084ff;
+  }
+
+  &--linkedin:hover {
+    background-color: #0a66c2;
+  }
+
+  &--whatsapp:hover {
+    background-color: #075e54;
+  }
+
+  &--telegram:hover {
+    background-color: #0088cc;
+  }
+
+  &--pinterest:hover {
+    background-color: #e60023;
+  }
+
+  &--reddit:hover {
+    background-color: #ff4500;
+  }
+
+  &--tumblr:hover {
+    background-color: #35465c;
+  }
+
+  &--vk:hover {
+    background-color: #45668e;
+  }
+
+  &--line:hover {
+    background-color: #00c300;
+  }
+
+  &--weibo:hover {
+    background-color: #df2029;
+  }
+
+  &--pocket:hover {
+    background-color: #ef4056;
+  }
+
+  &--bluesky:hover {
+    background-color: #0085ff;
+  }
+
+  &--threads:hover {
+    background-color: #000000;
+  }
+}

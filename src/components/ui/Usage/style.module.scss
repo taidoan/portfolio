@@ -1,0 +1,14 @@
+@use '@abstracts/_index' as *;
+
+.progress-gauge__text {
+  display: flex;
+  flex-direction: column;
+  font-size: rem(16);
+  gap: rem(4);
+  text-align: center;
+}
+
+.progress-guage__lg-text {
+  font-size: rem(36);
+  font-weight: 700;
+}

@@ -1,0 +1,56 @@
+@use '@abstracts/_index' as *;
+
+.details__list {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+  list-style: none;
+  padding: 0;
+}
+
+.details__list-item {
+  background-color: var(--clr-light-grey-150);
+  border-radius: var(--border-radius-small);
+  column-gap: rem(16);
+  display: flex;
+  flex-direction: column;
+  padding-block: size-clamp(rem(12), rem(16));
+  padding-inline: size-clamp(rem(16), rem(20));
+  row-gap: rem(4);
+
+  @include mq('md') {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  &:hover {
+    .details__label {
+      color: var(--clr-secondary-400);
+    }
+
+    .details__icon svg {
+      color: var(--clr-accent-400);
+    }
+  }
+}
+
+.details__label {
+  align-items: center;
+  display: flex;
+  font-family: var(--ff-display-condensed);
+  font-size: size-clamp(rem(20), rem(24));
+  font-weight: 700;
+  gap: rem(8);
+  text-transform: uppercase;
+  transition: color var(--transition-duration) ease;
+}
+
+.details__icon svg {
+  color: var(--clr-light-grey-450);
+  transition: color var(--transition-duration) ease;
+}
+
+.details__content {
+  font-size: var(--fs-body-sm);
+  line-height: 1;
+}

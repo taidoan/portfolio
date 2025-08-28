@@ -1,0 +1,7 @@
+@use '@abstracts/settings/shadows' as *;
+
+:root {
+  @each $shad, $value in $shadows {
+    --shadow-#{$shad}: #{$value};
+  }
+}
