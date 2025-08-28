@@ -104,9 +104,7 @@ describe('<SpotifyRenderTracks>', () => {
     ).toBeTruthy();
 
     const images = screen.getAllByTestId('mock-image');
-    const album = screen.getByTestId('album-cover');
-    ``;
-    expect(album.getAttribute('src') === 'https://example.com/album.jpg').toBeTruthy();
+    expect(images[0].getAttribute('src') === 'https://example.com/album.jpg').toBeTruthy();
     expect(
       images.some((img) => img.getAttribute('src')?.includes('spotify-logo-black.svg')),
     ).toBeTruthy();
