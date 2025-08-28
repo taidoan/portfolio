@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Footer } from './footer';
 import { mockSocialAccounts } from '@/mocks/data/mockSocial';
 import { mockNavItems } from '@/mocks/data/mockNavItems';

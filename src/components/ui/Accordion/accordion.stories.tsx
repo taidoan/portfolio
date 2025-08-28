@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Accordion } from '.';
 import { mockAccordionItems } from '@/mocks/data/mockAccordionItems';
 

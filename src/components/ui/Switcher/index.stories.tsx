@@ -1,4 +1,4 @@
-import { StoryObj, Meta } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/nextjs-vite';
 import { Switcher, SwitcherButton } from '.';
 
 const meta: Meta<typeof Switcher> = {

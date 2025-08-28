@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ContactMethodsList } from './index';
 
 const meta: Meta<typeof ContactMethodsList> = {

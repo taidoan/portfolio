@@ -1,4 +1,4 @@
-import { StoryObj, Meta } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/nextjs-vite';
 import { Media } from '.';
 
 const meta: Meta<typeof Media> = {

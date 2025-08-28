@@ -1,6 +1,4 @@
-import React from 'react';
-
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/nextjs-vite';
 import '@styles/index.scss';
 import { inter, barlow, barlow_condensed } from '../src/lib/fonts';
 

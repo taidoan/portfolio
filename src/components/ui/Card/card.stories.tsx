@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Card, CardTitle, CardImage, CardContent, CardBody } from '.';
 import { RichText } from '@components/ui/RichText';
 import { mockPosts } from '@/mocks/data/mockPosts';

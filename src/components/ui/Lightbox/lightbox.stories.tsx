@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useEffect, useRef } from 'react';
 import { Lightbox } from '.';
 import Image from 'next/image';

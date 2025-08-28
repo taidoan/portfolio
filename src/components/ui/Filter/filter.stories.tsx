@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Filter } from './index';
 import { mockCategories } from '@/mocks/data/mockCategories';
 

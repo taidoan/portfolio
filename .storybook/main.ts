@@ -10,7 +10,6 @@ const config: StorybookConfig = {
     '@storybook/addon-vitest',
     'storybook-addon-pseudo-states',
     '@storybook/addon-a11y',
-    'storybook-dark-mode',
     '@storybook/addon-docs',
   ],
 
