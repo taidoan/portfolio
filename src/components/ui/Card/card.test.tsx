@@ -3,6 +3,10 @@ import { Card, CardTitle, CardBody, CardImage, CardContent } from './index';
 import style from './style.module.scss';
 import { mockProjects } from '@/mocks/data/mockProjects';
 
+vi.mock('@/lib/utilities/getURLs', () => ({
+  getCDNURL: () => 'https://ik.imagekit.io/1ih3i3bte/media',
+}));
+
 describe('<CardTitle>', () => {
   it('renders a card title with children', () => {
     render(
