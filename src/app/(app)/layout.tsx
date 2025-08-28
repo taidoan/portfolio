@@ -14,6 +14,7 @@ import Header from '@components/layout/Header';
 import Footer from '@components/layout/Footer';
 import { MaintenanceBlock } from '@/components/layout/Maintenance';
 import { Favicons } from '@/components/layout/Favicon';
+import { ScrollUpButton } from '@/components/ui/ScrollUp';
 
 export default async function RootLayout({
   children,
@@ -42,6 +43,7 @@ export default async function RootLayout({
         ) : (
           <MainApp>{children}</MainApp>
         )}
+        <ScrollUpButton />
       </body>
     </html>
   );

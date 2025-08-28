@@ -37,6 +37,7 @@ export type ButtonProps = {
   id?: string;
   width?: 'auto' | 'full' | 'half' | 'quarter' | 'third' | 'two-thirds' | 'three-quarters';
   showIcon?: boolean;
+  shape?: 'default' | 'circle';
 };
 
 /**
@@ -79,6 +80,7 @@ export const Button = ({
   width = 'auto',
   buttonType,
   showIcon = true,
+  shape = 'default',
 }: ButtonProps) => {
   const buttonClasses = clsx(style.button, className, {
     [style[`button--clr-${color}`]]: !!color,
@@ -88,6 +90,7 @@ export const Button = ({
     [style[`button--${variant}`]]: variant,
     [style[`button-width--${width}`]]: width !== 'auto',
     [style[`button--type-share`]]: buttonType === 'share',
+    [style[`button-shape--${shape}`]]: shape !== 'default',
   });
 
   if (!href) {

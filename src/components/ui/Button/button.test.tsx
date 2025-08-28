@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Button } from '.';
+import { IconChevronUp } from '@tabler/icons-react';
 import style from './style.module.scss';
 
 describe('Button', () => {
@@ -25,6 +26,24 @@ describe('Button', () => {
     render(<Button shadow='small'>Button</Button>);
     const button = screen.getByRole('button');
     expect(button).toHaveClass(style['button--shadow-small']);
+  });
+
+  it('renders a circle button', () => {
+    render(<Button shape='circle'>Button</Button>);
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass(style['button-shape--circle']);
+  });
+
+  it('renders a back to top circle button', () => {
+    render(
+      <Button shape='circle'>
+        <IconChevronUp />
+      </Button>,
+    );
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass(style['button-shape--circle']);
+    const icon = button.querySelector('svg');
+    expect(icon).toBeInTheDocument();
   });
 
   it('renders a button with a custom href', () => {

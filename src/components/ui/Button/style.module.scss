@@ -203,6 +203,11 @@
   &-width--three-quarters {
     width: 75%;
   }
+
+  &-shape--circle {
+    border-radius: var(--border-radius-circle);
+    padding: 0.5rem;
+  }
 }
 
 .button--shadow {
