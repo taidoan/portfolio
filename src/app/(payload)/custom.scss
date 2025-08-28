@@ -33,8 +33,8 @@
 
   &::after {
     color: rgb(76, 227, 76);
-    content: '⬤';
-    font-size: 0.75rem;
+    content: '●';
+    font-size: 1.2rem;
   }
 
   &--maintenance::after {

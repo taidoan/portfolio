@@ -38,7 +38,9 @@
     color: var(--clr-light-grey-600);
     display: none;
     height: var(--size);
-    transition: color var(--transition-duration-fast) ease;
+    transition:
+      color var(--transition-duration-fast) ease,
+      transform var(--transition-duration) ease;
     width: var(--size);
 
     @include mq(374) {
@@ -57,6 +59,10 @@
 
   &:focus-visible {
     @include focused-box;
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 
   &--active {
