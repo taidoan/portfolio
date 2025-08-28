@@ -89,7 +89,6 @@
     "lint-staged": "^15.4.3",
     "playwright": "^1.50.1",
     "postcss": "^8.5.3",
-    "postcss-combine-duplicated-selectors": "^10.0.3",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^10.1.5",
     "postcss-sort-media-queries": "^5.2.0",

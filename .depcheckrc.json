@@ -30,7 +30,6 @@
     "eslint-config-next",
     "playwright",
     "postcss",
-    "postcss-combine-duplicated-selectors",
     "postcss-flexbugs-fixes",
     "postcss-preset-env",
     "postcss-sort-media-queries",

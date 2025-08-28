@@ -13,12 +13,6 @@
         }
       }
     ],
-    "postcss-sort-media-queries",
-    [
-      "postcss-combine-duplicated-selectors",
-      {
-        "removeDuplicatedProperties": true
-      }
-    ]
+    "postcss-sort-media-queries"
   ]
 }
