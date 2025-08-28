@@ -1,7 +1,7 @@
 # *
 User-agent: *
 Disallow: /admin/*
-Disallow: /api/spotify
+Disallow: /api/*
 
 # Host
 Host: https://taidoan.com
@@ -12,3 +12,4 @@ Sitemap: undefined/projects-sitemap.xml
 Sitemap: undefined/pages-sitemap.xml
 Sitemap: undefined/services-sitemap.xml
 Sitemap: undefined/categories-sitemap.xml
+Sitemap: undefined/static-sitemap.xml
