@@ -16,11 +16,14 @@ RUN npm install -g npm@11.5.2
 
 WORKDIR /app
 
-# Copy only package files and install dependencies
+# Copy only package files
 COPY package.json package-lock.json ./
-ENV npm_config_ignore_scripts=true
-RUN npm ci --legacy-peer-deps
 
+# Install dependencies without running scripts
+RUN npm_config_ignore_scripts=true npm ci --legacy-peer-de
+
+# Rebuild sharp with scripts enabled (important!)
+RUN npm rebuild sharp --platform=linuxmusl --arch=x64
 
 # -------------------------
 # Stage 2: Build
