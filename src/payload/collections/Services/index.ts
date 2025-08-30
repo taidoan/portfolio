@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { authenticated, authenticatedOrPublished } from '@/payload/access';
 import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
 import { revalidateService, revalidateDelete } from './hooks/revalidateServices';
+import { beforeChangeUrl } from './hooks/beforeChangeUrl';
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -41,6 +42,7 @@ export const Services: CollectionConfig = {
   hooks: {
     afterChange: [revalidateService],
     afterDelete: [revalidateDelete],
+    beforeChange: [beforeChangeUrl],
   },
   versions: {
     maxPerDoc: 50,

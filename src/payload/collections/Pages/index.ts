@@ -12,6 +12,7 @@ import { urlField } from '@fields/URL';
 import { Hero } from '@blocks/Hero/config';
 import { generatePreviewPath } from '@utilities/generatePreviewPath';
 import { revalidatePage, revalidateDelete } from './hooks/revalidatePage';
+import { beforeChangeUrl } from './hooks/beforeChangeUrl';
 import { DividerBlock } from '@blocks/Divider/config';
 import { SectionBlock } from '@blocks/Section/config';
 import { SectionGroupBlock } from '@blocks/Section/Group/config';
@@ -59,6 +60,7 @@ export const Pages: CollectionConfig = {
   hooks: {
     afterChange: [revalidatePage],
     afterDelete: [revalidateDelete],
+    beforeChange: [beforeChangeUrl],
   },
   fields: [
     {

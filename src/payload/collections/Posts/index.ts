@@ -3,6 +3,7 @@ import { authenticated, authenticatedOrPublished } from '@/payload/access';
 import { generatePreviewPath } from '@/lib/utilities/generatePreviewPath';
 import { populateAuthor } from './hooks/populateAuthors';
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost';
+import { beforeChangeUrl } from './hooks/beforeChangeUrl';
 
 import {
   MetaDescriptionField,
@@ -51,6 +52,7 @@ export const Posts: CollectionConfig = {
     afterRead: [populateAuthor],
     afterChange: [revalidatePost],
     afterDelete: [revalidateDelete],
+    beforeChange: [beforeChangeUrl],
   },
   versions: {
     maxPerDoc: 50,

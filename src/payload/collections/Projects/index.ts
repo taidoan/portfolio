@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { authenticated, authenticatedOrPublished } from '@/payload/access';
 import { generatePreviewPath } from '@utilities/generatePreviewPath';
 import { revalidateDelete, revalidateProject } from './hooks/revalidateProject';
+import { beforeChangeUrl } from './hooks/beforeChangeUrl';
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -51,15 +52,7 @@ export const Projects: CollectionConfig = {
   hooks: {
     afterChange: [revalidateProject],
     afterDelete: [revalidateDelete],
-    beforeChange: [
-      ({ data }) => {
-        if (data.slug) {
-          data.fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${data.slug}`;
-        }
-
-        return data;
-      },
-    ],
+    beforeChange: [beforeChangeUrl],
   },
   fields: [
     {
