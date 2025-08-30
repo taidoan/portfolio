@@ -36,6 +36,15 @@ export default async function RootLayout({
     >
       <head>
         <Favicons />
+        <script
+          defer
+          data-domain='taidoan.com'
+          src='https://analytics.taidoan.com/js/script.file-downloads.hash.outbound-links.js'
+        ></script>
+        <script>
+          window.plausible = window.plausible || function(){}; window.plausible?.q =
+          window.plausible?.q || []; window.plausible?.q.push(arguments);
+        </script>
       </head>
       <body>
         {maintenance?.maintenanceMode === true && !user ? (
