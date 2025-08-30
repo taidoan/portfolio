@@ -51,6 +51,15 @@ export const Projects: CollectionConfig = {
   hooks: {
     afterChange: [revalidateProject],
     afterDelete: [revalidateDelete],
+    beforeChange: [
+      ({ data }) => {
+        if (data.slug) {
+          data.fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${data.slug}`;
+        }
+
+        return data;
+      },
+    ],
   },
   fields: [
     {

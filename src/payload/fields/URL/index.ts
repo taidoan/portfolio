@@ -7,7 +7,7 @@ import type { TextField } from 'payload';
  * @returns {TextField} The custom readonly text field.
  */
 
-export const urlField = (fieldToUse = 'slug', collection?: string): TextField => {
+export const urlField = (fieldToUse: string = 'slug', collection?: string): TextField => {
   const urlField: TextField = {
     name: 'url',
     type: 'text',
