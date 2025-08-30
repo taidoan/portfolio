@@ -31,7 +31,6 @@
     "*.{js,jsx,ts,tsx,css,md}": "prettier --write"
   },
   "dependencies": {
-    "@nouance/payload-dashboard-analytics": "^0.3.0",
     "@payloadcms/db-mongodb": "^3.54.0",
     "@payloadcms/email-nodemailer": "^3.54.0",
     "@payloadcms/email-resend": "^3.54.0",
