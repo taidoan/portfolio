@@ -54,29 +54,7 @@ jobs:
           echo "Checking changes between $BASE_SHA and $HEAD_SHA"
 
           # Check if any relevant files changed
-          if git diff --name-only $BASE_SHA..$HEAD_SHA | grep -E '\.(js|ts|jsx|tsx|md|css|scss)
-
-      - name: Check for changes
-        if: steps.check-docs.outputs.should-generate == 'true'
-        id: verify-changed-files
-        run: |
-          if [[ -n "$(git status --porcelain)" ]]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Commit and push documentation
-        if: steps.check-docs.outputs.should-generate == 'true' && steps.verify-changed-files.outputs.changed == 'true'
-        run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-
-          export HUSKY=0
-
-          git add .
-          git commit -m "[skip-deploy] docs: update documentation"
-          git push; then
+          if git diff --name-only $BASE_SHA..$HEAD_SHA | grep -E '\.(js|ts|jsx|tsx|md|css|scss)$'; then
             echo "Found relevant file changes, will generate docs"
             echo "should-generate=true" >> $GITHUB_OUTPUT
           else
@@ -101,7 +79,8 @@ jobs:
         env:
           NEXT_PUBLIC_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_URL_ENDPOINT }}
 
-      - name: Check for changes
+      - name: Check for documentation changes
+        if: steps.check-docs.outputs.should-generate == 'true'
         id: verify-changed-files
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
@@ -111,7 +90,7 @@ jobs:
           fi
 
       - name: Commit and push documentation
-        if: steps.verify-changed-files.outputs.changed == 'true'
+        if: steps.check-docs.outputs.should-generate == 'true' && steps.verify-changed-files.outputs.changed == 'true'
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
