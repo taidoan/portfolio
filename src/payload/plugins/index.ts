@@ -15,7 +15,6 @@ import { AUTHOR_NAME, SITE_NAME } from '@lib/constants';
 import { getCachedGlobal } from '@/lib/utilities/getGlobal';
 import { Search } from './search';
 import { FormBuilder } from './forms';
-
 const generateTitle: GenerateTitle<Project | Page | Service | Post> = async ({ doc }) => {
   const settings = (await getCachedGlobal('site-settings')()) as SiteSetting;
   const isProject = doc?.url?.includes('projects') && 'details' in doc;

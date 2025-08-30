@@ -48,7 +48,7 @@ export const Services: CollectionConfig = {
     maxPerDoc: 50,
     drafts: {
       autosave: {
-        interval: 100,
+        interval: 800,
       },
     },
   },
