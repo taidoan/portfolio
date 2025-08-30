@@ -1,12 +1,9 @@
 import canUseDOM from './canUseDOM';
 
 export const getServerSideURL = () => {
-  if (typeof window !== 'undefined') {
-    // client
-    return process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
-  }
-  // server
-  return process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
+  let url = process.env.NEXT_PUBLIC_SERVER_URL || '';
+
+  return url;
 };
 
 export const getCDNURL = () => {
