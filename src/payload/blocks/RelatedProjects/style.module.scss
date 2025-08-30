@@ -1,6 +1,23 @@
 @use '@abstracts/_index' as *;
 
+.related-projects-intro {
+  order: 1;
+}
+
+.related-projects {
+  order: 2;
+}
+
+.related-projects-link {
+  order: 3;
+  align-self: center !important;
+}
+
 @include mq('md') {
+  .related-projects {
+    order: 3;
+  }
+
   .related-projects__wrapper {
     display: grid;
     gap: var(--block-column-spacing);
