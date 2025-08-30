@@ -31,6 +31,7 @@ const ICON_MAP: Record<string, JSX.Element> = {
   'graphic-design': <IconPencil stroke={2} />,
   development: <IconCode stroke={2} />,
   marketing: <IconAdCircle stroke={2} />,
+  digital: <IconAppWindow stroke={2} />,
 };
 
 export const TabbedContent = ({ className, categories = [] }: TabbedContentProps) => {
