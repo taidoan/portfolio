@@ -50,7 +50,7 @@ describe('PaginationArchiveItem', () => {
     expect(screen.getByTestId('archive-icon')).toBeInTheDocument();
     const link = screen.getByLabelText('Project Archive');
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', `${SERVER_SIDE_URL}/projects/`);
+    expect(link).toHaveAttribute('href', `${SERVER_SIDE_URL}/projects`);
   });
 });
 
