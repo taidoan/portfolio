@@ -2,7 +2,6 @@ import canUseDOM from './canUseDOM';
 
 export const getServerSideURL = () => {
   const url = process.env.NEXT_PUBLIC_SERVER_URL || '';
-
   return url;
 };
 
