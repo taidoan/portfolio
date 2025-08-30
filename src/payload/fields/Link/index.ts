@@ -78,7 +78,12 @@ export const Link: Link = (overrides = {}) => {
       },
       relationTo: ['pages', 'projects', 'services', 'posts', 'categories'],
       label: 'Document to link to',
-      required: true,
+      validate: (value, { siblingData }: { siblingData?: { type?: string } }) => {
+        if (siblingData?.type === 'reference' && !value) {
+          return 'Please select a document to link to';
+        }
+        return true;
+      },
       hasMany: false,
     },
     {
@@ -89,7 +94,17 @@ export const Link: Link = (overrides = {}) => {
         width: '50%',
       },
       label: 'URL',
-      required: true,
+      validate: (
+        value: string | string[] | null | undefined,
+        { siblingData }: { siblingData?: { type?: string } },
+      ) => {
+        if (siblingData?.type === 'custom') {
+          if (!value || (Array.isArray(value) && value.length === 0)) {
+            return 'Please enter a URL';
+          }
+        }
+        return true;
+      },
     },
   ];
 
