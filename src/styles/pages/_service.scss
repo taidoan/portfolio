@@ -72,11 +72,8 @@
   aspect-ratio: 1 / 1;
   height: auto;
   width: 100%;
-
-  &[src$='.svg'] {
-    max-height: rem(144);
-    max-width: rem(144);
-  }
+  max-height: rem(144);
+  max-width: rem(144);
 }
 
 .service__item-divider {

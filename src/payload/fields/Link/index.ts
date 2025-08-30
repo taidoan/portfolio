@@ -79,6 +79,7 @@ export const Link: Link = (overrides = {}) => {
       relationTo: ['pages', 'projects', 'services', 'posts', 'categories'],
       label: 'Document to link to',
       required: true,
+      hasMany: false,
     },
     {
       name: 'url',

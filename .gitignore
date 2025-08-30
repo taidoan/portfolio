@@ -38,11 +38,25 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Environmental variables
 .env*
 !.env.example
 
+# Media uploads
 /media
 
+# Storybook logs
 *storybook.log
 
+# Web uploads
 /uploads
+
+# Database backup
+backup.archive.gz
+
+# Generated sitemaps
+public/sitemap*.xml
+
+# Optional: ignore any sitemap index
+public/sitemap.xml
+public/sitemap-*.xml

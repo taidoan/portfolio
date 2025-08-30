@@ -57,7 +57,12 @@ export const RelatedProjectsBlock = async ({
         <LinksBlock
           link={link}
           blockType='links'
-          className={clsx('col-span-5', 'justify-self__end', link.className)}
+          className={clsx(
+            'col-span-5',
+            'justify-self__end',
+            style['related-projects__link'],
+            link.className,
+          )}
         />
       )}
       <section className={clsx(className, style['related-projects'], 'section')}>

@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://taidoan.com',
+  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || 'https://taidoan.com',
   generateRobotsTxt: true,
   exclude: [
     '/pages-sitemap.xml',
@@ -22,11 +22,11 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      `${process.env.NEXT_PUBLIC_SITE_URL}/projects-sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_SITE_URL}/pages-sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_SITE_URL}/services-sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_SITE_URL}/categories-sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_SITE_URL}/static-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/projects-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/pages-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/services-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/categories-sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/static-sitemap.xml`,
     ],
   },
 };

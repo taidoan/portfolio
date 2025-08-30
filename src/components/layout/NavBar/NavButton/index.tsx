@@ -12,6 +12,7 @@ export const NavButton = ({ menuOpen, setMenuOpen, className }: NavButtonProps) 
     <label className={clsx(style.nav__button, className)}>
       <input
         type='checkbox'
+        name='nav-toggle'
         aria-expanded={menuOpen}
         aria-label='Toggle navigation menu'
         checked={menuOpen}

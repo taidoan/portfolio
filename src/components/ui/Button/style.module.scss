@@ -225,7 +225,6 @@
 }
 
 a.button {
-  align-self: center;
   display: inline-flex;
   flex: none;
   flex-grow: 0;
@@ -243,6 +242,18 @@ a.button {
         transform: rotate(-45deg);
       }
     }
+  }
+
+  &-align-start {
+    align-self: start;
+  }
+
+  &-align-center {
+    align-self: center;
+  }
+
+  &-align-end {
+    align-self: end;
   }
 }
 
