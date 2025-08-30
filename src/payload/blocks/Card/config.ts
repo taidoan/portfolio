@@ -55,7 +55,7 @@ export const CardBlock: Block = {
           relationTo: 'projects',
           label: 'Related Project',
           hasMany: false,
-          required: true,
+          required: false,
           admin: {
             condition: (_, siblingData) => {
               return siblingData.relationTo === 'projects';
@@ -69,7 +69,7 @@ export const CardBlock: Block = {
           relationTo: 'services',
           label: 'Related Service',
           hasMany: false,
-          required: true,
+          required: false,
           admin: {
             condition: (_, siblingData) => {
               return siblingData.relationTo === 'services';
@@ -83,7 +83,7 @@ export const CardBlock: Block = {
           relationTo: 'posts',
           label: 'Related Post',
           hasMany: false,
-          required: true,
+          required: false,
           admin: {
             condition: (_, siblingData) => {
               return siblingData.relationTo === 'posts';
