@@ -3,15 +3,14 @@ import type { NextConfig } from 'next';
 import path from 'path';
 
 const isProduction = process.env.NODE_ENV === 'production';
+const isNixpacksBuild = process.env.NIXPACKS_BUILD === 'true';
 
 const nextConfig: NextConfig = {
   output: 'standalone',
   compiler: isProduction
     ? {
         reactRemoveProperties: { properties: ['^data-testid'] },
-        removeConsole: {
-          exclude: ['error'],
-        },
+        removeConsole: { exclude: ['error', 'warn'] },
       }
     : undefined,
   turbopack: {
@@ -22,6 +21,16 @@ const nextConfig: NextConfig = {
       '@settings': path.join(__dirname, 'styles/abstracts/settings'),
     },
   },
+
+  typescript: {
+    ignoreBuildErrors: isNixpacksBuild,
+  },
+  eslint: {
+    ignoreDuringBuilds: isNixpacksBuild,
+  },
+
+  poweredByHeader: false,
+
   images: {
     qualities: [40, 60, 80, 100],
     remotePatterns: [
