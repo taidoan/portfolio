@@ -1,7 +1,6 @@
 'use client';
 import { useEffect } from 'react';
 import { TextFieldClientProps } from 'payload';
-import { getServerSideURL } from '@/lib/utilities/getURLs';
 import { IconClipboard } from '@tabler/icons-react';
 import { useField, Button, TextInput, FieldLabel, useFormFields } from '@payloadcms/ui';
 import { toast } from '@payloadcms/ui';

@@ -49,7 +49,7 @@ describe('getURLs utility functions', () => {
   describe('getClientSideURL', () => {
     it('returns client URL when canUseDOM is true', () => {
       vi.mock('./canUseDOM', () => ({ default: true }));
-      // @ts-ignore
+
       global.window = Object.create(window);
       Object.defineProperty(window, 'location', {
         value: {

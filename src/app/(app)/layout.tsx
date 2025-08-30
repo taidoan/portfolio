@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { Header as HeaderType, Footer as FooterType, SiteSetting } from '@/payload-types';
 
 import clsx from 'clsx';
+import Script from 'next/script';
 import { inter, barlow, barlow_condensed } from '@/lib/fonts';
 import '@styles/index.scss';
 import { getServerSideURL } from '@/lib/utilities/getURLs';
@@ -36,6 +37,18 @@ export default async function RootLayout({
     >
       <head>
         <Favicons />
+        <Script
+          defer
+          data-domain='taidoan.com'
+          src='https://analytics.taidoan.com/js/script.file-downloads.hash.outbound-links.js'
+        />
+        <Script id='plausible-inline' strategy='afterInteractive'>
+          {`
+         window.plausible = window.plausible || function() {
+           (window.plausible.q = window.plausible.q || []).push(arguments);
+         }
+       `}
+        </Script>
       </head>
       <body>
         {maintenance?.maintenanceMode === true && !user ? (

@@ -38,7 +38,7 @@ export const RelatedProjectsBlock = async ({
     <>
       {showIntro && introContent ? (
         <div
-          className={clsx('text-align__left', {
+          className={clsx(style['related-projects-intro'], 'text-align__left', {
             'col-span-11': showLink,
             'col-span-16': !showLink,
           })}
@@ -60,8 +60,9 @@ export const RelatedProjectsBlock = async ({
           className={clsx(
             'col-span-5',
             'justify-self__end',
-            style['related-projects__link'],
+            'align-self__center',
             link.className,
+            style['related-projects-link'],
           )}
         />
       )}
