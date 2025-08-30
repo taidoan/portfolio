@@ -22,14 +22,11 @@ export const UrlComponent = ({ field, fieldToUse, path, collection }: UrlCompone
 
   useEffect(() => {
     if (targetFieldValue) {
-      let fullUrl = `${getServerSideURL()}/${targetFieldValue}`;
-      if (collection) fullUrl = `${getServerSideURL()}/${collection}/${targetFieldValue}`;
-
-      if (value !== fullUrl) setValue(fullUrl);
+      setValue(targetFieldValue);
     } else {
-      if (value !== '') setValue('');
+      setValue('');
     }
-  }, [targetFieldValue, value, setValue, path, collection]);
+  }, [targetFieldValue, setValue]);
 
   const handleCopy = async () => {
     if (value) {
