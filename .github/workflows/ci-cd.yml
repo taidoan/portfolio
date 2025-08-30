@@ -10,17 +10,18 @@ on:
 
 jobs:
   test:
-    # Only run tests on PR events (not on merge)
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: Run Tests
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js with caching
+        uses: actions/setup-node@v4
         with:
           node-version: '22.13.0'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -31,42 +32,92 @@ jobs:
           NEXT_PUBLIC_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_URL_ENDPOINT }}
 
   generate-docs:
-    # Only run when PR is merged (not on close without merge)
     if: github.event_name == 'pull_request_target' && github.event.pull_request.merged == true
     name: Generate Documentation
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code with token
+        uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22.13.0'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Generate documentation
-        run: npm run docs
-
-      - name: Commit and push changes
+      - name: Check if docs should be generated
+        id: check-docs
         run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # Get the base and head commit SHAs
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+
+          echo "Checking changes between $BASE_SHA and $HEAD_SHA"
+
+          # Check if any relevant files changed
+          if git diff --name-only $BASE_SHA..$HEAD_SHA | grep -E '\.(js|ts|jsx|tsx|md|css|scss)
+
+      - name: Check for changes
+        if: steps.check-docs.outputs.should-generate == 'true'
+        id: verify-changed-files
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push documentation
+        if: steps.check-docs.outputs.should-generate == 'true' && steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
           export HUSKY=0
 
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git add .
-            git commit -m "Docs: Update documentation"
-            git push
+          git add .
+          git commit -m "[skip-deploy] docs: update documentation"
+          git push; then
+            echo "Found relevant file changes, will generate docs"
+            echo "should-generate=true" >> $GITHUB_OUTPUT
           else
-            echo "No changes to commit"
+            echo "No relevant file changes found, skipping docs generation"
+            echo "should-generate=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Setup Node.js with caching
+        if: steps.check-docs.outputs.should-generate == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.13.0'
+          cache: 'npm'
+
+      - name: Install dependencies
+        if: steps.check-docs.outputs.should-generate == 'true'
+        run: npm ci
+
+      - name: Generate documentation
+        if: steps.check-docs.outputs.should-generate == 'true'
+        run: npm run docs
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEXT_PUBLIC_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_URL_ENDPOINT }}
+
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push documentation
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+          export HUSKY=0
+
+          git add .
+          git commit -m "[skip-deploy] docs: update documentation"
+          git push
