@@ -14,7 +14,7 @@ NODE_NO_WARNINGS = "1"
 
 [phases.setup]
 # Use Node 22 LTS with latest npm
-nixPkgs = ["nodejs_22", "npm-10_x"]
+nixPkgs = ["nodejs_22"]
 # Minimal libraries for smaller image
 nixLibs = ["gcc-unwrapped", "libuuid"]
 # Remove unnecessary packages
