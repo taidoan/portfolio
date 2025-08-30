@@ -29,8 +29,6 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: isNixpacksBuild,
   },
 
-  poweredByHeader: false,
-
   images: {
     qualities: [40, 60, 80, 100],
     remotePatterns: [

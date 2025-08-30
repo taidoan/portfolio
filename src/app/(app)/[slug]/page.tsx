@@ -44,6 +44,8 @@ export type Args = {
   }>;
 };
 
+export const dynamic = 'force-dynamic';
+
 const Page = async ({ params: paramsPromise }: Args) => {
   const { isEnabled: draft } = await draftMode();
   const { slug = 'home' } = await paramsPromise;
