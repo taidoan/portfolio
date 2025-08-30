@@ -45,4 +45,15 @@ next-env.d.ts
 
 *storybook.log
 
+# Web uploads
 /uploads
+
+# Database backup
+backup.archive.gz
+
+# Generated sitemaps
+public/sitemap*.xml
+
+# Optional: ignore any sitemap index
+public/sitemap.xml
+public/sitemap-*.xml
