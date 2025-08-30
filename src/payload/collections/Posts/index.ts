@@ -59,7 +59,7 @@ export const Posts: CollectionConfig = {
     drafts: {
       schedulePublish: true,
       autosave: {
-        interval: 100,
+        interval: 800,
       },
     },
   },
