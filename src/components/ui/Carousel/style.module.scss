@@ -173,8 +173,9 @@
   }
 
   &--vertical-active {
-    > div:first-of-type {
-      box-shadow: var(--shadow-card-sm) !important;
+    > div {
+      box-shadow: var(--shadow-card) !important;
+      transform: scale(0.95) !important;
     }
   }
 }

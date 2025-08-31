@@ -259,6 +259,10 @@ a.button {
 
 :global(.section__intro) + a.button {
   align-self: start;
+
+  @include mq('md') {
+    align-self: center;
+  }
 }
 
 :global(.text-align__left) + a.button {

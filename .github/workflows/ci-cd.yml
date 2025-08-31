@@ -26,6 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run lint
+        run: npm run lint
+        env:
+          NEXT_PUBLIC_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_URL_ENDPOINT }}
+
       - name: Run tests
         run: npm run test
         env:

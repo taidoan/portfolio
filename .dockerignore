@@ -1,0 +1,44 @@
+# Node modules (reinstall during build)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# CI/CD
+.github/
+
+# Storybook
+.storybook/
+storybook-static/
+
+# Documentation
+docs/
+*.md
+.sassdocrc
+
+# Test output
+coverage/
+jest-report/
+
+# Local environment/config
+.env
+.env.local
+.env.*.local
+
+# Next.js build cache
+.next/cache/
+
+# Miscellaneous
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# Backups
+*.archive.gz
+
+# Uploads
+uploads/
+media/
+
+

@@ -1,10 +1,6 @@
 import type { Project } from '@/payload-types';
 import type { CollectionBeforeChangeHook } from 'payload';
+import { createBeforeChangeUrlHook } from '@/lib/utilities/createBeforeChangeUrlHook';
 
-export const beforeChangeUrl: CollectionBeforeChangeHook<Project> = async ({ data }) => {
-  if (data?.slug) {
-    data.url = `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${data.slug}`;
-  }
-
-  return data;
-};
+export const beforeChangeUrl: CollectionBeforeChangeHook<Project> =
+  createBeforeChangeUrlHook<Project>('projects');
