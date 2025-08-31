@@ -6,7 +6,6 @@ import { NextResponse, NextRequest } from 'next/server';
 import { validateAuth } from '@/lib/utilities/validateAuth';
 import {
   checkRateLimit,
-  cleanupInterval,
   validateEnvironment,
   getCachedCloudflareAnalytics,
   calculateOperationTotals,
@@ -14,7 +13,6 @@ import {
   generateDateRange,
   calculateUsage,
   createSuccessResponse,
-  RATE_LIMIT_MAP,
 } from './utils';
 import { createErrorResponse } from '@/lib/utilities/createResponse';
 
