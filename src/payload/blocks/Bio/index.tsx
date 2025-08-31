@@ -1,6 +1,8 @@
 import type { BioBlockProps } from '@/payload-types';
 import { Bio } from '@/components/ui/Bio';
 import { IconSchool, IconMapPin, IconMail } from '@tabler/icons-react';
+import style from './style.module.scss';
+import clsx from 'clsx';
 
 export type Props = {
   className?: string;
@@ -37,7 +39,7 @@ export const BioBlock = ({ items, className }: Props) => {
   });
 
   return (
-    <div className={className}>
+    <div className={clsx(style.bio_block, className)}>
       <Bio items={bioItems} />
     </div>
   );
