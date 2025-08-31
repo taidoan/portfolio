@@ -11,7 +11,7 @@ export type UrlComponentProps = {
   collection?: string;
 } & TextFieldClientProps;
 
-export const UrlComponent = ({ field, fieldToUse, path, collection }: UrlComponentProps) => {
+export const UrlComponent = ({ field, fieldToUse, path }: UrlComponentProps) => {
   const { label } = field;
   const { value, setValue } = useField<string>({ path: path || field.name });
 
