@@ -13,6 +13,7 @@ import { Filter } from '../Filter';
 import { RichText } from '../RichText';
 import { Alert, AlertTitle } from '../Alert';
 import { Card, CardBody } from '../Card';
+import { Divider } from '../Divider';
 import { Carousel } from '../Carousel';
 import { Button } from '../Button';
 import { ImageMedia } from '../Media/Image';
@@ -103,6 +104,7 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
                     {activeContent.title}
                     <span className='accent-dot'>.</span>
                   </h3>
+                  <Divider weight='thick' type='content' className={style.divider} />
                   {renderDescription(activeContent.description)}
                 </div>
                 {activeContent?.link && href && (

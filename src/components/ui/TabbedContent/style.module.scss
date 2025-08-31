@@ -188,6 +188,15 @@
   }
 }
 
+.divider {
+  margin-block: 0.5rem !important;
+  margin-inline: auto;
+
+  @include mq('md') {
+    margin-inline: initial;
+  }
+}
+
 @include mq('md') {
   .filter__items__wrapper {
     display: grid;
