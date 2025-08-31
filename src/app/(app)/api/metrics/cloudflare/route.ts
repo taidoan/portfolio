@@ -91,8 +91,3 @@ export async function GET(
     return createErrorResponse('Internal server error', 500);
   }
 }
-
-const cleanup = (): void => {
-  clearInterval(cleanupInterval);
-  RATE_LIMIT_MAP.clear();
-};
