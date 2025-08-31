@@ -156,6 +156,12 @@ export const TabbedContent = ({ className, categories = [] }: TabbedContentProps
                     <Link href={`/search?query=${encodeURI(item.title)}&collection=tags&perPage=6`}>
                       <h4 className={style['filter__item-title']}>{item.title}</h4>
                     </Link>
+                    <Divider
+                      weight='thin'
+                      type='content'
+                      centered={true}
+                      className={style['filter__item-divider']}
+                    />
                     {renderDescription(item.description)}
                   </div>
                 </div>

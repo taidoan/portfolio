@@ -197,6 +197,10 @@
   }
 }
 
+.filter__item-divider {
+  margin-block: 0.66rem !important;
+}
+
 @include mq('md') {
   .filter__items__wrapper {
     display: grid;
