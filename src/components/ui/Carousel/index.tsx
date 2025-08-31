@@ -205,6 +205,7 @@ export const Carousel = ({
             direction === 'vertical-scroll' && index === selectedIndex + 1,
         })}
         isCarouselActive={isActive}
+        direction={direction}
         ref={
           index < numSlides
             ? (el: HTMLDivElement | null) => {
