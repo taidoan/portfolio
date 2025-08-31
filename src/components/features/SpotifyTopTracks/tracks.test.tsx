@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import SpotifyRenderTracks from './render';
 import { ReactNode } from 'react';
 
+/* eslint-disable @next/next/no-img-element */
 vi.mock('next/image', () => ({
   default: ({
     src,
