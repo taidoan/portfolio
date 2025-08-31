@@ -39,7 +39,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Build Next.js
-RUN npm run build
+RUN npm run build:fast
 
 # -------------------------
 # Stage 3: Runner / Production
