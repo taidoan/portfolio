@@ -8,6 +8,7 @@
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "build:fast": "cross-env NODE_OPTIONS=--no-deprecation NIXPACKS_BUILD=true next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
+    "postinstall": "if [ \"$CI\" = \"true\" ]; then npm rebuild sharp --arch=x64 --platform=linux --libc=glibc; fi",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "docs": "concurrently \"npm run docs-ts\" \"npm run docs-sass\"",
