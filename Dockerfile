@@ -1,9 +1,6 @@
 # Base image: match your local Node version
 FROM node:24.6.0-bullseye AS base
 
-# Install minimal dependencies for Alpine
-RUN apk add --no-cache libc6-compat
-
 WORKDIR /app
 
 # -------------------------
