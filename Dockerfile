@@ -1,5 +1,5 @@
 # Base image: match your local Node version
-FROM node:24.6.0-alpine AS base
+FROM node:24.6.0-bullseye AS base
 
 # Install minimal dependencies for Alpine
 RUN apk add --no-cache libc6-compat
@@ -19,11 +19,12 @@ WORKDIR /app
 # Copy only package files
 COPY package.json package-lock.json ./
 
-# Install dependencies without running scripts
-RUN npm_config_ignore_scripts=true npm ci --legacy-peer-de
+# Install dependencies
+RUN npm ci --legacy-peer-deps
 
 # Rebuild sharp with scripts enabled (important!)
-RUN npm rebuild sharp --platform=linuxmusl --arch=x64
+RUN npm rebuild sharp --arch=x64 --platform=linux --libc=glibc
+
 
 # -------------------------
 # Stage 2: Build
@@ -76,6 +77,7 @@ ARG SPOTIFY_REFRESH_TOKEN
 ARG NEXT_PUBLIC_AUTHOR_NAME
 ARG NEXT_PUBLIC_SITE_NAME
 ARG NEXT_PUBLIC_CONTACT_EMAIL
+ARG NEXT_TELEMETRY_DISABLED
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs
