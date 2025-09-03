@@ -20,7 +20,7 @@
     "lint-staged": "lint-staged",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "prepare": "husky",
+    "prepare": "if [ \"$CI\" != \"true\" ]; then husky install; fi",
     "test": "NODE_NO_WARNINGS=1 vitest run",
     "test:watch": "vitest",
     "storybook": "storybook dev -p 6006",
