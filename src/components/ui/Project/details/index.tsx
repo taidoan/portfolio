@@ -17,7 +17,7 @@ export type ProjectDetailsProps = {
  * @example
  * <ProjectDetails data={project} />
  */
-export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
+export const ProjectDetails = ({ className, data }: ProjectDetailsProps): React.ReactElement => {
   const { details } = data;
 
   return (
