@@ -28,6 +28,7 @@ export const ArchiveBlock = async ({
   if (data === 'projects') {
     content = await payload.find({
       collection: 'projects',
+      sort: '-details.date',
       ...queryOptions,
     });
   } else if (data === 'posts') {
