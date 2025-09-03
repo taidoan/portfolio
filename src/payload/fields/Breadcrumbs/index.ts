@@ -26,6 +26,12 @@ export const BreadCrumbs: BreadCrumbs = (overrides = {}) => {
       singular: 'Breadcrumb',
       plural: 'Breadcrumbs',
     },
+    defaultValue: [
+      {
+        relationTo: overrides.relationTo?.[0] ?? 'pages',
+        label: 'Home',
+      },
+    ],
     fields: [
       {
         type: 'row',

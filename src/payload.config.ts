@@ -13,7 +13,7 @@ import { globals } from './payload/globals';
 import { Users } from './payload/collections/Users';
 
 import { AUTHOR_NAME } from './lib/constants';
-import { CONTACT_EMAIL } from './lib/constants';
+import { NOREPLY_EMAIL } from './lib/constants';
 import { getServerSideURL } from './lib/utilities/getURLs';
 
 const filename = fileURLToPath(import.meta.url);
@@ -24,7 +24,7 @@ export default buildConfig({
   csrf: [getServerSideURL()],
   cors: [getServerSideURL()],
   email: resendAdapter({
-    defaultFromAddress: CONTACT_EMAIL,
+    defaultFromAddress: NOREPLY_EMAIL,
     defaultFromName: AUTHOR_NAME,
     apiKey: process.env.RESEND_API_KEY || '',
   }),

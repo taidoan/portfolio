@@ -3,6 +3,8 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { DetailsList, DetailsItem } from './components';
 import Link from 'next/link';
 
+import { formatDate } from '@/lib/utilities/formatDate';
+
 export type ProjectDetailsProps = {
   className?: string;
   data: Pick<Project, 'details'>;
@@ -15,7 +17,7 @@ export type ProjectDetailsProps = {
  * @example
  * <ProjectDetails data={project} />
  */
-export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
+export const ProjectDetails = ({ className, data }: ProjectDetailsProps): React.ReactElement => {
   const { details } = data;
 
   return (
@@ -24,7 +26,7 @@ export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
         <DetailsList>
           {details?.date && (
             <DetailsItem key='date' type='date'>
-              {new Date(details?.date).toLocaleDateString()}
+              {formatDate(details?.date)}
             </DetailsItem>
           )}
           {details?.tools && (

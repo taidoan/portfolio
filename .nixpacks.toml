@@ -1,2 +1,0 @@
-[phases.setup]
-image = "node:24.6.0-bullseye"
