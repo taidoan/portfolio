@@ -21,6 +21,7 @@
   @include mq('md') {
     align-items: center;
     flex-direction: row;
+    flex-wrap: wrap;
   }
 
   &:hover {
@@ -51,6 +52,6 @@
 }
 
 .details__content {
-  font-size: var(--fs-body-sm);
+  font-size: rem(18);
   line-height: 1;
 }

@@ -83,6 +83,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
     content,
     ctaContent,
     details,
+    categories,
     thumbnail,
     gallery,
     galleryOptions,
@@ -121,7 +122,7 @@ const Page = async ({ params: paramsPromise }: Args) => {
             )}
           </CardBody>
         </Card>
-        <ProjectDetails data={{ details }} className='project__info' />
+        <ProjectDetails data={{ details, categories }} className='project__info' />
       </section>
       <section className={clsx('project__section', 'project__gallery')}>
         <ProjectGallery media={{ gallery }} options={{ galleryOptions }} />

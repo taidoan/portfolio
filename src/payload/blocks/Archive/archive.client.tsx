@@ -74,7 +74,6 @@ export const ArchiveClientBlock = ({
       setIsLoading(false);
     }
   };
-
   return (
     <>
       <Archive
