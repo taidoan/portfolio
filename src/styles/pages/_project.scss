@@ -24,6 +24,7 @@
 .project__description {
   align-items: center;
   display: flex;
+  font-size: var(--fs-body-sm);
 
   h2.section-heading {
     color: var(--clr-light-grey-450);
@@ -69,6 +70,7 @@
 }
 
 .project__content {
+  font-size: var(--fs-body-sm);
   order: 3;
   p {
     max-width: 80ch;

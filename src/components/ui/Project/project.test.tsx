@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { DetailsList, DetailsItem } from './details/components';
 import { ProjectDetails } from './details';
 import type { Project } from '@/payload-types';
+import { mockCategories } from '@/mocks/data/mockCategories';
+import { mock } from 'node:test';
 
 describe('<DetailsList>', () => {
   it('renders a details list component', () => {
@@ -23,7 +25,7 @@ describe('<DetailsList>', () => {
 });
 
 describe('<ProjectDetails />', () => {
-  const mockDetails: Pick<Project, 'details'> = {
+  const mockDetails: Pick<Project, 'details' | 'categories'> = {
     details: {
       type: 'Branding & Website',
       tools: 'Figma, NextJS, SCSS',
@@ -32,6 +34,7 @@ describe('<ProjectDetails />', () => {
       previewLabel: 'Live Preview',
       previewUrl: 'https://preview.com',
     },
+    categories: [mockCategories[0].id, mockCategories[1].id],
   };
 
   it('renders project details correctly', () => {
@@ -65,6 +68,7 @@ describe('<ProjectDetails />', () => {
         url: undefined,
         previewUrl: undefined,
       },
+      categories: mockDetails.categories,
     };
 
     render(<ProjectDetails data={mockNoLinks} className='project__info' />);
