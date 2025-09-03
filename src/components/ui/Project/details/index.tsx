@@ -3,6 +3,8 @@ import { Card, CardBody } from '@/components/ui/Card';
 import { DetailsList, DetailsItem } from './components';
 import Link from 'next/link';
 
+import { formatDate } from '@/lib/utilities/formatDate';
+
 export type ProjectDetailsProps = {
   className?: string;
   data: Pick<Project, 'details'>;
@@ -17,13 +19,6 @@ export type ProjectDetailsProps = {
  */
 export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
   const { details } = data;
-  const formattedDate =
-    details?.date &&
-    new Date(details?.date).toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
 
   return (
     <Card className={className}>
@@ -31,7 +26,7 @@ export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
         <DetailsList>
           {details?.date && (
             <DetailsItem key='date' type='date'>
-              {formattedDate}
+              {formatDate(details?.date)}
             </DetailsItem>
           )}
           {details?.tools && (
