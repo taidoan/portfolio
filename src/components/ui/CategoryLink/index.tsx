@@ -13,6 +13,7 @@ import {
   IconPrinter,
   IconDeviceDesktopStar,
   IconDeviceDesktopCode,
+  IconPhotoCircle,
 } from '@tabler/icons-react';
 
 export type CategoryLinkProps = {
@@ -35,6 +36,7 @@ const ICON_MAP: Record<string, JSX.Element> = {
   marketing: <IconDeviceAnalytics stroke={2} className={style.category__icon} />,
   print: <IconPrinter stroke={2} className={style.category__icon} />,
   'web-design': <IconDeviceDesktopStar stroke={2} className={style.category__icon} />,
+  'logo-design': <IconPhotoCircle stroke={2} className={style.category__icon} />,
 };
 
 export const CategoryLink = ({ type, size, category, className }: CategoryLinkProps) => {
