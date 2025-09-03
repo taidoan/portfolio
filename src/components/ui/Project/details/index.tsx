@@ -69,18 +69,27 @@ export const ProjectDetails = async ({
           )}
           {categories && (
             <DetailsItem key='categories' type='categories'>
-              {categoryResults.flat().map((category, idx, arr) => (
-                <span key={category.id}>
-                  <Link
-                    href={`${getServerSideURL()}/categories/${category.slug}`}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    {category.title}
-                  </Link>
-                  {idx < arr.length - 1 && ', '}
-                </span>
-              ))}
+              {categoryResults
+                .flat()
+                .filter(
+                  (category) =>
+                    category &&
+                    typeof category.id === 'string' &&
+                    typeof category.title === 'string' &&
+                    typeof category.slug === 'string',
+                )
+                .map((category, idx, arr) => (
+                  <span key={category.id}>
+                    <Link
+                      href={`${getServerSideURL()}/categories/${category.slug}`}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      {category.title}
+                    </Link>
+                    {idx < arr.length - 1 && ', '}
+                  </span>
+                ))}
             </DetailsItem>
           )}
         </DetailsList>

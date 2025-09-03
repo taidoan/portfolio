@@ -36,7 +36,7 @@ export const TabbedContentBlock = async ({
         type: 'reference',
         url: `/services/${doc.slug}`,
         label: 'Find Out More',
-        color: 'secondary',
+        color: 'slate',
         buttonShadow: 'none',
       },
     }));
