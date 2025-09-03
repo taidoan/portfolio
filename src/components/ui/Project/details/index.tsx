@@ -4,10 +4,12 @@ import { DetailsList, DetailsItem } from './components';
 import Link from 'next/link';
 
 import { formatDate } from '@/lib/utilities/formatDate';
+import { fetchCategory } from '@/lib/utilities/fetchCategory';
+import { getServerSideURL } from '@/lib/utilities/getURLs';
 
 export type ProjectDetailsProps = {
   className?: string;
-  data: Pick<Project, 'details'>;
+  data: Pick<Project, 'details' | 'categories'>;
 };
 
 /**
@@ -17,8 +19,17 @@ export type ProjectDetailsProps = {
  * @example
  * <ProjectDetails data={project} />
  */
-export const ProjectDetails = ({ className, data }: ProjectDetailsProps): React.ReactElement => {
-  const { details } = data;
+export const ProjectDetails = async ({
+  className,
+  data,
+}: ProjectDetailsProps): Promise<React.ReactElement> => {
+  const { details, categories } = data;
+
+  const safeCategories = Array.isArray(categories) ? categories : [];
+  const categoryPromises = safeCategories.map((cat) =>
+    typeof cat === 'string' ? fetchCategory(cat) : fetchCategory(cat.id),
+  );
+  const categoryResults = (await Promise.all(categoryPromises)).map((res) => res?.docs ?? []);
 
   return (
     <Card className={className}>
@@ -54,6 +65,22 @@ export const ProjectDetails = ({ className, data }: ProjectDetailsProps): React.
                   {details?.previewLabel}
                 </Link>
               )}
+            </DetailsItem>
+          )}
+          {categories && (
+            <DetailsItem key='categories' type='categories'>
+              {categoryResults.flat().map((category, idx, arr) => (
+                <span key={category.id}>
+                  <Link
+                    href={`${getServerSideURL()}/categories/${category.slug}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    {category.title}
+                  </Link>
+                  {idx < arr.length - 1 && ', '}
+                </span>
+              ))}
             </DetailsItem>
           )}
         </DetailsList>

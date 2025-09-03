@@ -1,6 +1,12 @@
 import clsx from 'clsx';
 import * as React from 'react';
-import { IconCalendarWeekFilled, IconLink, IconTools, IconUserCircle } from '@tabler/icons-react';
+import {
+  IconCalendarWeekFilled,
+  IconLink,
+  IconTools,
+  IconUserCircle,
+  IconCategory,
+} from '@tabler/icons-react';
 import { capitaliseFirstLetter } from '@/lib/utilities/capitaliseFirstLetter';
 import Link from 'next/link';
 import style from './style.module.scss';
@@ -15,7 +21,7 @@ export const DetailsItem = ({
   children,
   ...props
 }: React.HTMLAttributes<HTMLLIElement> & {
-  type?: 'link' | 'date' | 'tools' | 'client';
+  type?: 'link' | 'date' | 'tools' | 'client' | 'categories';
   children: React.ReactNode;
 }) => {
   const iconMap: Record<string, React.JSX.Element> = {
@@ -23,6 +29,7 @@ export const DetailsItem = ({
     date: <IconCalendarWeekFilled data-testid='date-icon' stroke={2} />,
     tools: <IconTools data-testid='tools-icon' stroke={2} />,
     link: <IconLink data-testid='link-icon' stroke={2} />,
+    categories: <IconCategory data-testid='categories-icon' stroke={2} />,
   };
 
   const tools = type === 'tools' ? children : null;
