@@ -38,6 +38,7 @@
 .project__info {
   @include mq('md') {
     grid-column: span 6;
+    align-self: start;
   }
 }
 
