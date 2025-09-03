@@ -17,6 +17,13 @@ export type ProjectDetailsProps = {
  */
 export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
   const { details } = data;
+  const formattedDate =
+    details?.date &&
+    new Date(details?.date).toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
 
   return (
     <Card className={className}>
@@ -24,7 +31,7 @@ export const ProjectDetails = ({ className, data }: ProjectDetailsProps) => {
         <DetailsList>
           {details?.date && (
             <DetailsItem key='date' type='date'>
-              {new Date(details?.date).toLocaleDateString()}
+              {formattedDate}
             </DetailsItem>
           )}
           {details?.tools && (
