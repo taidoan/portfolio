@@ -36,5 +36,6 @@ export const fetchCategory = async (catId: string) => {
     return categoryResult;
   } catch (error) {
     console.error('Error fetching category:', error);
+    return { docs: [] };
   }
 };
