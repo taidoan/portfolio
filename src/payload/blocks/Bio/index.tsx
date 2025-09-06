@@ -9,9 +9,9 @@ export type Props = {
 } & BioBlockProps;
 
 const iconMap = {
-  email: <IconMail stroke={2} size={32} />,
-  location: <IconMapPin stroke={2} size={32} />,
-  education: <IconSchool stroke={2} size={32} />,
+  email: <IconMail stroke={2} />,
+  location: <IconMapPin stroke={2} />,
+  education: <IconSchool stroke={2} />,
 } as const;
 
 const getIcon = (label: string | undefined | null) => {

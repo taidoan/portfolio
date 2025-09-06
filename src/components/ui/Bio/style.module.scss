@@ -34,4 +34,8 @@
 
 .bio__item__icon {
   color: var(--clr-accent-400);
+  svg {
+    inline-size: size-clamp(rem(20), rem(32));
+    block-size: size-clamp(rem(20), rem(32));
+  }
 }
