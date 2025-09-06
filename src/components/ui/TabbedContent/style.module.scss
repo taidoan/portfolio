@@ -47,6 +47,8 @@
   svg {
     color: var(--clr-light-grey-600);
     transition: color var(--transition-duration) ease;
+    block-size: size-clamp(rem(20), rem(28));
+    inline-size: size-clamp(rem(20), rem(28));
   }
 
   @include mq('md') {
