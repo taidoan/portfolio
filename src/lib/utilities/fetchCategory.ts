@@ -25,11 +25,13 @@ export const fetchCategory = async (catId: string) => {
       },
       depth: 2,
       limit: 50,
+      sort: 'parentCategory',
       select: {
         id: true,
         title: true,
         url: true,
         slug: true,
+        parentCategory: true,
       },
     });
 

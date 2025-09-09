@@ -78,6 +78,12 @@ export const ProjectDetails = async ({
                     typeof category.title === 'string' &&
                     typeof category.slug === 'string',
                 )
+                .sort((a, b) => {
+                  const aHasParent = !!a.parentCategory;
+                  const bHasParent = !!b.parentCategory;
+                  if (aHasParent === bHasParent) return 0;
+                  return aHasParent ? 1 : -1;
+                })
                 .map((category, idx, arr) => (
                   <span key={category.id}>
                     <Link
