@@ -56,7 +56,6 @@
   line-height: 1;
 }
 
-
 .details__categories {
   &-list {
     display: flex;
@@ -76,7 +75,7 @@
 }
 
 .details__show-more-btn {
-  padding: rem(4);
+  padding: rem(4) !important;
   display: inline-block;
 
   svg {
