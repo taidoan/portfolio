@@ -1,11 +1,11 @@
 import type { Project } from '@/payload-types';
 import { Card, CardBody } from '@/components/ui/Card';
 import { DetailsList, DetailsItem } from './components';
+import { DetailsCategories } from './categories.client';
 import Link from 'next/link';
 
 import { formatDate } from '@/lib/utilities/formatDate';
 import { fetchCategory } from '@/lib/utilities/fetchCategory';
-import { getServerSideURL } from '@/lib/utilities/getURLs';
 
 export type ProjectDetailsProps = {
   className?: string;
@@ -67,31 +67,7 @@ export const ProjectDetails = async ({
               )}
             </DetailsItem>
           )}
-          {categories && (
-            <DetailsItem key='categories' type='categories'>
-              {categoryResults
-                .flat()
-                .filter(
-                  (category) =>
-                    category &&
-                    typeof category.id === 'string' &&
-                    typeof category.title === 'string' &&
-                    typeof category.slug === 'string',
-                )
-                .map((category, idx, arr) => (
-                  <span key={category.id}>
-                    <Link
-                      href={`${getServerSideURL()}/categories/${category.slug}`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >
-                      {category.title}
-                    </Link>
-                    {idx < arr.length - 1 && ', '}
-                  </span>
-                ))}
-            </DetailsItem>
-          )}
+          {categories && <DetailsCategories categories={categoryResults.flat()} />}
         </DetailsList>
       </CardBody>
     </Card>

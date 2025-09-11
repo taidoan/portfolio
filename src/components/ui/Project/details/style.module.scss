@@ -55,3 +55,18 @@
   font-size: rem(18);
   line-height: 1;
 }
+
+.details__show-more-btn {
+  padding: rem(4);
+  display: inline-block;
+  margin-left: size-clamp(rem(8), rem(4));
+
+  svg {
+    inline-size: rem(16);
+    block-size: rem(16);
+  }
+}
+
+.details__extra-count {
+  font-size: rem(14);
+}
