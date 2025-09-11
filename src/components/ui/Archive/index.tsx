@@ -49,7 +49,6 @@ const TruncatedTooltip: React.FC<{ text: string }> = ({ text }) => {
       }
     };
 
-    // Check after a small delay to ensure layout is ready
     const id = setTimeout(checkTruncation, 50);
 
     window.addEventListener('resize', checkTruncation);
