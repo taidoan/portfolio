@@ -35,7 +35,7 @@ export const DetailsCategories = ({ categories }: DetailsCategoriesProps) => {
 
   return (
     <DetailsItem key='categories' type='categories'>
-      {visibleCategories.map((category, idx, arr) => {
+      {visibleCategories.map((category, idx) => {
         const isLast = idx === visibleCategories.length - 1;
         const isShowMoreActive = !showAll && filteredCategories.length > 2;
         return (
