@@ -16,7 +16,6 @@ export const DetailsCategories = ({ categories }: DetailsCategoriesProps) => {
   const [showAll, setShowAll] = useState(false);
 
   const filteredCategories = categories
-    .flat()
     .filter(
       (category) =>
         category &&
