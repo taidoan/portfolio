@@ -1,0 +1,54 @@
+@use '@abstracts/_index' as *;
+
+.tooltip__container {
+  position: relative;
+  overflow: visible;
+}
+
+.tooltip__trigger {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.tooltip {
+  --background: var(--clr-secondary-500);
+  --color: var(--clr-light-400);
+  position: absolute;
+  transform: translateY(calc(50% - rem(8)));
+  left: 0;
+  bottom: calc(-100%);
+  z-index: var(--z-index-tooltip);
+  border-radius: rem(12);
+  padding: rem(8) rem(12);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.33);
+  font-size: var(--fs-small);
+  background-color: var(--background);
+  color: var(--color);
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    bottom: 100%;
+    transform: translateY(rem(0.5));
+    left: 50%;
+    margin-left: rem(-5);
+    border-width: rem(5);
+    border-style: solid;
+    border-color: transparent transparent var(--background) transparent;
+  }
+}
+
+.tooltip--dark {
+  --background: var(--clr-secondary-500);
+  --color: var(--clr-light-400);
+  border-bottom: rem(1) solid var(--clr-secondary-600);
+}
+
+.tooltip--light {
+  --background: var(--clr-light-400);
+  --color: var(--clr-urban-steel-500);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+  border-bottom: rem(1) solid var(--clr-frosted-sage-300);
+}
