@@ -95,7 +95,10 @@ export const Archive = ({
         page === 'archive' ? (
           <p>{truncate(item.details.type, 160)}</p>
         ) : (
-          <p>{item.details.type}</p>
+          <p className={clsx(style['archive__item--type'], 'tooltip')}>
+            <span className={clsx(style['archive__item--type-text'])}>{item.details.type}</span>
+            <span className={clsx('tooltip__text')}>{item.details.type}</span>
+          </p>
         )
       ) : null;
 
