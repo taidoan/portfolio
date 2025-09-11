@@ -26,7 +26,7 @@ export const Tooltip = ({
   );
 };
 
-Tooltip.Trigger = ({ children }: { children: React.ReactNode }) => {
+Tooltip.Trigger = (({ children }: { children: React.ReactNode }) => {
   const ctx = useContext(TooltipContext);
   if (!ctx) throw new Error('Tooltip.Trigger must be used within a Tooltip');
 
@@ -41,13 +41,17 @@ Tooltip.Trigger = ({ children }: { children: React.ReactNode }) => {
       {children}
     </span>
   );
-};
+}) as React.FC<{ children: React.ReactNode }>;
 
-Tooltip.Content = ({ children }: { children: React.ReactNode }) => {
+Tooltip.Trigger.displayName = 'Tooltip.Trigger';
+
+Tooltip.Content = (({ children }: { children: React.ReactNode }) => {
   const ctx = useContext(TooltipContext);
   if (!ctx) throw new Error('Tooltip.Content must be used inside <Tooltip>');
 
   return ctx.open ? (
     <span className={clsx(style.tooltip, style[`tooltip--${ctx.color}`])}>{children}</span>
   ) : null;
-};
+}) as React.FC<{ children: React.ReactNode }>;
+
+Tooltip.Content.displayName = 'Tooltip.Content';
