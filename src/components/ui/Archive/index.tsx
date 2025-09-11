@@ -43,14 +43,21 @@ const TruncatedTooltip: React.FC<{ text: string }> = ({ text }) => {
 
   useEffect(() => {
     const checkTruncation = () => {
-      const el = triggerRef.current;
-      if (el) {
+      if (triggerRef.current) {
+        const el = triggerRef.current;
         setIsTruncated(el.scrollWidth > el.clientWidth);
       }
     };
-    checkTruncation();
+
+    // Check after a small delay to ensure layout is ready
+    const id = setTimeout(checkTruncation, 50);
+
     window.addEventListener('resize', checkTruncation);
-    return () => window.removeEventListener('resize', checkTruncation);
+
+    return () => {
+      clearTimeout(id);
+      window.removeEventListener('resize', checkTruncation);
+    };
   }, [text]);
 
   return (
@@ -122,9 +129,7 @@ export const Archive = ({
         page === 'archive' ? (
           <p>{truncate(item.details.type, 160)}</p>
         ) : (
-          <p>
-            <TruncatedTooltip text={item.details.type} />
-          </p>
+          <TruncatedTooltip text={item.details.type} />
         )
       ) : null;
 

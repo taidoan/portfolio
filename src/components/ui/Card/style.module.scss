@@ -255,6 +255,11 @@
     font-size: size-clamp(rem(16), rem(20));
   }
 
+  span:first-of-type {
+    font-size: size-clamp(rem(16), rem(20));
+    display: block;
+  }
+
   &--project {
     align-items: center;
     display: flex;

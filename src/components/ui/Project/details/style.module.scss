@@ -56,10 +56,27 @@
   line-height: 1;
 }
 
+.details__categories {
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: rem(8);
+    column-gap: rem(4);
+  }
+
+  .details__content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(8);
+    flex-grow: 1;
+  }
+}
+
 .details__show-more-btn {
   padding: rem(4);
   display: inline-block;
-  margin-left: size-clamp(rem(8), rem(4));
 
   svg {
     inline-size: rem(16);
