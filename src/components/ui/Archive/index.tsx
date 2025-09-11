@@ -1,5 +1,5 @@
 'use client';
-import { useState, JSX } from 'react';
+import { useState, JSX, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import * as m from 'motion/react-m';
 import { LazyMotion, domAnimation } from 'motion/react';
@@ -11,6 +11,7 @@ import { Filter } from '@components/ui/Filter';
 import { Alert, AlertTitle } from '@components/ui/Alert';
 import { Card, CardBody, CardTitle, CardImage, CardContent } from '@/components/ui/Card';
 import { Carousel } from '../Carousel';
+import { Tooltip } from '../Tooltip';
 import {
   IconFiltersFilled,
   IconDeviceDesktopFilled,
@@ -34,6 +35,32 @@ export type Props = {
 
 const isCategory = (category: string | Category | Pick<Category, 'title' | 'slug' | 'id'>) => {
   return typeof category === 'string';
+};
+
+const TruncatedTooltip: React.FC<{ text: string }> = ({ text }) => {
+  const triggerRef = useRef<HTMLSpanElement>(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
+  useEffect(() => {
+    const checkTruncation = () => {
+      const el = triggerRef.current;
+      if (el) {
+        setIsTruncated(el.scrollWidth > el.clientWidth);
+      }
+    };
+    checkTruncation();
+    window.addEventListener('resize', checkTruncation);
+    return () => window.removeEventListener('resize', checkTruncation);
+  }, [text]);
+
+  return (
+    <Tooltip>
+      <Tooltip.Trigger>
+        <span ref={triggerRef}>{text}</span>
+      </Tooltip.Trigger>
+      {isTruncated && <Tooltip.Content>{text}</Tooltip.Content>}
+    </Tooltip>
+  );
 };
 
 /**
@@ -95,9 +122,8 @@ export const Archive = ({
         page === 'archive' ? (
           <p>{truncate(item.details.type, 160)}</p>
         ) : (
-          <p className={clsx(style['archive__item--type'], 'tooltip')}>
-            <span className={clsx(style['archive__item--type-text'])}>{item.details.type}</span>
-            <span className={clsx('tooltip__text')}>{item.details.type}</span>
+          <p>
+            <TruncatedTooltip text={item.details.type} />
           </p>
         )
       ) : null;

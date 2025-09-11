@@ -34,15 +34,3 @@
 .archive__item--list + .archive__item--list {
   margin-top: size-clamp(rem(16), rem(32));
 }
-
-.archive__item--type {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.archive__item--type-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
-}

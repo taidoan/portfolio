@@ -3,6 +3,10 @@
 .tooltip__container {
   position: relative;
   overflow: visible;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  margin: 0;
 }
 
 .tooltip__trigger {
@@ -10,15 +14,23 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
+  display: block;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    display: block;
+  }
 }
 
 .tooltip {
   --background: var(--clr-secondary-500);
   --color: var(--clr-light-400);
   position: absolute;
-  transform: translateY(calc(50% - rem(8)));
   left: 0;
-  bottom: calc(-100%);
+  bottom: calc(-100% - rem(16));
   z-index: var(--z-index-tooltip);
   border-radius: rem(12);
   padding: rem(8) rem(12);
