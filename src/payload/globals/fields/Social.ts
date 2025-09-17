@@ -83,6 +83,10 @@ export const SocialFields: Field[] = [
                 label: 'Youtube',
                 value: 'youtube',
               },
+              {
+                label: 'Behance',
+                value: 'behance',
+              },
             ],
           },
         ],
