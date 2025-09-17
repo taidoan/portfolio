@@ -19,7 +19,6 @@ export const fetchArchiveData = async (
       return { success: false, error: 'Invalid collection' };
     }
 
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     const queryOptions: any = {
       collection: targetCollection,
       limit: limit,
@@ -34,14 +33,13 @@ export const fetchArchiveData = async (
       queryOptions.sort = '-createdAt';
     }
 
-    if (collection === 'categories' && categoriesToArchive && categoriesToArchive.length > 0) {
+    if (categoriesToArchive && categoriesToArchive.length > 0) {
       queryOptions.where = {
         categories: {
           in: categoriesToArchive,
         },
       };
     }
-
     const content = await payload.find(queryOptions);
 
     return { success: true, data: content };
