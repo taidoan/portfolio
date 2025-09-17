@@ -31,6 +31,7 @@ export type Props = {
   view?: 'grid' | 'list';
   relation: 'posts' | 'projects' | 'categories';
   page?: 'main' | 'archive';
+  onFilterChange?: (categoryIds: string[]) => void;
 };
 
 const isCategory = (category: string | Category | Pick<Category, 'title' | 'slug' | 'id'>) => {
@@ -92,6 +93,7 @@ export const Archive = ({
   view = 'grid',
   relation = 'posts',
   page = 'main',
+  onFilterChange,
 }: Props) => {
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0;
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -100,6 +102,12 @@ export const Archive = ({
 
   const handleFilterChange = (category: string | null) => {
     setSelectedCategory(category);
+    if (onFilterChange) {
+      const categoryIds = category ? [category] : [];
+      onFilterChange(categoryIds);
+    } else {
+      console.log('Archive: onFilterChange prop is not provided');
+    }
   };
 
   const filteredData = selectedCategory

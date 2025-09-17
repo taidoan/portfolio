@@ -43,6 +43,7 @@ export const ArchiveClientBlock = ({
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(initialCurrentPage);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const handlePageChange = async (pageNumber: number) => {
     if (pageNumber < 1 || pageNumber > totalPages || isLoading) return;
@@ -74,6 +75,33 @@ export const ArchiveClientBlock = ({
       setIsLoading(false);
     }
   };
+
+  const handleFilterChange = async (categoryIds: string[]) => {
+    console.log('ArchiveClientBlock: Received filter change:', categoryIds);
+    setSelectedCategories(categoryIds);
+    setCurrentPage(1);
+    setIsLoading(true);
+
+    try {
+      const result = await fetchArchiveData(
+        data,
+        1,
+        numberOfProjects || 4,
+        categoryIds.length > 0 ? categoryIds : undefined,
+      );
+
+      if (result.success && result.data) {
+        console.log('ArchiveClientBlock: Received data:', result.data);
+        setContentData(result.data.docs);
+        setTotalPages(result.data.totalPages);
+        setCurrentPage(1);
+      } else {
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <>
       <Archive
@@ -85,6 +113,7 @@ export const ArchiveClientBlock = ({
         view={viewType}
         className={className}
         page={page}
+        onFilterChange={handleFilterChange}
       />
       {isLoading && (
         <div>
