@@ -28,6 +28,12 @@ export const fetchArchiveData = async (
       overrideAccess: false,
     };
 
+    if (targetCollection === 'projects') {
+      queryOptions.sort = '-details.date';
+    } else if (targetCollection === 'posts') {
+      queryOptions.sort = '-createdAt';
+    }
+
     if (collection === 'categories' && categoriesToArchive && categoriesToArchive.length > 0) {
       queryOptions.where = {
         categories: {

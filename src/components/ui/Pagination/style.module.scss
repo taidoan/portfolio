@@ -3,7 +3,7 @@
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: calc(var(--layout-row-spacing) / 2);
+  margin-block: calc(var(--layout-row-spacing) / 2);
 }
 
 .pagination__content {

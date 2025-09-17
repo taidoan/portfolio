@@ -6,10 +6,11 @@ import {
   IconBrandLinkedinFilled,
   IconBrandYoutubeFilled,
   IconBrandXFilled,
+  IconBrandBehance,
 } from '@tabler/icons-react';
 
 export type SocialButtonProps = {
-  network: 'x' | 'instagram' | 'github' | 'linkedin' | 'youtube';
+  network: 'x' | 'instagram' | 'github' | 'linkedin' | 'youtube' | 'behance';
   color?: 'primary' | 'secondary' | 'accent';
   className?: string;
   username?: string;
@@ -25,6 +26,7 @@ const SOCIAL_DATA: Record<
   github: { url: 'https://github.com', icon: IconBrandGithubFilled },
   linkedin: { url: 'https://linkedin.com/in', icon: IconBrandLinkedinFilled },
   youtube: { url: 'https://youtube.com', icon: IconBrandYoutubeFilled },
+  behance: { url: 'https://behance.net', icon: IconBrandBehance },
 };
 
 const getSocialUrl = (network: SocialButtonProps['network'], username?: string) => {
