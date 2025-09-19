@@ -42,7 +42,6 @@ export const DetailsCategories = ({ categories }: DetailsCategoriesProps) => {
             <span key={category.id}>
               <Link
                 href={`${getServerSideURL()}/categories/${category.slug}`}
-                target='_blank'
                 rel='noopener noreferrer'
               >
                 {category.title}
