@@ -31,7 +31,6 @@ export const MediumHero = ({
           src={image?.filename || null}
           alt={image?.alt || ''}
           fill
-          priority={true}
           fetchPriority='high'
         />
       )}
