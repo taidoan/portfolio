@@ -27,7 +27,13 @@ export const LargeHero = ({
   return (
     <section className={heroClasses}>
       {typeof image === 'object' && (
-        <ImageMedia src={image?.filename || null} alt={image?.alt || ''} fill />
+        <ImageMedia
+          src={image?.filename || null}
+          alt={image?.alt || ''}
+          fill
+          loading='lazy'
+          priority={true}
+        />
       )}
       {richText && <RichText data={richText} />}
       {showBreadcrumb && breadcrumbsData && breadcrumbsData.length > 0 && (

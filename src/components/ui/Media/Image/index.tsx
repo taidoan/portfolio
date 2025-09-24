@@ -18,6 +18,7 @@ export interface ImageMediaProps {
   quality?: number;
   style?: React.CSSProperties;
   onClick?: () => void;
+  loading?: 'eager' | 'lazy';
 }
 
 const imageKitLoader = ({ src, width, quality }: ImageLoaderProps): string => {
@@ -58,6 +59,7 @@ export const ImageMedia = ({
   quality = 80,
   style = {},
   onClick,
+  loading,
 }: ImageMediaProps) => {
   const placeholderBlur =
     'data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAB0CWJaACdAFAAAD+2iaVorpfvri5shvAAAA=';
@@ -98,6 +100,7 @@ export const ImageMedia = ({
       placeholder='blur'
       blurDataURL={placeholderBlur}
       onClick={onClick}
+      loading={loading}
     />
   );
 };
