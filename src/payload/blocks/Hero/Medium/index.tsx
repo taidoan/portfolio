@@ -31,8 +31,7 @@ export const MediumHero = ({
           src={image?.filename || null}
           alt={image?.alt || ''}
           fill
-          loading='lazy'
-          priority={true}
+          fetchPriority='high'
         />
       )}
       {richText && <RichText data={richText} />}
