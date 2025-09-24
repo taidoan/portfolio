@@ -38,7 +38,13 @@ export const SlugPageHero = ({
   return (
     <section className={heroClasses}>
       {typeof image === 'object' && (
-        <ImageMedia src={image?.filename || null} alt={image?.alt || ''} fill />
+        <ImageMedia
+          src={image?.filename || null}
+          alt={image?.alt || ''}
+          fill
+          loading='lazy'
+          priority={true}
+        />
       )}
       <div className='hero__text'>
         <span className={style.hero__subtitle}>
