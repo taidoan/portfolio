@@ -31,7 +31,7 @@ export const LargeHero = ({
           src={image?.filename || null}
           alt={image?.alt || ''}
           fill
-          loading='lazy'
+          fetchPriority='high'
           priority={true}
         />
       )}

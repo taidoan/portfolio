@@ -42,8 +42,8 @@ export const SlugPageHero = ({
           src={image?.filename || null}
           alt={image?.alt || ''}
           fill
-          loading='lazy'
           priority={true}
+          fetchPriority='high'
         />
       )}
       <div className='hero__text'>
