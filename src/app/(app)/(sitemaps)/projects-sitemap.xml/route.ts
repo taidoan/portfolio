@@ -1,12 +1,12 @@
-import { getServerSideSitemap } from 'next-sitemap';
 import { getPayload } from 'payload';
-import { SITE_URL } from '@/lib/constants';
 import config from '@payload-config';
 import { unstable_cache } from 'next/cache';
+import { getSitemapSiteUrl, sitemapXmlResponse } from '@/lib/utilities/sitemap';
 
 const getProjectsSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config });
+    const siteUrl = getSitemapSiteUrl();
 
     const results = await payload.find({
       collection: 'projects',
@@ -28,24 +28,27 @@ const getProjectsSitemap = unstable_cache(
 
     const dateFallback = new Date().toISOString();
 
-    const siteMap = results.docs
+    return results.docs
       ? results.docs
           .filter((project) => Boolean(project.slug))
           .map((project) => {
             return {
-              loc: `${SITE_URL}/projects/${project.slug}`,
+              loc: `${siteUrl}/projects/${project.slug}`,
               lastmod: project.updatedAt || dateFallback,
             };
           })
       : [];
-
-    return siteMap;
   },
   ['projects-sitemap'],
   { tags: ['projects-sitemap'] },
 );
 
 export async function GET() {
-  const sitemap = await getProjectsSitemap();
-  return getServerSideSitemap(sitemap);
+  try {
+    const sitemap = await getProjectsSitemap();
+    return sitemapXmlResponse(sitemap);
+  } catch (error) {
+    console.error('Failed to generate projects sitemap', error);
+    return sitemapXmlResponse([]);
+  }
 }

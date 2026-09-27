@@ -1,12 +1,12 @@
-import { getServerSideSitemap } from 'next-sitemap';
 import { getPayload } from 'payload';
-import { SITE_URL } from '@/lib/constants';
 import config from '@payload-config';
 import { unstable_cache } from 'next/cache';
+import { getSitemapSiteUrl, sitemapXmlResponse } from '@/lib/utilities/sitemap';
 
 const getServicesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config });
+    const siteUrl = getSitemapSiteUrl();
 
     const results = await payload.find({
       collection: 'services',
@@ -28,7 +28,7 @@ const getServicesSitemap = unstable_cache(
 
     const defaultSiteMap = [
       {
-        loc: `${SITE_URL}/services`,
+        loc: `${siteUrl}/services`,
         lastmod: new Date().toISOString(),
       },
     ];
@@ -40,7 +40,7 @@ const getServicesSitemap = unstable_cache(
           .filter((service) => Boolean(service.slug))
           .map((service) => {
             return {
-              loc: `${SITE_URL}/services/${service.slug}`,
+              loc: `${siteUrl}/services/${service.slug}`,
               lastmod: service.updatedAt || dateFallback,
             };
           })
@@ -53,6 +53,11 @@ const getServicesSitemap = unstable_cache(
 );
 
 export async function GET() {
-  const sitemap = await getServicesSitemap();
-  return getServerSideSitemap(sitemap);
+  try {
+    const sitemap = await getServicesSitemap();
+    return sitemapXmlResponse(sitemap);
+  } catch (error) {
+    console.error('Failed to generate services sitemap', error);
+    return sitemapXmlResponse([]);
+  }
 }

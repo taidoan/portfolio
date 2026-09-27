@@ -1,12 +1,12 @@
-import { getServerSideSitemap } from 'next-sitemap';
 import { getPayload } from 'payload';
 import { unstable_cache } from 'next/cache';
-import { SITE_URL } from '@/lib/constants';
 import configPromise from '@payload-config';
+import { getSitemapSiteUrl, sitemapXmlResponse } from '@/lib/utilities/sitemap';
 
 const getCategoriesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise });
+    const siteUrl = getSitemapSiteUrl();
 
     const results = await payload.find({
       collection: 'categories',
@@ -24,7 +24,7 @@ const getCategoriesSitemap = unstable_cache(
 
     const defaultSiteMap = [
       {
-        loc: `${SITE_URL}/categories`,
+        loc: `${siteUrl}/categories`,
         lastmod: dateFallback,
       },
     ];
@@ -34,7 +34,7 @@ const getCategoriesSitemap = unstable_cache(
           .filter((category) => Boolean(category.slug))
           .map((category) => {
             return {
-              loc: `${SITE_URL}/categories/${category.slug}`,
+              loc: `${siteUrl}/categories/${category.slug}`,
               lastmod: dateFallback,
             };
           })
@@ -47,6 +47,11 @@ const getCategoriesSitemap = unstable_cache(
 );
 
 export async function GET() {
-  const sitemap = await getCategoriesSitemap();
-  return getServerSideSitemap(sitemap);
+  try {
+    const sitemap = await getCategoriesSitemap();
+    return sitemapXmlResponse(sitemap);
+  } catch (error) {
+    console.error('Failed to generate categories sitemap', error);
+    return sitemapXmlResponse([]);
+  }
 }
