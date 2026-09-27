@@ -1,12 +1,12 @@
-import { getServerSideSitemap } from 'next-sitemap';
 import { getPayload } from 'payload';
-import { SITE_URL } from '@/lib/constants';
 import config from '@payload-config';
 import { unstable_cache } from 'next/cache';
+import { getSitemapSiteUrl, sitemapXmlResponse } from '@/lib/utilities/sitemap';
 
 const getPagesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config });
+    const siteUrl = getSitemapSiteUrl();
 
     const results = await payload.find({
       collection: 'pages',
@@ -28,24 +28,27 @@ const getPagesSitemap = unstable_cache(
 
     const dateFallback = new Date().toISOString();
 
-    const siteMap = results.docs
+    return results.docs
       ? results.docs
           .filter((page) => Boolean(page.slug))
           .map((page) => {
             return {
-              loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page.slug}`,
+              loc: page?.slug === 'home' ? `${siteUrl}/` : `${siteUrl}/${page.slug}`,
               lastmod: page.updatedAt || dateFallback,
             };
           })
       : [];
-
-    return [...siteMap];
   },
   ['pages-sitemap'],
   { tags: ['pages-sitemap'] },
 );
 
 export async function GET() {
-  const sitemap = await getPagesSitemap();
-  return getServerSideSitemap(sitemap);
+  try {
+    const sitemap = await getPagesSitemap();
+    return sitemapXmlResponse(sitemap);
+  } catch (error) {
+    console.error('Failed to generate pages sitemap', error);
+    return sitemapXmlResponse([]);
+  }
 }

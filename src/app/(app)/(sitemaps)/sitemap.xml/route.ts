@@ -1,21 +1,29 @@
-import { getServerSideSitemapIndex } from 'next-sitemap';
 import { unstable_cache } from 'next/cache';
-import { SITE_URL } from '@/lib/constants';
+import { getSitemapSiteUrl, sitemapIndexResponse } from '@/lib/utilities/sitemap';
 
 const siteMap = unstable_cache(
-  async () => [
-    `${SITE_URL}/pages-sitemap.xml`,
-    `${SITE_URL}/projects-sitemap.xml`,
-    `${SITE_URL}/services-sitemap.xml`,
-    `${SITE_URL}/categories-sitemap.xml`,
-    `${SITE_URL}/posts-sitemap.xml`,
-    `${SITE_URL}/static-sitemap.xml`,
-  ],
+  async () => {
+    const siteUrl = getSitemapSiteUrl();
+
+    return [
+      `${siteUrl}/pages-sitemap.xml`,
+      `${siteUrl}/projects-sitemap.xml`,
+      `${siteUrl}/services-sitemap.xml`,
+      `${siteUrl}/categories-sitemap.xml`,
+      `${siteUrl}/posts-sitemap.xml`,
+      `${siteUrl}/static-sitemap.xml`,
+    ];
+  },
   ['sitemap'],
   { tags: ['sitemap'] },
 );
 
 export async function GET() {
-  const sitemap = await siteMap();
-  return getServerSideSitemapIndex(sitemap);
+  try {
+    const sitemap = await siteMap();
+    return sitemapIndexResponse(sitemap);
+  } catch (error) {
+    console.error('Failed to generate sitemap index', error);
+    return sitemapIndexResponse([]);
+  }
 }

@@ -1,13 +1,19 @@
+const siteUrl =
+  process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_SERVER_URL || 'https://taidoan.com';
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || 'https://taidoan.com',
+  siteUrl,
   generateRobotsTxt: true,
+  generateIndexSitemap: false,
   exclude: [
     '/pages-sitemap.xml',
     '/admin/*',
     '/api/*',
     '/projects/*',
     '/projects-sitemap.xml',
+    '/posts/*',
+    '/posts-sitemap.xml',
     '/services/*',
     '/services-sitemap.xml',
     '/categories/*',
@@ -22,11 +28,13 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      `${process.env.NEXT_PUBLIC_BASE_URL}/projects-sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_BASE_URL}/pages-sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_BASE_URL}/services-sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_BASE_URL}/categories-sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_BASE_URL}/static-sitemap.xml`,
+      `${siteUrl}/sitemap.xml`,
+      `${siteUrl}/pages-sitemap.xml`,
+      `${siteUrl}/projects-sitemap.xml`,
+      `${siteUrl}/posts-sitemap.xml`,
+      `${siteUrl}/services-sitemap.xml`,
+      `${siteUrl}/categories-sitemap.xml`,
+      `${siteUrl}/static-sitemap.xml`,
     ],
   },
 };

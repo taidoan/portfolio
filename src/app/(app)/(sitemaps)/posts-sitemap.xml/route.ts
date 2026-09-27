@@ -1,12 +1,13 @@
-import { getServerSideSitemap } from 'next-sitemap';
 import { getPayload } from 'payload';
 import { unstable_cache } from 'next/cache';
-import { SITE_URL } from '@lib/constants';
 import config from '@payload-config';
+import { getSitemapSiteUrl, sitemapXmlResponse } from '@/lib/utilities/sitemap';
 
 const getPostsSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config });
+    const siteUrl = getSitemapSiteUrl();
+
     const posts = await payload.find({
       collection: 'posts',
       limit: 1000,
@@ -26,16 +27,14 @@ const getPostsSitemap = unstable_cache(
 
     const dateFallback = new Date().toISOString();
 
-    const siteMap = posts.docs
+    return posts.docs
       ? posts.docs
           .filter((post) => Boolean(post.slug))
           .map((post) => ({
-            loc: `${SITE_URL}/posts/${post.slug}`,
+            loc: `${siteUrl}/posts/${post.slug}`,
             lastmod: post.updatedAt || dateFallback,
           }))
       : [];
-
-    return siteMap;
   },
   ['posts-sitemap'],
   {
@@ -44,6 +43,11 @@ const getPostsSitemap = unstable_cache(
 );
 
 export async function GET() {
-  const sitemap = await getPostsSitemap();
-  return getServerSideSitemap(sitemap);
+  try {
+    const sitemap = await getPostsSitemap();
+    return sitemapXmlResponse(sitemap);
+  } catch (error) {
+    console.error('Failed to generate posts sitemap', error);
+    return sitemapXmlResponse([]);
+  }
 }

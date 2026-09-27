@@ -1,19 +1,17 @@
-import { getServerSideSitemap } from 'next-sitemap';
-import { SITE_URL } from '@/lib/constants';
+import { getSitemapSiteUrl, sitemapXmlResponse } from '@/lib/utilities/sitemap';
 
 export async function GET() {
+  const siteUrl = getSitemapSiteUrl();
   const now = new Date().toISOString();
 
-  const fields = [
+  return sitemapXmlResponse([
     {
-      loc: `${SITE_URL}/search`,
+      loc: `${siteUrl}/search`,
       lastmod: now,
     },
     {
-      loc: `${SITE_URL}/tags`,
+      loc: `${siteUrl}/tags`,
       lastmod: now,
     },
-  ];
-
-  return getServerSideSitemap(fields);
+  ]);
 }
