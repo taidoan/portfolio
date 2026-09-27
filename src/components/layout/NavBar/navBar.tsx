@@ -30,7 +30,7 @@ export const NavBar = ({ data, social, className, ...props }: NavBarProps) => {
     if (menuOpen) {
       document.body.setAttribute('data-locked', 'true');
     } else {
-      document.body.removeAttribute('data-ocked');
+      document.body.removeAttribute('data-locked');
     }
 
     return () => {
