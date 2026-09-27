@@ -9,16 +9,14 @@ export const inter = Inter({
 
 export const barlow = Barlow({
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
+  weight: ['700', '800'],
   display: 'swap',
   variable: '--ff-display',
 });
 
 export const barlow_condensed = Barlow_Condensed({
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
+  weight: ['700', '800', '900'],
   display: 'swap',
   variable: '--ff-display-condensed',
 });
