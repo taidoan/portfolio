@@ -29,7 +29,7 @@ export const CardContent = ({ children, className, insideContainer = false }: Ca
         title={link.title}
         target={link.target}
         className={style['card__content__project-icon-link']}
-        aria-label={`View ${data?.title} Project`}
+        aria-label={`View ${data?.title ?? link?.title ?? 'this'} Project`}
       >
         <IconCircleArrowRightFilled data-testid='project-icon' />
       </Link>

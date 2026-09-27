@@ -97,6 +97,7 @@ export const CardBlock = async ({
   return (
     <Card
       href={isProject ? `${project?.url}` : isService ? `${service?.url}` : undefined}
+      title={project?.title ?? service?.title ?? post?.title}
       relation={relationTo}
       textAlign={textAlign}
       className={className}
