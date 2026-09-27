@@ -54,11 +54,14 @@ const Post = async ({ params: paramsPromise }: Args) => {
     slug,
     collection: 'posts',
   });
+  if (!page) return <Redirects url={url} />;
   const fullUrl = getServerSideURL() + url;
 
   const payload = await getPayload({ config: configPromise });
+  const categoryId =
+    typeof page.categories[0] === 'string' ? page.categories[0] : page.categories[0]?.id;
   const category = await payload.findByID({
-    id: page?.categories[0] as string,
+    id: categoryId,
     collection: 'categories',
     depth: 0,
     select: {
@@ -66,8 +69,6 @@ const Post = async ({ params: paramsPromise }: Args) => {
       slug: true,
     },
   });
-
-  if (!page) return <Redirects url={url} />;
 
   const {
     hero,
